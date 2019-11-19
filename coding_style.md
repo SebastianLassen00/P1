@@ -1,7 +1,8 @@
 # Coding Style
 
-## Generalt
+## General
 * Indentation: 4 times whitespace per indent
+* Language: English (both code and comments)
 
 ### Functions
 ```c
