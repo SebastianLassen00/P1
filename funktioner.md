@@ -3,7 +3,7 @@
 * Input af datasæt
 * Brugerinput
 * Vektorregning
--* Add
+- Add
 * 
 
 
