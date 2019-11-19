@@ -4,13 +4,13 @@
 * indrykning: 4 gange whitespace
 
 ### Functions
-'''void func(param1, param2){
+´´´void func(param1, param2){
     function();
-}'''
+}´´´
 
 ### Structures 
 
-'''int i;
+´´´int i;
 for(i = 0; i < 9; i++){
     function();
 }
@@ -40,23 +40,23 @@ switch(expression){
         break;
     default:
         return shit;
-}'''
+}´´´
 
 ### Operators  
-'''i = 3 + 4 * (7 / 5 + 5 % 2);
+´´´i = 3 + 4 * (7 / 5 + 5 % 2);
 i += 2;
-i -= 2;'''
+i -= 2;´´´
 
 ### Structures
-'''char array[SYMBOLIC_CONSTANT] = "Some text";
+´´´char array[SYMBOLIC_CONSTANT] = "Some text";
 char *array = "Some other text";
-char array[] = "Some text again";'''
+char array[] = "Some text again";´´´
 
 variablenames are written with underscores: 
-'''int this_integer = 2;
-char some_character = 'a';'''
+´´´int this_integer = 2;
+char some_character = 'a';´´´
 
 ### Calls  
 Functionnames are written in camelcase:
-'''callFunction(a, 2, 3, a, bdw, w);
-parseSomething(a, b);'''
+´´´callFunction(a, 2, 3, a, bdw, w);
+parseSomething(a, b);´´´
