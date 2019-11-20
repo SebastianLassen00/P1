@@ -23,4 +23,4 @@ Fag:                  mat  \t  dan  \t  .... \t
 
 ```
 Til at beskrive fagenes niveau bruge ASCII code points for bogstaverne 'A', 'B' og 'C'. 
-Bogstavet 'Z' .. 
+Bogstavet 'Z' .. .
