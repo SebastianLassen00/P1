@@ -15,67 +15,78 @@
 #define LAST_FOREIGN_LANGAUGE RUSSIAN_A
 
 
+
+
+
 /**
+ * @enum
  * @brief A subject on different levels
  * 
  * Are used to represent a subject and its level. The enum is flagablle, 
  * which simply means that bitwise operators are applyable.
  */
-enum subject {
-    MATHEMATICS_A,
-    MATHEMATICS_B,
-    MATHEMATICS_C,
-    CHEMISTRY_A,
-    CHEMISTRY_B,
-    CHEMISTRY_C,
-    BIOLOGY_A,
-    BIOLOGY_B,
-    BIOLOGY_C,
-    PHYSICS_A,
-    PHYSICS_B,
-    PHYSICS_C,
+enum class {
+    MATHEMATICS,
+    CHEMISTRY,
+    BIOLOGY,
+    PHYSICS,
     BIOTEKNOLOGY,
     GEOSCIENCE,
-    DANISH_A,
-    HISTORY_A,
-    HISTORY_B,
-    HISTORY_C,
+    DANISH,
+    HISTORY,
     IDEAHISTORY,
     INFORMATICS,
-    INTERNATIONAÆ_ECONOMICS_A,
-    INTERNATIONAL_ECONOMICS_B,
-    INTERNATIONAL_ECONOMICS_C,
+    INTERNATIONAÆ_ECONOMICS,
     COMMUNICATION_AND_IT,
     RELIGION,
-    SOCIALSTUDIES_A,
-    SOCIALSTUDIES_B,
-    SOCAILSTUDIES_C,
-    BUSINESS_ECONOMICS_A,
-    BUSINESS_ECONOMICS_B,
+    SOCIALSTUDIES,
+    BUSINESS_ECONOMICS,
     CONTEMPORAY_HISTORY,
-    ENGLISH_A,
-    ENGLISH_B,
-    ENGLISH_C,
-    FRENCH_A,
-    FRENCH_B,
-    FRENCH_C,
-    SPANISH_A,
-    SPANISH_B,
-    SPANISH_C,
-    GERMAN_A,
-    GERMAN_B,
-    GERMAN_C,
-    CHINESE_A, 
-    ARABIC_A,
-    GREEK_A,
-    ITALIAN_A,
-    JAPANESE_A,
-    LATIN_A,
-    PORTUGESE_A,
-    RUSSIAN_A,
+    ENGLISH,
+    FRENCH,
+    SPANISH,
+    GERMAN,
+    CHINESE, 
+    ARABIC,
+    GREEK,
+    ITALIAN,
+    JAPANESE,
+    LATIN,
+    PORTUGESE,
+    RUSSIAN
 
     /** TODO: Add a shit ton more*/
 };
+
+/**
+ * @enum
+ * @brief Descripes a level of a subject
+ * 
+ */
+enum level {
+    A,
+    B,
+    C,
+};
+
+/**
+ * @brief Descripes the name of a subject and the level
+ * 
+ */
+struct subject {
+    enum class name;
+    enum level level;
+};
+
+/**
+ * @brief Contains an array of subjects and the arrays length
+ * 
+ */
+struct qualification {
+    int amount_of_subjects;
+    struct subject *subjects;
+};
+
 
 #endif
 
