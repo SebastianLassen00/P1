@@ -3,7 +3,7 @@ CC = gcc
 CFILES = $(wildcard src/*.c)
 HFILES = $(wildcard include/*.h)
 INCLUDE = -Iinclude
-BIN = BIN
+BIN = bin
 
 PROGRAM_NAME = PROG
 
