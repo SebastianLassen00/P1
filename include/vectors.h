@@ -1,5 +1,5 @@
-#ifndef VECTOR_H
-#define VECTOR_H
+#ifndef VECTORS_H
+#define VECTORS_H
 
 void copyVector(const double in[], const double out[]);
 void addVector(const double v1[], const double v2[], double sum[]);
