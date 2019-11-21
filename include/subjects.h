@@ -11,11 +11,11 @@ enum subject {
     MATH_A      = 1 << 0,
     MATH_B      = 1 << 1,
     DANISH_A    = 1 << 2,
-    DANISH_B    = 1 << 3,
-    ENGLISH_A   = 1 << 4,
-    ENGLISH_B   = 1 << 5,
+    ENGLISH_A   = 1 << 3,
+    ENGLISH_B   = 1 << 4,
     /** TODO: Add a shit ton more*/
 
 };
 
 #endif
+
