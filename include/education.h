@@ -2,6 +2,7 @@
 #define EDUCATION_H
 
 #include"region.h"
+#include"subjects.h"
 
 /**
  * @struct education
@@ -10,13 +11,15 @@
  * This structure defines an education and all the details about the education.
  */
 struct education {
-    char *name; /**The name of an education*/
-    char *description; /**The description of an education*/
+    char *name;                 /**The name of an education*/
+    char *description;          /**The description of an education*/
     char *link_to_read_further; /**A link to the educations website*/
-    enum region region; /**The region where the education is found*/
-    double required_grade; /**The minimum grade required for entry*/
-    
-    /** TODO: Add the vector type class and more once it's implementet*/
+    enum region region;         /**The region where the education is found*/
+    double required_grade;      /**The minimum grade required for entry*/
+    int insterest_length;
+    double *interests;          /**The interests associated with the education*/ 
+    int required_subjects_length;
+    enum subject *required_subjects;
 };
 
 #endif
