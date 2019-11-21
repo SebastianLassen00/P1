@@ -8,12 +8,12 @@
  * which simply means that bitwise operators are applyable.
  */
 enum subject {
-    MATH_A      = 2,
-    MATH_B      = 4,
-    DANISH_A    = 8,
-    DANISH_B    = 16,
-    ENGLISH_A   = 32,
-    ENGLISH_B   = 64,
+    MATH_A      = 1 << 0,
+    MATH_B      = 1 << 1,
+    DANISH_A    = 1 << 2,
+    DANISH_B    = 1 << 3,
+    ENGLISH_A   = 1 << 4,
+    ENGLISH_B   = 1 << 5,
     /** TODO: Add a shit ton more*/
 
 };
