@@ -16,10 +16,9 @@ struct education {
     char *link_to_read_further; /**A link to the educations website*/
     enum region region;         /**The region where the education is found*/
     double required_grade;      /**The minimum grade required for entry*/
-    int insterest_length;       /**The amount of interests*/
+    int amount_of_interests;       /**The amount of interests*/
     double *interests;          /**The interests associated with the education*/ 
-    int required_subjects_length;
-    enum subject *required_subjects;
+    struct qualification required_qualifications;
 };
 
 #endif
