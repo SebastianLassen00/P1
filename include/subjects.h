@@ -1,6 +1,20 @@
 #ifndef SUBJECTS_H
 #define SUBJECTS_H
 
+
+#define FIRST_SUBJECT_IN_ENUM MATHEMATICS_A
+#define LAST_SUBJECT_IN_ENUM RUSSIAN_A
+
+#define FIRST_NATURAL_SCIENCE MATHEMATICS_A
+#define LAST_NATURAL_SCIENCE GEOSCIENCE
+
+#define FIRST_SOCIAL_SCIENCE DANISH_A
+#define LAST_SOCIAL_SCIENCE CONTEMPORAY_HISTORY
+
+#define FIRST_FOREIGN_LANGAUGE ENGLISH_A
+#define LAST_FOREIGN_LANGAUGE RUSSIAN_A
+
+
 /**
  * @brief A subject on different levels
  * 
@@ -8,14 +22,61 @@
  * which simply means that bitwise operators are applyable.
  */
 enum subject {
-    MATH_A      = 1 << 0,
-    MATH_B      = 1 << 1,
-    DANISH_A    = 1 << 2,
-    ENGLISH_A   = 1 << 3,
-    ENGLISH_B   = 1 << 4,
-    /** TODO: Add a shit ton more*/
+    MATHEMATICS_A,
+    MATHEMATICS_B,
+    MATHEMATICS_C,
+    CHEMISTRY_A,
+    CHEMISTRY_B,
+    CHEMISTRY_C,
+    BIOLOGY_A,
+    BIOLOGY_B,
+    BIOLOGY_C,
+    PHYSICS_A,
+    PHYSICS_B,
+    PHYSICS_C,
+    BIOTEKNOLOGY,
+    GEOSCIENCE,
+    DANISH_A,
+    HISTORY_A,
+    HISTORY_B,
+    HISTORY_C,
+    IDEAHISTORY,
+    INFORMATICS,
+    INTERNATIONAÆ_ECONOMICS_A,
+    INTERNATIONAL_ECONOMICS_B,
+    INTERNATIONAL_ECONOMICS_C,
+    COMMUNICATION_AND_IT,
+    RELIGION,
+    SOCIALSTUDIES_A,
+    SOCIALSTUDIES_B,
+    SOCAILSTUDIES_C,
+    BUSINESS_ECONOMICS_A,
+    BUSINESS_ECONOMICS_B,
+    CONTEMPORAY_HISTORY,
+    ENGLISH_A,
+    ENGLISH_B,
+    ENGLISH_C,
+    FRENCH_A,
+    FRENCH_B,
+    FRENCH_C,
+    SPANISH_A,
+    SPANISH_B,
+    SPANISH_C,
+    GERMAN_A,
+    GERMAN_B,
+    GERMAN_C,
+    CHINESE_A, 
+    ARABIC_A,
+    GREEK_A,
+    ITALIAN_A,
+    JAPANESE_A,
+    LATIN_A,
+    PORTUGESE_A,
+    RUSSIAN_A,
 
+    /** TODO: Add a shit ton more*/
 };
 
 #endif
+
 
