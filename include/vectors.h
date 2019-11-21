@@ -8,4 +8,8 @@ double lengthOfVector(const double v[]);
 void normalizeVector(const double v[], double out[]);
 double dotProduct(const double v1[], const double v2[]);
 
+/* Test */
+
+void printVector(const double v[], int size);
+
 #endif
