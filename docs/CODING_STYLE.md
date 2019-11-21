@@ -3,6 +3,7 @@
 ## General
 * Indentation: 4 times whitespace per indent
 * Language: English (both code and comments)
+* Brackets: None if only one argument
 
 ### Functions
 ```c
@@ -15,30 +16,63 @@ void func(param1, param2){
 
 ```c
 int i;
-for(i = 0; i < 9; i++){
+for(i = 0; i < 9; i++)
     function();
-}
 ```
 
 ```c
-if(this && that){
+int i;
+for(i = 0; i < 9; i++){
     function();
-} else if(just this){
-    function7();
-} else{
     function1();
 }
 ```
 
 ```c
+if(this && that)
+    function();
+else if(just this)
+    function7();
+else
+    function1();
+```
+
+```c
+if(this && that){
+    function();
+    function1();
+} else if(just this){
+    function7();
+    function();
+} else{
+    function1();
+    function2();
+}
+```
+
+
+```c
+while(this is true)
+    function();
+```
+
+```c
 while(this is true){
     function();
+    function1();
 }
+```
+
+```c
+do
+    function();
+while(that);
 ```
 
 ```c
 do{
     function();
+    function1();
 } while(that);
 ```
 
