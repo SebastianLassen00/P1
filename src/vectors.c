@@ -9,7 +9,8 @@ int main(void){
     double sum[3] = {0, 0, 0};
 
     double vector3[3] = {0.1, 0.3, -0.3};
-    double length_of_vector3;
+    double length_of_vector3, length;
+    double output_vector[3];
 
     copyVector(vector, 3, vector_test);
     printVector(vector_test, 3);
@@ -22,6 +23,12 @@ int main(void){
     
     length_of_vector3 = lengthOfVector(vector3, 3);
     printf("Length of vector3: %f\n", length_of_vector3);
+
+    normalizeVector(vector3, 3, output_vector);
+    printVector(output_vector, 3);
+
+    length = lengthOfVector(output_vector, 3);
+    printf("Length of output_vector: %f\n", length);    
 
     return 0;
 }
@@ -94,3 +101,12 @@ double lengthOfVector(const double v[], int size){
     return sqrt(sum);
 }
 
+/** @fn void normalizeVector(const double v[], int size, double out[])
+ *  @brief Returns the normalized vector
+ *  @param v The vector which is to be normalized
+ *  @param size The size of the vector
+ *  @param out The normalized vector that is output 
+ */
+void normalizeVector(const double v[], int size, double out[]){
+    scaleVector(v, 1/lengthOfVector(v, size), size, out);
+}
