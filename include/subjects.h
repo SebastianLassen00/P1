@@ -19,3 +19,39 @@ enum subject {
 };
 
 #endif
+
+
+Arabisk
+Biologi
+Bioteknologi
+Dansk
+Engelsk	 
+Erhvervsøkonomi
+Filosofi	 
+Fransk begyndersprog	 	 
+Fransk fortsættersprog
+Fysik
+Geovidenskab 	 
+Græsk
+Historie	 
+Idehistorie
+Idræt
+Informatik
+Italiensk	 	 
+Japansk	 
+Kemi
+Kinesisk	 
+Kommunikation/It
+Latin
+Matematik
+Mediefag
+Musik
+Naturgeografi
+Religion
+Russisk	 	 
+Samfundsfag
+Spansk
+Tysk begyndersprog 	 
+Tysk fortsættersprog
+
+
