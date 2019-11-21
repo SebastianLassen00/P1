@@ -1,11 +1,16 @@
 #include <stdio.h>
+#include <math.h>
 #include "vectors.h"
 
 int main(void){
     double vector[3] = {1, 0.5, 0.1};
     double vector_test[3] = {0.2, 0.3, 0.0};
+    double vector_dot_test[3] = {0.0 , 0.0, 1.1};
     double sum[3] = {0, 0, 0};
-    
+
+    double vector3[3] = {0.1, 0.3, -0.3};
+    double length_of_vector3;
+
     copyVector(vector, 3, vector_test);
     printVector(vector_test, 3);
 
@@ -15,6 +20,8 @@ int main(void){
     scaleVector(vector, 2, 3, vector_test);
     printVector(vector_test, 3);
     
+    length_of_vector3 = lengthOfVector(vector3, 3);
+    printf("Length of vector3: %f\n", length_of_vector3);
 
     return 0;
 }
@@ -71,3 +78,19 @@ void scaleVector(const double v[], double scale, int size, double out[]){
     for(i = 0; i < size; i++)
         out[i] = v[i] * scale;
 }
+
+/** @fn double lengthOfVector(const double v[], int size)
+ *  @brief Returns length of vector
+ *  @param v The vector which length is found
+ *  @param size The size of the vector
+ */
+double lengthOfVector(const double v[], int size){
+    int i; 
+    double sum = 0.0;
+
+    for(i = 0; i < size; i++)
+        sum += pow(v[i], 2);
+
+    return sqrt(sum);
+}
+
