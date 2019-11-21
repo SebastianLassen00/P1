@@ -18,7 +18,7 @@ struct education {
     double required_grade;      /**The minimum grade required for entry*/
     int amount_of_interests;       /**The amount of interests*/
     double *interests;          /**The interests associated with the education*/ 
-    struct qualification required_qualifications;
+    struct qualification required_qualifications;   /**The required qualifications for this education*/
 };
 
 #endif

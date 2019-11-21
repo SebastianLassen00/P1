@@ -61,33 +61,30 @@ enum class {
 /**
  * @enum
  * @brief Descripes a level of a subject
- * 
  */
 enum level {
-    A,
-    B,
     C,
+    B,
+    A,
 };
 
 /**
+ * @struct
  * @brief Descripes the name of a subject and the level
- * 
  */
 struct subject {
-    enum class name;
-    enum level level;
+    enum class name;    /**the name of the subject*/
+    enum level level;   /**the level of the subject*/
 };
 
 /**
+ * @struct
  * @brief Contains an array of subjects and the arrays length
- * 
  */
 struct qualification {
-    int amount_of_subjects;
-    struct subject *subjects;
+    int amount_of_subjects;     /**the amount of subjects in qualifications*/
+    struct subject *subjects;   /**the array of subjects in qualifications*/
 };
 
 
 #endif
-
-
