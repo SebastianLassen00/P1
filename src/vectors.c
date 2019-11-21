@@ -3,17 +3,17 @@
 
 int main(void){
     double vector[3] = {1, 0.5, 0.1};
-    double vectorTest[3] = {0.2, 0.3, 0.0};
+    double vector_test[3] = {0.2, 0.3, 0.0};
     double sum[3] = {0, 0, 0};
     
-    copyVector(vector, 3, vectorTest);
-    printVector(vectorTest, 3);
+    copyVector(vector, 3, vector_test);
+    printVector(vector_test, 3);
 
-    addVector(vector, vectorTest, 3, sum);
+    addVector(vector, vector_test, 3, sum);
     printVector(sum, 3);
 
-    scaleVector(vector, 2, 3, vectorTest);
-    printVector(vectorTest, 3);
+    scaleVector(vector, 2, 3, vector_test);
+    printVector(vector_test, 3);
     
 
     return 0;
