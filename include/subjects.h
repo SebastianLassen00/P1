@@ -25,7 +25,7 @@
  * Are used to represent a subject and its level. The enum is flagablle, 
  * which simply means that bitwise operators are applyable.
  */
-enum class {
+enum class{
     MATHEMATICS,
     CHEMISTRY,
     BIOLOGY,
@@ -62,7 +62,7 @@ enum class {
  * @enum
  * @brief Descripes a level of a subject
  */
-enum level {
+enum level{
     C,
     B,
     A,
@@ -72,7 +72,7 @@ enum level {
  * @struct
  * @brief Descripes the name of a subject and the level
  */
-struct subject {
+struct subject{
     enum class name;    /**the name of the subject*/
     enum level level;   /**the level of the subject*/
 };
@@ -81,7 +81,7 @@ struct subject {
  * @struct
  * @brief Contains an array of subjects and the arrays length
  */
-struct qualification {
+struct qualification{
     int amount_of_subjects;     /**the amount of subjects in qualifications*/
     struct subject *subjects;   /**the array of subjects in qualifications*/
 };
