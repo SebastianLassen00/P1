@@ -155,5 +155,5 @@ double dotProduct(const double v1[], int size, const double v2[]){
  */
 struct vector{
     double array[];
-    int number_of_interest;
+    int number_of_interests;
 };
