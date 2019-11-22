@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "database.h"
+#include "education.h"
+
+int compareEducations(const void *, const void *);
 
 /**
  * @brief Create a Database object
@@ -28,6 +32,27 @@ struct database *createDatabase(char *database_file ) {
  * 
  * @return struct education* 
  */
-struct education *findEducation(struct database *database) {
+struct education *findEducation(char *key, struct database *database) {
+    int i;
+    struct education *education = NULL;
 
+    for ( i = 0; i < database->amount_of_educations; i++)
+    {
+        if (strcmp(key, database->educations[i].name)){
+            education = &(database->educations[i]);
+        }
+        
+    }
+    
+}
+
+/**
+ * @brief compares educations based on their name
+ * 
+ * @param edu1 
+ * @param edu2 
+ * @return int 
+ */
+int compareEducations(const void * edu1, const void *edu2){
+    return strcmp(((struct education *)edu1)->name, ((struct education *)edu2)->name);
 }

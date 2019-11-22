@@ -17,7 +17,7 @@ struct database {
 
 
 struct database *createDatabase(char *);
-struct education *findEducation(struct database *);
+struct education *findEducation(char *, struct database *);
 
 
 #endif
