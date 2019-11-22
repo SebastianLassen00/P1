@@ -18,8 +18,6 @@ int main(void){
     int arg_num = 0;
     command c;
 
-
-
     menuCmd();
 
     do{
@@ -90,6 +88,8 @@ command scanCommand(char arg[MAX_INPUT_LENGTH], int *arg_num){
         return -1;
     }
 
+    if()
+    sscanf(str, "[^0123456789]")
 
     switch(argType(command_index)){
         case 1:
