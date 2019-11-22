@@ -21,4 +21,16 @@ struct education {
     struct qualification required_qualifications;   /**The required qualifications for this education*/
 };
 
+/**
+ * @struct education
+ * @brief A structure, which contains amount_of_educations educations
+ */
+struct educationArray{
+    int amount_of_educations;       /**The amount of educations in educations*/
+    struct education **educations; /**An array of pointers to educations*/
+};
+
+void freeEducation(struct education *);
+void freeEducationArray(struct educationArray *);
+
 #endif

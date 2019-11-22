@@ -86,5 +86,7 @@ struct qualification {
     struct subject *subjects;   /**the array of subjects in qualifications*/
 };
 
+void freeSubject(struct subject *);
+void freeQualification(struct subject *);
 
 #endif
