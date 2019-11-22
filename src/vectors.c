@@ -87,7 +87,7 @@ void scaleVector(const double v[], double scale, int size, double out[]){
 }
 
 /** @fn double lengthOfVector(const double v[], int size)
- *  @brief Returns length of vector
+ *  @brief Returns the length of a vector
  *  @param v The vector which length is found
  *  @param size The size of the vector
  */
@@ -108,5 +108,22 @@ double lengthOfVector(const double v[], int size){
  *  @param out The normalized vector that is output 
  */
 void normalizeVector(const double v[], int size, double out[]){
-    scaleVector(v, 1/lengthOfVector(v, size), size, out);
+    scaleVector(v, 1 / lengthOfVector(v, size), size, out);
+}
+
+/** @fn double dotProduct(const double v1[], int size, const double v2[])
+ *  @brief Calculates and returns the dot product of two vectors of any, though equal, size
+ *  @param v1 The first vector to be used for dot product calculation
+ *  @param size The size of the vectors
+ *  @param v2 The second vector to be used for dot product calculation
+ */
+double dotProduct(const double v1[], int size, const double v2[]){
+    int i;
+    double dot_product = 0;
+
+    for(i = 0; i < size; i++){
+        dot_product += v1[i] * v2[i];
+    }
+
+    return dot_product;
 }
