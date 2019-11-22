@@ -13,7 +13,7 @@ int compareEducations(const void *, const void *);
  * 
  * @return struct database* 
  */
-struct database *createDatabase(char *database_file ) {
+struct database *createDatabase(char *database_file ){
     struct database *database;
     FILE *data;
 
@@ -32,18 +32,15 @@ struct database *createDatabase(char *database_file ) {
  * 
  * @return struct education* 
  */
-struct education *findEducation(char *key, struct database *database) {
+struct education *findEducation(char *key, struct database *database){
     int i;
     struct education *education = NULL;
 
-    for ( i = 0; i < database->amount_of_educations; i++)
-    {
-        if (strcmp(key, database->educations[i].name)){
+    for( i = 0; i < database->amount_of_educations; i++){
+        if(strcmp(key, database->educations[i].name)){
             education = &(database->educations[i]);
-        }
-        
-    }
-    
+        } 
+    }  
 }
 
 /**
