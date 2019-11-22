@@ -1,7 +1,6 @@
-#include "database.h"
 #include <stdio.h>
 #include <stdlib.h>
-
+#include "database.h"
 
 /**
  * @brief Create a Database object
@@ -17,7 +16,7 @@ struct database *createDatabase(char *database_file ) {
     database = malloc(sizeof(struct database));
     data = fopen(database_file, "r");
 
-    
+    parseDatabase(database, data);
 
     return database;
 }
