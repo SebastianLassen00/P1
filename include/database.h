@@ -6,7 +6,6 @@
 /**
  * @struct
  * @brief A structure to store a database
- * 
  */
 struct database {
     int amount_of_educations;           /**the amount of educations in the database*/
