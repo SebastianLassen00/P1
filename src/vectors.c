@@ -77,6 +77,13 @@ void addVector(const double v1[], const double v2[], int size, double sum[]){
         sum[i] = v1[i] + v2[i];
 }
 
+/** @fn void addVector(const double v1[], const double v2[], int size, double sum[])
+ *  @brief Adds two vectors together and outputs the sum as a vector
+ *  @param v1 The vector that should be subtracted from
+ *  @param v2 The vector that is used for subtraction
+ *  @param size The size of the vectors
+ *  @param sum The sum of the subtracted vectors that is output
+ */
 void subtractVector(const  double v1[], const double v2[], int size, double sum[]){
     int i;
 
