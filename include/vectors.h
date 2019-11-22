@@ -9,6 +9,8 @@ double lengthOfVector(const double v[], int size);
 void normalizeVector(const double v[], int size, double out[]);
 double dotProduct(const double v1[], int size, const double v2[]);
 
+struct vector;
+
 /* Test */
 
 void printVector(const double v[], int size);
