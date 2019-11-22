@@ -12,6 +12,7 @@ int main(void){
     double length_of_vector3, length;
     double output_vector[3];
 
+    /*
     copyVector(vector, 3, vector_test);
     printVector(vector_test, 3);
 
@@ -29,6 +30,10 @@ int main(void){
 
     length = lengthOfVector(output_vector, 3);
     printf("Length of output_vector: %f\n", length);    
+    */
+
+    printf("%f", dotProduct(vector_test, 3, vector_dot_test));
+
 
     return 0;
 }
@@ -70,6 +75,13 @@ void addVector(const double v1[], const double v2[], int size, double sum[]){
 
     for(i = 0; i < size; i++)
         sum[i] = v1[i] + v2[i];
+}
+
+void subtractVector(const  double v1[], const double v2[], int size, double sum[]){
+    int i;
+
+    for(i = 0; i < size; i++)
+        sum[i] = v1[i] - v2[i];
 }
 
 /** @fn void scaleVector(const double v[], double scale, double size, double out[])
