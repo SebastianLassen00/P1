@@ -2,6 +2,6 @@
 #include"database.h"
 #include"parser.h"
 
-void parseDatabase(struct database *database, FILE *filereader) {
+void parseDatabase(struct database *database, FILE *filereader){
     
 }
