@@ -146,14 +146,3 @@ double dotProduct(const double v1[], int size, const double v2[]){
 
     return dot_product;
 }
-
-
-/**
- *
- *
- *
- */
-struct vector{
-    double array[];
-    int number_of_interests;
-};
