@@ -4,6 +4,7 @@
 #include <profile.h>
 #include <education.h>
 #include <subjects.h>
+#include <vector.h> 
 
 #define MAX_COMMAND_LENGTH 10
 #define MAX_INPUT_LENGTH (MAX_COMMAND_LENGTH + 100)
@@ -15,12 +16,14 @@ int argType(command c);
 void menuCmd(void);
 command scanCommand(char arg[MAX_INPUT_LENGTH], int *arg_num);
 command convertCommand(char s[MAX_COMMAND_LENGTH]);
+void recommendCmd(struct educations *educations, struct profile user, 
+                  struct education *currentEducation);
 
 int main(void){
     char arg[MAX_INPUT_LENGTH], arg_type[MAX_INPUT_LENGTH];
     int arg_num = 0, number_of_educations;
     command c;
-    struct education *educations;
+    struct education *educations, currentEducation;
     struct profile user;
     struct qualifications subjects;
 
@@ -28,7 +31,8 @@ int main(void){
 
     do{
         c = scanCommand(arg, &arg_num);
-        handleCommand(c, arg, arg_num, user, subjects);
+        handleCommand(c, arg, arg_num, user, subjects, educations, 
+                      number_of_educations, &currentEducation);
     } while(c != exit);
 
 
@@ -37,7 +41,8 @@ int main(void){
 
 void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, 
                    struct profile user, struct qualifications subjects,
-                   struct education *educations){
+                   struct education *educations, int number_of_educations,
+                   struct education *currentEducation){
     switch(c){
         case find:
             findCmd(arg);
@@ -49,7 +54,7 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num,
             saveProfCmd();
             break;
         case recommend:
-            recommendCmd();
+            recommendCmd(educations, user, currentEducation);
             break;
         case list:
             listCmd();
@@ -58,7 +63,7 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num,
             evalCmd(arg_num);
             break;
         case test:
-            testCmd(profile, subjects);
+            testCmd(user, subjects);
             break;
         case menu:
             menuCmd();
@@ -145,8 +150,32 @@ int argType(command c){
     return (c == find || c == eval) ? ((c == find) ? 1 : -1) : 0;
 }
 
+/* Recommends an education to the user. */
+void recommendCmd(struct educations *educations, int number_of_educations, struct profile user, 
+                  struct education *currentEducation){
+    int i;
+    struct vector results, normalized_vector;
+    double highest_result, result;
+    struct education best_fit;
+    normalized_vector = createVector(profile.interest.dimensions);
+    
+    for(i = 0; i < number_of_educations; i++){
+        normalizeVector(educations[i].interests, normalized_vector);
+        result = dotProduct(interests, normalized_vector);
+        if(result > highest_result){
+            highest_result = result;
+            best_fit = educat	ions[i];
+        }
+    }
+    
+    *currentEducation = best_fit;
+    printEducation(*currentEducation);
+}
 
+/* Prints the relavant information about the given education */
+void printEducation(struct education education){
 
+}
 
 /* Commands:
     find (1 arg, uddannelse)

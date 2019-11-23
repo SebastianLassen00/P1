@@ -1,9 +1,9 @@
-#ifndef VECTORS_H
-#define VECTORS_H
+#ifndef VECTOR_H
+#define VECTOR_H
 
 struct vector{
     double *array;
-    int number_of_interests;
+    int dimensions;
 };
 
 
