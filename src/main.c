@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <profile.h>
+#include <education.h>
+#include <subjects.h>
 
 #define MAX_COMMAND_LENGTH 10
 #define MAX_INPUT_LENGTH (MAX_COMMAND_LENGTH + 100)
@@ -15,21 +18,26 @@ command convertCommand(char s[MAX_COMMAND_LENGTH]);
 
 int main(void){
     char arg[MAX_INPUT_LENGTH], arg_type[MAX_INPUT_LENGTH];
-    int arg_num = 0;
+    int arg_num = 0, number_of_educations;
     command c;
+    struct education *educations;
+    struct profile user;
+    struct qualifications subjects;
 
     menuCmd();
 
     do{
         c = scanCommand(arg, &arg_num);
-        handleCommand(c);
+        handleCommand(c, arg, arg_num, user, subjects);
     } while(c != exit);
 
 
     return 0;
 }
 
-void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, double interests[], subjects, average_grade){
+void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, 
+                   struct profile user, struct qualifications subjects,
+                   struct education *educations){
     switch(c){
         case find:
             findCmd(arg);
@@ -50,7 +58,7 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, double in
             evalCmd(arg_num);
             break;
         case test:
-            testCmd(interests, subjects, average_grade);
+            testCmd(profile, subjects);
             break;
         case menu:
             menuCmd();
