@@ -30,6 +30,7 @@ struct educationArray{
     struct education **educations; /**An array of pointers to educations*/
 };
 
+struct education *createEducationBasics(char *, char*, char*, enum region);
 void freeEducation(struct education *);
 void freeEducationArray(struct educationArray *);
 
