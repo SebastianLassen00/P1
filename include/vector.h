@@ -3,7 +3,7 @@
 
 struct vector{
     double *array;
-    int dimensions;
+    int size;
 };
 
 

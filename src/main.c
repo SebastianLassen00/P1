@@ -165,11 +165,10 @@ void testCmd(struct profile user, struct qualifications subjects){
 
 	/*  Get location and assesment  */
 	printf("Where do you want to study?\n");
-	for(i = 0; i < NUMBER_OF_REGIONS; i++){
+	for(i = 0; i < NUMBER_OF_REGIONS; i++)
 		printf("%d: %s   ", i, regionName(i));
-	}
-	printf("\n");
 
+	printf("\n");
 	profile.location.region = getValidInteger();
 
 	printf("How important is this region to you\n");
@@ -182,8 +181,8 @@ void testCmd(struct profile user, struct qualifications subjects){
 
 	for(i = 0; i < ; i++){								// How many interests?
 		printf("%s:  ", );								// Where are the interests saved? 
-		scan_res = scanf(" %d", &initial_value);
-		if(scan_res == 1)
+		initial_value = getValidInteger();
+		if(initial_value != 0)
 			user.interests.array[i] = convertScale(initial_value);
 		else
 			i--;
