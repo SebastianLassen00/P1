@@ -150,6 +150,19 @@ int argType(command c){
     return (c == find || c == eval) ? ((c == find) ? 1 : -1) : 0;
 }
 
+void testCmd(struct profile user, struct qualifications subjects){
+	int name_scan;
+
+	/*  Scan for profile name  */
+	printf("Profile name (only one word): ");
+	name_scan = scanf(" %s", profile.name);
+
+	/*  Get location and assesment  */
+
+
+
+}
+
 /* Recommends an education to the user. */
 void recommendCmd(struct educations *educations, int number_of_educations, struct profile user, 
                   struct education *currentEducation){
@@ -164,7 +177,7 @@ void recommendCmd(struct educations *educations, int number_of_educations, struc
         result = dotProduct(interests, normalized_vector);
         if(result > highest_result){
             highest_result = result;
-            best_fit = educat	ions[i];
+            best_fit = educations[i];
         }
     }
     

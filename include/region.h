@@ -7,12 +7,17 @@
  * 
  * This enum descripes a region AKA it descripes a location in denmark.
  */
-enum region {
+enum region{
     NORTH_JUTLAND = 0, 
     CENTRAL_JUTLAND, 
     SOUTHERN_DENMARK, 
     ZEALAND, 
     CAPITAL_REGION
+};
+
+struct location{
+	enum region region;
+	int region_importance;
 };
 
 #endif
