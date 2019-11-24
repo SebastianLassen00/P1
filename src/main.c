@@ -182,10 +182,13 @@ void testCmd(struct profile user, struct qualifications subjects){
 	for(i = 0; i < ; i++){								// How many interests?
 		printf("%s:  ", );								// Where are the interests saved? 
 		initial_value = getValidInteger();
-		if(initial_value != 0)
+		if(initial_value != 0){
 			user.interests.array[i] = convertScale(initial_value);
-		else
+		} else{
+			printf("Wrong input, try again\n");
+			clearBuffer();
 			i--;
+		}
 	}
 
 	/*  Get important qualifications  */
@@ -196,13 +199,10 @@ void testCmd(struct profile user, struct qualifications subjects){
 
 	/*  Get average grade  */
 	printf("What is your average grade? ");
-	scan_res = scanf(" %lf", &user.average);
+	user.average = getValidDouble();
 
 	/*  Ending the test  */
-
-
-
-
+	printf("The test is now concluded. Returning to menu...\n\n");
 }
 
 int getValidInteger(void){
@@ -216,6 +216,20 @@ int getValidInteger(void){
 	} while(scan_res == 0 || test_char != '\n');
 
 	return valid_int;
+}
+
+double getValidDouble(void){
+	double valid_double = 0;
+	int scan_res = 0;
+	char test_char = 0;
+
+	do{
+		scan_res = scanf(" %lf", &valid_double);
+		if(scan_res == 0)
+			scanf(" %c", &test_char);
+	} while(scan_res == 0 || test_char != '\n');
+
+	return valid_double;
 }
 
 /* Recommends an education to the user. */
