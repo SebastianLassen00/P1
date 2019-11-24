@@ -170,19 +170,10 @@ void testCmd(struct profile user, struct qualifications subjects){
 	}
 	printf("\n");
 
-	do{
-		scan_res = scanf(" %d", &profile.location.region);
-		if(scan_res == 0)
-			scanf(" %c", &test_char);
-	} while(scan_res == 0 || test_char != '\n');
-
-	scan_res = scanf(" %d", &profile.location.region);
-	
-
-
+	profile.location.region = getValidInteger();
 
 	printf("How important is this region to you\n");
-	scan_res = scanf(" %d", &profile.location.region_importance);
+	profile.location.region_importance = getValidInteger();
 
 	/*  Get all interests  */
 	printf("Next, a series of interests will be shown\n"
@@ -213,6 +204,19 @@ void testCmd(struct profile user, struct qualifications subjects){
 
 
 
+}
+
+int getValidInteger(void){
+	int valid_int = 0, scan_res = 0;
+	char test_char = 0;
+
+	do{
+		scan_res = scanf(" %d", &valid_int);
+		if(scan_res == 0)
+			scanf(" %c", &test_char);
+	} while(scan_res == 0 || test_char != '\n');
+
+	return valid_int;
 }
 
 /* Recommends an education to the user. */
