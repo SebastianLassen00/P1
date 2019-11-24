@@ -205,6 +205,14 @@ void testCmd(struct profile user, struct qualifications subjects){
 	printf("The test is now concluded. Returning to menu...\n\n");
 }
 
+void chooseFromList(){
+
+}
+
+double convertScale(int initial_value){
+	return (((double) v - 50.0) / 50.0);
+}
+
 int getValidInteger(void){
 	int valid_int = 0, scan_res = 0;
 	char test_char = 0;
