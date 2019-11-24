@@ -151,13 +151,65 @@ int argType(command c){
 }
 
 void testCmd(struct profile user, struct qualifications subjects){
-	int name_scan;
+	int scan_res;
+	int initial_value;
+	char test_char;
+
+	/*  Introduction to test  */
+	printf("This test will ask you several questions about interests, qualifications and grades\n"
+		   "The test requires answers in numbers (integers), and where scale is part, a value between 1 and 100");
 
 	/*  Scan for profile name  */
 	printf("Profile name (only one word): ");
-	name_scan = scanf(" %s", profile.name);
+	scan_res = scanf(" %s", profile.name);
 
 	/*  Get location and assesment  */
+	printf("Where do you want to study?\n");
+	for(i = 0; i < NUMBER_OF_REGIONS; i++){
+		printf("%d: %s   ", i, regionName(i));
+	}
+	printf("\n");
+
+	do{
+		scan_res = scanf(" %d", &profile.location.region);
+		if(scan_res == 0)
+			scanf(" %c", &test_char);
+	} while(scan_res == 0 || test_char != '\n');
+
+	scan_res = scanf(" %d", &profile.location.region);
+	
+
+
+
+	printf("How important is this region to you\n");
+	scan_res = scanf(" %d", &profile.location.region_importance);
+
+	/*  Get all interests  */
+	printf("Next, a series of interests will be shown\n"
+		   "You are to give a value between 1 and 100, "
+		   "where 1 is negative and 100 is positive towards the interest\n");
+
+	for(i = 0; i < ; i++){								// How many interests?
+		printf("%s:  ", );								// Where are the interests saved? 
+		scan_res = scanf(" %d", &initial_value);
+		if(scan_res == 1)
+			user.interests.array[i] = convertScale(initial_value);
+		else
+			i--;
+	}
+
+	/*  Get important qualifications  */
+
+
+	/*  Get less important qualifications  */
+
+
+	/*  Get average grade  */
+	printf("What is your average grade? ");
+	scan_res = scanf(" %lf", &user.average);
+
+	/*  Ending the test  */
+
 
 
 
