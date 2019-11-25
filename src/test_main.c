@@ -76,9 +76,9 @@ void chooseFromList(struct profile user, int interval_start, int interval_end){
     int temp_subject, i = 0;
     char temp_char;
     char temp_string[MAX_INPUT_LENGTH];
-
+ 
     do{
-        scanf(" %d%c", &temp_subject, &temp_char);
+        scanf(" %d %c", &temp_subject, &temp_char);
         printf("%d:%c\n", temp_subject, temp_char);
         printf("%d: %d\n", levelAsValue(temp_char), (int) levelAsValue(temp_char));
         if(temp_subject > 0 && temp_subject < (interval_end - interval_start + 1) && levelAsValue(temp_char) != -1) {
