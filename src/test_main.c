@@ -26,8 +26,15 @@ int main(void){
 
     user.name = "christian";
 
+    for(i = 0; i < user.interests.size; i++){
+        user.interests.array[i] = 0.45 * i;
+    }
+
     printf("%s\n", user.name);
 
+    printVector(user.interests);
+
+    freeProfile(user);
 
     return 0;
 }
