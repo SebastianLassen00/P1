@@ -87,7 +87,7 @@ void chooseFromList(struct profile user, int interval_start, int interval_end){
         if(temp_subject > 0 && temp_subject < (interval_end - interval_start + 1) && levelAsValue(temp_char) != -1){
             user.qualifications.subjects[temp_subject + interval_start].level = levelAsValue(temp_char);
             i += 2;
-            while(isalnum(*(temp_string + i++)) != 1){
+            while(isalnum(*(temp_string + i++)) == 0){
                 printf("i = %d\n", i - 1);
                 printf("char = %c and isalnum = %d\n", *(temp_string + i - 1), isalnum(*(temp_string + i - 1)));
             }
