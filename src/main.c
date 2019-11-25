@@ -151,58 +151,57 @@ int argType(command c){
 }
 
 void testCmd(struct profile user, struct qualifications subjects){
-	int scan_res;
-	int initial_value;
-	char test_char;
+    int scan_res;
+    int initial_value;
+    char test_char;
 
-	/*  Introduction to test  */
-	printf("This test will ask you several questions about interests, qualifications and grades\n"
-		   "The test requires answers in numbers (integers), and where scale is part, a value between 1 and 100");
+    /*  Introduction to test  */
+    printf("This test will ask you several questions about interests, qualifications and grades\n"
+           "The test requires answers in numbers (integers), and where scale is part, a value between 1 and 100");
 
-	/*  Scan for profile name  */
-	printf("Profile name (only one word): ");
-	scan_res = scanf(" %s", profile.name);
+    /*  Scan for profile name  */
+    printf("Profile name (only one word): ");
+    scan_res = scanf(" %s", profile.name);
 
-	/*  Get location and assesment  */
-	printf("Where do you want to study?\n");
-	for(i = 0; i < NUMBER_OF_REGIONS; i++)
-		printf("%d: %s   ", i, regionName(i));
+    /*  Get location and assesment  */
+    printf("Where do you want to study?\n");
+    for(i = 0; i < NUMBER_OF_REGIONS; i++)
+        printf("%d: %s   ", i, regionName(i));
+    printf("\n");
+    profile.location.region = validScaleValue(getValidInteger(), 0, NUMBER_OF_REGIONS - 1);
 
-	printf("\n");
-	profile.location.region = getValidInteger();
+    printf("How important is this region to you\n");
+    profile.location.region_importance = validScaleValue(getValidInteger(), 0, 10);
 
-	printf("How important is this region to you\n");
-	profile.location.region_importance = getValidInteger();
+    /*  Get all interests  */
+    printf("Next, a series of interests will be shown\n"
+           "You are to give a value between 0 and 10, "
+           "where 0 is negative and 10 is positive towards the interest\n");
 
-	/*  Get all interests  */
-	printf("Next, a series of interests will be shown\n"
-		   "You are to give a value between 1 and 100, "
-		   "where 1 is negative and 100 is positive towards the interest\n");
+    for(i = 0; i < ; i++){                              // How many interests?
+        printf("%s:  ", );                              // Where are the interests saved? 
+        initial_value = validScaleValue(getValidInteger(), 0, 10);
+        if(initial_value != 0){
+            user.interests.array[i] = convertScale(initial_value);
+        } else{
+            printf("Wrong input, try again\n");
+            clearBuffer();
+            i--;
+        }
+    }
 
-	for(i = 0; i < ; i++){								// How many interests?
-		printf("%s:  ", );								// Where are the interests saved? 
-		initial_value = getValidInteger();
-		if(initial_value != 0){
-			user.interests.array[i] = convertScale(initial_value);
-		} else{
-			printf("Wrong input, try again\n");
-			clearBuffer();
-			i--;
-		}
-	}
-
-	/*  Get important qualifications  */
-
-
-	/*  Get less important qualifications  */
+    /*  Get important qualifications  */
 
 
-	/*  Get average grade  */
-	printf("What is your average grade? ");
-	user.average = getValidDouble();
+    /*  Get less important qualifications  */
 
-	/*  Ending the test  */
-	printf("The test is now concluded. Returning to menu...\n\n");
+
+    /*  Get average grade  */
+    printf("What is your average grade? ");
+    user.average = getValidDouble();
+
+    /*  Ending the test  */
+    printf("The test is now concluded. Returning to menu...\n\n");
 }
 
 void chooseFromList(){
@@ -210,34 +209,38 @@ void chooseFromList(){
 }
 
 double convertScale(int initial_value){
-	return (((double) v - 50.0) / 50.0);
+    return (((double) v - 5.0) / 5.0);
+}
+
+int validScaleValue(int value, int interval_start, int interval_end){
+    return (value > interval_end ? interval_end : (value < interval_start ? interval_start : value));
 }
 
 int getValidInteger(void){
-	int valid_int = 0, scan_res = 0;
-	char test_char = 0;
+    int valid_int = -1, scan_res = 0;
+    char test_char = 0;
 
-	do{
-		scan_res = scanf(" %d", &valid_int);
-		if(scan_res == 0)
-			scanf(" %c", &test_char);
-	} while(scan_res == 0 || test_char != '\n');
+    do{
+        scan_res = scanf(" %d", &valid_int);
+        if(scan_res == 0)
+            scanf(" %c", &test_char);
+    } while(scan_res == 0 || test_char != '\n');
 
-	return valid_int;
+    return valid_int;
 }
 
 double getValidDouble(void){
-	double valid_double = 0;
-	int scan_res = 0;
-	char test_char = 0;
+    double valid_double = 0;
+    int scan_res = 0;
+    char test_char = 0;
 
-	do{
-		scan_res = scanf(" %lf", &valid_double);
-		if(scan_res == 0)
-			scanf(" %c", &test_char);
-	} while(scan_res == 0 || test_char != '\n');
+    do{
+        scan_res = scanf(" %lf", &valid_double);
+        if(scan_res == 0)
+            scanf(" %c", &test_char);
+    } while(scan_res == 0 || test_char != '\n');
 
-	return valid_double;
+    return valid_double;
 }
 
 /* Recommends an education to the user. */
