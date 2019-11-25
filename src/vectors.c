@@ -4,14 +4,14 @@
 #include "vector.h"
 
 int main(void){
-    double vector[3] = {1, 0.5, 0.1};
+/*    double vector[3] = {1, 0.5, 0.1};
     double vector_test[3] = {0.2, 0.3, 0.0};
     double vector_dot_test[3] = {0.0 , 0.0, 1.1};
     double sum[3] = {0, 0, 0};
 
     double vector3[3] = {0.1, 0.3, -0.3};
     double length_of_vector3, length;
-    double output_vector[3];
+    double output_vector[3];*/
 
     /*
     copyVector(vector, 3, vector_test);
@@ -33,23 +33,29 @@ int main(void){
     printf("Length of output_vector: %f\n", length);    
     */
 
-    printf("%f", dotProduct(vector_test, 3, vector_dot_test));
+/*    printf("%f", dotProduct(vector_test, 3, vector_dot_test));*/
+
+    struct vector testv;
+
+    testv = createVector(6);
+    printVector(testv);
+
 
 
     return 0;
 }
 
+
 struct vector createVector(int size){
     struct vector vector;
-    vector.array = (double*)malloc(size * sizeof(double));
+    vector.array = (double*)calloc(size, sizeof(double));
+    /*vector.array = (double*)malloc(size * sizeof(double)); */
     if(vector.array == NULL){
         printf("Failed to allocate memory. Bye bye.\n");
         exit(EXIT_FAILURE);
     }
     vector.size = size;
-
-    fill_array_with_zeros(vector.array, vector.size);
-
+    
     return vector;
 }
 
@@ -60,8 +66,8 @@ void fill_array_with_zeros(double array[], int size){
 }
 
 
-void clear_heap(double *array){
-    free(array);
+void freeVector(struct vector v){
+    free(v.array);
 }
 
 /** @fn void copyVector(const double in[], int size, double out[])

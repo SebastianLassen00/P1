@@ -8,19 +8,20 @@ struct vector{
 
 
 struct vector createVector(int size);
-void fill_array_with_zeros(double array[], int size);
-void copyVector(const double v[], int size, double out[]);
-void addVector(const double v1[], const double v2[], int size, double sum[]);
-void subtractVector(const  double v1[], const double v2[], int size, double sum[]);
-void scaleVector(const double v[], double scale, int size, double out[]);
-double lengthOfVector(const double v[], int size);
-void normalizeVector(const double v[], int size, double out[]);
-double dotProduct(const double v1[], int size, const double v2[]);
+/*void fill_array_with_zeros(double array[], int size);
+*/
+struct vector copyVector(struct vector v1, struct vector v2);
+struct vector addVector(struct vector v1, struct vector v2);
+struct vector subtractVector(struct vector v1, struct vector v2);
+struct vector scaleVector(struct vector v, double scale);
+double lengthOfVector(struct vector v);
+struct vector normalizeVector(struct vector v);
+double dotProduct(struct vector v1, struct vector v2);
 
-struct vector;
+void freeVector(struct vector v);
 
 /* Test */
 
-void printVector(const double v[], int size);
+void printVector(struct vector v);
 
 #endif
