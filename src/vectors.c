@@ -4,6 +4,7 @@
 #include "vector.h"
 
 int main(void){
+    
 /*    double vector[3] = {1, 0.5, 0.1};
     double vector_test[3] = {0.2, 0.3, 0.0};
     double vector_dot_test[3] = {0.0 , 0.0, 1.1};
