@@ -130,13 +130,13 @@ void printVector(struct vector v){
  *  @param sum The sum is a vector struct which is returned.
  */
 struct vector addVector(struct vector v1, struct vector v2){
-    struct vector sum; 
+    struct vector sum = createVector(v1.size); 
     int i;
 
     for(i = 0; i < v1.size; i++)
         sum.array[i] = v1.array[i] + v2.array[i];
 
-    sum.size = v1.size; 
+    /*sum.size = v1.size;*/ 
 
     return sum;
 }
@@ -149,7 +149,7 @@ struct vector addVector(struct vector v1, struct vector v2){
  *  @param sum The sum of the subtracted vectors that is output
  */
 struct vector subtractVector(struct vector v1, struct vector v2){
-    struct vector sum; 
+    struct vector sum = createVector(v1.size);
     int i;
 
     for(i = 0; i < v1.size; i++)
@@ -166,7 +166,7 @@ struct vector subtractVector(struct vector v1, struct vector v2){
  *  @param out The up- or downscaled vector that is output
  */
 struct vector scaleVector(struct vector v, double scale){
-    struct vector result;
+    struct vector result = createVector(v.size);
     int i;
 
     for(i = 0; i < v.size; i++)
