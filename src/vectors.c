@@ -38,12 +38,15 @@ int main(void){
     return 0;
 }
 
-void createVector(struct vector* vector, int size){
+void createVector(int size){
+    struct vector* vector;
     vector->array = (double*)malloc(size * sizeof(double));
     if(vector == NULL){
         printf("Failed to allocate memory. Bye bye.\n");
         exit(EXIT_FAILURE);
     }
+    vector->size = size;
+    
     fill_array_with_zeros(vector->array, vector->size);
 }
 
