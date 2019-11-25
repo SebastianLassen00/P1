@@ -3,6 +3,7 @@
 
 #include"region.h"
 #include"subjects.h"
+#include "vector.h"
 
 /**
  * @struct education
