@@ -80,11 +80,14 @@ void chooseFromList(struct profile user, int interval_start, int interval_end){
     do{
         scanf(" %d%c", &temp_subject, &temp_char);
         printf("%d:%c\n", temp_subject, temp_char);
+        printf("%d: %d\n", levelAsValue(temp_char), (int) levelAsValue(temp_char));
         if(temp_subject > 0 && temp_subject < (interval_end - interval_start + 1) && levelAsValue(temp_char) != -1) {
+            printf("%d:%c\n", temp_subject, temp_char);
             user.qualifications.subjects[temp_subject + interval_start].level = levelAsValue(temp_char);
             i++;
         }
     } while(i < (interval_end - interval_start));
+    printf("Im done\n");
 }
 
 
