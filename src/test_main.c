@@ -40,8 +40,9 @@ struct profile createProfile(int number_of_interests){
     profile.interests = createVector(number_of_interests);
     profile.name = name;
     profile.qualifications = createQualifications(TOTAL_SUBJECTS);
-    profile.averafe = 0.0;
-    profile.location = {0, 0};
+    profile.average = 0.0;
+    profile.location.region = 0;
+    profile.location.region_importance = 0;
 
     return profile;
 }

@@ -1,5 +1,6 @@
 #include "vector.h"
 #include "subjects.h"
+#include "region.h"
 
 #ifndef PROFILE_H
 #define PROFILE_H
@@ -9,7 +10,7 @@
 struct profile{
 	struct vector interests;
 	char * name;
-	struct qualifications qualifications;
+	struct qualification qualifications;
 	double average;
 	struct location location;
 };
