@@ -17,6 +17,8 @@ void parseDatabase(struct database *database, FILE *filereader){
     database->amount_of_educations = parseNumOfEdu(filereader);
     database->educations = (struct education*) malloc(database->amount_of_educations * sizeof(struct education));
     parseEduNames(database->educations, database->amount_of_educations, filereader);
+    parseEduDesc(database->educations, database->amount_of_educations, filereader);
+    parseEduDesc(database->educations, database->amount_of_educations, filereader);
 }
 
 int parseNumOfEdu(FILE *filereader){
@@ -47,9 +49,40 @@ void parseEduNames(struct education *education, int amount_of_educations, FILE *
     
     fgets(current_line, STRING_MAX_LENGTH, filereader);
 
-    for (i = 0; i < amount_of_educations; i++){
+    for(i = 0; i < amount_of_educations; i++){
         education[i].name = parseEduString(current_line, amount_of_educations, education[i].name, offset);
         offset += strlen(education[i].name) + 1;
+    }
+}
+
+void parseEduDesc(struct education *education, int amount_of_educations, FILE *filereader){
+    char current_line[STRING_MAX_LENGTH];
+    int i;
+    int offset = 0;
+    
+    fgets(current_line, STRING_MAX_LENGTH, filereader);
+
+    for(i = 0; i < amount_of_educations; i++){
+        education[i].description = parseEduString(current_line, amount_of_educations, education[i].description, offset);
+        offset += strlen(education[i].description) + 1;
+    }
+}
+
+void parseEduLink(struct education *education, int amount_of_educations, FILE *filereader){
+    char current_line[STRING_MAX_LENGTH];
+    int i;
+    int offset = 0;
+    
+    fgets(current_line, STRING_MAX_LENGTH, filereader);
+
+    for(i = 0; i < amount_of_educations; i++){
+        education[i].link_to_read_further = parseEduString(
+                                            current_line, 
+                                            amount_of_educations, 
+                                            education[i].link_to_read_further, 
+                                            offset);
+
+        offset += strlen(education[i].link_to_read_further) + 1;
     }
 }
 
