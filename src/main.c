@@ -9,7 +9,7 @@
 #define MAX_COMMAND_LENGTH 10
 #define MAX_INPUT_LENGTH (MAX_COMMAND_LENGTH + 100)
 
-enum command{find, save, save_prof, recommend, list, eval, test, menu, exit};
+enum command{find, save, save_prof, recommend, list, eval, test, menu, quit};
 typedef enum command command;
 
 int argType(command c);
@@ -34,7 +34,7 @@ void recommendCmd(struct educations *educations, struct profile user,
         c = scanCommand(arg, &arg_num);
         handleCommand(c, arg, arg_num, user, subjects, educations, 
                       number_of_educations, &currentEducation);
-    } while(c != exit);
+    } while(c != quit);
 
 
     return 0;
@@ -82,7 +82,7 @@ void menuCmd(void){
            "  eval |arg| -  evaluates the current education using an integer value between 0 and 100 \n"
            "  test       -  tests the users interests and qualifications                             \n"
            "  menu       -  shows a this menu                                                        \n"
-           "  exit       -  exits the program                                                        \n");
+           "  quit       -  quits the program                                                        \n");
 }
 
 /** @fn int scanCommand(char arg[MAX_INPUT_LENGTH], int *arg_num)
@@ -192,22 +192,28 @@ void testCmd(struct profile user, struct qualifications subjects){
     }
 
     /*  Get important qualifications  */
+    for(i = 0; i < TOTAL_SUBJECTS; i++)
+        user.qualifications.subjects[i].name = i;
+
     for(i = 0; i < IMPORTANT_SUBJECTS; i++){
         printf("%s: ", classNameStr(i));
         do{
-            scanf(" %c", temp_char);
-        } while(levelAsValue(test_char) == -1);
+            scanf(" %c", &temp_char);
+        } while(levelAsValue(temp_char) == -1);
         user.qualifications.subjects[i].level = levelAsValue(temp_char);
+        clearBuffer();
+        printf("\n");
     }
 
     /*  Get less important qualifications  */
-    for(i = 0; i < OTHER_SUBJECTS)
+    for(i = 0; i < OTHER_SUBJECTS; i++)
         printf("%d: %s\n", i, classNameStr(i + IMPORTANT_SUBJECTS));
     chooseFromList(user, IMPORTANT_SUBJECTS, IMPORTANT_SUBJECTS + OTHER_SUBJECTS);
 
-    for(i = 0; i < LANGUAGE_SUBJECTS)
+    for(i = 0; i < LANGUAGE_SUBJECTS; i++)
         printf("%d: %s\n", i, classNameStr(i + IMPORTANT_SUBJECTS + OTHER_SUBJECTS));
     chooseFromList(user, IMPORTANT_SUBJECTS + OTHER_SUBJECTS, TOTAL_SUBJECTS);
+
 
     /*  Get average grade  */
     printf("What is your average grade? ");
