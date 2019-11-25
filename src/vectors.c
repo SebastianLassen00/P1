@@ -4,12 +4,12 @@
 #include "vector.h"
 
 int main(void){
- 
     int i;
     double length;
+    double dot_product;
+
     struct vector testv;
     struct vector testv_cpy;
-
     struct vector testv_add;
 
 
@@ -72,6 +72,8 @@ int main(void){
     printf("  length: %f\n", length);
 
     /* dotProduct */
+    dot_product = dotProduct(testv_cpy, testv_add);    
+    printf("dot_product: %f\n", dot_product); 
 
     freeVector(testv_cpy);
     freeVector(testv);
@@ -80,7 +82,10 @@ int main(void){
     return 0;
 }
 
-
+/** @fn struct vector createVector(int size)
+ *  @brief creates a vector on the heap and outputs it. 
+ *  @param size The number of elements in the vector.
+ */
 struct vector createVector(int size){
     struct vector vector;
     vector.array = (double*)calloc(size, sizeof(double));
@@ -94,7 +99,10 @@ struct vector createVector(int size){
     return vector;
 }
 
-
+/** @fn void freeVector(struct vector v)
+ *  @brief frees the dynamically allocated array on the heap.
+ *  @param v The vector struct containing the array on the heap.
+ */
 void freeVector(struct vector v){
     free(v.array);
 }
@@ -127,7 +135,6 @@ void printVector(struct vector v){
  *  @brief Adds two vectors together and outputs the sum as a vector
  *  @param v1 The first vector struct: v1.array[] is a vector, v1.size number of elements in the vector.
  *  @param v2 The second vector struct: v2.array[] is a vector.
- *  @param sum The sum is a vector struct which is returned.
  */
 struct vector addVector(struct vector v1, struct vector v2){
     struct vector sum = createVector(v1.size); 
