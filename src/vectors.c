@@ -39,6 +39,7 @@ int main(void){
     for(i = 0; i < testv_add.size; i++){
         testv_add.array[i] = 2;
     }
+    testv_add.size = 6;
 
     printf(" before addition:\n");
     printVector(testv_add);
@@ -61,12 +62,20 @@ int main(void){
     /* TEST lengthOfVector */
     printf("length of previous vector: \n");
     length = lengthOfVector(testv_add);
-    printf("length: %f\n", length);
+    printf("  length: %f\n", length);
 
     /* TEST normalizeVector */
-    normalizeVector()
+    printf("normalizeVector:\n");
+    testv_add = normalizeVector(testv_add);
+    printVector(testv_add);
+    length = lengthOfVector(testv_add);
+    printf("  length: %f\n", length);
 
-    /* dorProduct */
+    /* dotProduct */
+
+    freeVector(testv_cpy);
+    freeVector(testv);
+    freeVector(testv_add);
 
     return 0;
 }
