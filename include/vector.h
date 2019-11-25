@@ -7,6 +7,8 @@ struct vector{
 };
 
 
+struct vector createVector(int size);
+void fill_array_with_zeros(double array[], int size);
 void copyVector(const double v[], int size, double out[]);
 void addVector(const double v1[], const double v2[], int size, double sum[]);
 void subtractVector(const  double v1[], const double v2[], int size, double sum[]);
