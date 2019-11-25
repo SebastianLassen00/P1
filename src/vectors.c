@@ -147,8 +147,6 @@ struct vector addVector(struct vector v1, struct vector v2){
     for(i = 0; i < v1.size; i++)
         sum.array[i] = v1.array[i] + v2.array[i];
 
-    /*sum.size = v1.size;*/ 
-
     return sum;
 }
 
