@@ -36,11 +36,28 @@ int main(void){
 
 /*    printf("%f", dotProduct(vector_test, 3, vector_dot_test));*/
 
+    int i;
     struct vector testv;
+    struct vector testv_cpy;
 
     testv = createVector(6);
+    printf("Created vector: \n");
     printVector(testv);
 
+    testv.array[0] = 0.3;
+    testv.array[1] = -0.2;
+    testv.array[2] = 0.67;
+    testv.array[3] = 0.77;
+    testv.array[4] = 0.85;
+    testv.array[5] = 0.2;
+
+    printf("Values assigned to the created vector:\n");
+    printVector(testv);
+
+    /* copy vector */
+    testv_cpy = copyVector(testv, testv_cpy);
+    printf("\nCopied vector:\n");
+    printVector(testv_cpy);
 
     return 0;
 }
