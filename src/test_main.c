@@ -36,13 +36,14 @@ int main(void){
         user.interests.array[i] = 0.45 * i;
     }
 
+    for(i = 0; i < TOTAL_SUBJECTS; i++)
+        user.qualifications.subjects[i].name = i;
 
     for(i = 0; i < IMPORTANT_SUBJECTS; i++){
         printf("%s: ", classNameStr(i));
         do{
             scanf(" %c", &temp_char);
         } while(levelAsValue(temp_char) == -1);
-        user.qualifications.subjects[i].name = i;
         user.qualifications.subjects[i].level = levelAsValue(temp_char);
         clearBuffer();
         printf("\n");
@@ -84,7 +85,7 @@ void chooseFromList(struct profile user, int interval_start, int interval_end){
         printf("Scanres: %d\n", scan_res);
         if(temp_subject > 0 && temp_subject < (interval_end - interval_start + 1) && levelAsValue(temp_char) != -1){
             user.qualifications.subjects[temp_subject + interval_start].level = levelAsValue(temp_char);
-            i += 2;
+            i += 3;
         }
     } while(scan_res != EOF);
 
