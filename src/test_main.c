@@ -19,6 +19,7 @@ struct qualification createQualifications(int number_of_qualifications);
 void freeQualifications(struct qualification q);
 void freeProfile(struct profile p);
 const char* classNameStr(enum class class);
+enum level levelAsValue(char c);
 
 int main(void){
     struct profile user;
@@ -33,8 +34,12 @@ int main(void){
     }
 
     for(i = 0; i < user.qualifications.amount_of_subjects; i++){
-        user.qualifications.subjects[i].name = i;
-        user.qualifications.subjects[i].level = i % 4;
+        printf("%s: ", classNameStr(i));
+        do{
+            scanf(" %c", temp_char);
+        } while(levelAsValue(test_char) == -1);
+        user.qualifications.subjects[i].level = levelAsValue(temp_char);
+        printf("\n\n");
     }
 
     printf("%s\n", user.name);
@@ -42,7 +47,7 @@ int main(void){
     printVector(user.interests);
 
     for(i = 0; i < user.qualifications.amount_of_subjects; i++){
-        printf("%s: %d", classNameStr(user.qualifications.subjects[i].name), user.qualifications.subjects[i].level);
+        printf("%s: %d\n", classNameStr(user.qualifications.subjects[i].name), user.qualifications.subjects[i].level);
     }
 
     freeProfile(user);
@@ -93,3 +98,24 @@ const char* classNameStr(enum class class){
     return classes[class];
 }
 
+enum level levelAsValue(char c){
+    enum level return_value = -1;
+
+    switch(c){
+        case 'A': case 'a':
+            return_value = A;
+            break;
+        case 'B': case 'b':
+            return_value = B;
+            break;
+        case 'C': case 'c':
+            return_value = C;
+            break;
+        case 'Z': case 'z':
+            return_value = Z;
+            break;
+        default:
+            return_value = -1;
+    }
+    return return_value;
+}
