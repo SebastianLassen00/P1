@@ -3,6 +3,7 @@
 #include <string.h>
 #include "database.h"
 #include "parser.h"
+#include "region.h"
 
 #define STRING_MAX_LENGTH 50000
 #define TABS '	'
@@ -19,6 +20,42 @@ void parseDatabase(struct database *database, FILE *filereader){
     parseEduNames(database->educations, database->amount_of_educations, filereader);
     parseEduDesc(database->educations, database->amount_of_educations, filereader);
     parseEduDesc(database->educations, database->amount_of_educations, filereader);
+    parseRegion(database->educations, database->amount_of_educations, filereader);
+}
+
+void parseRegion(struct education *education, int number_of_educations, FILE *filereader){
+    char current_line[STRING_MAX_LENGTH];
+    char *region_string;
+    int i;
+    int offset = 0;
+
+    fgets(current_line, STRING_MAX_LENGTH, filereader);
+
+    for(i = 0; i < number_of_educations; i++){
+        region_string = parseEduString(current_line, number_of_educations, region_string, offset);
+        offset += strlen(region_string) + 1;
+        education[i].region = strToReg(region_string);
+    }
+
+    free(region_string);
+}
+
+int strToReg(char* region_string){
+    enum region region;
+    
+    if(strcmp(region_string, "NORTH_JUTLAND") == 0){
+        region = NORTH_JUTLAND;
+    } else if(strcmp(region_string, "CENTRAL_JUTLAND") == 0){
+        region = CENTRAL_JUTLAND;
+    } else if(strcmp(region_string, "SOUTHERN_DENMARK") == 0){
+        region = SOUTHERN_DENMARK;
+    } else if(strcmp(region_string, "ZEALAND") == 0){
+        region = ZEALAND;
+    } else if(strcmp(region_string, "CAPITAL_REGION") == 0) {
+        region = CAPITAL_REGION;
+    }
+
+    return region;
 }
 
 int parseNumOfEdu(FILE *filereader){
