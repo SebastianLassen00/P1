@@ -99,11 +99,10 @@ void freeVector(struct vector v){
     free(v.array);
 }
 
-/** @fn void copyVector(const double in[], int size, double out[])
- *  @brief Copies a v1 to v2
- *  @param v The input vector that is copied
- *  @param size The size of the vectors
- *  @param out The output vector that is copied into
+/** @fn struct vector copyVector(struct vector v1, struct vector v2)
+ *  @brief Copies the first vector into the second and returns the second vector
+ *  @param v1 The input vector that is copied
+ *  @param v2 The output vector that v1 is copied into
  */
 struct vector copyVector(struct vector v1, struct vector v2){
     v2 = v1;
@@ -111,10 +110,9 @@ struct vector copyVector(struct vector v1, struct vector v2){
 }
 
 
-/** @fn void printVector(const double v[], int size)
+/** @fn void printVector(struct vector v)
  *  @brief Prints a vector
  *  @param v The vector that is printed
- *  @param size The size of the vector
  */
 void printVector(struct vector v){
     int i;
@@ -125,9 +123,9 @@ void printVector(struct vector v){
 
 /** @fn struct vector addVector(struct vector v1, struct vector v2)
  *  @brief Adds two vectors together and outputs the sum as a vector
- *  @param v1 The first vector struct: v1.array[] is a vector, v1.size number of elements in the vector.
- *  @param v2 The second vector struct: v2.array[] is a vector.
- *  @param sum The sum is a vector struct which is returned.
+ *  @param v1 The first vector struct: v1.array[] is a vector, v1.size number of elements in the vector
+ *  @param v2 The second vector struct: v2.array[] is a vector
+ *  @param sum The sum is a vector struct which is returned
  */
 struct vector addVector(struct vector v1, struct vector v2){
     struct vector sum = createVector(v1.size); 
@@ -141,12 +139,10 @@ struct vector addVector(struct vector v1, struct vector v2){
     return sum;
 }
 
-/** @fn void addVector(const double v1[], const double v2[], int size, double sum[])
- *  @brief Adds two vectors together and outputs the sum as a vector
+/** @fn struct vector subtractVector(struct vector v1, struct vector v2)
+ *  @brief Subtracts the second vector from the first vector and returns the result as a vector
  *  @param v1 The vector that should be subtracted from
  *  @param v2 The vector that is used for subtraction
- *  @param size The size of the vectors
- *  @param sum The sum of the subtracted vectors that is output
  */
 struct vector subtractVector(struct vector v1, struct vector v2){
     struct vector sum = createVector(v1.size);
@@ -158,12 +154,10 @@ struct vector subtractVector(struct vector v1, struct vector v2){
     return sum;
 }
 
-/** @fn void scaleVector(const double v[], double scale, double size, double out[])
- *  @brief Adds two vectors together and outputs the sum as a vector
+/** @fn struct vector scaleVector(struct vector v, double scale)
+ *  @brief Multiplies the given vector's array values by the value inputted as scale, then outputs the result as a vector
  *  @param v The vector that should be up- or downscaled
  *  @param scale The value that the vector should be scaled by
- *  @param size The size of the vectors
- *  @param out The up- or downscaled vector that is output
  */
 struct vector scaleVector(struct vector v, double scale){
     struct vector result = createVector(v.size);
@@ -175,10 +169,9 @@ struct vector scaleVector(struct vector v, double scale){
     return result;
 }
 
-/** @fn double lengthOfVector(const double v[], int size)
- *  @brief Returns the length of a vector
- *  @param v The vector which length is found
- *  @param size The size of the vector
+/** @fn double lengthOfVector(struct vector v)
+ *  @brief Calculates and returns the length of the given vector
+ *  @param v The vector whose length is found
  */
 double lengthOfVector(struct vector v){
     double sum = 0.0;
@@ -190,20 +183,17 @@ double lengthOfVector(struct vector v){
     return sqrt(sum);
 }
 
-/** @fn void normalizeVector(const double v[], int size, double out[])
- *  @brief Returns the normalized vector
- *  @param v The vector which is to be normalized
- *  @param size The size of the vector
- *  @param out The normalized vector that is output 
+/** @fn struct vector normalizeVector(struct vector v)
+ *  @brief Normalises a vector via scaling it by one over it's length, then returns the normalized vector
+ *  @param v The vector which is to be normalized 
  */
 struct vector normalizeVector(struct vector v){
     return scaleVector(v, 1 / lengthOfVector(v));
 }
 
-/** @fn double dotProduct(const double v1[], int size, const double v2[])
- *  @brief Calculates and returns the dot product of two vectors of any, though equal, size
+/** @fn double dotProduct(struct vector v1, struct vector v2)
+ *  @brief Calculates and returns the dot product of two vectors
  *  @param v1 The first vector to be used for dot product calculation
- *  @param size The size of the vectors
  *  @param v2 The second vector to be used for dot product calculation
  */
 double dotProduct(struct vector v1, struct vector v2){
