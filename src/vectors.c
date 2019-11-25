@@ -38,18 +38,50 @@ int main(void){
     return 0;
 }
 
+void createVector(struct vector* vector, int size){
+    vector->array = (double*)malloc(size * sizeof(double));
+    if(vector == NULL){
+        printf("Failed to allocate memory. Bye bye.\n");
+        exit(EXIT_FAILURE);
+    }
+    fill_array_with_zeros(vector->array, vector->size);
+}
+
+void fill_array_with_zeros(double array[], int size){
+    int i;
+    for(i = 0; i < size; i++)
+        array[i] = 0.0;
+}
+
+void printVector(struct vector* vector){
+    int i;
+
+    printf("Printing array (the vector):\n");
+    for(i = 0; i < vector->size; ++i){
+        printf("%f ", vector->array[i]);
+    }
+    vector -= vector->size; 
+
+    printf("Number of elements in array: %d\n", vector->size);
+}
+
+void clear_heap(double *array){
+    free(array);
+}
+
 /** @fn void copyVector(const double in[], int size, double out[])
  *  @brief Copies a vector into another vector
  *  @param v The input vector that is copied
  *  @param size The size of the vectors
  *  @param out The output vector that is copied into
  */
-void copyVector(const double v[], int size, double out[]){
+void copyVector(const double* v, double* out){
     int i;
 
-    for(i = 0; i < size; i++)
-        out[i] = v[i];
+    for(i = 0; i < v.size; i++)
+        out.array[i] = v.array[i];
 }
+
 
 /** @fn void printVector(const double v[], int size)
  *  @brief Prints a vector
