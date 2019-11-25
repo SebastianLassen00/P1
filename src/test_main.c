@@ -21,6 +21,7 @@ void freeProfile(struct profile p);
 
 int main(void){
     struct profile user;
+    int i;
 
     user = createProfile(5);
 
