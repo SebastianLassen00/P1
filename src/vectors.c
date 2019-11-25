@@ -1,11 +1,7 @@
 #include <stdio.h>
 #include <math.h>
-<<<<<<< HEAD
 #include <stdlib.h>
-#include "vectors.h"
-=======
 #include "vector.h"
->>>>>>> 06e7bed61e6f3504c795fe142bfa109cca619497
 
 int main(void){
     double vector[3] = {1, 0.5, 0.1};
