@@ -131,14 +131,8 @@ void printVector(struct vector v){
 
 /** @fn struct vector addVector(struct vector v1, struct vector v2)
  *  @brief Adds two vectors together and outputs the sum as a vector
-<<<<<<< HEAD
- *  @param v1 The first vector struct: v1.array[] is a vector, v1.size number of elements in the vector.
- *  @param v2 The second vector struct: v2.array[] is a vector.
-=======
  *  @param v1 The first vector struct: v1.array[] is a vector, v1.size number of elements in the vector
  *  @param v2 The second vector struct: v2.array[] is a vector
- *  @param sum The sum is a vector struct which is returned
->>>>>>> bc1c8e75443a7461c1393ad690cbc7cb9c52db82
  */
 struct vector addVector(struct vector v1, struct vector v2){
     struct vector sum = createVector(v1.size); 
