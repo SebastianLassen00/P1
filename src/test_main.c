@@ -89,7 +89,7 @@ void chooseFromList(struct profile user, int interval_start, int interval_end){
             i += 2;
             while(isalnum(*(temp_string + i++)) != 1){
                 printf("i = %d\n", i);
-                printf("char = %c\n", *(temp_string + i));
+                printf("char = %c\n", *(temp_string + i - 1));
             }
             i--;
         }
