@@ -83,11 +83,11 @@ void copyVector(const double* v, double* out){
  *  @param v The vector that is printed
  *  @param size The size of the vector
  */
-void printVector(struct vector vector){
+void printVector(struct vector v){
     int i;
 
-    for(i = 0; i < vector.size; i++)
-        printf("%f\n", vector.array[i]);
+    for(i = 0; i < v.size; i++)
+        printf("%f\n", v.array[i]);
 }
 
 /** @fn void addVector(const double v1[], const double v2[], int size, double sum[])
@@ -97,11 +97,14 @@ void printVector(struct vector vector){
  *  @param size The size of the vectors
  *  @param sum The sum of the added vectors that is output
  */
-void addVector(const double v1[], const double v2[], double sum[]){
+void addVector(struct vector v1, struct vector v2){
     int i;
+    struct vector sum; 
 
-    for(i = 0; i < size; i++)
-        sum[i] = v1[i] + v2[i];
+    for(i = 0; i < v1.size; i++)
+        sum.array[i] = v1.array[i] + v2.array[i];
+
+    return sum;
 }
 
 /** @fn void addVector(const double v1[], const double v2[], int size, double sum[])
