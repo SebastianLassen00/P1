@@ -131,10 +131,13 @@ struct vector subtractVector(struct vector v1, struct vector v2){
  *  @param out The up- or downscaled vector that is output
  */
 struct vector scaleVector(struct vector v, double scale){
+    struct vector result;
     int i;
 
-    for(i = 0; i < size; i++)
-        out[i] = v[i] * scale;
+    for(i = 0; i < v.size; i++)
+        result.array[i] = v.array[i] * scale;
+
+    return result;
 }
 
 /** @fn double lengthOfVector(const double v[], int size)
@@ -142,12 +145,12 @@ struct vector scaleVector(struct vector v, double scale){
  *  @param v The vector which length is found
  *  @param size The size of the vector
  */
-double lengthOfVector(const double v[], int size){
-    int i; 
+double lengthOfVector(struct vector v){
     double sum = 0.0;
+    int i; 
 
-    for(i = 0; i < size; i++)
-        sum += pow(v[i], 2);
+    for(i = 0; i < v.size; i++)
+        sum += pow(v.array[i], 2);
 
     return sqrt(sum);
 }
