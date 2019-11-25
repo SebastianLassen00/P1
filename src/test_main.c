@@ -18,6 +18,7 @@ struct profile createProfile(int number_of_interests);
 struct qualification createQualifications(int number_of_qualifications);
 void freeQualifications(struct qualification q);
 void freeProfile(struct profile p);
+const char* classNameStr(enum class class);
 
 int main(void){
     struct profile user;
@@ -39,6 +40,10 @@ int main(void){
     printf("%s\n", user.name);
 
     printVector(user.interests);
+
+    for(i = 0; i < user.qualifications.amount_of_subjects; i++){
+        printf("%s: %d", classNameStr(user.qualifications.subjects[i].name), user.qualifications.subjects[i].level);
+    }
 
     freeProfile(user);
 
@@ -78,4 +83,13 @@ void freeProfile(struct profile p){
     freeVector(p.interests);
 }
 
+const char* classNameStr(enum class class){
+    char *classes[TOTAL_SUBJECTS] = {"MATHEMATICS", "CHEMISTRY", "BIOLOGY", "PHYSICS", "ENGLISH",
+                                     "BIOTECHNOLOGY", "GEOSCIENCE", "HISTORY", "IDEA_HISTORY",
+                                     "INFORMATICS", "INTERNATIONAL_ECONOMICS", "COMMUNICATION_AND_IT",
+                                     "RELIGION", "SOCIALSTUDIES", "BUSINESS_ECONOMICS", "CONTEMPORAY_HISTORY",
+                                     "FRENCH", "SPANISH", "GERMAN", "CHINESE", "ARABIC", "GREEK", "ITALIAN",
+                                     "JAPANESE", "LATIN", "PORTUGESE", "RUSSIAN"};
+    return classes[class];
+}
 
