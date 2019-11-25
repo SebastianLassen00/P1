@@ -42,7 +42,6 @@ int main(void){
     printVector(testv);
 
 
-
     return 0;
 }
 
