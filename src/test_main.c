@@ -49,11 +49,11 @@ int main(void){
     }
 
     /*  Get less important qualifications  */
-    for(i = 0; i < OTHER_SUBJECTS)
+    for(i = 0; i < OTHER_SUBJECTS; i++)
         printf("%d: %s\n", i, classNameStr(i + IMPORTANT_SUBJECTS));
     chooseFromList(user, IMPORTANT_SUBJECTS, IMPORTANT_SUBJECTS + OTHER_SUBJECTS);
 
-    for(i = 0; i < LANGUAGE_SUBJECTS)
+    for(i = 0; i < LANGUAGE_SUBJECTS; i++)
         printf("%d: %s\n", i, classNameStr(i + IMPORTANT_SUBJECTS + OTHER_SUBJECTS));
     chooseFromList(user, IMPORTANT_SUBJECTS + OTHER_SUBJECTS, TOTAL_SUBJECTS);
 
