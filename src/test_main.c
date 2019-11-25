@@ -57,7 +57,7 @@ int main(void){
 
 
 double convertScale(int initial_value){
-        return (((double) v - 5.0) / 5.0);
+        return (((double) initial_value - 5.0) / 5.0);
     }
 
 int validScaleValue(int value, int interval_start, int interval_end){
