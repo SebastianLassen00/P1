@@ -73,7 +73,7 @@ int main(void){
 }
 
 void chooseFromList(struct profile user, int interval_start, int interval_end){
-    int temp_subject, i = 0;
+    int temp_subject, i = 0, scan_res;
     char temp_char;
     char temp_string[MAX_INPUT_LENGTH];
  
