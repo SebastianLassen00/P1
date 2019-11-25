@@ -26,6 +26,7 @@ int main(void){
     struct education *educations, currentEducation;
     struct profile user;
     struct qualifications subjects;
+    char **
 
     menuCmd();
 
@@ -195,8 +196,7 @@ void testCmd(struct profile user, struct qualifications subjects){
         printf("%s: ", classNameStr(i));
         do{
             scanf(" %c", temp_char);
-        } while(temp_char != 'A' || temp_char != 'B' || temp_char != 'C' || temp_char != 'Z'
-                temp_char != 'a' || temp_char != 'b' || temp_char != 'c' || temp_char != 'z');
+        } while(levelAsValue(test_char) == -1);
         user.qualifications.subjects[i].level = levelAsValue(temp_char);
     }
 
@@ -217,8 +217,40 @@ void testCmd(struct profile user, struct qualifications subjects){
     printf("The test is now concluded. Returning to menu...\n\n");
 }
 
-void chooseFromList(){
+enum level levelAsValue(char c){
+    enum level return_value = -1;
 
+    switch(c){
+        case 'A': case 'a':
+            return_value = A;
+            break;
+        case 'B': case 'b':
+            return_value = B;
+            break;
+        case 'C': case 'c':
+            return_value = C;
+            break;
+        case 'Z': case 'z':
+            return_value = Z;
+            break;
+        default:
+            return_value = -1;
+    }
+    return return_value;
+}
+
+void chooseFromList(struct profile user, interval_start, interval_end){
+    int temp_subject, i = 0;
+    char temp_char;
+    char temp_string[MAX_INPUT_LENGTH];
+
+    do{
+        scanf(" %d%c", temp_subject, temp_char);
+        if(temp_subject > 0 && temp_subject < (interval_end - interval_start + 1) && levelAsValue(temp_char) != -1) {
+            user.qualifications.subjects[temp_subject + interval_start].level = levelAsValue(temp_char);
+            i++;
+        }
+    } while(i < (interval_end - interval_start));
 }
 
 const char* classNameStr(enum class class){

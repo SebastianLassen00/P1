@@ -41,15 +41,14 @@ int main(void){
 
 struct vector createVector(int size){
     struct vector vector;
-    vector.array = (double*)malloc(size * sizeof(double));
+    vector.array = (double*)calloc(size, sizeof(double));
+    /*vector.array = (double*)malloc(size * sizeof(double)); */
     if(vector.array == NULL){
         printf("Failed to allocate memory. Bye bye.\n");
         exit(EXIT_FAILURE);
     }
     vector.size = size;
-
-    fill_array_with_zeros(vector.array, vector.size);
-
+    
     return vector;
 }
 
