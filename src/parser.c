@@ -15,12 +15,40 @@
  * @param filereader 
  */
 void parseDatabase(struct database *database, FILE *filereader){
+    char database_format[STRING_MAX_LENGTH];
+    
+    fgets(database_format, STRING_MAX_LENGTH, filereader);
     database->amount_of_educations = parseNumOfEdu(filereader);
     database->educations = (struct education*) malloc(database->amount_of_educations * sizeof(struct education));
     parseEduNames(database->educations, database->amount_of_educations, filereader);
     parseEduDesc(database->educations, database->amount_of_educations, filereader);
-    parseEduDesc(database->educations, database->amount_of_educations, filereader);
+    parseEduLink(database->educations, database->amount_of_educations, filereader);
     parseRegion(database->educations, database->amount_of_educations, filereader);
+    parseSubReq(database->educations, database->amount_of_educations, filereader);
+    parseGradeReq(database->educations, database->amount_of_educations, filereader);
+}
+
+void parseSubReq(struct education *education, int number_of_educations, FILE *filereader){
+    char current_line[STRING_MAX_LENGTH];
+
+    fgets(current_line, STRING_MAX_LENGTH, filereader);
+}
+
+void parseGradeReq(struct education *education, int number_of_educations, FILE *filereader){
+    char current_line[STRING_MAX_LENGTH];
+    char *grade_string;
+    int i; 
+    int offset = 0;
+
+    fgets(current_line, STRING_MAX_LENGTH, filereader);
+
+    for(i = 0; i < number_of_educations; i++){
+        grade_string = educationSetString(current_line, number_of_educations, grade_string, offset);
+        offset = strlen(grade_string) + 1;
+        education[i].required_grade = strtod(grade_string, NULL);
+    }
+
+    free(grade_string);
 }
 
 void parseRegion(struct education *education, int number_of_educations, FILE *filereader){

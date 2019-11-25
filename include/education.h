@@ -1,8 +1,8 @@
 #ifndef EDUCATION_H
 #define EDUCATION_H
 
-#include"region.h"
-#include"subjects.h"
+#include "region.h"
+#include "subjects.h"
 
 /**
  * @struct education
