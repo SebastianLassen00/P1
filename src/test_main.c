@@ -38,6 +38,7 @@ int main(void){
         printf("%s: ", classNameStr(i));
         do{
             scanf(" %c", temp_char);
+            printf("OK\n");
         } while(levelAsValue(temp_char) == -1);
         user.qualifications.subjects[i].level = levelAsValue(temp_char);
         printf("\n\n");
