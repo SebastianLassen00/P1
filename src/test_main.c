@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "profile.h"
 #include "education.h"
@@ -85,7 +86,9 @@ void chooseFromList(struct profile user, int interval_start, int interval_end){
         printf("Scanres: %d\n", scan_res);
         if(temp_subject > 0 && temp_subject < (interval_end - interval_start + 1) && levelAsValue(temp_char) != -1){
             user.qualifications.subjects[temp_subject + interval_start].level = levelAsValue(temp_char);
-            i += 3;
+            i += 2;
+            while(isalnum(*(temp_string + i++)) != 1);
+            i--;
         }
     } while(scan_res != EOF);
 
