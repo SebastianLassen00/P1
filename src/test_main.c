@@ -20,6 +20,7 @@ void freeQualifications(struct qualification q);
 void freeProfile(struct profile p);
 const char* classNameStr(enum class class);
 enum level levelAsValue(char c);
+void clearBuffer(void)
 
 int main(void){
     struct profile user;
