@@ -16,6 +16,10 @@
 
 
 
+#define IMPORTANT_SUBJECTS 5
+#define OTHER_SUBJECTS 11
+#define LANGUAGE_SUBJECTS 11
+#define TOTAL_SUBJECTS (IMPORTANT_SUBJECTS + OTHER_SUBJECTS + LANGUAGE_SUBJECTS)
 
 
 /**
@@ -25,16 +29,17 @@
  * Are used to represent a subject and its level. The enum is flagablle, 
  * which simply means that bitwise operators are applyable.
  */
-enum class {
+enum class{
     MATHEMATICS,
     CHEMISTRY,
     BIOLOGY,
     PHYSICS,
-    BIOTEKNOLOGY,
+    ENGLISH,
+
+    BIOTECHNOLOGY,
     GEOSCIENCE,
-    DANISH,
     HISTORY,
-    IDEAHISTORY,
+    IDEA_HISTORY,
     INFORMATICS,
     INTERNATIONAL_ECONOMICS,
     COMMUNICATION_AND_IT,
@@ -42,7 +47,7 @@ enum class {
     SOCIALSTUDIES,
     BUSINESS_ECONOMICS,
     CONTEMPORAY_HISTORY,
-    ENGLISH,
+    
     FRENCH,
     SPANISH,
     GERMAN,
@@ -50,19 +55,18 @@ enum class {
     ARABIC,
     GREEK,
     ITALIAN,
-    JAPANESE,
+    JAPANESE, 
     LATIN,
     PORTUGESE,
     RUSSIAN
-
-    /** TODO: Add a shit ton more*/
 };
 
 /**
  * @enum
  * @brief Descripes a level of a subject
  */
-enum level {
+enum level{
+    Z,
     C,
     B,
     A,
@@ -72,7 +76,7 @@ enum level {
  * @struct
  * @brief Descripes the name of a subject and the level
  */
-struct subject {
+struct subject{
     enum class name;    /**the name of the subject*/
     enum level level;   /**the level of the subject*/
 };
@@ -81,7 +85,7 @@ struct subject {
  * @struct
  * @brief Contains an array of subjects and the arrays length
  */
-struct qualification {
+struct qualification{
     int amount_of_subjects;     /**the amount of subjects in qualifications*/
     struct subject *subjects;   /**the array of subjects in qualifications*/
 };
