@@ -51,7 +51,7 @@ struct qualification createQualifications(int number_of_qualifications){
     struct qualification qualifications;
 
     qualifications.amount_of_subjects = number_of_qualifications;
-    qualifications.subjects = ((struct subject) *) calloc(number_of_qualifications, sizeof(subject));
+    qualifications.subjects = (*(struct subject)) calloc(number_of_qualifications, sizeof(subject));
 
     return qualifications;
 }
