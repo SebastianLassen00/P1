@@ -1,11 +1,25 @@
 #ifndef SUBJECTS_H
 #define SUBJECTS_H
 
+
+#define FIRST_SUBJECT_IN_ENUM MATHEMATICS
+#define LAST_SUBJECT_IN_ENUM RUSSIAN
+
+#define FIRST_NATURAL_SCIENCE MATHEMATICS
+#define LAST_NATURAL_SCIENCE GEOSCIENCE
+
+#define FIRST_SOCIAL_SCIENCE DANISH
+#define LAST_SOCIAL_SCIENCE CONTEMPORAY_HISTORY
+
+#define FIRST_FOREIGN_LANGAUGE ENGLISH
+#define LAST_FOREIGN_LANGAUGE RUSSIAN
+
+
+
 #define IMPORTANT_SUBJECTS 5
 #define OTHER_SUBJECTS 11
 #define LANGUAGE_SUBJECTS 11
 #define TOTAL_SUBJECTS (IMPORTANT_SUBJECTS + OTHER_SUBJECTS + LANGUAGE_SUBJECTS)
-
 
 
 /**
@@ -41,7 +55,7 @@ enum class{
     ARABIC,
     GREEK,
     ITALIAN,
-    JAPANESE,
+    JAPANESE, 
     LATIN,
     PORTUGESE,
     RUSSIAN
@@ -76,5 +90,7 @@ struct qualification{
     struct subject *subjects;   /**the array of subjects in qualifications*/
 };
 
+void freeSubject(struct subject *);
+void freeQualification(struct subject *);
 
 #endif
