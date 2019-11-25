@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 #include "vectors.h"
 
 int main(void){
@@ -38,16 +39,18 @@ int main(void){
     return 0;
 }
 
-void createVector(int size){
-    struct vector* vector;
-    vector->array = (double*)malloc(size * sizeof(double));
-    if(vector == NULL){
+struct vector createVector(int size){
+    struct vector vector;
+    vector.array = (double*)malloc(size * sizeof(double));
+    if(vector.array == NULL){
         printf("Failed to allocate memory. Bye bye.\n");
         exit(EXIT_FAILURE);
     }
-    vector->size = size;
-    
+    vector.size = size;
+
     fill_array_with_zeros(vector->array, vector->size);
+
+    return vector;
 }
 
 void fill_array_with_zeros(double array[], int size){
@@ -56,17 +59,6 @@ void fill_array_with_zeros(double array[], int size){
         array[i] = 0.0;
 }
 
-void printVector(struct vector* vector){
-    int i;
-
-    printf("Printing array (the vector):\n");
-    for(i = 0; i < vector->size; ++i){
-        printf("%f ", vector->array[i]);
-    }
-    vector -= vector->size; 
-
-    printf("Number of elements in array: %d\n", vector->size);
-}
 
 void clear_heap(double *array){
     free(array);
