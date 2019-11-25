@@ -159,8 +159,8 @@ double lengthOfVector(struct vector v){
  *  @param size The size of the vector
  *  @param out The normalized vector that is output 
  */
-void normalizeVector(const double v[], int size, double out[]){
-    scaleVector(v, 1 / lengthOfVector(v, size), size, out);
+struct vector normalizeVector(struct vector v){
+    return scaleVector(v, 1 / lengthOfVector(v));
 }
 
 /** @fn double dotProduct(const double v1[], int size, const double v2[])
@@ -169,12 +169,12 @@ void normalizeVector(const double v[], int size, double out[]){
  *  @param size The size of the vectors
  *  @param v2 The second vector to be used for dot product calculation
  */
-double dotProduct(const double v1[], int size, const double v2[]){
-    int i;
+double dotProduct(struct vector v1, struct vector v2){
     double dot_product = 0;
+    int i;
 
-    for(i = 0; i < size; i++){
-        dot_product += v1[i] * v2[i];
+    for(i = 0; i < v1.size; i++){
+        dot_product += v1.array[i] * v2.array[i];
     }
 
     return dot_product;
