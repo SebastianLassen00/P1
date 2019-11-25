@@ -21,6 +21,7 @@ void freeProfile(struct profile p);
 const char* classNameStr(enum class class);
 enum level levelAsValue(char c);
 void clearBuffer(void);
+void chooseFromList(struct profile user, int interval_start, int interval_end);
 
 int main(void){
     struct profile user;
@@ -35,16 +36,28 @@ int main(void){
         user.interests.array[i] = 0.45 * i;
     }
 
-    for(i = 0; i < user.qualifications.amount_of_subjects; i++){
+
+    for(i = 0; i < IMPORTANT_SUBJECTS; i++){
         printf("%s: ", classNameStr(i));
         do{
             scanf(" %c", &temp_char);
-        } while(levelAsValue(temp_char) == -1);
+        } while(levelAsValue(test_char) == -1);
         user.qualifications.subjects[i].name = i;
         user.qualifications.subjects[i].level = levelAsValue(temp_char);
         clearBuffer();
         printf("\n");
     }
+
+    /*  Get less important qualifications  */
+    for(i = 0; i < OTHER_SUBJECTS)
+        printf("%d: %s\n", i, classNameStr(i + IMPORTANT_SUBJECTS));
+    chooseFromList(user, IMPORTANT_SUBJECTS, IMPORTANT_SUBJECTS + OTHER_SUBJECTS);
+
+    for(i = 0; i < LANGUAGE_SUBJECTS)
+        printf("%d: %s\n", i, classNameStr(i + IMPORTANT_SUBJECTS + OTHER_SUBJECTS));
+    chooseFromList(user, IMPORTANT_SUBJECTS + OTHER_SUBJECTS, TOTAL_SUBJECTS);
+
+
 
     printf("%s\n", user.name);
 
@@ -57,6 +70,20 @@ int main(void){
     freeProfile(user);
 
     return 0;
+}
+
+void chooseFromList(struct profile user, int interval_start, int interval_end){
+    int temp_subject, i = 0;
+    char temp_char;
+    char temp_string[MAX_INPUT_LENGTH];
+
+    do{
+        scanf(" %d%c", &temp_subject, &temp_char);
+        if(temp_subject > 0 && temp_subject < (interval_end - interval_start + 1) && levelAsValue(temp_char) != -1) {
+            user.qualifications.subjects[temp_subject + interval_start].level = levelAsValue(temp_char);
+            i++;
+        }
+    } while(i < (interval_end - interval_start));
 }
 
 
