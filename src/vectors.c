@@ -97,9 +97,9 @@ void printVector(struct vector v){
  *  @param size The size of the vectors
  *  @param sum The sum of the added vectors that is output
  */
-void addVector(struct vector v1, struct vector v2){
-    int i;
+struct vector addVector(struct vector v1, struct vector v2){
     struct vector sum; 
+    int i;
 
     for(i = 0; i < v1.size; i++)
         sum.array[i] = v1.array[i] + v2.array[i];
@@ -114,11 +114,14 @@ void addVector(struct vector v1, struct vector v2){
  *  @param size The size of the vectors
  *  @param sum The sum of the subtracted vectors that is output
  */
-void subtractVector(const  double v1[], const double v2[], double sum[]){
+struct vector subtractVector(struct vector v1, struct vector v2){
+    struct vector sum; 
     int i;
 
-    for(i = 0; i < size; i++)
-        sum[i] = v1[i] - v2[i];
+    for(i = 0; i < v1.size; i++)
+        sum.array[i] = v1.array[i] - v2.array[i];
+    
+    return sum;
 }
 
 /** @fn void scaleVector(const double v[], double scale, double size, double out[])
@@ -128,7 +131,7 @@ void subtractVector(const  double v1[], const double v2[], double sum[]){
  *  @param size The size of the vectors
  *  @param out The up- or downscaled vector that is output
  */
-void scaleVector(const double v[], double scale, int size, double out[]){
+struct vector scaleVector(struct vector v, double scale){
     int i;
 
     for(i = 0; i < size; i++)
