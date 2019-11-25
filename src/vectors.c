@@ -48,7 +48,7 @@ struct vector createVector(int size){
     }
     vector.size = size;
 
-    fill_array_with_zeros(vector->array, vector->size);
+    fill_array_with_zeros(vector.array, vector.size);
 
     return vector;
 }
