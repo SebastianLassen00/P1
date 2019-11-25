@@ -41,6 +41,7 @@ int main(void){
         } while(levelAsValue(temp_char) == -1);
         user.qualifications.subjects[i].name = i;
         user.qualifications.subjects[i].level = levelAsValue(temp_char);
+        clearBuffer();
         printf("\n");
     }
 
@@ -120,4 +121,9 @@ enum level levelAsValue(char c){
             return_value = -1;
     }
     return return_value;
+}
+
+void clearBuffer(void){
+    char bin[MAX_INPUT_LENGTH];
+    gets(bin);
 }
