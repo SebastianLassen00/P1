@@ -4,42 +4,16 @@
 #include "vector.h"
 
 int main(void){
-    
-/*    double vector[3] = {1, 0.5, 0.1};
-    double vector_test[3] = {0.2, 0.3, 0.0};
-    double vector_dot_test[3] = {0.0 , 0.0, 1.1};
-    double sum[3] = {0, 0, 0};
-
-    double vector3[3] = {0.1, 0.3, -0.3};
-    double length_of_vector3, length;
-    double output_vector[3];*/
-
-    /*
-    copyVector(vector, 3, vector_test);
-    printVector(vector_test, 3);
-
-    addVector(vector, vector_test, 3, sum);
-    printVector(sum, 3);
-
-    scaleVector(vector, 2, 3, vector_test);
-    printVector(vector_test, 3);
-    
-    length_of_vector3 = lengthOfVector(vector3, 3);
-    printf("Length of vector3: %f\n", length_of_vector3);
-
-    normalizeVector(vector3, 3, output_vector);
-    printVector(output_vector, 3);
-
-    length = lengthOfVector(output_vector, 3);
-    printf("Length of output_vector: %f\n", length);    
-    */
-
-/*    printf("%f", dotProduct(vector_test, 3, vector_dot_test));*/
-
+ 
     int i;
+    double length;
     struct vector testv;
     struct vector testv_cpy;
 
+    struct vector testv_add;
+
+
+    /* TEST createVector and copyVector */
     testv = createVector(6);
     printf("Created vector: \n");
     printVector(testv);
@@ -54,10 +28,45 @@ int main(void){
     printf("Values assigned to the created vector:\n");
     printVector(testv);
 
-    /* copy vector */
+    /* TEST copy vector */
     testv_cpy = copyVector(testv, testv_cpy);
     printf("\nCopied vector:\n");
     printVector(testv_cpy);
+
+    /* TEST addVector */
+    testv_add = createVector(6);
+
+    for(i = 0; i < testv_add.size; i++){
+        testv_add.array[i] = 2;
+    }
+
+    printf(" before addition:\n");
+    printVector(testv_add);
+
+    testv_add = addVector(testv, testv_add);
+
+    printf("The two vectors added: \n");
+    printVector(testv_add);
+
+    /* TEST subtractVector */
+    printf("Subtract initial vector from previous vector:\n");
+    subtractVector(testv_add, testv);
+    printVector(testv_add);
+
+    /* TEST scaleVector */
+    printf("Scale previous vector by 4: \n");
+    scaleVector(testv_add, 4);
+    printVector(testv_add);
+
+    /* TEST lengthOfVector */
+    printf("length of previous vector: \n");
+    length = lengthOfVector(testv_add);
+    printf("length: %f\n", length);
+
+    /* TEST normalizeVector */
+    normalizeVector()
+
+    /* dorProduct */
 
     return 0;
 }
