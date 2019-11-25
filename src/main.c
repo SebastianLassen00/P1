@@ -19,7 +19,7 @@ command convertCommand(char s[MAX_COMMAND_LENGTH]);
 void recommendCmd(struct educations *educations, struct profile user, 
                   struct education *currentEducation);
 
-int main(void){
+/*int main(void){
     char arg[MAX_INPUT_LENGTH], arg_type[MAX_INPUT_LENGTH];
     int arg_num = 0, number_of_educations;
     command c;
@@ -39,7 +39,7 @@ int main(void){
 
     return 0;
 }
-
+*/
 void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, 
                    struct profile user, struct qualifications subjects,
                    struct education *educations, int number_of_educations,
