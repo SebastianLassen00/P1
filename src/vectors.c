@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
-#include "vectors.h"
+#include <stdlib.h>
+#include "vector.h"
 
 int main(void){
     double vector[3] = {1, 0.5, 0.1};
@@ -38,13 +39,18 @@ int main(void){
     return 0;
 }
 
-void createVector(struct vector* vector, int size){
-    vector->array = (double*)malloc(size * sizeof(double));
-    if(vector == NULL){
+struct vector createVector(int size){
+    struct vector vector;
+    vector.array = (double*)malloc(size * sizeof(double));
+    if(vector.array == NULL){
         printf("Failed to allocate memory. Bye bye.\n");
         exit(EXIT_FAILURE);
     }
-    fill_array_with_zeros(vector->array, vector->size);
+    vector.size = size;
+
+    fill_array_with_zeros(vector.array, vector.size);
+
+    return vector;
 }
 
 void fill_array_with_zeros(double array[], int size){
@@ -53,33 +59,20 @@ void fill_array_with_zeros(double array[], int size){
         array[i] = 0.0;
 }
 
-void printVector(struct vector* vector){
-    int i;
-
-    printf("Printing array (the vector):\n");
-    for(i = 0; i < vector->size; ++i){
-        printf("%f ", vector->array[i]);
-    }
-    vector -= vector->size; 
-
-    printf("Number of elements in array: %d\n", vector->size);
-}
 
 void clear_heap(double *array){
     free(array);
 }
 
 /** @fn void copyVector(const double in[], int size, double out[])
- *  @brief Copies a vector into another vector
+ *  @brief Copies a v1 to v2
  *  @param v The input vector that is copied
  *  @param size The size of the vectors
  *  @param out The output vector that is copied into
  */
-void copyVector(const double* v, double* out){
-    int i;
-
-    for(i = 0; i < v.size; i++)
-        out.array[i] = v.array[i];
+struct vector copyVector(struct vector v1, struct vector v2){
+    v2 = v1;
+    return v2;
 }
 
 
@@ -88,25 +81,27 @@ void copyVector(const double* v, double* out){
  *  @param v The vector that is printed
  *  @param size The size of the vector
  */
-void printVector(const double v[], int size){
+void printVector(struct vector v){
     int i;
 
-    for(i = 0; i < size; i++)
-        printf("%f\n", v[i]);
+    for(i = 0; i < v.size; i++)
+        printf("%f\n", v.array[i]);
 }
 
-/** @fn void addVector(const double v1[], const double v2[], int size, double sum[])
+/** @fn struct vector addVector(struct vector v1, struct vector v2)
  *  @brief Adds two vectors together and outputs the sum as a vector
- *  @param v1 The first vector that should be added
- *  @param v2 The second vector that should be added
- *  @param size The size of the vectors
- *  @param sum The sum of the added vectors that is output
+ *  @param v1 The first vector struct: v1.array[] is a vector, v1.size number of elements in the vector.
+ *  @param v2 The second vector struct: v2.array[] is a vector.
+ *  @param sum The sum is a vector struct which is returned.
  */
-void addVector(const double v1[], const double v2[], int size, double sum[]){
+struct vector addVector(struct vector v1, struct vector v2){
+    struct vector sum; 
     int i;
 
-    for(i = 0; i < size; i++)
-        sum[i] = v1[i] + v2[i];
+    for(i = 0; i < v1.size; i++)
+        sum.array[i] = v1.array[i] + v2.array[i];
+
+    return sum;
 }
 
 /** @fn void addVector(const double v1[], const double v2[], int size, double sum[])
@@ -116,11 +111,14 @@ void addVector(const double v1[], const double v2[], int size, double sum[]){
  *  @param size The size of the vectors
  *  @param sum The sum of the subtracted vectors that is output
  */
-void subtractVector(const  double v1[], const double v2[], int size, double sum[]){
+struct vector subtractVector(struct vector v1, struct vector v2){
+    struct vector sum; 
     int i;
 
-    for(i = 0; i < size; i++)
-        sum[i] = v1[i] - v2[i];
+    for(i = 0; i < v1.size; i++)
+        sum.array[i] = v1.array[i] - v2.array[i];
+    
+    return sum;
 }
 
 /** @fn void scaleVector(const double v[], double scale, double size, double out[])
@@ -130,11 +128,14 @@ void subtractVector(const  double v1[], const double v2[], int size, double sum[
  *  @param size The size of the vectors
  *  @param out The up- or downscaled vector that is output
  */
-void scaleVector(const double v[], double scale, int size, double out[]){
+struct vector scaleVector(struct vector v, double scale){
+    struct vector result;
     int i;
 
-    for(i = 0; i < size; i++)
-        out[i] = v[i] * scale;
+    for(i = 0; i < v.size; i++)
+        result.array[i] = v.array[i] * scale;
+
+    return result;
 }
 
 /** @fn double lengthOfVector(const double v[], int size)
@@ -142,12 +143,12 @@ void scaleVector(const double v[], double scale, int size, double out[]){
  *  @param v The vector which length is found
  *  @param size The size of the vector
  */
-double lengthOfVector(const double v[], int size){
-    int i; 
+double lengthOfVector(struct vector v){
     double sum = 0.0;
+    int i; 
 
-    for(i = 0; i < size; i++)
-        sum += pow(v[i], 2);
+    for(i = 0; i < v.size; i++)
+        sum += pow(v.array[i], 2);
 
     return sqrt(sum);
 }
@@ -158,8 +159,8 @@ double lengthOfVector(const double v[], int size){
  *  @param size The size of the vector
  *  @param out The normalized vector that is output 
  */
-void normalizeVector(const double v[], int size, double out[]){
-    scaleVector(v, 1 / lengthOfVector(v, size), size, out);
+struct vector normalizeVector(struct vector v){
+    return scaleVector(v, 1 / lengthOfVector(v));
 }
 
 /** @fn double dotProduct(const double v1[], int size, const double v2[])
@@ -168,12 +169,12 @@ void normalizeVector(const double v[], int size, double out[]){
  *  @param size The size of the vectors
  *  @param v2 The second vector to be used for dot product calculation
  */
-double dotProduct(const double v1[], int size, const double v2[]){
-    int i;
+double dotProduct(struct vector v1, struct vector v2){
     double dot_product = 0;
+    int i;
 
-    for(i = 0; i < size; i++){
-        dot_product += v1[i] * v2[i];
+    for(i = 0; i < v1.size; i++){
+        dot_product += v1.array[i] * v2.array[i];
     }
 
     return dot_product;
