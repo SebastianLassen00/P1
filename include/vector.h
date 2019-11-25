@@ -8,8 +8,6 @@ struct vector{
 
 
 struct vector createVector(int size);
-/*void fill_array_with_zeros(double array[], int size);
-*/
 struct vector copyVector(struct vector v1, struct vector v2);
 struct vector addVector(struct vector v1, struct vector v2);
 struct vector subtractVector(struct vector v1, struct vector v2);

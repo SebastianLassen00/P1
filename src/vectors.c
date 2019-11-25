@@ -59,12 +59,6 @@ struct vector createVector(int size){
     return vector;
 }
 
-void fill_array_with_zeros(double array[], int size){
-    int i;
-    for(i = 0; i < size; i++)
-        array[i] = 0.0;
-}
-
 
 void freeVector(struct vector v){
     free(v.array);
@@ -106,6 +100,8 @@ struct vector addVector(struct vector v1, struct vector v2){
 
     for(i = 0; i < v1.size; i++)
         sum.array[i] = v1.array[i] + v2.array[i];
+
+    sum.size = v1.size; 
 
     return sum;
 }
