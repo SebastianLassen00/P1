@@ -168,10 +168,10 @@ void testCmd(struct profile user, struct qualifications subjects){
     for(i = 0; i < NUMBER_OF_REGIONS; i++)
         printf("%d: %s   ", i, regionName(i));
     printf("\n");
-    profile.location.region = validScaleValue(getValidInteger());
+    profile.location.region = validScaleValue(getValidInteger(), 0, NUMBER_OF_REGIONS - 1);
 
     printf("How important is this region to you\n");
-    profile.location.region_importance = validScaleValue(getValidInteger());
+    profile.location.region_importance = validScaleValue(getValidInteger(), 0, 10);
 
     /*  Get all interests  */
     printf("Next, a series of interests will be shown\n"
@@ -180,7 +180,7 @@ void testCmd(struct profile user, struct qualifications subjects){
 
     for(i = 0; i < ; i++){                              // How many interests?
         printf("%s:  ", );                              // Where are the interests saved? 
-        initial_value = validScaleValue(getValidInteger());
+        initial_value = validScaleValue(getValidInteger(), 0, 10);
         if(initial_value != 0){
             user.interests.array[i] = convertScale(initial_value);
         } else{
@@ -212,8 +212,8 @@ double convertScale(int initial_value){
     return (((double) v - 5.0) / 5.0);
 }
 
-int validScaleValue(int value){
-    return (value > 10 ? 10 : (value < 0 ? 0 : value));
+int validScaleValue(int value, int interval_start, int interval_end){
+    return (value > interval_end ? interval_end : (value < interval_start ? interval_start : value));
 }
 
 int getValidInteger(void){
