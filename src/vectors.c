@@ -65,16 +65,14 @@ void clear_heap(double *array){
 }
 
 /** @fn void copyVector(const double in[], int size, double out[])
- *  @brief Copies a vector into another vector
+ *  @brief Copies a v1 to v2
  *  @param v The input vector that is copied
  *  @param size The size of the vectors
  *  @param out The output vector that is copied into
  */
-void copyVector(const double* v, double* out){
-    int i;
-
-    for(i = 0; i < v.size; i++)
-        out.array[i] = v.array[i];
+struct vector copyVector(struct vector v1, struct vector v2){
+    v2 = v1;
+    return v2;
 }
 
 
