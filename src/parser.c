@@ -56,7 +56,7 @@ char *parseEduString(char* current_line, int amount_of_educations, char* educati
     int tmp_education_string_length;
     int i;
 
-    i = (int) strchr(current_line, TABS) - current_line + sizeof(char) + offset;
+    i = strchr(current_line, TABS) - current_line + sizeof(char) + offset;
     
     sscanf(current_line + i, "%[^\n	]s", tmp_education_string);
     tmp_education_string_length = strlen(tmp_education_string);
