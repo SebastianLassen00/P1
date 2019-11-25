@@ -17,6 +17,6 @@ struct database {
 
 struct database *createDatabase(char *);
 struct education *findEducation(char *, struct database *);
-
+struct educationArray *searchDatabaseForEducation(char *, struct database *);
 
 #endif
