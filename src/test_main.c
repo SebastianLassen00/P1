@@ -37,12 +37,11 @@ int main(void){
     for(i = 0; i < user.qualifications.amount_of_subjects; i++){
         printf("%s: ", classNameStr(i));
         do{
-            printf("OK1\n");
             scanf(" %c", &temp_char);
-            printf("OK2\n");
         } while(levelAsValue(temp_char) == -1);
+        user.qualifications.subjects[i].name = i;
         user.qualifications.subjects[i].level = levelAsValue(temp_char);
-        printf("\n\n");
+        printf("\n");
     }
 
     printf("%s\n", user.name);
