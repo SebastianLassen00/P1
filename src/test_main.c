@@ -31,6 +31,11 @@ int main(void){
         user.interests.array[i] = 0.45 * i;
     }
 
+    for(i = 0; i < user.qualifications.amount_of_subjects; i++){
+        user.qualifications.subjects[i].name = i;
+        user.qualifications.subjects[i].level = i % 4;
+    }
+
     printf("%s\n", user.name);
 
     printVector(user.interests);
