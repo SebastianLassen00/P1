@@ -75,13 +75,18 @@ int main(void){
 void chooseFromList(struct profile user, int interval_start, int interval_end){
     int temp_subject, i = 0, scan_res;
     char temp_char;
- 
+    char temp_string[MAX_INPUT_LENGTH];
+    
+    gets(temp_string);
+
     do{
-        scan_res = scanf(" %d%c", &temp_subject, &temp_char);
-        if(temp_subject > 0 && temp_subject < (interval_end - interval_start + 1) && levelAsValue(temp_char) != -1) 
-            user.qualifications.subjects[temp_subject + interval_start].level = levelAsValue(temp_char);
+        scan_res = sscanf(temp_string + i, " %d%c", &temp_subject, &temp_char);
         printf("Scanres: %d\n", scan_res);
-    } while(scan_res > 0);
+        if(temp_subject > 0 && temp_subject < (interval_end - interval_start + 1) && levelAsValue(temp_char) != -1){
+            user.qualifications.subjects[temp_subject + interval_start].level = levelAsValue(temp_char);
+            i += 2;
+        }
+    } while(scan_res != EOF);
 
     printf("Im done\n");
 }
