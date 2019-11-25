@@ -39,7 +39,7 @@ int main(void){
 
     
     for(i = -5; i < 15; i++){
-        printf("Case C%d\n", i, convertScale(validScaleValue(i)));
+        printf("Case C%d\n", i, convertScale(validScaleValue(i, 0, 10)));
     }
 
 
