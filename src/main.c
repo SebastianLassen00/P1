@@ -191,10 +191,23 @@ void testCmd(struct profile user, struct qualifications subjects){
     }
 
     /*  Get important qualifications  */
-
+    for(i = 0; i < IMPORTANT_SUBJECTS; i++){
+        printf("%s: ", classNameStr(i));
+        do{
+            scanf(" %c", temp_char);
+        } while(temp_char != 'A' || temp_char != 'B' || temp_char != 'C' || temp_char != 'Z'
+                temp_char != 'a' || temp_char != 'b' || temp_char != 'c' || temp_char != 'z');
+        user.qualifications.subjects[i].level = levelAsValue(temp_char);
+    }
 
     /*  Get less important qualifications  */
+    for(i = 0; i < OTHER_SUBJECTS)
+        printf("%d: %s\n", i, classNameStr(i + IMPORTANT_SUBJECTS));
+    chooseFromList(user, IMPORTANT_SUBJECTS, IMPORTANT_SUBJECTS + OTHER_SUBJECTS);
 
+    for(i = 0; i < LANGUAGE_SUBJECTS)
+        printf("%d: %s\n", i, classNameStr(i + IMPORTANT_SUBJECTS + OTHER_SUBJECTS));
+    chooseFromList(user, IMPORTANT_SUBJECTS + OTHER_SUBJECTS, TOTAL_SUBJECTS);
 
     /*  Get average grade  */
     printf("What is your average grade? ");
@@ -206,6 +219,16 @@ void testCmd(struct profile user, struct qualifications subjects){
 
 void chooseFromList(){
 
+}
+
+const char* classNameStr(enum class class){
+    char *classes[TOTAL_SUBJECTS] = {"MATHEMATICS", "CHEMISTRY", "BIOLOGY", "PHYSICS", "ENGLISH",
+                                     "BIOTECHNOLOGY", "GEOSCIENCE", "HISTORY", "IDEA_HISTORY",
+                                     "INFORMATICS", "INTERNATIONAL_ECONOMICS", "COMMUNICATION_AND_IT",
+                                     "RELIGION", "SOCIALSTUDIES", "BUSINESS_ECONOMICS", "CONTEMPORAY_HISTORY",
+                                     "FRENCH", "SPANISH", "GERMAN", "CHINESE", "ARABIC", "GREEK", "ITALIAN",
+                                     "JAPANESE", "LATIN", "PORTUGESE", "RUSSIAN"};
+    return classes[class];
 }
 
 double convertScale(int initial_value){
