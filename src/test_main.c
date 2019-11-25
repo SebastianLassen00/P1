@@ -23,48 +23,29 @@ const char* classNameStr(enum class class);
 enum level levelAsValue(char c);
 void clearBuffer(void);
 void chooseFromList(struct profile user, int interval_start, int interval_end);
+double convertScale(int initial_value);
+int validScaleValue(int value, int interval_start, int interval_end);
 
 int main(void){
     struct profile user;
     int i;
     char temp_char;
-
     user = createProfile(5);
 
     user.name = "christian";
-
     for(i = 0; i < user.interests.size; i++){
         user.interests.array[i] = 0.45 * i;
     }
 
-    for(i = 0; i < TOTAL_SUBJECTS; i++)
-        user.qualifications.subjects[i].name = i;
-
-    for(i = 0; i < IMPORTANT_SUBJECTS; i++){
-        printf("%s: ", classNameStr(i));
-        do{
-            scanf(" %c", &temp_char);
-        } while(levelAsValue(temp_char) == -1);
-        user.qualifications.subjects[i].level = levelAsValue(temp_char);
-        clearBuffer();
-        printf("\n");
+    
+    for(i = -5; i < 15; i++){
+        printf("Case C%d: %lf\n", i, convertScale(validScaleValue(i, 0, 10)));
     }
-
-    /*  Get less important qualifications  */
-    for(i = 0; i < OTHER_SUBJECTS; i++)
-        printf("%d: %s\n", i, classNameStr(i + IMPORTANT_SUBJECTS));
-    chooseFromList(user, IMPORTANT_SUBJECTS, IMPORTANT_SUBJECTS + OTHER_SUBJECTS);
-
-    for(i = 0; i < LANGUAGE_SUBJECTS; i++)
-        printf("%d: %s\n", i, classNameStr(i + IMPORTANT_SUBJECTS + OTHER_SUBJECTS));
-    chooseFromList(user, IMPORTANT_SUBJECTS + OTHER_SUBJECTS, TOTAL_SUBJECTS);
 
 
 
     printf("%s\n", user.name);
-
     printVector(user.interests);
-
     for(i = 0; i < user.qualifications.amount_of_subjects; i++){
         printf("%s: %d\n", classNameStr(user.qualifications.subjects[i].name), user.qualifications.subjects[i].level);
     }
@@ -73,6 +54,19 @@ int main(void){
 
     return 0;
 }
+
+
+double convertScale(int initial_value){
+        return (((double) initial_value - 5.0) / 5.0);
+    }
+
+int validScaleValue(int value, int interval_start, int interval_end){
+    return (value > interval_end ? interval_end : (value < interval_start ? interval_start : value));
+}
+
+
+
+
 
 void chooseFromList(struct profile user, int interval_start, int interval_end){
     int temp_subject, i = 0, scan_res;
@@ -83,15 +77,12 @@ void chooseFromList(struct profile user, int interval_start, int interval_end){
 
     do{
         scan_res = sscanf(temp_string + i, " %d%c", &temp_subject, &temp_char);
-        printf("Scanres: %d\n", scan_res);
         if(temp_subject > 0 && temp_subject < (interval_end - interval_start + 1) && levelAsValue(temp_char) != -1  && scan_res == 2){
             user.qualifications.subjects[temp_subject + interval_start].level = levelAsValue(temp_char);
             i += 1;
             while(isalnum(*(temp_string + ++i)) == 0);
         }
     } while(scan_res > 0);
-
-    printf("Im done\n");
 }
 
 
@@ -163,3 +154,8 @@ void clearBuffer(void){
     char bin[MAX_INPUT_LENGTH];
     gets(bin);
 }
+
+/*
+
+
+*/

@@ -5,6 +5,7 @@
 #include"subjects.h"
 #include "vector.h"
 
+
 /**
  * @struct education
  * @brief Describes an education and all it requirements.
@@ -20,5 +21,18 @@ struct education {
     struct vector interests;    /**The amount each interest is associated with this education*/
     struct qualification required_qualifications;   /**The required qualifications for this education*/
 };
+
+/**
+ * @struct education
+ * @brief A structure, which contains amount_of_educations educations
+ */
+struct educationArray{
+    int amount_of_educations;       /**The amount of educations in educations*/
+    struct education **educations; /**An array of pointers to educations*/
+};
+
+struct education *createEducationBasics(char *, char*, char*, enum region);
+void freeEducation(struct education *);
+void freeEducationArray(struct educationArray *);
 
 #endif
