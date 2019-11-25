@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "profile.h"
 #include "education.h"
@@ -36,13 +37,14 @@ int main(void){
         user.interests.array[i] = 0.45 * i;
     }
 
+    for(i = 0; i < TOTAL_SUBJECTS; i++)
+        user.qualifications.subjects[i].name = i;
 
     for(i = 0; i < IMPORTANT_SUBJECTS; i++){
         printf("%s: ", classNameStr(i));
         do{
             scanf(" %c", &temp_char);
         } while(levelAsValue(temp_char) == -1);
-        user.qualifications.subjects[i].name = i;
         user.qualifications.subjects[i].level = levelAsValue(temp_char);
         clearBuffer();
         printf("\n");
@@ -73,20 +75,22 @@ int main(void){
 }
 
 void chooseFromList(struct profile user, int interval_start, int interval_end){
-    int temp_subject, i = 0;
+    int temp_subject, i = 0, scan_res;
     char temp_char;
     char temp_string[MAX_INPUT_LENGTH];
- 
+    
+    gets(temp_string);
+
     do{
-        scanf(" %d %c", &temp_subject, &temp_char);
-        printf("%d:%c\n", temp_subject, temp_char);
-        printf("%d: %d\n", levelAsValue(temp_char), (int) levelAsValue(temp_char));
-        if(temp_subject > 0 && temp_subject < (interval_end - interval_start + 1) && levelAsValue(temp_char) != -1) {
-            printf("%d:%c\n", temp_subject, temp_char);
+        scan_res = sscanf(temp_string + i, " %d%c", &temp_subject, &temp_char);
+        printf("Scanres: %d\n", scan_res);
+        if(temp_subject > 0 && temp_subject < (interval_end - interval_start + 1) && levelAsValue(temp_char) != -1  && scan_res == 2){
             user.qualifications.subjects[temp_subject + interval_start].level = levelAsValue(temp_char);
-            i++;
+            i += 1;
+            while(isalnum(*(temp_string + ++i)) == 0);
         }
-    } while(i < (interval_end - interval_start) && temp_char != '\n');
+    } while(scan_res > 0);
+
     printf("Im done\n");
 }
 
