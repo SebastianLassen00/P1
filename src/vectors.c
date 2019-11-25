@@ -90,12 +90,11 @@ void printVector(struct vector v){
         printf("%f\n", v.array[i]);
 }
 
-/** @fn void addVector(const double v1[], const double v2[], int size, double sum[])
+/** @fn struct vector addVector(struct vector v1, struct vector v2)
  *  @brief Adds two vectors together and outputs the sum as a vector
- *  @param v1 The first vector that should be added
- *  @param v2 The second vector that should be added
- *  @param size The size of the vectors
- *  @param sum The sum of the added vectors that is output
+ *  @param v1 The first vector struct: v1.array[] is a vector, v1.size number of elements in the vector.
+ *  @param v2 The second vector struct: v2.array[] is a vector.
+ *  @param sum The sum is a vector struct which is returned.
  */
 struct vector addVector(struct vector v1, struct vector v2){
     struct vector sum; 
