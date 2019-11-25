@@ -3,7 +3,8 @@
 #include <stdlib.h>
 #include "vector.h"
 
-int main(void){
+/*int main(void){*/
+
 /*    double vector[3] = {1, 0.5, 0.1};
     double vector_test[3] = {0.2, 0.3, 0.0};
     double vector_dot_test[3] = {0.0 , 0.0, 1.1};
@@ -35,7 +36,7 @@ int main(void){
 
 /*    printf("%f", dotProduct(vector_test, 3, vector_dot_test));*/
 
-    struct vector testv;
+/*    struct vector testv;
 
     testv = createVector(6);
     printVector(testv);
@@ -43,7 +44,7 @@ int main(void){
 
 
     return 0;
-}
+}*/
 
 
 struct vector createVector(int size){
