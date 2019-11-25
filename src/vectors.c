@@ -1,7 +1,11 @@
 #include <stdio.h>
 #include <math.h>
+<<<<<<< HEAD
 #include <stdlib.h>
 #include "vectors.h"
+=======
+#include "vector.h"
+>>>>>>> 06e7bed61e6f3504c795fe142bfa109cca619497
 
 int main(void){
     double vector[3] = {1, 0.5, 0.1};
@@ -83,11 +87,11 @@ void copyVector(const double* v, double* out){
  *  @param v The vector that is printed
  *  @param size The size of the vector
  */
-void printVector(const double v[], int size){
+void printVector(struct vector vector){
     int i;
 
-    for(i = 0; i < size; i++)
-        printf("%f\n", v[i]);
+    for(i = 0; i < vector.size; i++)
+        printf("%f\n", vector.array[i]);
 }
 
 /** @fn void addVector(const double v1[], const double v2[], int size, double sum[])
@@ -97,7 +101,7 @@ void printVector(const double v[], int size){
  *  @param size The size of the vectors
  *  @param sum The sum of the added vectors that is output
  */
-void addVector(const double v1[], const double v2[], int size, double sum[]){
+void addVector(const double v1[], const double v2[], double sum[]){
     int i;
 
     for(i = 0; i < size; i++)
@@ -111,7 +115,7 @@ void addVector(const double v1[], const double v2[], int size, double sum[]){
  *  @param size The size of the vectors
  *  @param sum The sum of the subtracted vectors that is output
  */
-void subtractVector(const  double v1[], const double v2[], int size, double sum[]){
+void subtractVector(const  double v1[], const double v2[], double sum[]){
     int i;
 
     for(i = 0; i < size; i++)
