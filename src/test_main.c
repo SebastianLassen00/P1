@@ -15,7 +15,7 @@ typedef enum command command;
 
 
 struct profile createProfile(int number_of_interests);
-struct qualifications createQualifications(int number_of_qualifications);
+struct qualification createQualifications(int number_of_qualifications);
 void freeQualifications(struct qualification q);
 void freeProfile(struct profile p);
 
@@ -51,7 +51,7 @@ struct qualification createQualifications(int number_of_qualifications){
     struct qualification qualifications;
 
     qualifications.amount_of_subjects = number_of_qualifications;
-    qualifications.subjects = (subject *) calloc(number_of_qualifications, sizeof(subject));
+    qualifications.subjects = (*subject) calloc(number_of_qualifications, sizeof(subject));
 
     return qualifications;
 }
