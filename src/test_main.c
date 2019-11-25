@@ -10,7 +10,7 @@
 #define MAX_COMMAND_LENGTH 10
 #define MAX_INPUT_LENGTH (MAX_COMMAND_LENGTH + 100)
 
-enum command{find, save, save_prof, recommend, list, eval, test, menu, exit};
+enum command{find, save, save_prof, recommend, list, eval, test, menu, quit};
 typedef enum command command;
 
 
@@ -47,7 +47,7 @@ struct profile createProfile(int number_of_interests){
     return profile;
 }
 
-struct qualifications createQualifications(int number_of_qualifications){
+struct qualification createQualifications(int number_of_qualifications){
     struct qualification qualifications;
 
     qualifications.amount_of_subjects = number_of_qualifications;
