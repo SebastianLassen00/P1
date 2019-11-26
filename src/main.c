@@ -156,23 +156,27 @@ void testCmd(struct profile user, struct qualifications subjects){
     int initial_value;
     char test_char;
 
-    /*  Introduction to test  */
+    /*  Introduction  */
     printf("This test will ask you several questions about interests, qualifications and grades\n"
-           "The test requires answers in numbers (integers), and where scale is part, a value between 1 and 100");
+           "The test requires answers in numbers (integers), and where scale is part, a value between 1 and 100\n\n");
 
     /*  Scan for profile name  */
     printf("Profile name (only one word): ");
-    scan_res = scanf(" %s", profile.name);
+    
+    getValidName(name, names);
+    printf("Name is: %s\n", name);
 
+    user.name = name;
+    
     /*  Get location and assesment  */
     printf("Where do you want to study?\n");
     for(i = 0; i < NUMBER_OF_REGIONS; i++)
         printf("%d: %s   ", i, regionName(i));
     printf("\n");
-    profile.location.region = validScaleValue(getValidInteger(), 0, NUMBER_OF_REGIONS - 1);
+    user.location.region = validScaleValue(getValidInteger(), 0, NUMBER_OF_REGIONS - 1);
 
     printf("How important is this region to you\n");
-    profile.location.region_importance = validScaleValue(getValidInteger(), 0, 10);
+    user.location.region_importance = convertScale(validScaleValue(getValidInteger(), 0, 10));
 
     /*  Get all interests  */
     printf("Next, a series of interests will be shown\n"
@@ -223,6 +227,26 @@ void testCmd(struct profile user, struct qualifications subjects){
     printf("The test is now concluded. Returning to menu...\n\n");
 }
 
+void getValidName(char *name, char *name_array[]){
+    int scan_res;
+
+    do{
+        printf("Enter correct name\n");
+        scan_res = scanf(" %s", name);
+    } while(scan_res == 1 && isUsed(name, name_array, 10));
+}
+
+int isUsed(char name[MAX_NAME_LENGTH], char *name_array[], int number_of_names){
+    int i;
+
+    for(i = 0; i < number_of_names; i++){
+        if(strcmp(name, name_array[i]) == 0)
+            return 1;
+    }
+
+    return 0;
+}
+
 enum level levelAsValue(char c){
     enum level return_value = -1;
 
@@ -259,6 +283,12 @@ void chooseFromList(struct profile user, interval_start, interval_end){
     } while(i < (interval_end - interval_start));
 }
 
+const char* regionName(enum region region){
+    char *regions[NUMBER_OF_REGIONS] = {"NORTH JUTLAND", "CENTRAL JUTLAND", "SOUTHERN DENMARK", 
+                                        "ZEALAND", "CAPITAL REGION"};
+    return regions[region];
+}
+
 const char* classNameStr(enum class class){
     char *classes[TOTAL_SUBJECTS] = {"MATHEMATICS", "CHEMISTRY", "BIOLOGY", "PHYSICS", "ENGLISH",
                                      "BIOTECHNOLOGY", "GEOSCIENCE", "HISTORY", "IDEA_HISTORY",
@@ -285,7 +315,7 @@ int getValidInteger(void){
         scan_res = scanf(" %d", &valid_int);
         if(scan_res == 0)
             scanf(" %c", &test_char);
-    } while(scan_res == 0 || test_char != '\n');
+    } while(scan_res == 0 && test_char != '\n');
 
     return valid_int;
 }

@@ -18,7 +18,7 @@ enum region{
 
 struct location{
 	enum region region;
-	int region_importance;
+	double region_importance;
 };
 
 #endif
