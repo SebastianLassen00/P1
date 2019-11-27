@@ -21,10 +21,9 @@ void freeDatabase(struct database *database){
         freeEducation(database->educations[i]);
     }
 
-    for (i = 0; i < database->amount_of_interests; i++)
-    {
+    for(i = 0; i < database->amount_of_interests; i++) 
         free(database->interest_as_read_in_database[i]);
-    }
+
     free(database->interest_as_read_in_database);
 
     free(database);
@@ -46,6 +45,8 @@ struct database *createDatabase(char *database_file ){
     data = fopen(database_file, "r");
 
     parseDatabase(database, data);
+
+    fclose(data);
 
     return database;
 }
@@ -87,8 +88,7 @@ struct educationArray *searchDatabaseForEducation(char *search_word, struct data
     educationArray->educations = malloc(sizeof(void *) * 10);
     
     /*Go through all educations in database*/
-    for(i = 0; i < database->amount_of_educations + 1; i++)
-    {
+    for(i = 0; i < database->amount_of_educations + 1; i++){
         strncpy(temp_string, database->educations[i]->name, strlen(search_word));
 
         /*If the education has the search word in it*/
@@ -98,5 +98,6 @@ struct educationArray *searchDatabaseForEducation(char *search_word, struct data
             educationArray->educations[i] = database->educations[i];
         }
     }
+    
     return educationArray;
 }
