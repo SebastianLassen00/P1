@@ -10,7 +10,7 @@
 struct vector createVector(int size){
     struct vector vector;
     vector.array = (double*)calloc(size, sizeof(double));
-    /*vector.array = (double*)malloc(size * sizeof(double)); */
+
     if(vector.array == NULL){
         printf("Failed to allocate memory. Bye bye.\n");
         exit(EXIT_FAILURE);
@@ -29,13 +29,17 @@ void freeVector(struct vector v){
 }
 
 /** @fn struct vector copyVector(struct vector v1, struct vector v2)
- *  @brief Copies the first vector into the second and returns the second vector
+ *  @brief Copies the the inputted vector into vector copy and returns this.
  *  @param v1 The input vector that is copied
- *  @param v2 The output vector that v1 is copied into
  */
-struct vector copyVector(struct vector v1, struct vector v2){
-    v2 = v1;
-    return v2;
+struct vector copyVector(struct vector v){
+    struct vector copy = createVector(v.size);
+    int i;
+
+    for(i = 0; i < v.size; i++)
+        copy.array[i] = v.array[i];
+    
+    return copy;
 }
 
 
@@ -126,9 +130,8 @@ double dotProduct(struct vector v1, struct vector v2){
     double dot_product = 0;
     int i;
 
-    for(i = 0; i < v1.size; i++){
+    for(i = 0; i < v1.size; i++)
         dot_product += v1.array[i] * v2.array[i];
-    }
 
     return dot_product;
 }
