@@ -93,11 +93,11 @@ struct educationArray *searchDatabaseForEducation(char *search_word, struct data
 
         /*If the education has the search word in it*/
         if(strcmp(temp_string, search_word) 
-        && educationArray->amount_of_educations < 10){
+            && educationArray->amount_of_educations < 10){
             educationArray->amount_of_educations += 1;
             educationArray->educations[i] = database->educations[i];
         }
     }
-    
+
     return educationArray;
 }
