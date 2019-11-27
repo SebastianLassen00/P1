@@ -130,9 +130,8 @@ double dotProduct(struct vector v1, struct vector v2){
     double dot_product = 0;
     int i;
 
-    for(i = 0; i < v1.size; i++){
+    for(i = 0; i < v1.size; i++)
         dot_product += v1.array[i] * v2.array[i];
-    }
 
     return dot_product;
 }
