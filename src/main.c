@@ -102,9 +102,6 @@ command scanCommand(char arg[MAX_INPUT_LENGTH], int *arg_num){
         return -1;
     }
 
-    if()
-    sscanf(str, "[^0123456789]")
-
     switch(argType(command_index)){
         case 1:
             scanf(" %s", arg);
@@ -154,7 +151,9 @@ int argType(command c){
 void testCmd(struct profile user, struct qualifications subjects){
     int scan_res;
     int initial_value;
-    char test_char;
+    char temp_char;
+    char name[MAX_NAME_LENGTH];
+    char *names[10] = {"christian", "karl", "sebastian", "simon", "magnus", "steven", "johannes", "nikolai", "børge", "kurt"};
 
     /*  Introduction  */
     printf("This test will ask you several questions about interests, qualifications and grades\n"
@@ -186,7 +185,7 @@ void testCmd(struct profile user, struct qualifications subjects){
     for(i = 0; i < ; i++){                              // How many interests?
         printf("%s:  ", );                              // Where are the interests saved? 
         initial_value = validScaleValue(getValidInteger(), 0, 10);
-        if(initial_value != 0){
+        if(initial_value != -1){
             user.interests.array[i] = convertScale(initial_value);
         } else{
             printf("Wrong input, try again\n");
@@ -335,7 +334,7 @@ double getValidDouble(void){
 }
 
 /* Recommends an education to the user. */
-void recommendCmd(struct educations *educations, int number_of_educations, struct profile user, 
+void recommendCmd(struct education *educations, int number_of_educations, struct profile user, 
                   struct education *currentEducation){
     int i;
     struct vector results, normalized_vector;
@@ -358,6 +357,9 @@ void recommendCmd(struct educations *educations, int number_of_educations, struc
 
 /* Prints the relavant information about the given education */
 void printEducation(struct education education){
+    printf("Name of education: %s\n", education.name);
+    printf("Description: %s\n", education.description);
+    printf("Education is located in: %s\n", );
 
 }
 
