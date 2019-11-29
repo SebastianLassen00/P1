@@ -23,12 +23,12 @@ void menuCmd(void){
 }
 
 
-/** @fn void testCmd(struct profile user, struct database db)
+/** @fn void testCmd(struct profile *user, struct database db)
  *  @brief Tests the current user for name, location, interests, qualifications and average grade
  *  @param user The profile struct where all test results should be saved 
  *  @param db The database where information of interests and subjects are
  */
-void testCmd(struct profile user, struct database db){
+void testCmd(struct profile *user, struct database db){
     int scan_res;
     int initial_value;
     char temp_char;
@@ -53,7 +53,7 @@ void testCmd(struct profile user, struct database db){
     
     /*  Get average grade  */
     printf("What is your average grade? ");
-    user.average = getValidDouble();
+    user->average = getValidDouble();
 
     /*  Ending the test  */
     printf("The test is now concluded. Returning to menu...\n\n");
@@ -61,17 +61,17 @@ void testCmd(struct profile user, struct database db){
 
 /* **************** TestCmd() functions **************** */
 
-/** @fn void setProfileName(struct profile user, char *name, char **names)
+/** @fn void setProfileName(struct profile *user, char *name, char **names)
  *  @brief Sets the profile name of the user to the name given to the function
  *  @param user The profile struct where the name should be saved to
  *  @param name The name string given to the function to be saved in user
  *  @param names The list of all names already used
  */
-void setProfileName(struct profile user, char *name, char **names){
+void setProfileName(struct profile *user, char *name, char **names){
     printf("Profile name (only one word): ");
 
     getValidName(name, names);
-    strcpy(user.name, name);
+    strcpy(user->name, name);
 }
 
 /** @fn void getValidName(char *name, char **name_array)
@@ -104,21 +104,21 @@ int isUsed(char *name, char **names, int number_of_names){
     return 0;
 }
 
-/** @fn void setProfileLocation(struct profile user)
+/** @fn void setProfileLocation(struct profile *user)
  *  @brief Sets the region of choice in user. Saves the interest in studying in this location
  *  @param user The profile struct where the information about location should be saved
  */
-void setProfileLocation(struct profile user){
+void setProfileLocation(struct profile *user){
     int i;
 
     printf("Where do you want to study?\n");
     for(i = 0; i < NUMBER_OF_REGIONS; i++)
         printf("%d: %s   ", i, regionName(i));
     printf("\n");
-    user.location.region = validScaleValue(getValidInteger(), 0, NUMBER_OF_REGIONS - 1);
+    user->location.region = validScaleValue(getValidInteger(), 0, NUMBER_OF_REGIONS - 1);
 
     printf("How important is this region to you\n");
-    user.location.region_importance = convertScale(validScaleValue(getValidInteger(), 0, 10));
+    user->location.region_importance = convertScale(validScaleValue(getValidInteger(), 0, 10));
 }
 
 /** @fn const char *regionName(enum region region)
@@ -167,12 +167,12 @@ int getValidInteger(void){
     return valid_int;
 }
 
-/** @fn void setProfileInterests(struct profile user, struct database db)
+/** @fn void setProfileInterests(struct profile *user, struct database db)
  *  @brief Saves all interests to user as a converted value (see convertScale)
  *  @param user The profile struct where the interests are saved to
  *  @param db The database struct where information about all interests are saved
  */
-void setProfileInterests(struct profile user, struct database db){
+void setProfileInterests(struct profile *user, struct database db){
     int i;
 
     printf("Next, a series of interests will be shown\n"
@@ -181,15 +181,15 @@ void setProfileInterests(struct profile user, struct database db){
 
     for(i = 0; i < interests.size; i++){
         printf("%s:  ", db.interests_string[i]);
-        user.interests[i] = convertScale(validScaleValue(getValidInteger(), 0, 10));
+        user->interests[i] = convertScale(validScaleValue(getValidInteger(), 0, 10));
     }
 }
 
-/** @fn void setProfileQualifications(struct profile user)
+/** @fn void setProfileQualifications(struct profile *user)
  *  @brief Saves all the users qualifications as given by the terminal
  *  @param user The profile struct where the qualifications are saved to
  */
-void setProfileQualifications(struct profile user){
+void setProfileQualifications(struct profile *user){
     setSubjects(user);
     
     setImportantSubjects(user); 
@@ -198,22 +198,22 @@ void setProfileQualifications(struct profile user){
     setOtherSubjects(user, IMPORTANT_SUBJECTS + OTHER_SUBJECTS, TOTAL_SUBJECTS);
 }
 
-/** @fn void setSubjects(struct profile user)
+/** @fn void setSubjects(struct profile *user)
  *  @brief Sets all qualifications in user to match the enum class
  *  @param user The profile struct where the subjects are saved to
  */
-void setSubjects(struct profile user){
+void setSubjects(struct profile *user){
     int i;
 
     for(i = 0; i < TOTAL_SUBJECTS; i++)
-        user.qualifications.subjects[i].name = i;
+        user->qualifications.subjects[i].name = i;
 }
 
-/** @fn void setImportantSubjects(struct profile user)
+/** @fn void setImportantSubjects(struct profile *user)
  *  @brief Saves all the qualifications for the important subjects
  *  @param user The profile struct where the subjects are saved to
  */
-void setImportantSubjects(struct profile user){
+void setImportantSubjects(struct profile *user){
     char temp_char;
     int i;
 
@@ -222,7 +222,7 @@ void setImportantSubjects(struct profile user){
         do{
             scanf(" %c", &temp_char);
         } while(levelAsValue(temp_char) == -1);
-        user.qualifications.subjects[i].level = levelAsValue(temp_char);
+        user->qualifications.subjects[i].level = levelAsValue(temp_char);
         clearBuffer();
         printf("\n");
     }
@@ -268,13 +268,13 @@ enum level levelAsValue(char c){
     return return_value;
 }
 
-/** @fn void setOtherSubjects(struct profile user, int start, int end)
+/** @fn void setOtherSubjects(struct profile *user, int start, int end)
  *  @brief Saves all the levels of the other subjects (not the important ones)
  *  @param user The profile struct where the qualifications are to be saved
  *  @param start The start of the subjects to be asked for
  *  @param end The ens of the subjects to be asked for
  */
-void setOtherSubjects(struct profile user, int start, int end){
+void setOtherSubjects(struct profile *user, int start, int end){
     int i;
 
     for(i = 0; i < end - start; i++)
@@ -282,13 +282,13 @@ void setOtherSubjects(struct profile user, int start, int end){
     chooseFromList(user, start, end);
 }
 
-/** @fn void chooseFromList(struct profile user, interval_start, interval_end)
+/** @fn void chooseFromList(struct profile *user, interval_start, interval_end)
  *  @brief Saves the levels of chosen subjects to user
  *  @param user The profile struct where the qualifications should be saved
  *  @param interval_start The start of the interval for the qualifications in the list
  *  @param interval_end The end of the interval for the qualifications in the list
  */
-void chooseFromList(struct profile user, int interval_start, int interval_end){
+void chooseFromList(struct profile *user, int interval_start, int interval_end){
     int temp_subject, i = 0;
     char temp_char;
     char temp_string[MAX_INPUT_LENGTH];
@@ -296,7 +296,7 @@ void chooseFromList(struct profile user, int interval_start, int interval_end){
     do{
         scanf(" %d%c", temp_subject, temp_char);
         if(temp_subject > 0 && temp_subject < (interval_end - interval_start + 1) && levelAsValue(temp_char) != -1) {
-            user.qualifications.subjects[temp_subject + interval_start].level = levelAsValue(temp_char);
+            user->qualifications.subjects[temp_subject + interval_start].level = levelAsValue(temp_char);
             i++;
         }
     } while(i < (interval_end - interval_start));
