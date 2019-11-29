@@ -400,7 +400,7 @@ void printEducation(struct education education){
  *  @param *current_education 
  *  @param *user The profile of the user that has saved_education as a member.
  */
-void save(struct education *current_education, struct profile *user){
+void saveCmd(struct education *current_education, struct profile *user){
     int i;
 
     i = getEmptyIndex(user->saved_educations, *user);
