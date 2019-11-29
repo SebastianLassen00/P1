@@ -1,6 +1,12 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <profile.h>
+#include <education.h>
+#include <subjects.h>
+#include <vector.h> 
+
 #define NOT_IN_LIST -1
-
-
 
 void menuCmd(void){
     printf("Usable commands: \n");
