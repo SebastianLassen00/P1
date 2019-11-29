@@ -7,9 +7,11 @@
 #include "vector.h" 
 #include "commands.h"
 
-#define NOT_IN_LIST -1
-#define NO_EMPTY_INDEX -1
 
+
+/** @fn void menuCmd(void)
+ *  @brief Prints all the possible commands the user can use
+ */
 void menuCmd(void){
     printf("Usable commands: \n");
     printf("  find |arg| -  finds the education passed through the argument |arg|                    \n"
