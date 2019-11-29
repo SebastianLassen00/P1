@@ -17,9 +17,12 @@
 void parseDatabase(struct database *database, FILE *filereader){
     char database_format[STRING_MAX_LENGTH];
     
+    /* not used atm */
     fgets(database_format, STRING_MAX_LENGTH, filereader);
+    
     database->amount_of_educations = parseNumOfEdu(filereader);
     database->educations = (struct education*) malloc(database->amount_of_educations * sizeof(struct education));
+    
     parseEduNames(database->educations, database->amount_of_educations, filereader);
     parseEduDesc(database->educations, database->amount_of_educations, filereader);
     parseEduLink(database->educations, database->amount_of_educations, filereader);
@@ -43,7 +46,7 @@ void parseGradeReq(struct education *education, int number_of_educations, FILE *
     fgets(current_line, STRING_MAX_LENGTH, filereader);
 
     for(i = 0; i < number_of_educations; i++){
-        grade_string = parseEduString(current_line, number_of_educations, grade_string, offset);
+        grade_string = parseEduString(current_line, number_of_educations, offset);
         offset = strlen(grade_string) + 1;
         education[i].required_grade = strtod(grade_string, NULL);
     }
@@ -60,7 +63,7 @@ void parseRegion(struct education *education, int number_of_educations, FILE *fi
     fgets(current_line, STRING_MAX_LENGTH, filereader);
 
     for(i = 0; i < number_of_educations; i++){
-        region_string = parseEduString(current_line, number_of_educations, region_string, offset);
+        region_string = parseEduString(current_line, number_of_educations, offset);
         offset += strlen(region_string) + 1;
         education[i].region = strToReg(region_string);
     }
@@ -115,7 +118,7 @@ void parseEduNames(struct education *education, int amount_of_educations, FILE *
     fgets(current_line, STRING_MAX_LENGTH, filereader);
 
     for(i = 0; i < amount_of_educations; i++){
-        education[i].name = parseEduString(current_line, amount_of_educations, education[i].name, offset);
+        education[i].name = parseEduString(current_line, amount_of_educations, offset);
         offset += strlen(education[i].name) + 1;
     }
 }
@@ -128,7 +131,7 @@ void parseEduDesc(struct education *education, int amount_of_educations, FILE *f
     fgets(current_line, STRING_MAX_LENGTH, filereader);
 
     for(i = 0; i < amount_of_educations; i++){
-        education[i].description = parseEduString(current_line, amount_of_educations, education[i].description, offset);
+        education[i].description = parseEduString(current_line, amount_of_educations, offset);
         offset += strlen(education[i].description) + 1;
     }
 }
@@ -141,18 +144,16 @@ void parseEduLink(struct education *education, int amount_of_educations, FILE *f
     fgets(current_line, STRING_MAX_LENGTH, filereader);
 
     for(i = 0; i < amount_of_educations; i++){
-        education[i].link_to_read_further = parseEduString(
-                                            current_line, 
-                                            amount_of_educations, 
-                                            education[i].link_to_read_further, 
-                                            offset);
+        education[i].link_to_read_further = parseEduString(current_line, amount_of_educations, offset);
 
         offset += strlen(education[i].link_to_read_further) + 1;
     }
 }
 
-char *parseEduString(char* current_line, int amount_of_educations, char* education_string, int offset){
+char *parseEduString(char* current_line, int amount_of_educations, int offset){
     char tmp_education_string[STRING_MAX_LENGTH];
+    char *education_string;
+    
     int tmp_education_string_length;
     int i;
 
