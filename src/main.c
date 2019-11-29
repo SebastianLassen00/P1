@@ -148,6 +148,14 @@ int argType(command c){
     return (c == find || c == eval) ? ((c == find) ? 1 : -1) : 0;
 }
 
+
+
+
+/** @fn void testCmd(struct profile user, struct database db)
+ *  @brief Tests the current user for name, location, interests, qualifications and average grade
+ *  @param user The profile struct where all test results should be saved 
+ *  @param db The database where information of interests and subjects are
+ */
 void testCmd(struct profile user, struct database db){
     int scan_res;
     int initial_value;
@@ -180,6 +188,13 @@ void testCmd(struct profile user, struct database db){
 }
 
 /* **************** TestCmd() functions **************** */
+
+/** @fn void setProfileName(struct profile user, char *name, char **names)
+ *  @brief Sets the profile name of the user to the name given to the function
+ *  @param user The profile struct where the name should be saved to
+ *  @param name The name string given to the function to be saved in user
+ *  @param names The list of all names already used
+ */
 void setProfileName(struct profile user, char *name, char **names){
     printf("Profile name (only one word): ");
 
@@ -187,25 +202,40 @@ void setProfileName(struct profile user, char *name, char **names){
     strcpy(user.name, name);
 }
 
-void getValidName(char *name, char **name_array){
+/** @fn void getValidName(char *name, char **name_array)
+ *  @brief Determines whether a name has already been used, and prompts for another if that is the case
+ *  @param name The name string to be determined if it is valid
+ *  @param names The list of names already used
+ */
+void getValidName(char *name, char **names){
     int scan_res;
 
     do{
         printf("Enter correct name\n");
         scan_res = scanf(" %s", name);
-    } while(scan_res == 1 && isUsed(name, name_array, 10));
+    } while(scan_res == 1 && isUsed(name, names, 10));
 }
 
-int isUsed(char name[MAX_NAME_LENGTH], char *name_array[], int number_of_names){
+/** @fn int isUsed(char *name, char **names, int number_of_names)
+ *  @brief Returns 1 if the name is used. Otherwise, it returns 0
+ *  @param name The name string to be determined if has been used
+ *  @param names The list of names already used
+ *  @param number_of_names The number of names in the name list
+ */
+int isUsed(char *name, char **names, int number_of_names){
     int i;
 
     for(i = 0; i < number_of_names; i++){
-        if(strcmp(name, name_array[i]) == 0)
+        if(strcmp(name, names[i]) == 0)
             return 1;
     }
     return 0;
 }
 
+/** @fn void setProfileLocation(struct profile user)
+ *  @brief Sets the region of choice in user. Saves the interest in studying in this location
+ *  @param user The profile struct where the information about location should be saved
+ */
 void setProfileLocation(struct profile user){
     int i;
 
@@ -219,20 +249,39 @@ void setProfileLocation(struct profile user){
     user.location.region_importance = convertScale(validScaleValue(getValidInteger(), 0, 10));
 }
 
-const char* regionName(enum region region){
+/** @fn const char *regionName(enum region region)
+ *  @brief Return the name of the region as a string
+ *  @param region The enum region value of the region to be returned as a string
+ */
+const char *regionName(enum region region){
     char *regions[NUMBER_OF_REGIONS] = {"NORTH JUTLAND", "CENTRAL JUTLAND", "SOUTHERN DENMARK", 
                                         "ZEALAND", "CAPITAL REGION"};
     return regions[region];
 }
 
+/** @fn double convertScale(int initial_value)
+ *  @brief Returns the converted value
+ *  @param initial_value The value to be converted
+ */
 double convertScale(int initial_value){
     return (((double) v - 5.0) / 5.0);
 }
 
+/** @fn int validScaleValue(int value, int interval_start, int interval_end)
+ *  @brief Returns a value between interval_start and interval_end. 
+ *         If the given value outside the interval it will return the value inside the interval closest the value.
+ *         The interval_start must be less than the interval_end
+ *  @param value The value to check within the scale
+ *  @param interval_start The start value of the scale
+ *  @param interval_end The end value the scale
+ */
 int validScaleValue(int value, int interval_start, int interval_end){
     return (value > interval_end ? interval_end : (value < interval_start ? interval_start : value));
 }
 
+/** @fn int getValidInteger(void)
+ *  @brief Returns a valid integer given through the terminal
+ */
 int getValidInteger(void){
     int valid_int = -1, scan_res = 0;
     char test_char = 0;
@@ -246,6 +295,11 @@ int getValidInteger(void){
     return valid_int;
 }
 
+/** @fn void setProfileInterests(struct profile user, struct database db)
+ *  @brief Saves all interests to user as a converted value (see convertScale)
+ *  @param user The profile struct where the interests are saved to
+ *  @param db The database struct where information about all interests are saved
+ */
 void setProfileInterests(struct profile user, struct database db){
     int i;
 
@@ -253,12 +307,16 @@ void setProfileInterests(struct profile user, struct database db){
             "You are to give a value between 0 and 10, "
             "where 0 is negative and 10 is positive towards the interest\n");
 
-    for(i = 0; i < interests.size; i++){                              // How many interests?
-        printf("%s:  ", db.interests_string[i]);                                          // Where are the interests saved? 
+    for(i = 0; i < interests.size; i++){
+        printf("%s:  ", db.interests_string[i]);
         user.interests[i] = convertScale(validScaleValue(getValidInteger(), 0, 10));
     }
 }
 
+/** @fn void setProfileQualifications(struct profile user)
+ *  @brief Saves all the users qualifications as given by the terminal
+ *  @param user The profile struct where the qualifications are saved to
+ */
 void setProfileQualifications(struct profile user){
     setSubjects(user);
     
@@ -268,6 +326,10 @@ void setProfileQualifications(struct profile user){
     setOtherSubjects(user, IMPORTANT_SUBJECTS + OTHER_SUBJECTS, TOTAL_SUBJECTS);
 }
 
+/** @fn void setSubjects(struct profile user)
+ *  @brief Sets all qualifications in user to match the enum class
+ *  @param user The profile struct where the subjects are saved to
+ */
 void setSubjects(struct profile user){
     int i;
 
@@ -275,6 +337,10 @@ void setSubjects(struct profile user){
         user.qualifications.subjects[i].name = i;
 }
 
+/** @fn void setImportantSubjects(struct profile user)
+ *  @brief Saves all the qualifications for the important subjects
+ *  @param user The profile struct where the subjects are saved to
+ */
 void setImportantSubjects(struct profile user){
     char temp_char;
     int i;
