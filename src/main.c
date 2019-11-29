@@ -15,13 +15,6 @@
 enum command{find, save, save_prof, recommend, list, eval, test, menu, quit};
 typedef enum command command;
 
-int argType(command c);
-void menuCmd(void);
-command scanCommand(char arg[MAX_INPUT_LENGTH], int *arg_num);
-command convertCommand(char s[MAX_COMMAND_LENGTH]);
-void recommendCmd(struct educations *educations, struct profile user, 
-                  struct education *currentEducation);
-
 /*int main(void){
     char arg[MAX_INPUT_LENGTH], arg_type[MAX_INPUT_LENGTH];
     int arg_num = 0, number_of_educations;
@@ -43,6 +36,8 @@ void recommendCmd(struct educations *educations, struct profile user,
     return 0;
 }*/
 
+
+/* gcc -Iinclude  */
 
 void testLevelAsValue(CuSuite *tc){
     char cA = 'A', ca = 'a';
@@ -80,10 +75,6 @@ void testValidScaleValue(CuSuite *tc){
     CuAssertIntEquals(tc, eCase3, case3);
     CuAssertIntEquals(tc, eCase4, case4);
     CuAssertIntEquals(tc, eCase5, case5);
-}
-
-double convertScale(int initial_value){
-    return (((double) v - 5.0) / 5.0);
 }
 
 void testConvertScale(CuSuite *tc){
