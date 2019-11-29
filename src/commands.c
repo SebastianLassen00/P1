@@ -399,7 +399,6 @@ void save(struct education *current_education, struct profile *user){
         user->saved_educations[i] = *current_education; 
 }
 
-/* uses #define EDUCATION_LIST_LENGTH 10 from profile.h */
 /** @fn int getIndex(struct education edu_array[], struct profile user, struct education target)
  *  @brief
  *  @param edu_array[] An array of education structs (these two arrays can be found in profile struct)
