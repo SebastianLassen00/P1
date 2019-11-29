@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <profile.h>
-#include <education.h>
-#include <subjects.h>
-#include <vector.h> 
+#include "profile.h"
+#include "education.h"
+#include "subjects.h"
+#include "vector.h" 
+#include "commands.h"
 
 #define NOT_IN_LIST -1
 
@@ -227,6 +228,10 @@ void setImportantSubjects(struct profile user){
     }
 }
 
+/** @fn const char* classNameStr(enum class class)
+ *  @brief Returns the name as a string of a class given as an enum class
+ *  @param class The enum value the name should return for
+ */
 const char* classNameStr(enum class class){
     char *classes[TOTAL_SUBJECTS] = {"MATHEMATICS", "CHEMISTRY", "BIOLOGY", "PHYSICS", "ENGLISH",
                                      "BIOTECHNOLOGY", "GEOSCIENCE", "HISTORY", "IDEA_HISTORY",
@@ -237,6 +242,10 @@ const char* classNameStr(enum class class){
     return classes[class];
 }
 
+/** @fn enum level levelAsValue(char c)
+ *  @brief Returns the enum value of a level given as a character
+ *  @param c The level as a character to be converted to enum level
+ */
 enum level levelAsValue(char c){
     enum level return_value = -1;
 
@@ -259,6 +268,12 @@ enum level levelAsValue(char c){
     return return_value;
 }
 
+/** @fn void setOtherSubjects(struct profile user, int start, int end)
+ *  @brief Saves all the levels of the other subjects (not the important ones)
+ *  @param user The profile struct where the qualifications are to be saved
+ *  @param start The start of the subjects to be asked for
+ *  @param end The ens of the subjects to be asked for
+ */
 void setOtherSubjects(struct profile user, int start, int end){
     int i;
 
@@ -267,9 +282,13 @@ void setOtherSubjects(struct profile user, int start, int end){
     chooseFromList(user, start, end);
 }
 
-
-
-void chooseFromList(struct profile user, interval_start, interval_end){
+/** @fn void chooseFromList(struct profile user, interval_start, interval_end)
+ *  @brief Saves the levels of chosen subjects to user
+ *  @param user The profile struct where the qualifications should be saved
+ *  @param interval_start The start of the interval for the qualifications in the list
+ *  @param interval_end The end of the interval for the qualifications in the list
+ */
+void chooseFromList(struct profile user, int interval_start, int interval_end){
     int temp_subject, i = 0;
     char temp_char;
     char temp_string[MAX_INPUT_LENGTH];
@@ -283,6 +302,9 @@ void chooseFromList(struct profile user, interval_start, interval_end){
     } while(i < (interval_end - interval_start));
 }
 
+/** @fn double getValidDouble(void)
+ *  @brief Returns a valid double entered in the terminal
+ */
 double getValidDouble(void){
     double valid_double = 0;
     int scan_res = 0;
@@ -321,7 +343,7 @@ void recommendCmd(struct database database, struct profile user,
     
     for(i = 0; i < number_of_educations; i++){
         result = dotProduct(database.educations[i].interests, normalized_vector);
-        if(result > highest_result){
+        if(result > highest_result && isQualified(user, database.educations[i])){
             highest_result = result;
             best_fit = educations[i];
         }
@@ -331,13 +353,21 @@ void recommendCmd(struct database database, struct profile user,
     printEducation(*currentEducation);
 }
 
+/** @fn void isQualified(struct profile user, struct education education)
+ *  @brief Checks if the user has the subject levels required by the education
+ *  @param user The profile struct whose quailification is checked
+ *  @param education The education struct with the requirements
+ */
 void isQualified(struct profile user, struct education education) {
     int i;
-    enum class subject;
+    struct subject subject;
     for(i = 0; i < education.required_qualifications.amount_of_subjects; i++) {
-        
-        if(education.required_qualifications.subjects[i]
+        subject = education.required_qualifications.subjects[i];
+        if(user.qualifications.subjects[subject.name].level < subject.level) {
+            return 0;
+        }
     }
+    return 1;
 }
 
 /* Prints the relavant information about the given education */
