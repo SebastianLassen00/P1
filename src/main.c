@@ -441,16 +441,16 @@ double getValidDouble(void){
 
 
 /* Recommends an education to the user. */
-void recommendCmd(struct education *educations, int number_of_educations, struct profile user, 
+void recommendCmd(struct database database, struct profile user, 
                   struct education *currentEducation){
     int i;
     struct vector results, normalized_vector;
     double highest_result, result;
     struct education best_fit;
-    normalized_vector = normalizeVector(;
+    normalized_vector = normalizeVector(addVector(user.interests, user.adjustment_vector));
     
     for(i = 0; i < number_of_educations; i++){
-        result = dotProduct(educations[i].interests, normalized_vector);
+        result = dotProduct(database.educations[i].interests, normalized_vector);
         if(result > highest_result){
             highest_result = result;
             best_fit = educations[i];
@@ -459,6 +459,15 @@ void recommendCmd(struct education *educations, int number_of_educations, struct
     
     *currentEducation = best_fit;
     printEducation(*currentEducation);
+}
+
+void isQualified(struct profile user, struct education education) {
+    int i;
+    enum class subject;
+    for(i = 0; i < education.required_qualifications.amount_of_subjects; i++) {
+        
+        if(education.required_qualifications.subjects[i]
+    }
 }
 
 /* Prints the relavant information about the given education */
@@ -472,15 +481,15 @@ void printEducation(struct education education){
 
 /* 
 #define NOT_IN_LIST -1 */
-void save(struct education current_education, struct profile user){
+void save(struct education *current_education, struct profile *user){
     int i;
 
-    i = get_index(user);
+    i = get_index(*user);
 
     if(list_is_full(i))
         /* the list is full and there has to be deleted an education in order to save one. */
     else
-        user.saved_educations[i] = current_education; 
+        (*user).saved_educations[i] = *current_education; 
 }
 
 /* uses #EDUCATION_LIST_LENGTH 10 from profile.h */
