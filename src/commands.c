@@ -8,6 +8,7 @@
 #include "commands.h"
 
 #define NOT_IN_LIST -1
+#define NO_EMPTY_INDEX -1
 
 void menuCmd(void){
     printf("Usable commands: \n");
@@ -398,25 +399,35 @@ void save(struct education *current_education, struct profile *user){
 /** 
  *
  */
-int getIndex(struct education edu_array, struct profile user){
+int getIndex(struct education edu_array[], struct profile user, struct education target){
     int i = 0, index;
-    int index_found = 0;
+    int index = NOT_IN_LIST;
 
     for(i = 0; index_found != 1 || i < EDUCATION_LIST_LENGTH; i++){
-            if(edu_array[i].name == NULL || edu_array[i].name == ""){
-                index_found = 1;
-            }
+        if(strcmp(edu_array[i].name, target.name) == 0){
+            index = i;
+        }
     }
-
-    if(index_found == 0)
-        i = NOT_IN_LIST; /* NOT_IN_LIST -1 */
 
     return i;
 }
 
-/** 
+int getEmptyIndex(struct education edu_array[], struct profile user){
+    int i = 0, index;
+    int index = NO_EMPTY_INDEX;
+
+    for(i = 0; index_found != 1 || i < EDUCATION_LIST_LENGTH; i++){
+        if(edu_array[i].name == NULL || edu_array[i].name == ""){
+            index = i;
+        }
+    }
+
+    return i;
+}
+
+/**
  *
  */
 int listIsFull(int i){
-    return i == NOT_IN_LIST;
+    return i == NO_EMPTY_INDEX;
 }
