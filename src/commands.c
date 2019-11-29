@@ -347,7 +347,7 @@ void recommendCmd(struct database database, struct profile user,
     for(i = 0; i < number_of_educations; i++){
         result = dotProduct(database.educations[i].interests, normalized_vector);
         if(result > highest_result && isQualified(user, database.educations[i]) && 
-           getIndex() == NOT_IN_LIST){
+           getIndex(user.recommended_educations, user, database.educations[i]) == NOT_IN_LIST){
             highest_result = result;
             best_fit = educations[i];
         }
@@ -406,20 +406,20 @@ int getIndex(struct education edu_array[], struct profile user, struct education
     int i = 0, index;
     int index = NOT_IN_LIST;
 
-    for(i = 0; index_found != 1 || i < EDUCATION_LIST_LENGTH; i++){
+    for(i = 0; index == NO_EMPTY_INDEX && i < EDUCATION_LIST_LENGTH; i++){
         if(strcmp(edu_array[i].name, target.name) == 0){
             index = i;
         }
     }
 
-    return i;
+    return index;
 }
 
 int getEmptyIndex(struct education edu_array[], struct profile user){
     int i = 0, index;
     int index = NO_EMPTY_INDEX;
 
-    for(i = 0; index_found != 1 || i < EDUCATION_LIST_LENGTH; i++){
+    for(i = 0; index == NO_EMPTY_INDEX && i < EDUCATION_LIST_LENGTH; i++){
         if(edu_array[i].name == NULL || edu_array[i].name == ""){
             index = i;
         }
