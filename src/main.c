@@ -8,6 +8,7 @@
 
 #define MAX_COMMAND_LENGTH 10
 #define MAX_INPUT_LENGTH (MAX_COMMAND_LENGTH + 100)
+#define NOT_IN_LIST -1
 
 enum command{find, save, save_prof, recommend, list, eval, test, menu, quit};
 typedef enum command command;
@@ -370,6 +371,42 @@ void printEducation(struct education education){
     printf("Description: %s\n", education.description);
     printf("Education is located in: %s\n", );
 
+}
+
+
+/* 
+#define NOT_IN_LIST -1 */
+void save(struct education current_education, struct profile user){
+    int i;
+
+    i = get_index(user);
+
+    if(list_is_full(i))
+        /* the list is full and there has to be deleted an education in order to save one. */
+    else
+        user.saved_educations[i] = current_education; 
+}
+
+/* uses #EDUCATION_LIST_LENGTH 10 from profile.h */
+int get_index(struct profile user){
+    int i = 0, index;
+    int index_found = 0;
+
+    do{
+        if(user.saved_educations[i].name == NULL || user.saved_educations[i].name == "") 
+            index_found = 1;
+        else
+            i++;
+    } while(!index_found && i < EDUCATION_LIST_LENGTH);
+
+    if(index_found == 0)
+        i = NOT_IN_LIST;
+
+    return i;
+}
+
+int list_is_full(int i){
+    return i == NOT_IN_LIST;
 }
 
 /* Commands:
