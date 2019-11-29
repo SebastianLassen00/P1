@@ -383,7 +383,7 @@ void printEducation(struct education education){
 
 /** @fn
  *  @brief
- *  
+ *  @
  */
 void save(struct education *current_education, struct profile *user){
     int i;
@@ -423,7 +423,7 @@ int getEmptyIndex(struct education edu_array[], struct profile user){
         }
     }
 
-    return i;
+    return index;
 }
 
 /**
