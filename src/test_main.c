@@ -176,6 +176,7 @@ struct profile createProfile(int number_of_interests){
     char name[MAX_NAME_LENGTH];
 
     profile.interests = createVector(number_of_interests);
+    profile.adjustment_vector = createVector(number_of_interests);
     profile.name = name;
     profile.qualifications = createQualifications(TOTAL_SUBJECTS);
     profile.average = 0.0;
