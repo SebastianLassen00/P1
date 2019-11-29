@@ -182,9 +182,9 @@ void setProfileInterests(struct profile *user, struct database db){
             "You are to give a value between 0 and 10, "
             "where 0 is negative and 10 is positive towards the interest\n");
 
-    for(i = 0; i < interests.size; i++){
-        printf("%s:  ", db.interests_string[i]);
-        user->interests[i] = convertScale(validScaleValue(getValidInteger(), 0, 10));
+    for(i = 0; i < db.amount_of_interests; i++){
+        printf("%s:  ", db.interest_string[i]);
+        user->interests.array[i] = convertScale(validScaleValue(getValidInteger(), 0, 10));
     }
 }
 

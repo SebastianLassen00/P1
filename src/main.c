@@ -7,6 +7,7 @@
 #include "subjects.h"
 #include "vector.h" 
 #include "commands.h"
+#include "CuTest.h"
 
 #define MAX_COMMAND_LENGTH 10
 #define MAX_INPUT_LENGTH (MAX_COMMAND_LENGTH + 100)
