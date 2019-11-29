@@ -82,8 +82,32 @@ void testValidScaleValue(CuSuite *tc){
     CuAssertIntEquals(tc, eCase5, case5);
 }
 
+double convertScale(int initial_value){
+    return (((double) v - 5.0) / 5.0);
+}
+
 void testConvertScale(CuSuite *tc){
-    
+    int case0 = 0, case1 = 1, case2 = 2,
+        case3 = 3, case4 = 4, case5 = 5,
+        case6 = 6, case7 = 7, case8 = 8,
+        case9 = 9, case10 = 10;
+
+    double eCase0 = -1.0, eCase1 = -0.8, eCase2 = -0.6,
+           eCase3 = -0.4, eCase4 = -0.2, eCase5 = 0.0,
+           eCase6 = 0.2, eCase7 = 0.4, eCase8 = 0.6,
+           eCase9 = 0.8, eCase10 = 1.0;
+
+    CuAssertDblEquals(tc, eCase0, convertScale(case0));
+    CuAssertDblEquals(tc, eCase1, convertScale(case1));
+    CuAssertDblEquals(tc, eCase2, convertScale(case2));
+    CuAssertDblEquals(tc, eCase3, convertScale(case3));
+    CuAssertDblEquals(tc, eCase4, convertScale(case4));
+    CuAssertDblEquals(tc, eCase5, convertScale(case5));
+    CuAssertDblEquals(tc, eCase6, convertScale(case6));
+    CuAssertDblEquals(tc, eCase7, convertScale(case7));
+    CuAssertDblEquals(tc, eCase8, convertScale(case8));
+    CuAssertDblEquals(tc, eCase9, convertScale(case9));
+    CuAssertDblEquals(tc, eCase10, convertScale(case10));
 }
 
 
@@ -94,6 +118,7 @@ CuSuite *testTestCmd(void){
 
     SUITE_ADD_TEST(suite, testLevelAsValue);
     SUITE_ADD_TEST(suite, testValidScaleValue);
+    SUITE_ADD_TEST(suite, testConvertScale);
 
 
     return suite;
