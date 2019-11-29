@@ -21,6 +21,6 @@ void freeVector(struct vector v);
 /* Test */
 
 void printVector(struct vector v);
-void freeVectorM(struct vector num, ...);
+void freeVectorM(int num, ...);
 
 #endif

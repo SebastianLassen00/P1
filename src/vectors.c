@@ -76,7 +76,7 @@ int main(void){
     dot_product = dotProduct(testv_cpy, testv_add);    
     printf("dot_product: %f\n", dot_product); 
 
-    freeVectorM(testv_cpy, testv, testv_add);
+    freeVectorM(3, testv_cpy, testv, testv_add);
     printVector(testv_add);
     /*freeVector(testv_cpy);
     freeVector(testv);
@@ -101,17 +101,17 @@ struct vector createVector(int size){
     return vector;
 }
 
-void freeVectorM(struct vector num, ...){
+void freeVectorM(int num, ...){
     int i;
     va_list list;
 
     va_start(list, num);
 
-    for(i = 0; i < num.size; i++){
+    for(i = 0; i < num; i++){
         struct vector v = va_arg(list, struct vector);
-        free(v.array);
+        freeVector(v);
     }
-
+    
     va_end(list);
 }
 
