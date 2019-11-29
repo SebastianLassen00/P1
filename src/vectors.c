@@ -86,8 +86,8 @@ int main(void){
 }
 
 /** @fn struct vector createVector(int size)
- *  @brief creates a vector on the heap and outputs it. 
- *  @param size The number of elements in the vector.
+ *  @brief creates a vector on the heap and outputs it
+ *  @param size The number of elements in the vector
  */
 struct vector createVector(int size){
     struct vector vector;
@@ -101,6 +101,10 @@ struct vector createVector(int size){
     return vector;
 }
 
+/** @fn void freeVectorM(int num, ...)
+ *  @brief Frees a variable number of struct vectors using free(Vector)
+ *  @param num The number of arguments (vectors) that should be freed
+ */
 void freeVectorM(int num, ...){
     int i;
     va_list list;
