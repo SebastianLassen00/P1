@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include "vector.h"
+#include <stdarg.h>
 
 int main(void){
     int i;
@@ -75,9 +76,11 @@ int main(void){
     dot_product = dotProduct(testv_cpy, testv_add);    
     printf("dot_product: %f\n", dot_product); 
 
-    freeVector(testv_cpy);
+    freeVectorM(testv_cpy, testv, testv_add);
+    printVector(testv_add);
+    /*freeVector(testv_cpy);
     freeVector(testv);
-    freeVector(testv_add);
+    freeVector(testv_add);*/
 
     return 0;
 }
@@ -89,7 +92,6 @@ int main(void){
 struct vector createVector(int size){
     struct vector vector;
     vector.array = (double*)calloc(size, sizeof(double));
-    /*vector.array = (double*)malloc(size * sizeof(double)); */
     if(vector.array == NULL){
         printf("Failed to allocate memory. Bye bye.\n");
         exit(EXIT_FAILURE);
@@ -97,6 +99,20 @@ struct vector createVector(int size){
     vector.size = size;
     
     return vector;
+}
+
+void freeVectorM(struct vector num, ...){
+    int i;
+    va_list list;
+
+    va_start(list, num);
+
+    for(i = 0; i < num.size; i++){
+        struct vector v = va_arg(list, struct vector);
+        free(v.array);
+    }
+
+    va_end(list);
 }
 
 /** @fn void freeVector(struct vector v)
