@@ -9,7 +9,7 @@
  */
 struct database {
     int amount_of_educations;           /**the amount of educations in the database*/
-    struct education *educations;       /**an array of educations delimited by amount_of_educations*/
+    struct education **educations;       /**an array of educations delimited by amount_of_educations*/
     int amount_of_interests;            /**the amount of interests in the database*/
     char **interest_as_read_in_database;   /**an array of interests in the order parsed*/
 };
