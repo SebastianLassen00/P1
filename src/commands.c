@@ -345,7 +345,7 @@ void recommendCmd(struct database database, struct profile user,
     for(i = 0; i < number_of_educations; i++){
         result = dotProduct(database.educations[i].interests, normalized_vector);
         if(result > highest_result && isQualified(user, database.educations[i]) && 
-           getIndex() == NOT_IN_LIST){
+           getIndex(user.recommended_educations, user, database.educations[i]) == NOT_IN_LIST){
             highest_result = result;
             best_fit = educations[i];
         }
@@ -410,7 +410,7 @@ int getIndex(struct education edu_array[], struct profile user, struct education
         }
     }
 
-    return i;
+    return index;
 }
 
 int getEmptyIndex(struct education edu_array[], struct profile user){
@@ -423,7 +423,7 @@ int getEmptyIndex(struct education edu_array[], struct profile user){
         }
     }
 
-    return i;
+    return index;
 }
 
 /**
