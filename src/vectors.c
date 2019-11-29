@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include "vector.h"
+#include <stdarg.h>
 
 int main(void){
     int i;
@@ -75,9 +76,9 @@ int main(void){
     dot_product = dotProduct(testv_cpy, testv_add);    
     printf("dot_product: %f\n", dot_product); 
 
-    freeVector(testv_cpy);
+/*    freeVector(testv_cpy);
     freeVector(testv);
-    freeVector(testv_add);
+    freeVector(testv_add);*/
 
     return 0;
 }
