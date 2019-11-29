@@ -148,7 +148,7 @@ int argType(command c){
     return (c == find || c == eval) ? ((c == find) ? 1 : -1) : 0;
 }
 
-void testCmd(struct profile user, struct qualifications subjects){
+void testCmd(struct profile user, struct qualifications subjects, struct database db){
     int scan_res;
     int initial_value;
     char temp_char;
@@ -160,39 +160,27 @@ void testCmd(struct profile user, struct qualifications subjects){
            "The test requires answers in numbers (integers), and where scale is part, a value between 1 and 100\n\n");
 
     /*  Scan for profile name  */
-    printf("Profile name (only one word): ");
-    
-    getValidName(name, names);
-    printf("Name is: %s\n", name);
+    setProfileName(user, name, names);
 
-    user.name = name;
-    
     /*  Get location and assesment  */
-    printf("Where do you want to study?\n");
-    for(i = 0; i < NUMBER_OF_REGIONS; i++)
-        printf("%d: %s   ", i, regionName(i));
-    printf("\n");
-    user.location.region = validScaleValue(getValidInteger(), 0, NUMBER_OF_REGIONS - 1);
+    setProfileLocation(user);
 
-    printf("How important is this region to you\n");
-    user.location.region_importance = convertScale(validScaleValue(getValidInteger(), 0, 10));
 
-    /*  Get all interests  */
-    printf("Next, a series of interests will be shown\n"
-           "You are to give a value between 0 and 10, "
-           "where 0 is negative and 10 is positive towards the interest\n");
+    setProfileInterests(user, db);
 
-    for(i = 0; i < ; i++){                              // How many interests?
-        printf("%s:  ", );                              // Where are the interests saved? 
-        initial_value = validScaleValue(getValidInteger(), 0, 10);
-        if(initial_value != -1){
-            user.interests.array[i] = convertScale(initial_value);
-        } else{
-            printf("Wrong input, try again\n");
-            clearBuffer();
-            i--;
+    void setProfileInterests(struct profile user, struct database db) {
+        printf("Next, a series of interests will be shown\n"
+                "You are to give a value between 0 and 10, "
+                "where 0 is negative and 10 is positive towards the interest\n");
+
+        for(i = 0; i < interests.size; i++){                              // How many interests?
+            printf("%s:  ", db.interests_string[i]);                                          // Where are the interests saved? 
+            initial_value = convertScale(validScaleValue(getValidInteger(), 0, 10));
+
         }
     }
+    /*  Get all interests  */
+    
 
     /*  Get important qualifications  */
     for(i = 0; i < TOTAL_SUBJECTS; i++)
@@ -226,7 +214,28 @@ void testCmd(struct profile user, struct qualifications subjects){
     printf("The test is now concluded. Returning to menu...\n\n");
 }
 
-void getValidName(char *name, char *name_array[]){
+/* **************** TestCmd() functions **************** */
+void setProfileName(struct profile user, char *name, char **names) {
+    printf("Profile name (only one word): ");
+
+    getValidName(name, names);
+    strcpy(user.name, name);
+}
+
+void setProfileLocation(struct profile user) {
+    printf("Where do you want to study?\n");
+    for(i = 0; i < NUMBER_OF_REGIONS; i++)
+        printf("%d: %s   ", i, regionName(i));
+    printf("\n");
+    user.location.region = validScaleValue(getValidInteger(), 0, NUMBER_OF_REGIONS - 1);
+
+    printf("How important is this region to you\n");
+    user.location.region_importance = convertScale(validScaleValue(getValidInteger(), 0, 10));
+}
+
+
+/* **************** End of TestCmd() functions **************** */
+void getValidName(char *name, char **name_array){
     int scan_res;
 
     do{
