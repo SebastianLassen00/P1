@@ -7,9 +7,11 @@
 #include "vector.h" 
 #include "commands.h"
 
-#define NOT_IN_LIST -1
-#define NO_EMPTY_INDEX -1
 
+
+/** @fn void menuCmd(void)
+ *  @brief Prints all the possible commands the user can use
+ */
 void menuCmd(void){
     printf("Usable commands: \n");
     printf("  find |arg| -  finds the education passed through the argument |arg|                    \n"
@@ -383,14 +385,14 @@ void printEducation(struct education education){
 
 /** @fn
  *  @brief
- *  
+ *  @
  */
 void save(struct education *current_education, struct profile *user){
     int i;
 
-    i = get_index(user->saved_educations, *user);
+    i = getEmptyIndex(user->saved_educations, *user);
 
-    if(list_is_full(i))
+    if(listIsFull(i))
         /* the list is full and there has to be deleted an education in order to save one. */
     else
         user->saved_educations[i] = *current_education; 
@@ -404,7 +406,7 @@ int getIndex(struct education edu_array[], struct profile user, struct education
     int i = 0, index;
     int index = NOT_IN_LIST;
 
-    for(i = 0; index_found != 1 || i < EDUCATION_LIST_LENGTH; i++){
+    for(i = 0; index == NO_EMPTY_INDEX && i < EDUCATION_LIST_LENGTH; i++){
         if(strcmp(edu_array[i].name, target.name) == 0){
             index = i;
         }
@@ -417,7 +419,7 @@ int getEmptyIndex(struct education edu_array[], struct profile user){
     int i = 0, index;
     int index = NO_EMPTY_INDEX;
 
-    for(i = 0; index_found != 1 || i < EDUCATION_LIST_LENGTH; i++){
+    for(i = 0; index == NO_EMPTY_INDEX && i < EDUCATION_LIST_LENGTH; i++){
         if(edu_array[i].name == NULL || edu_array[i].name == ""){
             index = i;
         }
