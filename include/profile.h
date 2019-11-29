@@ -16,6 +16,7 @@ struct profile{
     double average;
     struct location location;
     struct education saved_educations[EDUCATION_LIST_LENGTH];
+    int last_changed_recommended_education;
     struct education recommended_educations[EDUCATION_LIST_LENGTH];
 };
 
