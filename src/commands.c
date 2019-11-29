@@ -343,7 +343,8 @@ void recommendCmd(struct database database, struct profile user,
     
     for(i = 0; i < number_of_educations; i++){
         result = dotProduct(database.educations[i].interests, normalized_vector);
-        if(result > highest_result && isQualified(user, database.educations[i])){
+        if(result > highest_result && isQualified(user, database.educations[i]) && 
+           getIndex() == NOT_IN_LIST){
             highest_result = result;
             best_fit = educations[i];
         }
@@ -379,37 +380,44 @@ void printEducation(struct education education){
 }
 
 
-/* 
-#define NOT_IN_LIST -1 */
+/** @fn
+ *  @brief
+ *  
+ */
 void save(struct education *current_education, struct profile *user){
     int i;
 
-    i = get_index(*user);
+    i = get_index(user->saved_educations, *user);
 
     if(list_is_full(i))
         /* the list is full and there has to be deleted an education in order to save one. */
     else
-        (*user).saved_educations[i] = *current_education; 
+        user->saved_educations[i] = *current_education; 
 }
 
-/* uses #EDUCATION_LIST_LENGTH 10 from profile.h */
-int get_index(struct profile user){
+/* uses #define EDUCATION_LIST_LENGTH 10 from profile.h */
+/** 
+ *
+ */
+int getIndex(struct education edu_array, struct profile user){
     int i = 0, index;
     int index_found = 0;
 
-    do{
-        if(user.saved_educations[i].name == NULL || user.saved_educations[i].name == "") 
-            index_found = 1;
-        else
-            i++;
-    } while(!index_found && i < EDUCATION_LIST_LENGTH);
+    for(i = 0; index_found != 1 || i < EDUCATION_LIST_LENGTH; i++){
+            if(edu_array[i].name == NULL || edu_array[i].name == ""){
+                index_found = 1;
+            }
+    }
 
     if(index_found == 0)
-        i = NOT_IN_LIST;
+        i = NOT_IN_LIST; /* NOT_IN_LIST -1 */
 
     return i;
 }
 
-int list_is_full(int i){
+/** 
+ *
+ */
+int listIsFull(int i){
     return i == NOT_IN_LIST;
 }
