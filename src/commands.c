@@ -134,11 +134,11 @@ const char *regionName(enum region region){
     return regions[region];
 }
 
-/** @fn double convertScale(int initial_value)
+/** @fn double convertScale(int v)
  *  @brief Returns the converted value
- *  @param initial_value The value to be converted
+ *  @param v The value to be converted
  */
-double convertScale(int initial_value){
+double convertScale(int v){
     return (((double) v - 5.0) / 5.0);
 }
 
@@ -338,7 +338,7 @@ double getValidDouble(void){
 /** @fn void recommendCmd(struct database database, struct profile *user, 
  *                        struct education *currentEducation)
  *  @brief Goes trough the available educations and compares them to the user:
- *         Both their interests, qualifications and location is considered.
+ *         Both their interests, qualifications and location are considered.
  *  @param user The profile struct which is compared
  *  @param databaser The database containing the educations
  *  @param currentEducation The education currently being displayed.
@@ -400,7 +400,7 @@ void printEducation(struct education education){
  *  @param *current_education 
  *  @param *user The profile of the user that has saved_education as a member.
  */
-void save(struct education *current_education, struct profile *user){
+void saveCmd(struct education *current_education, struct profile *user){
     int i;
 
     i = getEmptyIndex(user->saved_educations, *user);

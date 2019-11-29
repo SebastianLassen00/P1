@@ -69,7 +69,7 @@ enum level{
     Z,
     C,
     B,
-    A,
+    A
 };
 
 /**

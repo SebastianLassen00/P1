@@ -2,7 +2,6 @@
 #include "education.h"
 #include "subjects.h"
 #include "vector.h" 
-#include "commands.h"
 #include "database.h"
 
 #ifndef COMMANDS_H
@@ -33,7 +32,7 @@ void setOtherSubjects(struct profile *user, int start, int end);
 void chooseFromList(struct profile *user, int interval_start, int interval_end);
 double getValidDouble(void);
 
-void save(struct education *current_education, struct profile *user);
+void saveCmd(struct education *current_education, struct profile *user);
 int getIndex(struct education edu_array[], struct education target);
 int getEmptyIndex(struct education edu_array[]);
 int listIsFull(int i);
