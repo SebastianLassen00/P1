@@ -2,10 +2,96 @@
 #include <math.h>
 #include <stdlib.h>
 #include "vector.h"
+#include <stdarg.h>
 
+
+int main(void){
+    int i;
+    double length;
+    double dot_product;
+
+    struct vector testv;
+    struct vector testv_cpy;
+    struct vector testv_add;
+
+
+    /* TEST createVector and copyVector */
+    testv = createVector(6);
+    printf("Created vector: \n");
+    printVector(testv);
+
+    testv.array[0] = 0.3;
+    testv.array[1] = -0.2;
+    testv.array[2] = 0.67;
+    testv.array[3] = 0.77;
+    testv.array[4] = 0.85;
+    testv.array[5] = 0.2;
+
+    printf("Values assigned to the created vector:\n");
+    printVector(testv);
+
+    /* TEST copy vector */
+    testv_cpy = copyVector(testv, testv_cpy);
+    printf("\nCopied vector:\n");
+    printVector(testv_cpy);
+
+    /* TEST addVector */
+    testv_add = createVector(6);
+
+    for(i = 0; i < testv_add.size; i++){
+        testv_add.array[i] = 2;
+    }
+    testv_add.size = 6;
+
+    printf(" before addition:\n");
+    printVector(testv_add);
+
+    testv_add = addVector(testv, testv_add);
+
+    printf("The two vectors added: \n");
+    printVector(testv_add);
+
+    /* TEST subtractVector */
+    printf("Subtract initial vector from previous vector:\n");
+    subtractVector(testv_add, testv);
+    printVector(testv_add);
+
+    /* TEST scaleVector */
+    printf("Scale previous vector by 4: \n");
+    scaleVector(testv_add, 4);
+    printVector(testv_add);
+
+    /* TEST lengthOfVector */
+    printf("length of previous vector: \n");
+    length = lengthOfVector(testv_add);
+    printf("  length: %f\n", length);
+
+    /* TEST normalizeVector */
+    printf("normalizeVector:\n");
+    testv_add = normalizeVector(testv_add);
+    printVector(testv_add);
+    length = lengthOfVector(testv_add);
+    printf("  length: %f\n", length);
+
+    /* dotProduct */
+    dot_product = dotProduct(testv_cpy, testv_add);    
+    printf("dot_product: %f\n", dot_product); 
+
+/*    freeVector(testv_cpy);
+    freeVector(testv);
+    freeVector(testv_add);*/
+
+    return 0;
+}
+
+/** @fn struct vector createVector(int size)
+ *  @brief creates a vector on the heap and outputs it
+ *  @param size The number of elements in the vector
+=======
 /** @fn struct vector createVector(int size)
  *  @brief creates a vector on the heap and outputs it. 
  *  @param size The number of elements in the vector.
+
  */
 struct vector createVector(int size){
     struct vector vector;
@@ -20,6 +106,27 @@ struct vector createVector(int size){
     return vector;
 }
 
+
+/** @fn void freeVectorM(int num, ...)
+ *  @brief Frees a variable number of struct vectors using free(Vector)
+ *  @param num The number of arguments (vectors) that should be freed
+ */
+void freeVectorM(int num, ...){
+    int i;
+    va_list list;
+
+    va_start(list, num);
+
+    for(i = 0; i < num; i++){
+        struct vector v = va_arg(list, struct vector);
+        freeVector(v);
+    }
+    
+    va_end(list);
+}
+
+=======
+
 /** @fn void freeVector(struct vector v)
  *  @brief frees the dynamically allocated array on the heap.
  *  @param v The vector struct containing the array on the heap.
@@ -29,8 +136,14 @@ void freeVector(struct vector v){
 }
 
 /** @fn struct vector copyVector(struct vector v1, struct vector v2)
+
+ *  @brief Copies the first vector into the second and returns the second vector
+ *  @param v1 The input vector that is copied
+ *  @param v2 The output vector that v1 is copied into
+=======
  *  @brief Copies the the inputted vector into vector copy and returns this.
  *  @param v1 The input vector that is copied
+
  */
 struct vector copyVector(struct vector v){
     struct vector copy = createVector(v.size);
