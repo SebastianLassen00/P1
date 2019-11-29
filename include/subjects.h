@@ -35,6 +35,7 @@ enum class{
     BIOLOGY,
     PHYSICS,
     ENGLISH,
+    DANISH,
 
     BIOTECHNOLOGY,
     GEOSCIENCE,
@@ -46,7 +47,7 @@ enum class{
     RELIGION,
     SOCIALSTUDIES,
     BUSINESS_ECONOMICS,
-    CONTEMPORAY_HISTORY,
+    CONTEMPORARY_HISTORY,
     
     FRENCH,
     SPANISH,
@@ -92,5 +93,7 @@ struct qualification{
 
 void freeSubject(struct subject *);
 void freeQualification(struct subject *);
+enum class stringToClass(char *);
+char *classToString(enum class);
 
 #endif
