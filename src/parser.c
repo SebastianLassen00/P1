@@ -15,9 +15,10 @@
  * @param filereader 
  */
 void parseDatabase(struct database *database, FILE *filereader){
+    /* This will contain the first line where the type of database and encoding is read. */
     char database_format[STRING_MAX_LENGTH];
     
-    /* not used atm */
+    /* Not used atm. */
     fgets(database_format, STRING_MAX_LENGTH, filereader);
     
     database->amount_of_educations = parseNumOfEdu(filereader);
@@ -30,13 +31,24 @@ void parseDatabase(struct database *database, FILE *filereader){
     parseSubReq(database->educations, database->amount_of_educations, filereader);
     parseGradeReq(database->educations, database->amount_of_educations, filereader);
 }
-
+/** @fn void parseGradeReq(struct education *education, int number_of_educations, FILE *filereader)
+ *  @brief Parses the subjects required for each education
+ *  @param education The education to modify
+ *  @param amount_of_educations The amount of educations in database
+ *  @param filereader The file to read from 
+ */
 void parseSubReq(struct education *education, int number_of_educations, FILE *filereader){
     char current_line[STRING_MAX_LENGTH];
 
     fgets(current_line, STRING_MAX_LENGTH, filereader);
 }
 
+/** @fn void parseGradeReq(struct education *education, int number_of_educations, FILE *filereader)
+ *  @brief Parses the grade requirement for each education
+ *  @param education The education to modify
+ *  @param amount_of_educations The amount of educations in database
+ *  @param filereader The file to read from 
+ */
 void parseGradeReq(struct education *education, int number_of_educations, FILE *filereader){
     char current_line[STRING_MAX_LENGTH];
     char *grade_string;
@@ -54,6 +66,12 @@ void parseGradeReq(struct education *education, int number_of_educations, FILE *
     free(grade_string);
 }
 
+/** @fn void parseRegion(struct education *education, int number_of_educations, FILE *filereader)
+ *  @brief Parses the region for each education
+ *  @param education The education to modify
+ *  @param amount_of_educations The amount of educations in database
+ *  @param filereader The file to read from 
+ */
 void parseRegion(struct education *education, int number_of_educations, FILE *filereader){
     char current_line[STRING_MAX_LENGTH];
     char *region_string;
@@ -71,7 +89,11 @@ void parseRegion(struct education *education, int number_of_educations, FILE *fi
     free(region_string);
 }
 
-int strToReg(char* region_string){
+/** @fn int strToReg(char* region_string)
+ *  @brief Converts a string into an enum region
+ *  @param region_string The string to convert
+ */
+enum region strToReg(char* region_string){
     enum region region;
     
     if(strcmp(region_string, "NORTH_JUTLAND") == 0){
@@ -89,6 +111,10 @@ int strToReg(char* region_string){
     return region;
 }
 
+/** @fn int parseNumOfEdu(FILE *filereader)
+ *  @brief Returns the number of educations from database file
+ *  @param filereader The file to read from
+ */
 int parseNumOfEdu(FILE *filereader){
     int number_of_educations = 0;
     char current_line[STRING_MAX_LENGTH];
@@ -110,6 +136,12 @@ int parseNumOfEdu(FILE *filereader){
     return number_of_educations;
 }
 
+/** @fn void parseEduNames(struct education *education, int amount_of_educations, FILE *filereader)
+ *  @brief Parses the name for each education
+ *  @param education The education to modify
+ *  @param amount_of_educations The amount of educations in database
+ *  @param filereader The file to read from 
+ */
 void parseEduNames(struct education *education, int amount_of_educations, FILE *filereader){
     char current_line[STRING_MAX_LENGTH];
     int i;
@@ -123,6 +155,12 @@ void parseEduNames(struct education *education, int amount_of_educations, FILE *
     }
 }
 
+/** @fn void parseEduDesc(struct education *education, int amount_of_educations, FILE *filereader)
+ *  @brief Parses the description for each education
+ *  @param education The education to modify
+ *  @param amount_of_educations The amount of educations in database
+ *  @param filereader The file to read from 
+ */
 void parseEduDesc(struct education *education, int amount_of_educations, FILE *filereader){
     char current_line[STRING_MAX_LENGTH];
     int i;
@@ -136,6 +174,12 @@ void parseEduDesc(struct education *education, int amount_of_educations, FILE *f
     }
 }
 
+/** @fn void parseEduDesc(struct education *education, int amount_of_educations, FILE *filereader)
+ *  @brief Parses the "read further" link for each education
+ *  @param education The education to modify
+ *  @param amount_of_educations The amount of educations in database
+ *  @param filereader The file to read from 
+ */
 void parseEduLink(struct education *education, int amount_of_educations, FILE *filereader){
     char current_line[STRING_MAX_LENGTH];
     int i;
@@ -150,6 +194,12 @@ void parseEduLink(struct education *education, int amount_of_educations, FILE *f
     }
 }
 
+/** @fn char *parseEduString(char* current_line, int amount_of_educations, int offset)
+ *  @brief Scans the current line + i until TABS or newline. Saves the scanned string and returns a pointer to it.
+ *  @param current_line The line to scan
+ *  @param amount_of_educations The amount of educations in database
+ *  @param offset The offset to decide how many chars to skip in current_line
+ */
 char *parseEduString(char* current_line, int amount_of_educations, int offset){
     char tmp_education_string[STRING_MAX_LENGTH];
     char *education_string;
