@@ -338,7 +338,7 @@ double getValidDouble(void){
 /** @fn void recommendCmd(struct database database, struct profile *user, 
  *                        struct education *currentEducation)
  *  @brief Goes trough the available educations and compares them to the user:
- *         Both their interests, qualifications and location is considered.
+ *         Both their interests, qualifications and location are considered.
  *  @param user The profile struct which is compared
  *  @param databaser The database containing the educations
  *  @param currentEducation The education currently being displayed.

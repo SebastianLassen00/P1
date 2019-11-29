@@ -2,7 +2,6 @@
 #include "education.h"
 #include "subjects.h"
 #include "vector.h" 
-#include "commands.h"
 #include "database.h"
 
 #ifndef COMMANDS_H
