@@ -79,7 +79,7 @@ enum class stringToClass(char *string){
     }
     
     /*default*/
-    return DANISH;
+    return NONE;
 }
 
 char *classToString(enum class class){

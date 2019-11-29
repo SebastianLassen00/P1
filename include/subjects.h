@@ -59,7 +59,8 @@ enum class{
     JAPANESE, 
     LATIN,
     PORTUGESE,
-    RUSSIAN
+    RUSSIAN,
+    NONE
 };
 
 /**
@@ -67,10 +68,10 @@ enum class{
  * @brief Descripes a level of a subject
  */
 enum level{
-    Z,
-    C,
-    B,
-    A
+    Z = 'Z',
+    C = 'C',
+    B = 'B',
+    A = 'A'
 };
 
 /**
@@ -80,6 +81,7 @@ enum level{
 struct subject{
     enum class name;    /**the name of the subject*/
     enum level level;   /**the level of the subject*/
+    float required_grade;
 };
 
 /**

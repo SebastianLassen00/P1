@@ -238,29 +238,57 @@ char *parseEduString(char* current_line, int amount_of_educations, int offset){
 }
 
 int sseek(char *string, char ch){
-    int i;
+    int i, offset = -1;
 
     for (i = 0; i < strlen(string); i++)
     {
-        if (*(string + i) == ch) return i;
+        if (*(string + i) == ch) offset = i;
     }
+
+    return offset;
 }
 
 void readReqString(struct qualification *qualification, char *string, int education_location) {
-    int i, offset = 0, moreReqs = 1;
-    char reqClass[20];
-    enum class class;
-    enum level level = Z;
+    int     i, /**Used for indexing*/
+            offset = 0 /**The offset of the current word*/, 
+            moreReqs = 1;
+    char    reqClass[30];
 
     /*Find the offset for the current education*/
     for ( i = 0; i < education_location; i++) offset += sseek(string + offset, '\t');
 
     do
     {
+        /*read the first requirement name*/
         for(i = 0; i != ' ' && i != '\n' && i != '=' && i != '\t'; ++i) reqClass[i] = string[offset + i];
         reqClass[i] = '\0';
 
-        if(string[offset + i] == '\t' || string[offset + i] == '\n') moreReqs = 0;
+        qualification->subjects[education_location - 1].name = stringToClass(reqClass);
+        if (qualification->subjects[education_location - 1].name == NONE) 
+            qualification->subjects[education_location - 1].name = DANISH, 
+            qualification->subjects[education_location - 1].level = Z;
+
+        if (string[offset + i] == '_')
+        {
+            ++i;
+            qualification->subjects[education_location - 1].level = string[offset + i];
+            
+            if (string[offset + ++i] == '=')
+            {
+                ++i;
+                if(sscanf(string + offset + i, "%f", &qualification->subjects[education_location - 1].required_grade));
+                else qualification->subjects[education_location - 1].required_grade = 2.0f;
+                ++i;
+            }else{
+                qualification->subjects[education_location - 1].required_grade = 2.0f;
+            } 
+        }else{
+            qualification->subjects[education_location - 1].level = Z;
+            qualification->subjects[education_location - 1].required_grade = -3.0f;
+        }
+
+        /*Check if there is more req to read*/
+        if(string[offset + i] == '\t' || string[offset + i] == '\n') moreReqs = 0;
     } while (moreReqs);
     
     
