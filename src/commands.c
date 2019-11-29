@@ -134,11 +134,11 @@ const char *regionName(enum region region){
     return regions[region];
 }
 
-/** @fn double convertScale(int initial_value)
+/** @fn double convertScale(int v)
  *  @brief Returns the converted value
- *  @param initial_value The value to be converted
+ *  @param v The value to be converted
  */
-double convertScale(int initial_value){
+double convertScale(int v){
     return (((double) v - 5.0) / 5.0);
 }
 
