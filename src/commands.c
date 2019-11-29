@@ -401,12 +401,11 @@ int getIndex(struct profile user){
     int i = 0, index;
     int index_found = 0;
 
-    do{
-        if(user.saved_educations[i].name == NULL || user.saved_educations[i].name == "") 
-            index_found = 1;
-        else
-            i++;
-    } while(!index_found && i < EDUCATION_LIST_LENGTH);
+    for(i = 0; index_found != 1 || i < EDUCATION_LIST_LENGTH; i++){
+            if(user.saved_educations[i].name == NULL || user.saved_educations[i].name == ""){
+                index_found = 1;
+            }
+    }
 
     if(index_found == 0)
         i = NOT_IN_LIST; /* NOT_IN_LIST -1 */
