@@ -335,24 +335,36 @@ double getValidDouble(void){
 
 
 
-/* Recommends an education to the user. */
-void recommendCmd(struct database database, struct profile user, 
+/** @fn void recommendCmd(struct database database, struct profile *user, 
+ *                        struct education *currentEducation)
+ *  @brief Goes trough the available educations and compares them to the user:
+ *         Both their interests, qualifications and location is considered.
+ *  @param user The profile struct which is compared
+ *  @param databaser The database containing the educations
+ *  @param currentEducation The education currently being displayed.
+ */
+void recommendCmd(struct database database, struct profile *user, 
                   struct education *currentEducation){
     int i;
     struct vector results, normalized_vector;
     double highest_result, result;
     struct education best_fit;
-    normalized_vector = normalizeVector(addVector(user.interests, user.adjustment_vector));
+    normalized_vector = normalizeVector(addVector(user.interests, user->adjustment_vector));
     
     for(i = 0; i < number_of_educations; i++){
-        result = dotProduct(database.educations[i].interests, normalized_vector);
-        if(result > highest_result && isQualified(user, database.educations[i]) && 
-           getIndex(user.recommended_educations, user, database.educations[i]) == NOT_IN_LIST){
+        result = dotProduct(database.educations[i].interests, normalized_vector) + 
+                 (user->location.region == database.educations[i].region ? 1 : 0) * 
+                  user->location.region_importance;
+        if(result > highest_result && isQualified(*user, database.educations[i]) && 
+           getIndex(user->recommended_educations, database.educations[i]) == NOT_IN_LIST){
             highest_result = result;
             best_fit = educations[i];
         }
     }
     
+    user->recommended_educations[user->last_recommended];
+    user->last_recommended = (user->last_recommended + 1) % EDUCATION_LIST_LENGTH;
+
     *currentEducation = best_fit;
     printEducation(*currentEducation);
 }
