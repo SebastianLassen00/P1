@@ -415,15 +415,15 @@ void printEducation(struct education education){
 
 /* 
 #define NOT_IN_LIST -1 */
-void save(struct education current_education, struct profile user){
+void save(struct education *current_education, struct profile *user){
     int i;
 
-    i = get_index(user);
+    i = get_index(*user);
 
     if(list_is_full(i))
         /* the list is full and there has to be deleted an education in order to save one. */
     else
-        user.saved_educations[i] = current_education; 
+        (*user).saved_educations[i] = *current_education; 
 }
 
 /* uses #EDUCATION_LIST_LENGTH 10 from profile.h */
