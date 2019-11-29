@@ -31,66 +31,7 @@ int isUsed(char name[MAX_NAME_LENGTH], char *name_array[], int number_of_names);
 const char* regionName(enum region region);
 int getValidInteger(void);
 
-int main(void){
-    struct profile user;
-    int i;
-    char temp_char;
-    char name[MAX_NAME_LENGTH];
-    char *names[10] = {"christian", "karl", "sebastian", "simon", "magnus", "steven", "johannes", "nikolai", "børge", "kurt"};
 
-    user = createProfile(5);
-
-    printf("This test will ask you several questions about interests, qualifications and grades\n"
-           "The test requires answers in numbers (integers), and where scale is part, a value between 1 and 100");
-
-    /*  Scan for profile name  */
-    printf("Profile name (only one word): ");
-    
-    getValidName(name, names);
-    printf("Name is: %s\n", name);
-
-    user.name = name;
-    
-    /*  Get location and assesment  */
-    printf("Where do you want to study?\n");
-    for(i = 0; i < NUMBER_OF_REGIONS; i++)
-        printf("%d: %s   ", i, regionName(i));
-    printf("\n");
-    user.location.region = validScaleValue(getValidInteger(), 0, NUMBER_OF_REGIONS - 1);
-
-    printf("How important is this region to you\n");
-    user.location.region_importance = convertScale(validScaleValue(getValidInteger(), 0, 10));
-
-
-
-/*
-    user.name = "christian";
-    for(i = 0; i < user.interests.size; i++){
-        user.interests.array[i] = 0.45 * i;
-    }
-
-    
-    for(i = -5; i < 15; i++){
-        printf("Case C%d: %lf\n", i, convertScale(validScaleValue(i, 0, 10)));
-    }
-
-
-
-    printf("%s\n", user.name);
-    printVector(user.interests);
-    for(i = 0; i < user.qualifications.amount_of_subjects; i++){
-        printf("%s: %d\n", classNameStr(user.qualifications.subjects[i].name), user.qualifications.subjects[i].level);
-    }
-    */
-
-    printf("Name: %s\n", user.name);
-    printf("Region: %s\n", regionName(user.location.region));
-    printf("Region Importance: %lf\n", user.location.region_importance);
-
-    freeProfile(user);
-
-    return 0;
-}
 
 
 void getValidName(char *name, char *name_array[]){
