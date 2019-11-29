@@ -28,7 +28,7 @@ struct education {
  */
 struct educationArray{
     int amount_of_educations;       /**The amount of educations in educations*/
-    struct education **educations; /**An array of pointers to educations*/
+    struct education *educations; /**An array of pointers to educations*/
 };
 
 struct education *createEducationBasics(char *, char*, char*, enum region);

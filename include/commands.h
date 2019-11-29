@@ -8,6 +8,8 @@
 #define COMMANDS_H
 #define NOT_IN_LIST -1
 #define NO_EMPTY_INDEX -1
+#define MAX_COMMAND_LENGTH 10
+#define MAX_INPUT_LENGTH (MAX_COMMAND_LENGTH + 100)
 
 void menuCmd(void);
 
