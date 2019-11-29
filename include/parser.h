@@ -15,5 +15,7 @@ void parseSubReq(struct education *education, int number_of_educations, FILE *fi
 void parseGradeReq(struct education *education, int number_of_educations, FILE *filereader);
 int strToReg(char* region_string);
 char *parseEduString(char* current_line, int amount_of_educations, char* education_string, int offset);
+void parseInterestValues(struct education *education, int number_of_educations, int number_of_interests, FILE *filereader);
+int parseNumOfInterests(FILE *filereader);
 
 #endif

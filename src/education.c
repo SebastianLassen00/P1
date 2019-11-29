@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "education.h"
+#include "vector.h"
 
 
 struct education *createEducationBasics(char* name, char*description, char* link, enum region region){
@@ -30,7 +31,7 @@ void freeEducation(struct education *education){
     free(education->name);
     free(education->description);
     free(education->link_to_read_further);
-    free(education->interests);
+    freeVector(education->interest);
     free(education);
 }
 
