@@ -7,6 +7,7 @@
 #include "subjects.h"
 #include "vector.h" 
 #include "CuTest.h"
+#include "commands.h"
 
 CuSuite *testTestCmd(void);
 
