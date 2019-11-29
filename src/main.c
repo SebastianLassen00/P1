@@ -102,9 +102,6 @@ command scanCommand(char arg[MAX_INPUT_LENGTH], int *arg_num){
         return -1;
     }
 
-    if()
-    sscanf(str, "[^0123456789]")
-
     switch(argType(command_index)){
         case 1:
             scanf(" %s", arg);
@@ -151,45 +148,39 @@ int argType(command c){
     return (c == find || c == eval) ? ((c == find) ? 1 : -1) : 0;
 }
 
-void testCmd(struct profile user, struct qualifications subjects){
+void testCmd(struct profile user, struct qualifications subjects, struct database db){
     int scan_res;
     int initial_value;
-    char test_char;
+    char temp_char;
+    char name[MAX_NAME_LENGTH];
+    char *names[10] = {"christian", "karl", "sebastian", "simon", "magnus", "steven", "johannes", "nikolai", "børge", "kurt"};
 
-    /*  Introduction to test  */
+    /*  Introduction  */
     printf("This test will ask you several questions about interests, qualifications and grades\n"
-           "The test requires answers in numbers (integers), and where scale is part, a value between 1 and 100");
+           "The test requires answers in numbers (integers), and where scale is part, a value between 1 and 100\n\n");
 
     /*  Scan for profile name  */
-    printf("Profile name (only one word): ");
-    scan_res = scanf(" %s", profile.name);
+    setProfileName(user, name, names);
 
     /*  Get location and assesment  */
-    printf("Where do you want to study?\n");
-    for(i = 0; i < NUMBER_OF_REGIONS; i++)
-        printf("%d: %s   ", i, regionName(i));
-    printf("\n");
-    profile.location.region = validScaleValue(getValidInteger(), 0, NUMBER_OF_REGIONS - 1);
+    setProfileLocation(user);
 
-    printf("How important is this region to you\n");
-    profile.location.region_importance = validScaleValue(getValidInteger(), 0, 10);
 
-    /*  Get all interests  */
-    printf("Next, a series of interests will be shown\n"
-           "You are to give a value between 0 and 10, "
-           "where 0 is negative and 10 is positive towards the interest\n");
+    setProfileInterests(user, db);
 
-    for(i = 0; i < ; i++){                              // How many interests?
-        printf("%s:  ", );                              // Where are the interests saved? 
-        initial_value = validScaleValue(getValidInteger(), 0, 10);
-        if(initial_value != 0){
-            user.interests.array[i] = convertScale(initial_value);
-        } else{
-            printf("Wrong input, try again\n");
-            clearBuffer();
-            i--;
+    void setProfileInterests(struct profile user, struct database db) {
+        printf("Next, a series of interests will be shown\n"
+                "You are to give a value between 0 and 10, "
+                "where 0 is negative and 10 is positive towards the interest\n");
+
+        for(i = 0; i < interests.size; i++){                              // How many interests?
+            printf("%s:  ", db.interests_string[i]);                                          // Where are the interests saved? 
+            initial_value = convertScale(validScaleValue(getValidInteger(), 0, 10));
+
         }
     }
+    /*  Get all interests  */
+    
 
     /*  Get important qualifications  */
     for(i = 0; i < TOTAL_SUBJECTS; i++)
@@ -221,6 +212,47 @@ void testCmd(struct profile user, struct qualifications subjects){
 
     /*  Ending the test  */
     printf("The test is now concluded. Returning to menu...\n\n");
+}
+
+/* **************** TestCmd() functions **************** */
+void setProfileName(struct profile user, char *name, char **names) {
+    printf("Profile name (only one word): ");
+
+    getValidName(name, names);
+    strcpy(user.name, name);
+}
+
+void setProfileLocation(struct profile user) {
+    printf("Where do you want to study?\n");
+    for(i = 0; i < NUMBER_OF_REGIONS; i++)
+        printf("%d: %s   ", i, regionName(i));
+    printf("\n");
+    user.location.region = validScaleValue(getValidInteger(), 0, NUMBER_OF_REGIONS - 1);
+
+    printf("How important is this region to you\n");
+    user.location.region_importance = convertScale(validScaleValue(getValidInteger(), 0, 10));
+}
+
+
+/* **************** End of TestCmd() functions **************** */
+void getValidName(char *name, char **name_array){
+    int scan_res;
+
+    do{
+        printf("Enter correct name\n");
+        scan_res = scanf(" %s", name);
+    } while(scan_res == 1 && isUsed(name, name_array, 10));
+}
+
+int isUsed(char name[MAX_NAME_LENGTH], char *name_array[], int number_of_names){
+    int i;
+
+    for(i = 0; i < number_of_names; i++){
+        if(strcmp(name, name_array[i]) == 0)
+            return 1;
+    }
+
+    return 0;
 }
 
 enum level levelAsValue(char c){
@@ -259,6 +291,12 @@ void chooseFromList(struct profile user, interval_start, interval_end){
     } while(i < (interval_end - interval_start));
 }
 
+const char* regionName(enum region region){
+    char *regions[NUMBER_OF_REGIONS] = {"NORTH JUTLAND", "CENTRAL JUTLAND", "SOUTHERN DENMARK", 
+                                        "ZEALAND", "CAPITAL REGION"};
+    return regions[region];
+}
+
 const char* classNameStr(enum class class){
     char *classes[TOTAL_SUBJECTS] = {"MATHEMATICS", "CHEMISTRY", "BIOLOGY", "PHYSICS", "ENGLISH",
                                      "BIOTECHNOLOGY", "GEOSCIENCE", "HISTORY", "IDEA_HISTORY",
@@ -285,7 +323,7 @@ int getValidInteger(void){
         scan_res = scanf(" %d", &valid_int);
         if(scan_res == 0)
             scanf(" %c", &test_char);
-    } while(scan_res == 0 || test_char != '\n');
+    } while(scan_res == 0 && test_char != '\n');
 
     return valid_int;
 }
@@ -305,7 +343,7 @@ double getValidDouble(void){
 }
 
 /* Recommends an education to the user. */
-void recommendCmd(struct educations *educations, int number_of_educations, struct profile user, 
+void recommendCmd(struct education *educations, int number_of_educations, struct profile user, 
                   struct education *currentEducation){
     int i;
     struct vector results, normalized_vector;
@@ -328,6 +366,9 @@ void recommendCmd(struct educations *educations, int number_of_educations, struc
 
 /* Prints the relavant information about the given education */
 void printEducation(struct education education){
+    printf("Name of education: %s\n", education.name);
+    printf("Description: %s\n", education.description);
+    printf("Education is located in: %s\n", );
 
 }
 

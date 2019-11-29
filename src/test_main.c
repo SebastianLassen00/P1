@@ -26,12 +26,44 @@ void chooseFromList(struct profile user, int interval_start, int interval_end);
 double convertScale(int initial_value);
 int validScaleValue(int value, int interval_start, int interval_end);
 
+void getValidName(char *name, char *name_array[]);
+int isUsed(char name[MAX_NAME_LENGTH], char *name_array[], int number_of_names);
+const char* regionName(enum region region);
+int getValidInteger(void);
+
 int main(void){
     struct profile user;
     int i;
     char temp_char;
+    char name[MAX_NAME_LENGTH];
+    char *names[10] = {"christian", "karl", "sebastian", "simon", "magnus", "steven", "johannes", "nikolai", "børge", "kurt"};
+
     user = createProfile(5);
 
+    printf("This test will ask you several questions about interests, qualifications and grades\n"
+           "The test requires answers in numbers (integers), and where scale is part, a value between 1 and 100");
+
+    /*  Scan for profile name  */
+    printf("Profile name (only one word): ");
+    
+    getValidName(name, names);
+    printf("Name is: %s\n", name);
+
+    user.name = name;
+    
+    /*  Get location and assesment  */
+    printf("Where do you want to study?\n");
+    for(i = 0; i < NUMBER_OF_REGIONS; i++)
+        printf("%d: %s   ", i, regionName(i));
+    printf("\n");
+    user.location.region = validScaleValue(getValidInteger(), 0, NUMBER_OF_REGIONS - 1);
+
+    printf("How important is this region to you\n");
+    user.location.region_importance = convertScale(validScaleValue(getValidInteger(), 0, 10));
+
+
+
+/*
     user.name = "christian";
     for(i = 0; i < user.interests.size; i++){
         user.interests.array[i] = 0.45 * i;
@@ -39,7 +71,7 @@ int main(void){
 
     
     for(i = -5; i < 15; i++){
-        printf("Case C%d\n", i, convertScale(validScaleValue(i, 0, 10)));
+        printf("Case C%d: %lf\n", i, convertScale(validScaleValue(i, 0, 10)));
     }
 
 
@@ -49,11 +81,64 @@ int main(void){
     for(i = 0; i < user.qualifications.amount_of_subjects; i++){
         printf("%s: %d\n", classNameStr(user.qualifications.subjects[i].name), user.qualifications.subjects[i].level);
     }
+    */
+
+    printf("Name: %s\n", user.name);
+    printf("Region: %s\n", regionName(user.location.region));
+    printf("Region Importance: %lf\n", user.location.region_importance);
 
     freeProfile(user);
 
     return 0;
 }
+
+
+void getValidName(char *name, char *name_array[]){
+    int scan_res;
+
+    do{
+        printf("Enter correct name\n");
+        scan_res = scanf(" %s", name);
+    } while(scan_res == 1 && isUsed(name, name_array, 10));
+}
+
+int isUsed(char name[MAX_NAME_LENGTH], char *name_array[], int number_of_names){
+    int i;
+
+    for(i = 0; i < number_of_names; i++){
+        if(strcmp(name, name_array[i]) == 0)
+            return 1;
+    }
+
+    return 0;
+}
+
+const char* regionName(enum region region){
+    char *regions[NUMBER_OF_REGIONS] = {"NORTH JUTLAND", "CENTRAL JUTLAND", "SOUTHERN DENMARK", 
+                                        "ZEALAND", "CAPITAL REGION"};
+    return regions[region];
+}
+
+int getValidInteger(void){
+    int valid_int = -1, scan_res = 0;
+    char test_char = 0;
+
+    do{
+        scan_res = scanf(" %d", &valid_int);
+        if(scan_res == 0)
+            scanf(" %c", &test_char);
+    } while(scan_res == 0 && test_char != '\n');
+
+    return valid_int;
+}
+
+
+
+
+
+
+
+
 
 
 double convertScale(int initial_value){
@@ -91,6 +176,7 @@ struct profile createProfile(int number_of_interests){
     char name[MAX_NAME_LENGTH];
 
     profile.interests = createVector(number_of_interests);
+    profile.adjustment_vector = createVector(number_of_interests);
     profile.name = name;
     profile.qualifications = createQualifications(TOTAL_SUBJECTS);
     profile.average = 0.0;

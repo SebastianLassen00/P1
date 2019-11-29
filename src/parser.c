@@ -43,7 +43,7 @@ void parseGradeReq(struct education *education, int number_of_educations, FILE *
     fgets(current_line, STRING_MAX_LENGTH, filereader);
 
     for(i = 0; i < number_of_educations; i++){
-        grade_string = educationSetString(current_line, number_of_educations, grade_string, offset);
+        grade_string = parseEduString(current_line, number_of_educations, grade_string, offset);
         offset = strlen(grade_string) + 1;
         education[i].required_grade = strtod(grade_string, NULL);
     }
