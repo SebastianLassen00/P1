@@ -349,11 +349,10 @@ void recommendCmd(struct education *educations, int number_of_educations, struct
     struct vector results, normalized_vector;
     double highest_result, result;
     struct education best_fit;
-    normalized_vector = createVector(profile.interest.dimensions);
+    normalized_vector = normalizeVector(;
     
     for(i = 0; i < number_of_educations; i++){
-        normalizeVector(educations[i].interests, normalized_vector);
-        result = dotProduct(interests, normalized_vector);
+        result = dotProduct(educations[i].interests, normalized_vector);
         if(result > highest_result){
             highest_result = result;
             best_fit = educations[i];
