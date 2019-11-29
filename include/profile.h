@@ -1,6 +1,7 @@
 #include "vector.h"
 #include "subjects.h"
 #include "region.h"
+#include "education.h"
 
 #ifndef PROFILE_H
 #define PROFILE_H
