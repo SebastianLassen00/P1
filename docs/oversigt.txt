@@ -1,0 +1,36 @@
+Oversigt:
+- databaseparser
+    - den skal kunne læse værdierne fra databasefilen ind i de relevante dele af databasestructen. 
+
+    - databasefilen består af:
+        - navn på uddannelser
+        - beskrivelse af hver uddannelse
+        - har et link (et "læs mere link")
+        - karakterkrav for hver uddannelse
+        - lokation på hver uddannelse
+        - de faglige krav (fagene)
+        - interesser tilknyttet hver uddannelse (repræsenteret af en talværdi)
+            - navn på interesser
+
+    - databasestructen indeholder
+        - en struct af uddannelser
+        - antal af uddannelser 
+        - antal af interesser
+        - navn på hver interesse
+
+    Derudover, er der en struct der indeholder information tilknyttet én enkelt uddannelse.
+
+    På nuværende tidspunkt kan vi indlæse:
+        - antal af uddannelser
+        - antal af interesser
+        - navnene på alle uddannelser, beskrivelser og link
+        - regionen
+        - karakterkrav
+
+Udvalgte structs:
+    - vi har en vektor struct. I denne struct har vi information om én uddannelse eller information om brugeren. 
+    - education gemmer informationer om én uddannelse.
+    - qualifications gemmer på information om hvilke niveauer og fag (subject struct) der kræves på en enkelt uddannelse.
+
+Brugerinput:
+    - i main.c bliver kommandoer håndteret.
