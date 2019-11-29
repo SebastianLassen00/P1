@@ -385,7 +385,7 @@ void printEducation(struct education education){
 void save(struct education *current_education, struct profile *user){
     int i;
 
-    i = get_index(*user);
+    i = get_index((*user).saved_educations, *user);
 
     if(list_is_full(i))
         /* the list is full and there has to be deleted an education in order to save one. */
@@ -397,12 +397,12 @@ void save(struct education *current_education, struct profile *user){
 /** 
  *
  */
-int getIndex(struct profile user){
+int getIndex(struct education edu_array, struct profile user){
     int i = 0, index;
     int index_found = 0;
 
     for(i = 0; index_found != 1 || i < EDUCATION_LIST_LENGTH; i++){
-            if(user.saved_educations[i].name == NULL || user.saved_educations[i].name == ""){
+            if(edu_array[i].name == NULL || edu_array[i].name == ""){
                 index_found = 1;
             }
     }
