@@ -385,14 +385,14 @@ void printEducation(struct education education){
 
 /** @fn
  *  @brief
- *  
+ *  @
  */
 void save(struct education *current_education, struct profile *user){
     int i;
 
-    i = get_index(user->saved_educations, *user);
+    i = getEmptyIndex(user->saved_educations, *user);
 
-    if(list_is_full(i))
+    if(listIsFull(i))
         /* the list is full and there has to be deleted an education in order to save one. */
     else
         user->saved_educations[i] = *current_education; 
@@ -425,7 +425,7 @@ int getEmptyIndex(struct education edu_array[], struct profile user){
         }
     }
 
-    return i;
+    return index;
 }
 
 /**
