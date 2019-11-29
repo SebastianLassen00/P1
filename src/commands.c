@@ -349,8 +349,9 @@ void printEducation(struct education education){
 }
 
 
-/* 
-#define NOT_IN_LIST -1 */
+/** @
+ *  @
+ */
 void save(struct education *current_education, struct profile *user){
     int i;
 
@@ -362,8 +363,11 @@ void save(struct education *current_education, struct profile *user){
         (*user).saved_educations[i] = *current_education; 
 }
 
-/* uses #EDUCATION_LIST_LENGTH 10 from profile.h */
-int get_index(struct profile user){
+/* uses #define EDUCATION_LIST_LENGTH 10 from profile.h */
+/** 
+ *
+ */
+int getIndex(struct profile user){
     int i = 0, index;
     int index_found = 0;
 
@@ -375,11 +379,14 @@ int get_index(struct profile user){
     } while(!index_found && i < EDUCATION_LIST_LENGTH);
 
     if(index_found == 0)
-        i = NOT_IN_LIST;
+        i = NOT_IN_LIST; /* NOT_IN_LIST -1 */
 
     return i;
 }
 
-int list_is_full(int i){
+/** 
+ *
+ */
+int listIsFull(int i){
     return i == NOT_IN_LIST;
 }
