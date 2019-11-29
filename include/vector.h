@@ -8,7 +8,7 @@ struct vector{
 
 
 struct vector createVector(int size);
-struct vector copyVector(struct vector v1, struct vector v2);
+struct vector copyVector(struct vector v);
 struct vector addVector(struct vector v1, struct vector v2);
 struct vector subtractVector(struct vector v1, struct vector v2);
 struct vector scaleVector(struct vector v, double scale);
