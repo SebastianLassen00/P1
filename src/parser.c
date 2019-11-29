@@ -24,6 +24,7 @@ void parseDatabase(struct database *database, FILE *filereader){
     database->amount_of_educations = parseNumOfEdu(filereader);
     database->educations = (struct education*) malloc(database->amount_of_educations * sizeof(struct education));
     
+    /* Each of these functions assume that the program is ready to read the relevant line */
     parseEduNames(database->educations, database->amount_of_educations, filereader);
     parseEduDesc(database->educations, database->amount_of_educations, filereader);
     parseEduLink(database->educations, database->amount_of_educations, filereader);
@@ -31,6 +32,7 @@ void parseDatabase(struct database *database, FILE *filereader){
     parseSubReq(database->educations, database->amount_of_educations, filereader);
     parseGradeReq(database->educations, database->amount_of_educations, filereader);
 }
+
 /** @fn void parseGradeReq(struct education *education, int number_of_educations, FILE *filereader)
  *  @brief Parses the subjects required for each education
  *  @param education The education to modify
@@ -57,6 +59,7 @@ void parseGradeReq(struct education *education, int number_of_educations, FILE *
 
     fgets(current_line, STRING_MAX_LENGTH, filereader);
 
+    /* Iterate through all educations */
     for(i = 0; i < number_of_educations; i++){
         grade_string = parseEduString(current_line, number_of_educations, offset);
         offset = strlen(grade_string) + 1;
@@ -80,6 +83,7 @@ void parseRegion(struct education *education, int number_of_educations, FILE *fi
 
     fgets(current_line, STRING_MAX_LENGTH, filereader);
 
+    /* Iterate through all educations */
     for(i = 0; i < number_of_educations; i++){
         region_string = parseEduString(current_line, number_of_educations, offset);
         offset += strlen(region_string) + 1;
@@ -124,6 +128,7 @@ int parseNumOfEdu(FILE *filereader){
     fgets(current_line, STRING_MAX_LENGTH, filereader);
     line_length = strlen(current_line);
 
+    /* Iterate through all educations */
     for(i = 0; i < line_length; i++){
         if(current_line[i] == TABS) {
             number_of_educations++;
@@ -149,6 +154,7 @@ void parseEduNames(struct education *education, int amount_of_educations, FILE *
     
     fgets(current_line, STRING_MAX_LENGTH, filereader);
 
+    /* Iterate through all educations */
     for(i = 0; i < amount_of_educations; i++){
         education[i].name = parseEduString(current_line, amount_of_educations, offset);
         offset += strlen(education[i].name) + 1;
@@ -168,6 +174,7 @@ void parseEduDesc(struct education *education, int amount_of_educations, FILE *f
     
     fgets(current_line, STRING_MAX_LENGTH, filereader);
 
+    /* Iterate through all educations */
     for(i = 0; i < amount_of_educations; i++){
         education[i].description = parseEduString(current_line, amount_of_educations, offset);
         offset += strlen(education[i].description) + 1;
@@ -187,6 +194,7 @@ void parseEduLink(struct education *education, int amount_of_educations, FILE *f
     
     fgets(current_line, STRING_MAX_LENGTH, filereader);
 
+    /* Iterate through all educations */
     for(i = 0; i < amount_of_educations; i++){
         education[i].link_to_read_further = parseEduString(current_line, amount_of_educations, offset);
 
@@ -207,6 +215,7 @@ char *parseEduString(char* current_line, int amount_of_educations, int offset){
     int tmp_education_string_length;
     int i;
 
+    /* Calculate how many chars to skip. Will always skip the first word*/
     i = strchr(current_line, TABS) - current_line + sizeof(char) + offset;
     
     sscanf(current_line + i, "%[^\n	]s", tmp_education_string);
