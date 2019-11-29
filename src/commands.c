@@ -383,9 +383,10 @@ void printEducation(struct education education){
 }
 
 
-/** @fn
- *  @brief
- *  @
+/** @fn void save(struct education *current_education, struct profile *user)
+ *  @brief 
+ *  @param *current_education 
+ *  @param *user The profile of the user that has saved_education as a member.
  */
 void save(struct education *current_education, struct profile *user){
     int i;
@@ -399,10 +400,12 @@ void save(struct education *current_education, struct profile *user){
 }
 
 /* uses #define EDUCATION_LIST_LENGTH 10 from profile.h */
-/** 
- *
+/** @fn int getIndex(struct education edu_array[], struct profile user, struct education target)
+ *  @brief
+ *  @param edu_array[] An array of education structs (these two arrays can be found in profile struct)
+ *  @param target 
  */
-int getIndex(struct education edu_array[], struct profile user, struct education target){
+int getIndex(struct education edu_array[], struct education target){
     int i = 0, index;
     int index = NOT_IN_LIST;
 
@@ -415,7 +418,11 @@ int getIndex(struct education edu_array[], struct profile user, struct education
     return i;
 }
 
-int getEmptyIndex(struct education edu_array[], struct profile user){
+/** @fn int getEmptyIndex(struct education edu_array[], struct profile user)
+ *  @brief Finds an empty index in an array of education structs, returns index.
+ *  @param edu_array[] An array of education structs (these two arrays can be found in profile struct)
+ */
+int getEmptyIndex(struct education edu_array[]){
     int i = 0, index;
     int index = NO_EMPTY_INDEX;
 
@@ -428,8 +435,9 @@ int getEmptyIndex(struct education edu_array[], struct profile user){
     return index;
 }
 
-/**
- *
+/** @fn int listIsFull(int i)
+ *  @brief A logical statement that returns a boolean value.
+ *  @param i The index of an array of education structs
  */
 int listIsFull(int i){
     return i == NO_EMPTY_INDEX;
