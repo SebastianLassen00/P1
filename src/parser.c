@@ -26,6 +26,26 @@ void parseDatabase(struct database *database, FILE *filereader){
     parseRegion(database->educations, database->amount_of_educations, filereader);
     parseSubReq(database->educations, database->amount_of_educations, filereader);
     parseGradeReq(database->educations, database->amount_of_educations, filereader);
+    parseInterestValues(database->educations, database->amount_of_educations, database->amount_of_interests, filereader);
+}
+
+void parseInterestValues(struct education *education, int number_of_educations, int number_of_interests, FILE *filereader){
+    char current_line[STRING_MAX_LENGTH];
+    char *interest_value_string;
+    int offset = 0;
+    int i;
+    int j;
+
+    for(i = 0; i < number_of_interests; i++){
+        offset = 0;
+        fgets(current_line, STRING_MAX_LENGTH, filereader);
+
+        for(j = 0; j < number_of_educations; j++){
+            interest_value_string = educationSetString(current_line, number_of_educations, offset);
+            education[j].interest.array[i] = strtod(interest_value_string, NULL);
+            offset += strlen(interest_value_string) + 1;
+        }
+    }
 }
 
 void parseSubReq(struct education *education, int number_of_educations, FILE *filereader){
