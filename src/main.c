@@ -148,7 +148,7 @@ int argType(command c){
     return (c == find || c == eval) ? ((c == find) ? 1 : -1) : 0;
 }
 
-void testCmd(struct profile user, struct qualifications subjects, struct database db){
+void testCmd(struct profile user, struct database db){
     int scan_res;
     int initial_value;
     char temp_char;
@@ -165,47 +165,12 @@ void testCmd(struct profile user, struct qualifications subjects, struct databas
     /*  Get location and assesment  */
     setProfileLocation(user);
 
-
+    /*  Get all interests  */
     setProfileInterests(user, db);
 
-    void setProfileInterests(struct profile user, struct database db) {
-        printf("Next, a series of interests will be shown\n"
-                "You are to give a value between 0 and 10, "
-                "where 0 is negative and 10 is positive towards the interest\n");
-
-        for(i = 0; i < interests.size; i++){                              // How many interests?
-            printf("%s:  ", db.interests_string[i]);                                          // Where are the interests saved? 
-            initial_value = convertScale(validScaleValue(getValidInteger(), 0, 10));
-
-        }
-    }
-    /*  Get all interests  */
+    /*  Get all qualifications  */
+    setProfileQualifications(user);
     
-
-    /*  Get important qualifications  */
-    for(i = 0; i < TOTAL_SUBJECTS; i++)
-        user.qualifications.subjects[i].name = i;
-
-    for(i = 0; i < IMPORTANT_SUBJECTS; i++){
-        printf("%s: ", classNameStr(i));
-        do{
-            scanf(" %c", &temp_char);
-        } while(levelAsValue(temp_char) == -1);
-        user.qualifications.subjects[i].level = levelAsValue(temp_char);
-        clearBuffer();
-        printf("\n");
-    }
-
-    /*  Get less important qualifications  */
-    for(i = 0; i < OTHER_SUBJECTS; i++)
-        printf("%d: %s\n", i, classNameStr(i + IMPORTANT_SUBJECTS));
-    chooseFromList(user, IMPORTANT_SUBJECTS, IMPORTANT_SUBJECTS + OTHER_SUBJECTS);
-
-    for(i = 0; i < LANGUAGE_SUBJECTS; i++)
-        printf("%d: %s\n", i, classNameStr(i + IMPORTANT_SUBJECTS + OTHER_SUBJECTS));
-    chooseFromList(user, IMPORTANT_SUBJECTS + OTHER_SUBJECTS, TOTAL_SUBJECTS);
-
-
     /*  Get average grade  */
     printf("What is your average grade? ");
     user.average = getValidDouble();
@@ -215,26 +180,13 @@ void testCmd(struct profile user, struct qualifications subjects, struct databas
 }
 
 /* **************** TestCmd() functions **************** */
-void setProfileName(struct profile user, char *name, char **names) {
+void setProfileName(struct profile user, char *name, char **names){
     printf("Profile name (only one word): ");
 
     getValidName(name, names);
     strcpy(user.name, name);
 }
 
-void setProfileLocation(struct profile user) {
-    printf("Where do you want to study?\n");
-    for(i = 0; i < NUMBER_OF_REGIONS; i++)
-        printf("%d: %s   ", i, regionName(i));
-    printf("\n");
-    user.location.region = validScaleValue(getValidInteger(), 0, NUMBER_OF_REGIONS - 1);
-
-    printf("How important is this region to you\n");
-    user.location.region_importance = convertScale(validScaleValue(getValidInteger(), 0, 10));
-}
-
-
-/* **************** End of TestCmd() functions **************** */
 void getValidName(char *name, char **name_array){
     int scan_res;
 
@@ -251,8 +203,101 @@ int isUsed(char name[MAX_NAME_LENGTH], char *name_array[], int number_of_names){
         if(strcmp(name, name_array[i]) == 0)
             return 1;
     }
-
     return 0;
+}
+
+void setProfileLocation(struct profile user){
+    int i;
+
+    printf("Where do you want to study?\n");
+    for(i = 0; i < NUMBER_OF_REGIONS; i++)
+        printf("%d: %s   ", i, regionName(i));
+    printf("\n");
+    user.location.region = validScaleValue(getValidInteger(), 0, NUMBER_OF_REGIONS - 1);
+
+    printf("How important is this region to you\n");
+    user.location.region_importance = convertScale(validScaleValue(getValidInteger(), 0, 10));
+}
+
+const char* regionName(enum region region){
+    char *regions[NUMBER_OF_REGIONS] = {"NORTH JUTLAND", "CENTRAL JUTLAND", "SOUTHERN DENMARK", 
+                                        "ZEALAND", "CAPITAL REGION"};
+    return regions[region];
+}
+
+double convertScale(int initial_value){
+    return (((double) v - 5.0) / 5.0);
+}
+
+int validScaleValue(int value, int interval_start, int interval_end){
+    return (value > interval_end ? interval_end : (value < interval_start ? interval_start : value));
+}
+
+int getValidInteger(void){
+    int valid_int = -1, scan_res = 0;
+    char test_char = 0;
+
+    do{
+        scan_res = scanf(" %d", &valid_int);
+        if(scan_res == 0)
+            scanf(" %c", &test_char);
+    } while(scan_res == 0 && test_char != '\n');
+
+    return valid_int;
+}
+
+void setProfileInterests(struct profile user, struct database db){
+    int i;
+
+    printf("Next, a series of interests will be shown\n"
+            "You are to give a value between 0 and 10, "
+            "where 0 is negative and 10 is positive towards the interest\n");
+
+    for(i = 0; i < interests.size; i++){                              // How many interests?
+        printf("%s:  ", db.interests_string[i]);                                          // Where are the interests saved? 
+        user.interests[i] = convertScale(validScaleValue(getValidInteger(), 0, 10));
+    }
+}
+
+void setProfileQualifications(struct profile user){
+    setSubjects(user);
+    
+    setImportantSubjects(user); 
+    
+    setOtherSubjects(user, IMPORTANT_SUBJECTS, IMPORTANT_SUBJECTS + OTHER_SUBJECTS);
+    setOtherSubjects(user, IMPORTANT_SUBJECTS + OTHER_SUBJECTS, TOTAL_SUBJECTS);
+}
+
+void setSubjects(struct profile user){
+    int i;
+
+    for(i = 0; i < TOTAL_SUBJECTS; i++)
+        user.qualifications.subjects[i].name = i;
+}
+
+void setImportantSubjects(struct profile user){
+    char temp_char;
+    int i;
+
+    for(i = 0; i < IMPORTANT_SUBJECTS; i++){
+        printf("%s: ", classNameStr(i));
+        do{
+            scanf(" %c", &temp_char);
+        } while(levelAsValue(temp_char) == -1);
+        user.qualifications.subjects[i].level = levelAsValue(temp_char);
+        clearBuffer();
+        printf("\n");
+    }
+}
+
+const char* classNameStr(enum class class){
+    char *classes[TOTAL_SUBJECTS] = {"MATHEMATICS", "CHEMISTRY", "BIOLOGY", "PHYSICS", "ENGLISH",
+                                     "BIOTECHNOLOGY", "GEOSCIENCE", "HISTORY", "IDEA_HISTORY",
+                                     "INFORMATICS", "INTERNATIONAL_ECONOMICS", "COMMUNICATION_AND_IT",
+                                     "RELIGION", "SOCIALSTUDIES", "BUSINESS_ECONOMICS", "CONTEMPORAY_HISTORY",
+                                     "FRENCH", "SPANISH", "GERMAN", "CHINESE", "ARABIC", "GREEK", "ITALIAN",
+                                     "JAPANESE", "LATIN", "PORTUGESE", "RUSSIAN"};
+    return classes[class];
 }
 
 enum level levelAsValue(char c){
@@ -277,6 +322,16 @@ enum level levelAsValue(char c){
     return return_value;
 }
 
+void setOtherSubjects(struct profile user, int start, int end){
+    int i;
+
+    for(i = 0; i < end - start; i++)
+        printf("%d: %s\n", i, classNameStr(i + start));
+    chooseFromList(user, start, end);
+}
+
+
+
 void chooseFromList(struct profile user, interval_start, interval_end){
     int temp_subject, i = 0;
     char temp_char;
@@ -289,43 +344,6 @@ void chooseFromList(struct profile user, interval_start, interval_end){
             i++;
         }
     } while(i < (interval_end - interval_start));
-}
-
-const char* regionName(enum region region){
-    char *regions[NUMBER_OF_REGIONS] = {"NORTH JUTLAND", "CENTRAL JUTLAND", "SOUTHERN DENMARK", 
-                                        "ZEALAND", "CAPITAL REGION"};
-    return regions[region];
-}
-
-const char* classNameStr(enum class class){
-    char *classes[TOTAL_SUBJECTS] = {"MATHEMATICS", "CHEMISTRY", "BIOLOGY", "PHYSICS", "ENGLISH",
-                                     "BIOTECHNOLOGY", "GEOSCIENCE", "HISTORY", "IDEA_HISTORY",
-                                     "INFORMATICS", "INTERNATIONAL_ECONOMICS", "COMMUNICATION_AND_IT",
-                                     "RELIGION", "SOCIALSTUDIES", "BUSINESS_ECONOMICS", "CONTEMPORAY_HISTORY",
-                                     "FRENCH", "SPANISH", "GERMAN", "CHINESE", "ARABIC", "GREEK", "ITALIAN",
-                                     "JAPANESE", "LATIN", "PORTUGESE", "RUSSIAN"};
-    return classes[class];
-}
-
-double convertScale(int initial_value){
-    return (((double) v - 5.0) / 5.0);
-}
-
-int validScaleValue(int value, int interval_start, int interval_end){
-    return (value > interval_end ? interval_end : (value < interval_start ? interval_start : value));
-}
-
-int getValidInteger(void){
-    int valid_int = -1, scan_res = 0;
-    char test_char = 0;
-
-    do{
-        scan_res = scanf(" %d", &valid_int);
-        if(scan_res == 0)
-            scanf(" %c", &test_char);
-    } while(scan_res == 0 && test_char != '\n');
-
-    return valid_int;
 }
 
 double getValidDouble(void){
@@ -341,6 +359,19 @@ double getValidDouble(void){
 
     return valid_double;
 }
+
+/* **************** End of TestCmd() functions **************** */
+
+
+
+
+
+
+
+
+
+
+
 
 /* Recommends an education to the user. */
 void recommendCmd(struct education *educations, int number_of_educations, struct profile user, 
