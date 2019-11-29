@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <profile.h>
-#include <education.h>
-#include <subjects.h>
-#include <vector.h> 
+
+#include "profile.h"
+#include "education.h"
+#include "subjects.h"
+#include "vector.h" 
+#include "commands.h"
 
 #define MAX_COMMAND_LENGTH 10
 #define MAX_INPUT_LENGTH (MAX_COMMAND_LENGTH + 100)
@@ -39,8 +41,99 @@ void recommendCmd(struct educations *educations, struct profile user,
 
 
     return 0;
+}*/
+
+
+void testLevelAsValue(CuSuite *tc){
+    char cA = 'A', ca = 'a';
+    char cB = 'B', cb = 'b';
+    char cC = 'C', cc = 'c';
+    char cZ = 'Z', cz = 'z';
+
+    int expectedA = (int) A;
+    int expectedB = (int) B;
+    int expectedC = (int) C;
+    int expectedZ = (int) Z;
+
+    CuAssertIntEquals(tc, expectedA, cA);
+    CuAssertIntEquals(tc, expectedA, ca);
+
+    CuAssertIntEquals(tc, expectedB, cB);
+    CuAssertIntEquals(tc, expectedB, cb);
+
+    CuAssertIntEquals(tc, expectedC, cC);
+    CuAssertIntEquals(tc, expectedC, cc);
+
+    CuAssertIntEquals(tc, expectedZ, cZ);
+    CuAssertIntEquals(tc, expectedZ, cz);
 }
-*/
+
+void testValidScaleValue(CuSuite *tc){
+    int case1 = -5, eCase1 = 0;
+    int case2 = 0,  eCase2 = 0;
+    int case3 = 5,  eCase3 = 5;
+    int case4 = 10, eCase4 = 10;
+    int case5 = 15, eCase5 = 10;
+
+    CuAssertIntEquals(tc, eCase1, case1);
+    CuAssertIntEquals(tc, eCase2, case2);
+    CuAssertIntEquals(tc, eCase3, case3);
+    CuAssertIntEquals(tc, eCase4, case4);
+    CuAssertIntEquals(tc, eCase5, case5);
+}
+
+void testConvertScale(CuSuite *tc){
+    
+}
+
+
+
+
+CuSuite *testTestCmd(void){
+    CuSuite *suite = CuSuiteNew();
+
+    SUITE_ADD_TEST(suite, testLevelAsValue);
+    SUITE_ADD_TEST(suite, testValidScaleValue);
+
+
+    return suite;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, 
                    struct profile user, struct qualifications subjects,
                    struct education *educations, int number_of_educations,
