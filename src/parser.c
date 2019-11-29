@@ -4,6 +4,7 @@
 #include "database.h"
 #include "parser.h"
 #include "region.h"
+#include "vector.h"
 
 #define STRING_MAX_LENGTH 50000
 #define TABS '	'
@@ -20,13 +21,29 @@ void parseDatabase(struct database *database, FILE *filereader){
     fgets(database_format, STRING_MAX_LENGTH, filereader);
     database->amount_of_educations = parseNumOfEdu(filereader);
     database->educations = (struct education*) malloc(database->amount_of_educations * sizeof(struct education));
+    
     parseEduNames(database->educations, database->amount_of_educations, filereader);
     parseEduDesc(database->educations, database->amount_of_educations, filereader);
     parseEduLink(database->educations, database->amount_of_educations, filereader);
     parseRegion(database->educations, database->amount_of_educations, filereader);
     parseSubReq(database->educations, database->amount_of_educations, filereader);
     parseGradeReq(database->educations, database->amount_of_educations, filereader);
+
+    database->amount_of_interests = parseNumOfInterests(filereader);
     parseInterestValues(database->educations, database->amount_of_educations, database->amount_of_interests, filereader);
+}
+
+int parseNumOfInterests(FILE *filereader){
+    char current_line[STRING_MAX_LENGTH];
+    int number_of_interests = 0;
+    int all_lines_length = 0;
+
+    while (fgets(current_line, STRING_MAX_LENGTH, filereader) != NULL){
+        all_lines_length += strlen(current_line);
+        number_of_interests++;
+    }
+    fseek(filereader, -all_lines_length - number_of_interests + 1, SEEK_CUR);
+    return number_of_interests;
 }
 
 void parseInterestValues(struct education *education, int number_of_educations, int number_of_interests, FILE *filereader){
@@ -46,6 +63,8 @@ void parseInterestValues(struct education *education, int number_of_educations, 
             offset += strlen(interest_value_string) + 1;
         }
     }
+
+    free(interest_value_string);
 }
 
 void parseSubReq(struct education *education, int number_of_educations, FILE *filereader){
