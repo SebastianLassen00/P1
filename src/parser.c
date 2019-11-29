@@ -8,6 +8,9 @@
 #define STRING_MAX_LENGTH 50000
 #define TABS '	'
 
+int sseek(char *, char);
+void readReqString(struct qualification *, char *, int);
+
 /**
  * @brief 
  * 
@@ -29,9 +32,16 @@ void parseDatabase(struct database *database, FILE *filereader){
 }
 
 void parseSubReq(struct education *education, int number_of_educations, FILE *filereader){
+    int i;
     char current_line[STRING_MAX_LENGTH];
 
     fgets(current_line, STRING_MAX_LENGTH, filereader);
+
+    for ( i = 0; i < number_of_educations; i++)
+    {
+        readReqString(&education[i].required_qualifications, current_line, i + 1);
+    }
+    
 }
 
 void parseGradeReq(struct education *education, int number_of_educations, FILE *filereader){
@@ -165,4 +175,35 @@ char *parseEduString(char* current_line, int amount_of_educations, char* educati
     strcpy(education_string, tmp_education_string);
 
     return education_string;
+}
+
+int sseek(char *string, char ch){
+    int i;
+
+    for (i = 0; i < strlen(string); i++)
+    {
+        if (*(string + i) == ch) return i;
+    }
+}
+
+void readReqString(struct qualification *qualification, char *string, int education_location) {
+    int i, offset = 0, moreReqs = 1;
+    char reqClass[20];
+    enum class class;
+    enum level level = Z;
+
+    /*Find the offset for the current education*/
+    for ( i = 0; i < education_location; i++) offset += sseek(string + offset, '\t');
+
+    do
+    {
+        for(i = 0; i != ' ' && i != '\n' && i != '=' && i != '\t'; ++i) reqClass[i] = string[offset + i];
+        reqClass[i] = '\0';
+
+        if(string[offset + i] == '\t' || string[offset + i] == '\n') moreReqs = 0;
+    } while (moreReqs);
+    
+    
+    
+    
 }

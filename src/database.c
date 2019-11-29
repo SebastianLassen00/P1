@@ -18,7 +18,7 @@ void freeDatabase(struct database *database){
     int i;
 
     for(i = 0; i < database->amount_of_educations; ++i){
-        freeEducation(database->educations[i]);
+        freeEducation(&database->educations[i]);
     }
 
     for(i = 0; i < database->amount_of_interests; i++) 
@@ -63,8 +63,8 @@ struct education *findEducation(char *key, struct database *database){
     struct education *education = NULL;
 
     for( i = 0; i < database->amount_of_educations; i++){
-        if(strcmp(key, database->educations[i]->name)){
-            education = database->educations[i];
+        if(strcmp(key, database->educations[i].name)){
+            education = &database->educations[i];
         } 
     }
 
@@ -89,7 +89,7 @@ struct educationArray *searchDatabaseForEducation(char *search_word, struct data
     
     /*Go through all educations in database*/
     for(i = 0; i < database->amount_of_educations + 1; i++){
-        strncpy(temp_string, database->educations[i]->name, strlen(search_word));
+        strncpy(temp_string, database->educations[i].name, strlen(search_word));
 
         /*If the education has the search word in it*/
         if(strcmp(temp_string, search_word) 
