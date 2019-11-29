@@ -1,5 +1,10 @@
 #include <stdio.h>
-
+#include <stdlib.h>
+#include <string.h>
+#include <profile.h>
+#include <education.h>
+#include <subjects.h>
+#include <vector.h> 
 #include "CuTest.h"
 
 CuSuite* CuGetSuite();
@@ -28,3 +33,4 @@ int main(void)
     RunAllTests();
     return 0;
 }
+
