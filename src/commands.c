@@ -321,7 +321,7 @@ void recommendCmd(struct database database, struct profile user,
     
     for(i = 0; i < number_of_educations; i++){
         result = dotProduct(database.educations[i].interests, normalized_vector);
-        if(result > highest_result){
+        if(result > highest_result && isQualified(user, database.educations[i])){
             highest_result = result;
             best_fit = educations[i];
         }
@@ -331,13 +331,21 @@ void recommendCmd(struct database database, struct profile user,
     printEducation(*currentEducation);
 }
 
+/** @fn void isQualified(struct profile user, struct education education)
+ *  @brief Checks if the user has the subject levels required by the education
+ *  @param user The profile struct whose quailification is checked
+ *  @param education The education struct with the requirements
+ */
 void isQualified(struct profile user, struct education education) {
     int i;
-    enum class subject;
+    struct subject subject;
     for(i = 0; i < education.required_qualifications.amount_of_subjects; i++) {
-        
-        if(education.required_qualifications.subjects[i]
+        subject = education.required_qualifications.subjects[i];
+        if(user.qualifications.subjects[subject.name].level < subject.level) {
+            return 0;
+        }
     }
+    return 1;
 }
 
 /* Prints the relavant information about the given education */
