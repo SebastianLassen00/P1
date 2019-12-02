@@ -96,6 +96,6 @@ struct qualification{
 void freeSubject(struct subject *);
 void freeQualification(struct subject *);
 enum class stringToClass(char *);
-char *classToString(enum class);
+enum level charToLevel(char ch);
 
 #endif
