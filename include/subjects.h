@@ -60,7 +60,6 @@ enum level{
 struct subject{
     enum class name;    /**the name of the subject*/
     enum level level;   /**the level of the subject*/
-    float required_grade;
 };
 
 /**
