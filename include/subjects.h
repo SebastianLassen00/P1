@@ -73,7 +73,7 @@ struct qualification{
 };
 
 void freeSubject(struct subject *);
-void freeQualification(struct subject *);
+void freeQualification(struct qualification *);
 enum class stringToClass(char *);
 enum level charToLevel(char ch);
 

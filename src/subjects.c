@@ -1,5 +1,7 @@
-#include "subjects.h"
+#include <stdlib.h>
 #include <string.h>
+
+#include "subjects.h"
 /**
  * @brief free a subject and its members
  * 

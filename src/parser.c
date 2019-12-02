@@ -65,8 +65,8 @@ void parseInterestValues(struct education *education, int number_of_educations, 
         fgets(current_line, STRING_MAX_LENGTH, filereader);
 
         for(j = 0; j < number_of_educations; j++){
-            interest_value_string = educationSetString(current_line, number_of_educations, offset);
-            education[j].interest.array[i] = strtod(interest_value_string, NULL);
+            interest_value_string = parseEduString(current_line, number_of_educations, offset);
+            education[j].interests.array[i] = strtod(interest_value_string, NULL);
             offset += strlen(interest_value_string) + 1;
         }
     }
