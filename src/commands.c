@@ -333,16 +333,28 @@ double getValidDouble(void){
 
 
 
-
-
+/** @fn void evalCmd(struct education *currentEducation, struct profile *user, int arg)
+ *  @brief Changes the adjustment vector for the user to approach the current education. 
+ *         The distance of the change is determined by the argument
+ *  @param currentEducation The education currently being displayed
+ *  @param user The profile struct whose adjustment vector is changed
+ *  @param arg The user input argument for how much to change the adjustment vector
+ */
+void evalCmd(struct education *currentEducation, struct profile *user, int arg) {
+    struct vector user_vector = addVector(user->interests, user->adjustment_vector);
+    struct vector distance_vector = subtractVector(currentEducation->interests, user_vector);
+    struct vector scaled_vector = scaleVector(distanceVector, ADJUSTMENT_CONSTANT * convertScale(arg));
+    user->adjustment_vector = addVector(user->adjustment_vector, scalde_vector);
+    freeVectorm(user_vector, distance_vector, scaled_vector);
+}
 
 /** @fn void recommendCmd(struct database database, struct profile *user, 
  *                        struct education *currentEducation)
  *  @brief Goes trough the available educations and compares them to the user:
  *         Both their interests, qualifications and location are considered.
  *  @param user The profile struct which is compared
- *  @param databaser The database containing the educations
- *  @param currentEducation The education currently being displayed.
+ *  @param database The database containing the educations
+ *  @param currentEducation The education currently being displayed
  */
 void recommendCmd(struct database database, struct profile *user, 
                   struct education *currentEducation){
@@ -363,6 +375,7 @@ void recommendCmd(struct database database, struct profile *user,
         }
     }
     
+    freeVector(normalized_vector);
     user->recommended_educations[user->last_recommended];
     user->last_recommended = (user->last_recommended + 1) % EDUCATION_LIST_LENGTH;
 
