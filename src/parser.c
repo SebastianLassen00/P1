@@ -309,7 +309,7 @@ void readReqString(struct qualification *qualification, char *string, int educat
         if (string[offset + i] == '_')
         {
             ++i;
-            qualification->subjects[education_location - 1].level = string[offset + i];
+            qualification->subjects[education_location - 1].level = charToLevel(string[offset + i]);
             
             if (string[offset + ++i] == '=')
             {
