@@ -2,10 +2,12 @@
 #include <math.h>
 #include <stdlib.h>
 #include "vector.h"
+#include <stdarg.h>
+
 
 /** @fn struct vector createVector(int size)
- *  @brief creates a vector on the heap and outputs it. 
- *  @param size The number of elements in the vector.
+ *  @brief creates a vector on the heap and outputs it
+ *  @param size The number of elements in the vector
  */
 struct vector createVector(int size){
     struct vector vector;
@@ -20,6 +22,24 @@ struct vector createVector(int size){
     return vector;
 }
 
+/** @fn void freeVectorM(int num, ...)
+ *  @brief Frees a variable number of struct vectors using free(Vector)
+ *  @param num The number of arguments (vectors) that should be freed
+ */
+void freeVectorM(int num, ...){
+    int i;
+    va_list list;
+
+    va_start(list, num);
+
+    for(i = 0; i < num; i++){
+        struct vector v = va_arg(list, struct vector);
+        freeVector(v);
+    }
+    
+    va_end(list);
+}
+
 /** @fn void freeVector(struct vector v)
  *  @brief frees the dynamically allocated array on the heap.
  *  @param v The vector struct containing the array on the heap.
@@ -28,9 +48,10 @@ void freeVector(struct vector v){
     free(v.array);
 }
 
-/** @fn struct vector copyVector(struct vector v1, struct vector v2)
+/** @fn struct vector copyVector(struct vector v)
  *  @brief Copies the the inputted vector into vector copy and returns this.
- *  @param v1 The input vector that is copied
+ *  @param v The input vector that is copied
+
  */
 struct vector copyVector(struct vector v){
     struct vector copy = createVector(v.size);

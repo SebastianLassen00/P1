@@ -1,7 +1,6 @@
 #ifndef REGION_H
 #define REGION_H
 
-#define NUMBER_OF_REGIONS 5
 /**
  * @enum region
  * @brief Describes a region

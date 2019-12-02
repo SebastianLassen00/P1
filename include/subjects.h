@@ -1,27 +1,6 @@
 #ifndef SUBJECTS_H
 #define SUBJECTS_H
 
-
-#define FIRST_SUBJECT_IN_ENUM MATHEMATICS
-#define LAST_SUBJECT_IN_ENUM RUSSIAN
-
-#define FIRST_NATURAL_SCIENCE MATHEMATICS
-#define LAST_NATURAL_SCIENCE GEOSCIENCE
-
-#define FIRST_SOCIAL_SCIENCE DANISH
-#define LAST_SOCIAL_SCIENCE CONTEMPORAY_HISTORY
-
-#define FIRST_FOREIGN_LANGAUGE ENGLISH
-#define LAST_FOREIGN_LANGAUGE RUSSIAN
-
-
-
-#define IMPORTANT_SUBJECTS 5
-#define OTHER_SUBJECTS 11
-#define LANGUAGE_SUBJECTS 11
-#define TOTAL_SUBJECTS (IMPORTANT_SUBJECTS + OTHER_SUBJECTS + LANGUAGE_SUBJECTS)
-
-
 /**
  * @enum
  * @brief A subject on different levels
@@ -68,10 +47,10 @@ enum class{
  * @brief Descripes a level of a subject
  */
 enum level{
-    Z = 'Z',
-    C = 'C',
-    B = 'B',
-    A = 'A'
+    Z,
+    C,
+    B,
+    A
 };
 
 /**
