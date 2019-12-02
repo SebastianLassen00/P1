@@ -17,4 +17,6 @@
 #define NOT_IN_LIST -1
 #define NO_EMPTY_INDEX -1
 
+#define ADJUSTMENT_CONSTANT 0.1
+
 #endif

@@ -343,9 +343,9 @@ double getValidDouble(void){
 void evalCmd(struct education *currentEducation, struct profile *user, int arg) {
     struct vector user_vector = addVector(user->interests, user->adjustment_vector);
     struct vector distance_vector = subtractVector(currentEducation->interests, user_vector);
-    struct vector scaled_vector = scaleVector(distanceVector, ADJUSTMENT_CONSTANT * convertScale(arg));
-    user->adjustment_vector = addVector(user->adjustment_vector, scalde_vector);
-    freeVectorm(user_vector, distance_vector, scaled_vector);
+    struct vector scale_vector = scaleVector(distance_vector, ADJUSTMENT_CONSTANT * convertScale(arg));
+    user->adjustment_vector = addVector(user->adjustment_vector, scale_vector);
+    freeVectorM(3, user_vector, distance_vector, scale_vector);
 }
 
 /** @fn void recommendCmd(struct database database, struct profile *user, 
