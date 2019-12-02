@@ -66,9 +66,14 @@ int parseNumOfInterests(FILE *filereader){
 void parseInterestValues(struct education *education, int number_of_educations, int number_of_interests, FILE *filereader){
     char current_line[STRING_MAX_LENGTH];
     char *interest_value_string;
-    int offset = 0;
+    int offset;
     int i;
     int j;
+
+    /*allocate interests - lav dette til en funktion senere*/
+    for(i = 0; i < number_of_educations; i++){
+        education[i].interests = createVector(number_of_interests);
+    }
 
     for(i = 0; i < number_of_interests; i++){
         offset = 0;
