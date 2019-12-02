@@ -32,5 +32,6 @@ void freeEducation(struct education *education){
     free(education->description);
     free(education->link_to_read_further);
     freeVector(education->interests);
+
     free(education);
 }

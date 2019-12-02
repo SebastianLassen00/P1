@@ -21,10 +21,10 @@ void freeDatabase(struct database *database){
         freeEducation(&database->educations[i]);
     }
 
-    for(i = 0; i < database->amount_of_interests; i++) 
-        free(database->interest_as_read_in_database[i]);
-
-    free(database->interest_as_read_in_database);
+    for (i = 0; i < database->amount_of_interests; i++)
+        free(database->interest_string[i]);
+ 
+    free(database->interest_string);
 
     free(database);
 }

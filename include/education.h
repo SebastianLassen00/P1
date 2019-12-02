@@ -27,7 +27,6 @@ struct education {
  * @brief A structure, which contains amount_of_educations educations
  */
 
-
 struct education *createEducationBasics(char *, char*, char*, enum region);
 void freeEducation(struct education *);
 
