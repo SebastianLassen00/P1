@@ -31,16 +31,7 @@ void freeEducation(struct education *education){
     free(education->name);
     free(education->description);
     free(education->link_to_read_further);
-    freeVector(education->interest);
-    free(education);
-}
+    freeVector(education->interests);
 
-/**
- * @brief 
- * 
- * @param educationArray 
- */
-void freeEducationArray(struct educationArray *educationArray){
-    free(educationArray->educations);
-    free(educationArray);
+    free(education);
 }
