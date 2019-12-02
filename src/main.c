@@ -8,10 +8,7 @@
 #include "vector.h" 
 #include "commands.h"
 #include "CuTest.h"
-
-#define MAX_COMMAND_LENGTH 10
-#define MAX_INPUT_LENGTH (MAX_COMMAND_LENGTH + 100)
-
+#include "constants.h"
 
 enum command{find, save, save_prof, recommend, list, eval, test, menu, quit};
 typedef enum command command;

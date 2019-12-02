@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "profile.h"
 #include "education.h"
 #include "subjects.h"
 #include "vector.h" 
 #include "commands.h"
-
+#include "constants.h"
 
 
 /** @fn void menuCmd(void)
@@ -349,16 +350,16 @@ void recommendCmd(struct database database, struct profile *user,
     struct vector results, normalized_vector;
     double highest_result, result;
     struct education best_fit;
-    normalized_vector = normalizeVector(addVector(user.interests, user->adjustment_vector));
+    normalized_vector = normalizeVector(addVector(user->interests, user->adjustment_vector));
     
-    for(i = 0; i < number_of_educations; i++){
+    for(i = 0; i < database.amount_of_educations; i++){
         result = dotProduct(database.educations[i].interests, normalized_vector) + 
                  (user->location.region == database.educations[i].region ? 1 : 0) * 
                   user->location.region_importance;
         if(result > highest_result && isQualified(*user, database.educations[i]) && 
            getIndex(user->recommended_educations, database.educations[i]) == NOT_IN_LIST){
             highest_result = result;
-            best_fit = educations[i];
+            best_fit = database.educations[i];
         }
     }
     
@@ -369,12 +370,12 @@ void recommendCmd(struct database database, struct profile *user,
     printEducation(*currentEducation);
 }
 
-/** @fn void isQualified(struct profile user, struct education education)
+/** @fn int isQualified(struct profile user, struct education education)
  *  @brief Checks if the user has the subject levels required by the education
  *  @param user The profile struct whose quailification is checked
  *  @param education The education struct with the requirements
  */
-void isQualified(struct profile user, struct education education) {
+int isQualified(struct profile user, struct education education){
     int i;
     struct subject subject;
     for(i = 0; i < education.required_qualifications.amount_of_subjects; i++) {
@@ -390,8 +391,6 @@ void isQualified(struct profile user, struct education education) {
 void printEducation(struct education education){
     printf("Name of education: %s\n", education.name);
     printf("Description: %s\n", education.description);
-    printf("Education is located in: %s\n", );
-
 }
 
 
@@ -403,10 +402,10 @@ void printEducation(struct education education){
 void saveCmd(struct education *current_education, struct profile *user){
     int i;
 
-    i = getEmptyIndex(user->saved_educations, *user);
+    i = getEmptyIndex(user->saved_educations);
 
     if(listIsFull(i))
-        /* the list is full and there has to be deleted an education in order to save one. */
+        printf("I dunno\n");
     else
         user->saved_educations[i] = *current_education; 
 }
@@ -417,7 +416,7 @@ void saveCmd(struct education *current_education, struct profile *user){
  *  @param target 
  */
 int getIndex(struct education edu_array[], struct education target){
-    int i = 0, index;
+    int i = 0;
     int index = NOT_IN_LIST;
 
     for(i = 0; index == NO_EMPTY_INDEX && i < EDUCATION_LIST_LENGTH; i++){
@@ -434,7 +433,7 @@ int getIndex(struct education edu_array[], struct education target){
  *  @param edu_array[] An array of education structs (these two arrays can be found in profile struct)
  */
 int getEmptyIndex(struct education edu_array[]){
-    int i = 0, index;
+    int i = 0;
     int index = NO_EMPTY_INDEX;
 
     for(i = 0; index == NO_EMPTY_INDEX && i < EDUCATION_LIST_LENGTH; i++){
@@ -452,4 +451,10 @@ int getEmptyIndex(struct education edu_array[]){
  */
 int listIsFull(int i){
     return i == NO_EMPTY_INDEX;
+}
+
+
+void clearBuffer(void){
+    char buffer[MAX_INPUT_LENGTH];
+    gets(buffer);
 }
