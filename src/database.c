@@ -44,6 +44,9 @@ struct database *createDatabase(char *database_file ){
     database = malloc(sizeof(struct database));
     data = fopen(database_file, "r");
 
+    if(data == NULL)
+        printf("This is some lousy shit right here\n");
+
     parseDatabase(database, data);
 
     fclose(data);

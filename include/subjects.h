@@ -14,7 +14,6 @@ enum class{
     BIOLOGY,
     PHYSICS,
     ENGLISH,
-    DANISH,
 
     BIOTECHNOLOGY,
     GEOSCIENCE,
@@ -39,7 +38,8 @@ enum class{
     LATIN,
     PORTUGESE,
     RUSSIAN,
-    NONE
+    NONE,
+    DANISH
 };
 
 /**

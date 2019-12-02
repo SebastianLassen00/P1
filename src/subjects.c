@@ -88,10 +88,12 @@ enum class stringToClass(char *string){
 enum level charToLevel(char ch){
     enum level level = Z;
 
-    if(ch == 'Z');
-    else if(ch == 'A') level = A;
-    else if(ch == 'B') level = B;
-    else if(ch == 'C') level = C;
+    if(ch == 'A') 
+        level = A;
+    else if(ch == 'B') 
+        level = B;
+    else if(ch == 'C') 
+        level = C;
     
     return level;
 }

@@ -30,6 +30,12 @@ void RunAllTests(void){
 
 int main(void){
     RunAllTests();
+
+    struct database *db = createDatabase("./bin/data/database.txt");
+
+    printEducation(db->educations[0]);
+
+
     return 0;
 }
 
