@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "profile.h"
 #include "education.h"
 #include "subjects.h"
 #include "vector.h" 
 #include "commands.h"
-
+#include "constants.h"
 
 
 /** @fn void menuCmd(void)
@@ -134,11 +135,11 @@ const char *regionName(enum region region){
     return regions[region];
 }
 
-/** @fn double convertScale(int initial_value)
+/** @fn double convertScale(int v)
  *  @brief Returns the converted value
- *  @param initial_value The value to be converted
+ *  @param v The value to be converted
  */
-double convertScale(int initial_value){
+double convertScale(int v){
     return (((double) v - 5.0) / 5.0);
 }
 
@@ -182,9 +183,9 @@ void setProfileInterests(struct profile *user, struct database db){
             "You are to give a value between 0 and 10, "
             "where 0 is negative and 10 is positive towards the interest\n");
 
-    for(i = 0; i < interests.size; i++){
-        printf("%s:  ", db.interests_string[i]);
-        user->interests[i] = convertScale(validScaleValue(getValidInteger(), 0, 10));
+    for(i = 0; i < db.amount_of_interests; i++){
+        printf("%s:  ", db.interest_string[i]);
+        user->interests.array[i] = convertScale(validScaleValue(getValidInteger(), 0, 10));
     }
 }
 
@@ -350,7 +351,7 @@ void evalCmd(struct education *currentEducation, struct profile *user, int arg) 
 /** @fn void recommendCmd(struct database database, struct profile *user, 
  *                        struct education *currentEducation)
  *  @brief Goes trough the available educations and compares them to the user:
- *         Both their interests, qualifications and location is considered.
+ *         Both their interests, qualifications and location are considered.
  *  @param user The profile struct which is compared
  *  @param database The database containing the educations
  *  @param currentEducation The education currently being displayed
@@ -361,16 +362,16 @@ void recommendCmd(struct database database, struct profile *user,
     struct vector results, normalized_vector;
     double highest_result, result;
     struct education best_fit;
-    normalized_vector = normalizeVector(addVector(user.interests, user->adjustment_vector));
+    normalized_vector = normalizeVector(addVector(user->interests, user->adjustment_vector));
     
-    for(i = 0; i < number_of_educations; i++){
+    for(i = 0; i < database.amount_of_educations; i++){
         result = dotProduct(database.educations[i].interests, normalized_vector) + 
-                 (user->location.region == database.educations[i].region ? 1 : 0) * 
+                 (user->location.region == database.educations[i].region ? 1.0 : 0.0) * 
                   user->location.region_importance;
         if(result > highest_result && isQualified(*user, database.educations[i]) && 
            getIndex(user->recommended_educations, database.educations[i]) == NOT_IN_LIST){
             highest_result = result;
-            best_fit = educations[i];
+            best_fit = database.educations[i];
         }
     }
     
@@ -382,12 +383,12 @@ void recommendCmd(struct database database, struct profile *user,
     printEducation(*currentEducation);
 }
 
-/** @fn void isQualified(struct profile user, struct education education)
+/** @fn int isQualified(struct profile user, struct education education)
  *  @brief Checks if the user has the subject levels required by the education
  *  @param user The profile struct whose quailification is checked
  *  @param education The education struct with the requirements
  */
-void isQualified(struct profile user, struct education education) {
+int isQualified(struct profile user, struct education education){
     int i;
     struct subject subject;
     for(i = 0; i < education.required_qualifications.amount_of_subjects; i++) {
@@ -403,8 +404,6 @@ void isQualified(struct profile user, struct education education) {
 void printEducation(struct education education){
     printf("Name of education: %s\n", education.name);
     printf("Description: %s\n", education.description);
-    printf("Education is located in: %s\n", );
-
 }
 
 
@@ -413,24 +412,24 @@ void printEducation(struct education education){
  *  @param *current_education 
  *  @param *user The profile of the user that has saved_education as a member.
  */
-void save(struct education *current_education, struct profile *user){
+void saveCmd(struct education *current_education, struct profile *user){
     int i;
 
-    i = getEmptyIndex(user->saved_educations, *user);
+    i = getEmptyIndex(user->saved_educations);
 
     if(listIsFull(i))
-        /* the list is full and there has to be deleted an education in order to save one. */
+        printf("I dunno\n");
     else
         user->saved_educations[i] = *current_education; 
 }
 
-/** @fn int getIndex(struct education edu_array[], struct profile user, struct education target)
+/** @fn int getIndex(struct education *edu_array, struct profile user, struct education target)
  *  @brief
- *  @param edu_array[] An array of education structs (these two arrays can be found in profile struct)
+ *  @param edu_array An array of education structs (these two arrays can be found in profile struct)
  *  @param target 
  */
 int getIndex(struct education edu_array[], struct education target){
-    int i = 0, index;
+    int i = 0;
     int index = NOT_IN_LIST;
 
     for(i = 0; index == NO_EMPTY_INDEX && i < EDUCATION_LIST_LENGTH; i++){
@@ -447,7 +446,7 @@ int getIndex(struct education edu_array[], struct education target){
  *  @param edu_array[] An array of education structs (these two arrays can be found in profile struct)
  */
 int getEmptyIndex(struct education edu_array[]){
-    int i = 0, index;
+    int i = 0;
     int index = NO_EMPTY_INDEX;
 
     for(i = 0; index == NO_EMPTY_INDEX && i < EDUCATION_LIST_LENGTH; i++){
@@ -465,4 +464,10 @@ int getEmptyIndex(struct education edu_array[]){
  */
 int listIsFull(int i){
     return i == NO_EMPTY_INDEX;
+}
+
+
+void clearBuffer(void){
+    char buffer[MAX_INPUT_LENGTH];
+    gets(buffer);
 }

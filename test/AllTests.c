@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <profile.h>
-#include <education.h>
-#include <subjects.h>
-#include <vector.h> 
-#include "CuTest.h"
 
-CuSuite* CuGetSuite();
-CuSuite* CuStringGetSuite();
-CuSuite* test4000();
+#include "profile.h"
+#include "education.h"
+#include "subjects.h"
+#include "vector.h" 
+#include "CuTest.h"
+#include "commands.h"
+
+CuSuite *testTestCmd(void);
 
 void RunAllTests(void){
     CuString *output = CuStringNew();
@@ -20,7 +20,7 @@ void RunAllTests(void){
     CuSuiteAddSuite(suite, CuStringGetSuite());
     */
 
-    CuSuiteAddSuite(suite, test4000());
+    CuSuiteAddSuite(suite, testTestCmd());
 
     CuSuiteRun(suite);
     CuSuiteSummary(suite, output);
@@ -28,8 +28,7 @@ void RunAllTests(void){
     printf("%s\n", output->buffer); 
 }
 
-int main(void)
-{
+int main(void){
     RunAllTests();
     return 0;
 }

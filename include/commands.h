@@ -2,17 +2,12 @@
 #include "education.h"
 #include "subjects.h"
 #include "vector.h" 
-#include "commands.h"
 #include "database.h"
 
 #ifndef COMMANDS_H
 #define COMMANDS_H
-#define NOT_IN_LIST -1
-#define NO_EMPTY_INDEX -1
-#define ADJUSTMENT_CONSTANT 0.1
 
 void menuCmd(void);
-
 
 /*  TestCmd()  */
 void testCmd(struct profile *user, struct database db);
@@ -34,10 +29,17 @@ void setOtherSubjects(struct profile *user, int start, int end);
 void chooseFromList(struct profile *user, int interval_start, int interval_end);
 double getValidDouble(void);
 
-void save(struct education *current_education, struct profile *user);
+void recommendCmd(struct database database, struct profile *user, struct education *currentEducation);
+int isQualified(struct profile user, struct education education);
+
+void printEducation(struct education education);
+
+void saveCmd(struct education *current_education, struct profile *user);
 int getIndex(struct education edu_array[], struct education target);
 int getEmptyIndex(struct education edu_array[]);
 int listIsFull(int i);
+
+void clearBuffer(void);
 
 
 #endif
