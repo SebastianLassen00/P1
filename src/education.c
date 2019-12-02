@@ -34,13 +34,3 @@ void freeEducation(struct education *education){
     freeVector(education->interests);
     free(education);
 }
-
-/**
- * @brief 
- * 
- * @param educationArray 
- */
-void freeEducationArray(struct educationArray *educationArray){
-    free(educationArray->educations);
-    free(educationArray);
-}
