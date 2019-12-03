@@ -298,7 +298,7 @@ void chooseFromList(struct profile *user, int interval_start, int interval_end){
     char temp_string[MAX_INPUT_LENGTH];
 
     do{
-        scanf(" %d%c", temp_subject, temp_char);
+        scanf(" %d%c", &temp_subject, &temp_char);
         if(temp_subject > 0 && temp_subject < (interval_end - interval_start + 1) && levelAsValue(temp_char) != -1) {
             user->qualifications.subjects[temp_subject + interval_start].level = levelAsValue(temp_char);
             i++;
@@ -402,9 +402,26 @@ int isQualified(struct profile user, struct education education){
 
 /* Prints the relavant information about the given education */
 void printEducation(struct education education){
+    int i;
+    
     printf("Name of education: %s\n", education.name);
     printf("Description: %s\n", education.description);
+    printf("Read more: %s\n", education.link_to_read_further);
+    printf("Region: %d\n", education.region);
+    printf("Required average grade: %f", education.required_grade);
+    printf("Interest values:");
+
+    for(i = 0; i < 13; i++){
+        printf("%f\n", education.interests.array[i]);
+    }
+
+    for(i = 0; i < education.required_qualifications.amount_of_subjects; i++){
+        printf("%s %d\n", classNameStr(education.required_qualifications.subjects[i].name),
+                          education.required_qualifications.subjects[i].level);
+    }
 }
+
+
 
 
 /** @fn void save(struct education *current_education, struct profile *user)

@@ -24,7 +24,7 @@ void parseDatabase(struct database *database, FILE *filereader){
     
     /* Not used atm. */
     fgets(database_format, STRING_MAX_LENGTH, filereader);
-    
+
     printf("OK1\n");
     database->amount_of_educations = parseNumOfEdu(filereader);
     printf("OK2\n");
@@ -215,8 +215,8 @@ void parseEduNames(struct education *education, int amount_of_educations, FILE *
     char current_line[STRING_MAX_LENGTH];
     int i;
     int offset = 0;
-    
     fgets(current_line, STRING_MAX_LENGTH, filereader);
+    
 
     /* Iterate through all educations */
     for(i = 0; i < amount_of_educations; i++){
