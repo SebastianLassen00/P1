@@ -35,7 +35,7 @@ int main(void){
 
     printEducation(db->educations[0]);
 
-
+    freeDatabase(db);
     return 0;
 }
 

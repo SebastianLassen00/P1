@@ -467,7 +467,7 @@ int getEmptyIndex(struct education edu_array[]){
     int index = NO_EMPTY_INDEX;
 
     for(i = 0; index == NO_EMPTY_INDEX && i < EDUCATION_LIST_LENGTH; i++){
-        if(edu_array[i].name == NULL || edu_array[i].name == ""){
+        if(edu_array[i].name == NULL || strcmp(edu_array[i].name, "")){
             index = i;
         }
     }

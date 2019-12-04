@@ -9,8 +9,7 @@
 #define STRING_MAX_LENGTH 50000
 #define TABS '	'
 
-int sseek(char *, char);
-void readReqString(struct qualification *, char *, int);
+
 
 /**
  * @brief 
@@ -304,7 +303,7 @@ int sseek(char *string, char ch){
 }
 
 void readReqString(struct qualification *qualification, char *string, int education_location) {
-    int i, offset = 0, moreReqs = 1;
+    int i, subject_index=0, offset = 0, moreReqs = 1;
     char reqClass[30];
 
     /*Find the offset for the current education*/
@@ -313,6 +312,8 @@ void readReqString(struct qualification *qualification, char *string, int educat
     printf("OFFSET: %d\n", offset);
 
     do{
+        printf("OK1\n");
+        fflush(stdout);
         qualification->amount_of_subjects += 1;
         
         /*read the first requirement name*/
@@ -320,28 +321,30 @@ void readReqString(struct qualification *qualification, char *string, int educat
             reqClass[i] = string[offset + i];
         
         reqClass[i] = '\0';
+        printf("OK2\n");
+        fflush(stdout);
+        printf("%s \n", reqClass);
+        fflush(stdout);
 
-        //printf("Class: %d\n", stringToClass(reqClass));
-        //printf("EL: %d\n", qualification->subjects[education_location - 1].name);
-
-        qualification->subjects[education_location - 1].name = stringToClass(reqClass);
-        
-        if(qualification->subjects[education_location - 1].name == NONE){
-            qualification->subjects[education_location - 1].name = DANISH; 
-            qualification->subjects[education_location - 1].level = Z;
+        qualification->subjects[subject_index].name = stringToClass(reqClass);
+        printf("OK3\n");
+        fflush(stdout);
+        if(qualification->subjects[subject_index].name == NONE){
+            qualification->subjects[subject_index].name = DANISH; 
+            qualification->subjects[subject_index].level = Z;
         }
         
 
         if(string[offset + i] == '_'){
             ++i;
-            printf("i new: %d\n", i);
-            qualification->subjects[education_location - 1].level = charToLevel(string[offset + i]);
+            printf("%c\n", i);
+            qualification->subjects[subject_index].level = charToLevel(string[offset + i]);
             ++i;
         } else{
-            qualification->subjects[education_location - 1].level = Z;
+            qualification->subjects[subject_index].level = Z;
         }
 
-        printf("Offset: %d -%c\n", offset, string[offset + i]);
+        printf("\nOffset: %d -%c\n", offset, string[offset + i]);
 
         /*Check if there is more req to read*/
         if(string[offset + i] == '\t' || string[offset + i] == '\n'){
@@ -349,6 +352,7 @@ void readReqString(struct qualification *qualification, char *string, int educat
             printf("Does this happen\n");
         }
 
+        ++subject_index; 
         offset += sseek(&string[offset], ' ') + 1;
     } while(moreReqs);
 }
