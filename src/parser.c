@@ -9,8 +9,6 @@
 #define STRING_MAX_LENGTH 50000
 #define TABS '	'
 
-
-
 /**
  * @brief 
  * 
@@ -216,11 +214,11 @@ void parseEduNames(struct education *education, int amount_of_educations, FILE *
     int offset = 0;
     fgets(current_line, STRING_MAX_LENGTH, filereader);
     
-
     /* Iterate through all educations */
     for(i = 0; i < amount_of_educations; i++){
         education[i].name = parseEduString(current_line, amount_of_educations, offset);
         offset += strlen(education[i].name) + 1;
+        
     }
 }
 
