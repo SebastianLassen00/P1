@@ -29,14 +29,14 @@ void setOtherSubjects(struct profile *user, int start, int end);
 void chooseFromList(struct profile *user, int interval_start, int interval_end);
 double getValidDouble(void);
 
-void recommendCmd(struct database database, struct profile *user, struct education *currentEducation);
+struct education recommendCmd(struct database database, struct profile *user);
 int isQualified(struct profile user, struct education education);
 
 void printEducation(struct education education);
 
 void saveCmd(struct education *current_education, struct profile *user);
-int getIndex(struct education edu_array[], struct education target);
-int getEmptyIndex(struct education edu_array[]);
+int getIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH], struct education target);
+int getEmptyIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH]);
 int listIsFull(int i);
 
 void clearBuffer(void);

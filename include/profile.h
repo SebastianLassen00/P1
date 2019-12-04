@@ -10,13 +10,13 @@
 struct profile{
     struct vector interests;
     struct vector adjustment_vector;
-    char * name;
+    char   name[MAX_NAME_LENGTH];
     struct qualification qualifications;
     double average;
     struct location location;
-    struct education saved_educations[EDUCATION_LIST_LENGTH];
+    char saved_educations[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH];
     int last_recommended;
-    struct education recommended_educations[EDUCATION_LIST_LENGTH];
+    char recommended_educations[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH];
 };
 
 void printProfile(struct profile p);

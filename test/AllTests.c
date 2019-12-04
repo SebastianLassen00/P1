@@ -40,11 +40,13 @@ struct profile createBobo(int amount_of_interests){
         bobo.interests.array[i] = 0.0;
     }
 
-    for(i = 0; i < amount_of_interests; i++){
+    setSubjects(&bobo);
+    
+    for(i = 0; i < TOTAL_SUBJECTS; i++){
         bobo.qualifications.subjects[i].level = 3;
     }
 
-    setSubjects(&bobo);
+    
 
     return bobo;
 }
@@ -54,17 +56,19 @@ int main(void){
 
     struct database *db = createDatabase("./bin/data/database.txt");
 
-    struct education *current_education = NULL;
+    struct education current_education;
 
-    struct profile user = createProfile(db->amount_of_interests);
+    printf("Bobo Working\n");
+    struct profile user = createBobo(db->amount_of_interests);
 
-    testCmd(&user, *db);
+    printf("Bobo Still Working\n");
+    current_education = recommendCmd(*db, &user);
 
-    recommendCmd(*db, &user, current_education);
+    printEducation(current_education);
 
     printProfile(user); 
 
-    printEducation(db->educations[0]);
+    //printEducation(db->educations[0]);
 
     freeDatabase(db);
     return 0;
