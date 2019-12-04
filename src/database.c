@@ -21,11 +21,13 @@ void freeDatabase(struct database *database){
         freeEducation(&database->educations[i]);
     }
 
+    free(database->educations);
+    
     for (i = 0; i < database->amount_of_interests; i++)
         free(database->interest_string[i]);
  
     free(database->interest_string);
-
+    
     free(database);
 }
 

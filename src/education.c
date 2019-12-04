@@ -33,6 +33,4 @@ void freeEducation(struct education *education){
     free(education->link_to_read_further);
     freeVector(education->interests);
     freeQualification(&education->required_qualifications);
-
-    free(education);
 }

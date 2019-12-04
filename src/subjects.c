@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 #include "subjects.h"
 /**
@@ -18,7 +19,6 @@ void freeSubject(struct subject *subject){
  */
 void freeQualification(struct qualification *qualification){
     free(qualification->subjects);
-    free(qualification);
 }
 
 enum class stringToClass(char *string){

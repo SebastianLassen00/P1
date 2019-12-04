@@ -237,12 +237,12 @@ void setImportantSubjects(struct profile *user){
  *  @param class The enum value the name should return for
  */
 const char* classNameStr(enum class class){
-    char *classes[TOTAL_SUBJECTS] = {"MATHEMATICS", "CHEMISTRY", "BIOLOGY", "PHYSICS", "ENGLISH",
+    char *classes[TOTAL_SUBJECTS+USELESS_SUBJECTS] = {"MATHEMATICS", "CHEMISTRY", "BIOLOGY", "PHYSICS", "ENGLISH",
                                      "BIOTECHNOLOGY", "GEOSCIENCE", "HISTORY", "IDEA_HISTORY",
                                      "INFORMATICS", "INTERNATIONAL_ECONOMICS", "COMMUNICATION_AND_IT",
                                      "RELIGION", "SOCIALSTUDIES", "BUSINESS_ECONOMICS", "CONTEMPORAY_HISTORY",
                                      "FRENCH", "SPANISH", "GERMAN", "CHINESE", "ARABIC", "GREEK", "ITALIAN",
-                                     "JAPANESE", "LATIN", "PORTUGESE", "RUSSIAN"};
+                                     "JAPANESE", "LATIN", "PORTUGESE", "RUSSIAN", "NONE", "DANISH"};
     return classes[class];
 }
 
@@ -419,6 +419,7 @@ void printEducation(struct education education){
         printf("%s %d\n", classNameStr(education.required_qualifications.subjects[i].name),
                           education.required_qualifications.subjects[i].level);
     }
+
 }
 
 
@@ -486,5 +487,5 @@ int listIsFull(int i){
 
 void clearBuffer(void){
     char buffer[MAX_INPUT_LENGTH];
-    gets(buffer);
+    /*gets(buffer);*/
 }
