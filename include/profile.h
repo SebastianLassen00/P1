@@ -19,6 +19,12 @@ struct profile{
     struct education recommended_educations[EDUCATION_LIST_LENGTH];
 };
 
+void printProfile(struct profile p);
+void freeProfile(struct profile p);
+void freeQualifications(struct qualification q);
+struct qualification createQualifications(int number_of_qualifications);
+struct profile createProfile(int number_of_interests);
+
 
 
 #endif 

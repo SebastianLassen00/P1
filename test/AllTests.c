@@ -33,6 +33,16 @@ int main(void){
 
     struct database *db = createDatabase("./bin/data/database.txt");
 
+    struct education *current_education = NULL;
+
+    struct profile user = createProfile(db->amount_of_interests);
+
+    testCmd(&user, *db);
+
+    recommendCmd(*db, &user, current_education);
+
+    printProfile(user); 
+
     printEducation(db->educations[0]);
 
     freeDatabase(db);

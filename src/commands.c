@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "profile.h"
 #include "education.h"
@@ -60,7 +61,7 @@ void testCmd(struct profile *user, struct database db){
     user->average = getValidDouble();
 
     /*  Ending the test  */
-    printf("The test is now concluded. Returning to menu...\n\n");
+    printf("The test has now concluded. Returning to menu...\n\n");
 }
 
 /* **************** TestCmd() functions **************** */
@@ -187,6 +188,7 @@ void setProfileInterests(struct profile *user, struct database db){
         printf("%s:  ", db.interest_string[i]);
         user->interests.array[i] = convertScale(validScaleValue(getValidInteger(), 0, 10));
     }
+    printf("Thank you \n\n\n");
 }
 
 /** @fn void setProfileQualifications(struct profile *user)
@@ -293,24 +295,27 @@ void setOtherSubjects(struct profile *user, int start, int end){
  *  @param interval_end The end of the interval for the qualifications in the list
  */
 void chooseFromList(struct profile *user, int interval_start, int interval_end){
-    int temp_subject, i = 0;
+    int temp_subject, i = 0, scan_res;
     char temp_char;
     char temp_string[MAX_INPUT_LENGTH];
 
+    fgets(temp_string, MAX_INPUT_LENGTH - 1, stdin);
+
     do{
-        scanf(" %d%c", &temp_subject, &temp_char);
-        if(temp_subject > 0 && temp_subject < (interval_end - interval_start + 1) && levelAsValue(temp_char) != -1) {
+        scan_res = sscanf(temp_string + i, " %d%c", &temp_subject, &temp_char);
+        if(temp_subject >= 0 && temp_subject < (interval_end - interval_start + 1) && levelAsValue(temp_char) != -1  && scan_res == 2){
             user->qualifications.subjects[temp_subject + interval_start].level = levelAsValue(temp_char);
-            i++;
+            i += 1;
+            while(isalnum(*(temp_string + ++i)) == 0);
         }
-    } while(i < (interval_end - interval_start));
+    } while(i < (interval_end - interval_start) && scan_res != 0);
 }
 
 /** @fn double getValidDouble(void)
  *  @brief Returns a valid double entered in the terminal
  */
 double getValidDouble(void){
-    double valid_double = 0;
+    double valid_double = 0.0;
     int scan_res = 0;
     char test_char = 0;
 
@@ -318,7 +323,7 @@ double getValidDouble(void){
         scan_res = scanf(" %lf", &valid_double);
         if(scan_res == 0)
             scanf(" %c", &test_char);
-    } while(scan_res == 0 || test_char != '\n');
+    } while(scan_res == 0 && test_char != '\n');
 
     return valid_double;
 }
@@ -360,21 +365,32 @@ void recommendCmd(struct database database, struct profile *user,
                   struct education *currentEducation){
     int i;
     struct vector results, normalized_vector;
-    double highest_result, result;
+    double highest_result = -3.0, result = 0.0;
     struct education best_fit;
     normalized_vector = normalizeVector(addVector(user->interests, user->adjustment_vector));
     
+    printf("OK2\n");
+
     for(i = 0; i < database.amount_of_educations; i++){
+        printf("I is %d\n", i);
         result = dotProduct(database.educations[i].interests, normalized_vector) + 
                  (user->location.region == database.educations[i].region ? 1.0 : 0.0) * 
                   user->location.region_importance;
+        printf("Result: %f HighestResult: %f isQualified: %d\n", result, highest_result, isQualified(*user, database.educations[i]));
+        printf("GetIndex: %d\n", getIndex(user->recommended_educations, database.educations[i]));
+        printf("OK2.35471\n");
         if(result > highest_result && isQualified(*user, database.educations[i]) && 
            getIndex(user->recommended_educations, database.educations[i]) == NOT_IN_LIST){
+            printf("OK2.5672?\n");
             highest_result = result;
             best_fit = database.educations[i];
+            printf("Result: %f og i: %d\n", result, i);
         }
     }
-    
+
+    printf("OK3?\n");
+    printf("Best_fit: %s\n", best_fit.name);
+        
     freeVector(normalized_vector);
     user->recommended_educations[user->last_recommended];
     user->last_recommended = (user->last_recommended + 1) % EDUCATION_LIST_LENGTH;
@@ -425,6 +441,7 @@ void printEducation(struct education education){
 
 
 
+
 /** @fn void save(struct education *current_education, struct profile *user)
  *  @brief 
  *  @param *current_education 
@@ -450,7 +467,7 @@ int getIndex(struct education edu_array[], struct education target){
     int i = 0;
     int index = NOT_IN_LIST;
 
-    for(i = 0; index == NO_EMPTY_INDEX && i < EDUCATION_LIST_LENGTH; i++){
+    for(i = 0; index == NOT_IN_LIST && i < EDUCATION_LIST_LENGTH; i++){
         if(strcmp(edu_array[i].name, target.name) == 0){
             index = i;
         }
@@ -487,5 +504,5 @@ int listIsFull(int i){
 
 void clearBuffer(void){
     char buffer[MAX_INPUT_LENGTH];
-    /*gets(buffer);*/
+    gets(buffer);
 }

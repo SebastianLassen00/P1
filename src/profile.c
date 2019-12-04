@@ -5,6 +5,7 @@
 #include "education.h"
 #include "subjects.h"
 #include "vector.h" 
+#include "commands.h"
 
 struct profile createProfile(int number_of_interests){
     struct profile profile;
@@ -38,4 +39,17 @@ void freeQualifications(struct qualification q){
 void freeProfile(struct profile p){
     freeQualifications(p.qualifications);
     freeVector(p.interests);
+}
+
+void printProfile(struct profile p){
+    int i;
+
+    printf("Name: %s\n", p.name);
+    printVector(p.interests);
+
+    for(i = 0; i < p.qualifications.amount_of_subjects; i++){
+        printf("%s %d\n", classNameStr(p.qualifications.subjects[i].name),
+                          p.qualifications.subjects[i].level);
+    }
+
 }
