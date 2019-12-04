@@ -51,8 +51,6 @@ int isUsed(char name[MAX_NAME_LENGTH], char *name_array[], int number_of_names){
             return 1;
     }
 
-int main(int argc, char const *argv[])
-{
     print("%d", 1 || 0);
     return 0;
 }

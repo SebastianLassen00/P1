@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "profile.h"
 #include "education.h"
@@ -60,7 +61,7 @@ void testCmd(struct profile *user, struct database db){
     user->average = getValidDouble();
 
     /*  Ending the test  */
-    printf("The test is now concluded. Returning to menu...\n\n");
+    printf("The test has now concluded. Returning to menu...\n\n");
 }
 
 /* **************** TestCmd() functions **************** */
@@ -187,6 +188,7 @@ void setProfileInterests(struct profile *user, struct database db){
         printf("%s:  ", db.interest_string[i]);
         user->interests.array[i] = convertScale(validScaleValue(getValidInteger(), 0, 10));
     }
+    printf("Thank you \n\n\n");
 }
 
 /** @fn void setProfileQualifications(struct profile *user)
@@ -237,12 +239,12 @@ void setImportantSubjects(struct profile *user){
  *  @param class The enum value the name should return for
  */
 const char* classNameStr(enum class class){
-    char *classes[TOTAL_SUBJECTS] = {"MATHEMATICS", "CHEMISTRY", "BIOLOGY", "PHYSICS", "ENGLISH",
+    char *classes[TOTAL_SUBJECTS+USELESS_SUBJECTS] = {"MATHEMATICS", "CHEMISTRY", "BIOLOGY", "PHYSICS", "ENGLISH",
                                      "BIOTECHNOLOGY", "GEOSCIENCE", "HISTORY", "IDEA_HISTORY",
                                      "INFORMATICS", "INTERNATIONAL_ECONOMICS", "COMMUNICATION_AND_IT",
                                      "RELIGION", "SOCIALSTUDIES", "BUSINESS_ECONOMICS", "CONTEMPORAY_HISTORY",
                                      "FRENCH", "SPANISH", "GERMAN", "CHINESE", "ARABIC", "GREEK", "ITALIAN",
-                                     "JAPANESE", "LATIN", "PORTUGESE", "RUSSIAN"};
+                                     "JAPANESE", "LATIN", "PORTUGESE", "RUSSIAN", "NONE", "DANISH"};
     return classes[class];
 }
 
@@ -293,24 +295,27 @@ void setOtherSubjects(struct profile *user, int start, int end){
  *  @param interval_end The end of the interval for the qualifications in the list
  */
 void chooseFromList(struct profile *user, int interval_start, int interval_end){
-    int temp_subject, i = 0;
+    int temp_subject, i = 0, scan_res;
     char temp_char;
     char temp_string[MAX_INPUT_LENGTH];
 
+    fgets(temp_string, MAX_INPUT_LENGTH - 1, stdin);
+
     do{
-        scanf(" %d%c", &temp_subject, &temp_char);
-        if(temp_subject > 0 && temp_subject < (interval_end - interval_start + 1) && levelAsValue(temp_char) != -1) {
+        scan_res = sscanf(temp_string + i, " %d%c", &temp_subject, &temp_char);
+        if(temp_subject >= 0 && temp_subject < (interval_end - interval_start + 1) && levelAsValue(temp_char) != -1  && scan_res == 2){
             user->qualifications.subjects[temp_subject + interval_start].level = levelAsValue(temp_char);
-            i++;
+            i += 1;
+            while(isalnum(*(temp_string + ++i)) == 0);
         }
-    } while(i < (interval_end - interval_start));
+    } while(i < (interval_end - interval_start) && scan_res != 0);
 }
 
 /** @fn double getValidDouble(void)
  *  @brief Returns a valid double entered in the terminal
  */
 double getValidDouble(void){
-    double valid_double = 0;
+    double valid_double = 0.0;
     int scan_res = 0;
     char test_char = 0;
 
@@ -318,7 +323,7 @@ double getValidDouble(void){
         scan_res = scanf(" %lf", &valid_double);
         if(scan_res == 0)
             scanf(" %c", &test_char);
-    } while(scan_res == 0 || test_char != '\n');
+    } while(scan_res == 0 && test_char != '\n');
 
     return valid_double;
 }
@@ -333,37 +338,36 @@ double getValidDouble(void){
 
 
 
-/** @fn void evalCmd(struct education *currentEducation, struct profile *user, int arg)
+/** @fn void evalCmd(struct education *current_education, struct profile *user, int arg)
  *  @brief Changes the adjustment vector for the user to approach the current education. 
  *         The distance of the change is determined by the argument
- *  @param currentEducation The education currently being displayed
+ *  @param current_education The education currently being displayed
  *  @param user The profile struct whose adjustment vector is changed
  *  @param arg The user input argument for how much to change the adjustment vector
  */
-void evalCmd(struct education *currentEducation, struct profile *user, int arg) {
+void evalCmd(struct education *current_education, struct profile *user, int arg) {
     struct vector user_vector = addVector(user->interests, user->adjustment_vector);
-    struct vector distance_vector = subtractVector(currentEducation->interests, user_vector);
+    struct vector distance_vector = subtractVector(current_education->interests, user_vector);
     struct vector scale_vector = scaleVector(distance_vector, ADJUSTMENT_CONSTANT * convertScale(arg));
     user->adjustment_vector = addVector(user->adjustment_vector, scale_vector);
     freeVectorM(3, user_vector, distance_vector, scale_vector);
 }
 
-/** @fn void recommendCmd(struct database database, struct profile *user, 
- *                        struct education *currentEducation)
+/** @fn struct education recommendCmd(struct database database, struct profile *user)
  *  @brief Goes trough the available educations and compares them to the user:
  *         Both their interests, qualifications and location are considered.
  *  @param user The profile struct which is compared
  *  @param database The database containing the educations
- *  @param currentEducation The education currently being displayed
  */
-void recommendCmd(struct database database, struct profile *user, 
-                  struct education *currentEducation){
+struct education recommendCmd(struct database database, struct profile *user){
     int i;
     struct vector results, normalized_vector;
-    double highest_result, result;
+    double highest_result = -3.0, result = 0.0;
     struct education best_fit;
     normalized_vector = normalizeVector(addVector(user->interests, user->adjustment_vector));
-    
+
+    printVector(normalized_vector);
+
     for(i = 0; i < database.amount_of_educations; i++){
         result = dotProduct(database.educations[i].interests, normalized_vector) + 
                  (user->location.region == database.educations[i].region ? 1.0 : 0.0) * 
@@ -374,13 +378,15 @@ void recommendCmd(struct database database, struct profile *user,
             best_fit = database.educations[i];
         }
     }
-    
+        
     freeVector(normalized_vector);
-    user->recommended_educations[user->last_recommended];
+
+    strcpy(user->recommended_educations[user->last_recommended], best_fit.name);
     user->last_recommended = (user->last_recommended + 1) % EDUCATION_LIST_LENGTH;
 
-    *currentEducation = best_fit;
-    printEducation(*currentEducation);
+    printEducation(best_fit);
+
+    return best_fit;
 }
 
 /** @fn int isQualified(struct profile user, struct education education)
@@ -419,7 +425,9 @@ void printEducation(struct education education){
         printf("%s %d\n", classNameStr(education.required_qualifications.subjects[i].name),
                           education.required_qualifications.subjects[i].level);
     }
+
 }
+
 
 
 
@@ -437,7 +445,7 @@ void saveCmd(struct education *current_education, struct profile *user){
     if(listIsFull(i))
         printf("I dunno\n");
     else
-        user->saved_educations[i] = *current_education; 
+        strcpy(user->saved_educations[i], current_education->name); 
 }
 
 /** @fn int getIndex(struct education *edu_array, struct profile user, struct education target)
@@ -445,16 +453,21 @@ void saveCmd(struct education *current_education, struct profile *user){
  *  @param edu_array An array of education structs (these two arrays can be found in profile struct)
  *  @param target 
  */
-int getIndex(struct education edu_array[], struct education target){
+int getIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH], struct education target){
     int i = 0;
     int index = NOT_IN_LIST;
 
-    for(i = 0; index == NO_EMPTY_INDEX && i < EDUCATION_LIST_LENGTH; i++){
-        if(strcmp(edu_array[i].name, target.name) == 0){
+    printf("GI1\n");
+    for(i = 0; index == NOT_IN_LIST && i < EDUCATION_LIST_LENGTH; i++){
+        printf("G2\n");
+        printf("Edu: %s\n", edu_array[i]);
+        if(strcmp(edu_array[i], target.name) == 0){
             index = i;
         }
+        printf("G3\n");
     }
 
+    printf("G4\n");
     return index;
 }
 
@@ -462,12 +475,12 @@ int getIndex(struct education edu_array[], struct education target){
  *  @brief Finds an empty index in an array of education structs, returns index.
  *  @param edu_array[] An array of education structs (these two arrays can be found in profile struct)
  */
-int getEmptyIndex(struct education edu_array[]){
+int getEmptyIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH]){
     int i = 0;
     int index = NO_EMPTY_INDEX;
 
     for(i = 0; index == NO_EMPTY_INDEX && i < EDUCATION_LIST_LENGTH; i++){
-        if(edu_array[i].name == NULL || strcmp(edu_array[i].name, "")){
+        if(strcmp(edu_array[i], "")){
             index = i;
         }
     }

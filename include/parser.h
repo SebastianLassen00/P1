@@ -20,5 +20,6 @@ void parseInterestValues(struct education *education, int number_of_educations, 
 int parseNumOfInterests(FILE *filereader);
 int sseek(char *, char);
 void readReqString(struct qualification *, char *, int);
+void parseInterestNames(struct database* database, FILE* filereader);
 
 #endif
