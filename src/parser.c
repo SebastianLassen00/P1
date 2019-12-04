@@ -324,9 +324,9 @@ char *parseEduString(char* current_line, int amount_of_educations, int offset){
     i = strchr(current_line, TABS) - current_line + sizeof(char) + offset;
     
     sscanf(current_line + i, "%[^\n	]s", tmp_education_string);
+    printf("%s\n", tmp_education_string);
     tmp_education_string_length = strlen(tmp_education_string);
     education_string = (char *) malloc((tmp_education_string_length + 1) * sizeof(char));
-
     strcpy(education_string, tmp_education_string);
 
     return education_string;
