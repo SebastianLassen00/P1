@@ -75,7 +75,7 @@ void parseInterestNames(struct database* database, FILE* filereader){
     for(i = 0; i < database->amount_of_interests; i++){
         fgets(current_line, STRING_MAX_LENGTH, filereader);
         sscanf(current_line, "%[^\n	]s", temp_string);
-        database->interest_string[i] = calloc(strlen(temp_string), sizeof(char));
+        database->interest_string[i] = calloc(strlen(temp_string) + 1, sizeof(char));
         strcpy(database->interest_string[i], temp_string);
     }
 
@@ -124,10 +124,9 @@ void parseInterestValues(struct education *education, int number_of_educations, 
             interest_value_string = parseEduString(current_line, number_of_educations, offset);
             education[j].interests.array[i] = strtod(interest_value_string, NULL);
             offset += strlen(interest_value_string) + 1;
+            free(interest_value_string);
         }
     }
-
-    free(interest_value_string);
 }
 
 /** @fn void parseGradeReq(struct education *education, int number_of_educations, FILE *filereader)
@@ -169,9 +168,8 @@ void parseGradeReq(struct education *education, int number_of_educations, FILE *
         grade_string = parseEduString(current_line, number_of_educations, offset);
         offset = strlen(grade_string) + 1;
         education[i].required_grade = strtod(grade_string, NULL);
+        free(grade_string);
     }
-
-    free(grade_string);
 }
 
 /** @fn void parseRegion(struct education *education, int number_of_educations, FILE *filereader)
@@ -193,9 +191,8 @@ void parseRegion(struct education *education, int number_of_educations, FILE *fi
         region_string = parseEduString(current_line, number_of_educations, offset);
         offset += strlen(region_string) + 1;
         education[i].region = strToReg(region_string);
+        free(region_string);
     }
-
-    free(region_string);
 }
 
 /** @fn int strToReg(char* region_string)
