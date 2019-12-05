@@ -40,21 +40,21 @@ enum class stringToClass(char *string){
         return GEOSCIENCE;
     }else if(strcmp(string, "HISTORY") == 0){
         return HISTORY;
-    }else if(strcmp(string, "IDEA_HISTORY") == 0){
+    }else if(strcmp(string, "IDEAHISTORY") == 0){
         return IDEA_HISTORY;
     }else if(strcmp(string, "INFORMATICS") == 0){
         return INFORMATICS;
-    }else if(strcmp(string, "INTERNATIONAL_ECONOMICS") == 0){
+    }else if(strcmp(string, "INTERNATIONALECONOMICS") == 0){
         return INTERNATIONAL_ECONOMICS;
-    }else if(strcmp(string, "COMMUNiCATION_AND_IT") == 0){
+    }else if(strcmp(string, "COMMUNICATIONANDIT") == 0){
         return COMMUNICATION_AND_IT;
     }else if(strcmp(string, "RELIGION") == 0){
         return RELIGION;
     }else if(strcmp(string, "SOCIALSTUDIES") == 0){
         return SOCIALSTUDIES;
-    }else if(strcmp(string, "BUSINESS_ECONOMICS") == 0){
+    }else if(strcmp(string, "BUSINESSECONOMICS") == 0){
         return BUSINESS_ECONOMICS;
-    }else if(strcmp(string, "CONTEMPORARY_HISTORY") == 0){
+    }else if(strcmp(string, "CONTEMPORARYHISTORY") == 0){
         return CONTEMPORARY_HISTORY;
     }else if(strcmp(string, "FRENCH") == 0){
         return FRENCH;

@@ -16,15 +16,15 @@
  */
 void menuCmd(void){
     printf("Usable commands: \n");
-    printf("  find |arg| -  finds the education passed through the argument |arg|                    \n"
-           "  save       -  saves the current education to a seperate list                           \n"
-           "  save_prof  -  saves the current user profile to a .txt-file                            \n"
-           "  recommend  -  recommend an education using the current profile                         \n"
-           "  list       -  lists all the saved educations                                           \n"
+    printf("  find |arg| -  finds the education passed through the argument |arg| \n"
+           "  save       -  saves the current education to a seperate list \n"
+           "  save_prof  -  saves the current user profile to a .txt-file \n"
+           "  recommend  -  recommend an education using the current profile \n");
+    printf("  list       -  lists all the saved educations \n"
            "  eval |arg| -  evaluates the current education using an integer value between 0 and 100 \n"
-           "  test       -  tests the users interests and qualifications                             \n"
-           "  menu       -  shows a this menu                                                        \n"
-           "  quit       -  quits the program                                                        \n");
+           "  test       -  tests the users interests and qualifications \n"
+           "  menu       -  shows a this menu \n"
+           "  quit       -  quits the program \n");
 }
 
 
@@ -34,9 +34,6 @@ void menuCmd(void){
  *  @param db The database where information of interests and subjects are
  */
 void testCmd(struct profile *user, struct database db){
-    int scan_res;
-    int initial_value;
-    char temp_char;
     char name[MAX_NAME_LENGTH];
     char *names[10] = {"christian", "karl", "sebastian", "simon", "magnus", "steven", "johannes", "nikolai", "børge", "kurt"};
 
@@ -185,7 +182,7 @@ void setProfileInterests(struct profile *user, struct database db){
             "where 0 is negative and 10 is positive towards the interest\n");
 
     for(i = 0; i < db.amount_of_interests; i++){
-        printf("%s:  ", db.interest_string[i]);
+        printf("%s:%*s ", db.interest_string[i], FIELD_SIZE - strlen(db.interest_string[i]), "");
         user->interests.array[i] = convertScale(validScaleValue(getValidInteger(), 0, 10));
     }
     printf("Thank you \n\n\n");
@@ -224,13 +221,12 @@ void setImportantSubjects(struct profile *user){
     int i;
 
     for(i = 0; i < IMPORTANT_SUBJECTS; i++){
-        printf("%s: ", classNameStr(i));
+        printf("%s:%*s ", classNameStr(i), FIELD_SIZE - strlen(classNameStr(i)), "");
         do{
             scanf(" %c", &temp_char);
         } while(levelAsValue(temp_char) == -1);
         user->qualifications.subjects[i].level = levelAsValue(temp_char);
         clearBuffer();
-        printf("\n");
     }
 }
 
@@ -361,7 +357,7 @@ void evalCmd(struct education *current_education, struct profile *user, int arg)
  */
 struct education recommendCmd(struct database database, struct profile *user){
     int i;
-    struct vector results, normalized_vector;
+    struct vector normalized_vector;
     double highest_result = -3.0, result = 0.0;
     struct education best_fit;
     normalized_vector = normalizeVector(addVector(user->interests, user->adjustment_vector));
@@ -457,17 +453,12 @@ int getIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH], struct 
     int i = 0;
     int index = NOT_IN_LIST;
 
-    printf("GI1\n");
     for(i = 0; index == NOT_IN_LIST && i < EDUCATION_LIST_LENGTH; i++){
-        printf("G2\n");
-        printf("Edu: %s\n", edu_array[i]);
         if(strcmp(edu_array[i], target.name) == 0){
             index = i;
         }
-        printf("G3\n");
     }
 
-    printf("G4\n");
     return index;
 }
 

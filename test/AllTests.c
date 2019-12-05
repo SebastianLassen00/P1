@@ -52,23 +52,27 @@ struct profile createBobo(int amount_of_interests){
 }
 
 int main(void){
+    struct database *db;
+    struct education current_education;
+    struct profile bobo;
+/*  struct profile user;  */
+
     RunAllTests();
 
-    struct database *db = createDatabase("./bin/data/database.txt");
 
-    struct education current_education;
+    db = createDatabase("./bin/data/database.txt");
 
-    printf("Bobo Working\n");
-    struct profile user = createBobo(db->amount_of_interests);
+/*  user = createProfile(db->amount_of_interests);
 
-    printf("Bobo Still Working\n");
-    current_education = recommendCmd(*db, &user);
+    testCmd(&user, *db); */
 
-    printEducation(current_education);
+    bobo = createBobo(db->amount_of_interests);
 
-    printProfile(user); 
+    current_education = recommendCmd(*db, &bobo);
 
-    //printEducation(db->educations[0]);
+/*  printEducation(current_education);  */
+
+    printProfile(bobo); 
 
     freeDatabase(db);
     return 0;
