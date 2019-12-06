@@ -183,7 +183,7 @@ void setProfileInterests(struct profile *user, const struct database *db){
             "where 0 is negative and 10 is positive towards the interest\n");
 
     for(i = 0; i < db->amount_of_interests; i++){
-        printf("%s:%*s ", db->interest_string[i], (int) (FIELD_SIZE - strlen(db->interest_string[i])), "");
+        printf("%s:%*s ", db->interest_string[i], FIELD_SIZE - strlen(db->interest_string[i]), "");
         user->interests.array[i] = convertScale(validScaleValue(getValidInteger(), 0, 10));
     }
     printf("\n\n\n");
@@ -227,7 +227,7 @@ void setImportantSubjects(struct profile *user){
     int i;
 
     for(i = 0; i < IMPORTANT_SUBJECTS; i++){
-        printf("%s:%*s ", classNameStr(i), (int) (FIELD_SIZE - strlen(classNameStr(i))), "");
+        printf("%s:%*s ", classNameStr(i), (int) FIELD_SIZE - strlen(classNameStr(i)), "");
         do{
             scanf(" %c", &temp_char);
         } while(levelAsValue(temp_char) == -1);
@@ -415,9 +415,8 @@ int isQualified(struct profile user, struct education education){
     struct subject subject;
     for(i = 0; i < education.required_qualifications.amount_of_subjects; i++) {
         subject = education.required_qualifications.subjects[i];
-        if(user.qualifications.subjects[subject.name].level < subject.level) {
+        if(user.qualifications.subjects[subject.name].level < subject.level) 
             return 0;
-        }
     }
     return 1;
 }
@@ -545,9 +544,7 @@ void listCmd(const struct profile *user){
 }
 
 void deleteCmd(struct profile *user, int deleted_entry){
-    int valid_entry;
-    valid_entry = deleted_entry > EDUCATION_LIST_LENGTH ? EDUCATION_LIST_LENGTH : (deleted_entry < 0 ? 0 : deleted_entry);
-    strcpy(user->saved_educations[valid_entry], "");
+    strcpy(user->saved_educations[validScaleValue(deleted_entry, 0, EDUCATION_LIST_LENGTH)], "");
 }
 
 /* ************************* ELSECMD ************************** */
