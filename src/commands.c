@@ -503,3 +503,34 @@ void clearBuffer(void){
     char buffer[MAX_INPUT_LENGTH];
     gets(buffer);
 }
+
+/** @
+ *  @
+ *  @
+ */
+
+void saveProfile(struct profile user){
+    
+    FILE *file_pointer;
+    int i;
+
+    file_pointer = fopen("saved_profile", "w");
+
+    if(file_pointer != NULL){                     /* Checks if file could be opened */
+        fprintf(file_pointer , "%s %f %d %d %f \n" , user.name , user.average , user.last_recommended , user.location.region , user.location.region_importance);
+    
+        for (i = 0; i <= EDUCATION_LIST_LENGTH; i++){
+            fprintf("%s" , user.saved_educations);
+        }
+        for (i = 0; i <= EDUCATION_LIST_LENGTH; i++){
+            fprintf("%s" , user.recommended_educations);
+        }
+    }
+        fclose(file_pointer);
+    }
+    else{
+        printf("File could not be opened");
+        exit(EXIT_FAILURE);
+    }
+return(EXIT_SUCCESS)
+}
