@@ -31,6 +31,7 @@ double getValidDouble(void);
 
 void evalCmd(struct profile *user, struct education *current_education, int arg);
 struct education findCmd(char *arg, const struct database *db);
+void searchCmd(char *arg, const struct database *db);
 struct education recommendCmd(struct profile *user, const struct database *database);
 int isQualified(struct profile user, struct education education);
 

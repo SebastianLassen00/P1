@@ -1,5 +1,5 @@
 EDU	UTF-8											
-NAME	DATALOGI_AALBORG	DATALOGI_AARHUS	DATALOGI_ODENSE	DATALOGI_KOEBENHAVN	JURA	MEDICIN	BIOKEMI	SUNDHEDOGINFORMATIK	FYSIK_AALBORG	FYSIK_AARHUS	FYSIK_ODENSE	FYSIK_KOEBENHAVN
+NAME	DATALOGI AALBORG	DATALOGI AARHUS	DATALOGI ODENSE	DATALOGI KOEBENHAVN	JURA	MEDICIN	BIOKEMI	SUNDHED OG INFORMATIK	FYSIK AALBORG	FYSIK AARHUS	FYSIK ODENSE	FYSIK KOEBENHAVN
 DESC	Uddannelse om at hacke en mainframe	Uddannelse om at hacke en mainframe	Uddannelse om at hacke en mainframe	Uddannelse om at hacke en mainframe	Sagsoeg dine venner	Red dine venner	Se bakterier	Fortael folk hvad de måske fejler	Laer om Newton	Laer om Newton	Laer om Newton	Laer om Newton
 LINK	ug.dk/datalogi	ug.dk/datalogi	ug.dk/datalogi	ug.dk/datalogi	ug.dk/jura	ug.dk/medicin	ug.dk/biokemi	ug.dk/sundhed-og-informatik	ug.dk/fysik	ug.dk/fysik	ug.dk/fysik	ug.dk/fysik
 LOCATION	NORTH_JUTLAND	CENTRAL_JUTLAND	SOUTHERN_DENMARK	CAPITAL_REGION	CENTRAL_JUTLAND	CAPITAL_REGION	CAPITAL_REGION	CAPITAL_REGION	NORTH_JUTLAND	CENTRAL_JUTLAND	SOUTHERN_DENMARK	CAPITAL_REGION

@@ -16,15 +16,16 @@
  */
 void menuCmd(void){
     printf("Usable commands: \n");
-    printf("  find |arg| -  finds the education passed through the argument |arg| \n"
-           "  save       -  saves the current education to a seperate list \n"
-           "  save_prof  -  saves the current user profile to a .txt-file \n"
-           "  recommend  -  recommend an education using the current profile \n");
-    printf("  list       -  lists all the saved educations \n"
-           "  eval |arg| -  evaluates the current education using an integer value between 0 and 100 \n"
-           "  test       -  tests the users interests and qualifications \n"
-           "  menu       -  shows a this menu \n"
-           "  quit       -  quits the program \n");
+    printf("    find |arg|   -  finds the education passed through the argument |arg| \n"
+           "    search |arg| -  lists the educations similar to the argument |arg| \n"
+           "    save         -  saves the current education to a seperate list \n"
+           "    save_prof    -  saves the current user profile to a .txt-file \n"
+           "    recommend    -  recommend an education using the current profile \n");
+    printf("    list         -  lists all the saved educations \n"
+           "    eval |arg|   -  evaluates the current education using an integer value between 0 and 100 \n"
+           "    test         -  tests the users interests and qualifications \n"
+           "    menu         -  shows this menu \n"
+           "    quit         -  quits the program \n\n");
 }
 
 
@@ -336,21 +337,69 @@ double getValidDouble(void){
 
 /* **************** End of TestCmd() functions **************** */
 
-struct education findCmd(char *arg, const struct database *db) {
-    int i;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/** @fn struct education findCmd(char *arg, const struct database *db)
+ *  @brief Finds and prints out the education with the exact name given
+ *         as and argument.
+ *  @param arg The argument string which should be the name of an education
+ *  @param database The database in which all educations are stored.
+ */
+struct education findCmd(char *arg, const struct database *db){
+    int i, edu_found = 0;
     struct education edu;
     for(i = 0; i < db->amount_of_educations; i++){
-        if(strcmp(arg, db->educations[i].name) == 0)
+        if(strcmp(arg, db->educations[i].name) == 0){
             edu = db->educations[i];
+            edu_found = 1;
+        }
     }
+    if(edu_found) 
+        printEducation(edu, db);
+    else
+        printf("No education exists by that name\n");
     return edu;
 }
 
+/** @fn void searchCmd(char *arg, const struct database *db)
+ *  @brief Finds and prints out the educations whose name contains the
+ *         given argument.
+ *  @param arg The argument string which should be contained in the name of an education
+ *  @param database The database in which all educations are stored.
+ */
+void searchCmd(char *arg, const struct database *db){
+    int i, edu_found = 0;
+    struct education edu;
 
-
-
-
-
+    for(i = 0; i < db->amount_of_educations; i++){
+        if(strstr(db->educations[i].name, arg) != NULL) {
+            printf("    %s\n", db->educations[i].name);
+            edu_found = 1;
+        }
+    }
+    if(edu_found) 
+        printf("Use the \"find\" command to look up your desired education\n");
+    else
+        printf("No education exists by that name\n");
+}
 
 /** @fn void evalCmd(struct profile *user, struct education *current_education, int arg)
  *  @brief Changes the adjustment vector for the user to approach the current education. 
