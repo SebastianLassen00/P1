@@ -95,6 +95,7 @@ void parseInterestValues(struct education *education, int number_of_educations, 
     int offset;
     int i;
     int j;
+    struct vector temp_vector;
 
     /*allocate interests - lav dette til en funktion senere*/
     for(i = 0; i < number_of_educations; i++){
@@ -111,6 +112,12 @@ void parseInterestValues(struct education *education, int number_of_educations, 
             offset += strlen(interest_value_string) + 1;
             free(interest_value_string);
         }
+    }
+
+    for(i = 0; i < number_of_educations; i++){
+        temp_vector = normalizeVector(education[i].interests);
+        freeVector(education[i].interests);
+        education[i].interests = temp_vector;
     }
 }
 
