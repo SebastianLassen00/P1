@@ -73,7 +73,7 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
             saveCmd(user, current_education);
             break;
         case save_prof:
-            //saveProfCmd();
+            saveProfile(*user);
             break;
         case recommend:
             *current_education = recommendCmd(user, database);

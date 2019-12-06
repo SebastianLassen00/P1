@@ -1,6 +1,8 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
+#define VERSION "1.0.1"
+
 #define NUMBER_OF_REGIONS 5
 
 #define IMPORTANT_SUBJECTS 5

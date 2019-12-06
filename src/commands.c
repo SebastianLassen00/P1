@@ -555,30 +555,29 @@ void deleteCmd(struct profile *user, int deleted_entry){
  */
 
 void saveProfile(struct profile user){
-    
     FILE *file_pointer;
     int i;
     char file_name[MAX_NAME_LENGTH];
-    sprintf(file_name , "%s" , user.name);
+    sprintf(file_name, "%s_profil.txt", user.name);
 
     file_pointer = fopen(file_name, "w");
 
     if(file_pointer != NULL){                     /* Checks if file could be opened */
-        fprintf(file_pointer , "%s %f %d %d %f \n" , user.name , user.average , user.last_recommended , user.location.region , user.location.region_importance);
+        fprintf(file_pointer, "%s\n", VERSION);
+        fprintf(file_pointer, "%s %f %d %d %f \n", user.name, user.average, user.last_recommended, user.location.region, user.location.region_importance);
     
-        for (i = 0; i <= EDUCATION_LIST_LENGTH; i++){
-            fprintf(file_pointer , "%s\n" , user.saved_educations[i]);
-        }
-        for (i = 0; i <= EDUCATION_LIST_LENGTH; i++){
-            fprintf(file_pointer , "%s\n" , user.recommended_educations[i]);
-        }
-        for (i = 0; i <= user.interests.size; i++){
-            fprintf(file_pointer , "%f\n" , user.interests.array[i]);
-        }
-        for (i = 0; i <= user.adjustment_vector.size; i++){
-            fprintf(file_pointer , "%f\n" , user.adjustment_vector.array[i]);
-        }
-
+        for (i = 0; i < EDUCATION_LIST_LENGTH; i++)
+            fprintf(file_pointer, "%s\n", user.saved_educations[i]);
+        
+        for (i = 0; i < EDUCATION_LIST_LENGTH; i++)
+            fprintf(file_pointer, "%s\n", user.recommended_educations[i]);
+        
+        for (i = 0; i < user.interests.size; i++)
+            fprintf(file_pointer, "%f\n", user.interests.array[i]);
+        
+        for (i = 0; i < user.adjustment_vector.size; i++)
+            fprintf(file_pointer, "%f\n", user.adjustment_vector.array[i]);
+        
     } else{
         printf("File could not be opened");
         exit(EXIT_FAILURE);
