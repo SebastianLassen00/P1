@@ -25,6 +25,7 @@ void menuCmd(void){
            "    eval |arg|   -  evaluates the current education using an integer value between 0 and 100 \n"
            "    test         -  tests the users interests and qualifications \n"
            "    menu         -  shows this menu \n"
+           "    delete |arg| -  deletes the entry in the list given as an integer by the user \n"
            "    quit         -  quits the program \n\n");
 }
 
@@ -183,7 +184,7 @@ void setProfileInterests(struct profile *user, const struct database *db){
             "where 0 is negative and 10 is positive towards the interest\n");
 
     for(i = 0; i < db->amount_of_interests; i++){
-        printf("%s:%*s ", db->interest_string[i], FIELD_SIZE - strlen(db->interest_string[i]), "");
+        printf("%s:%*s ", db->interest_string[i], (int) (FIELD_SIZE - strlen(db->interest_string[i])), "");
         user->interests.array[i] = convertScale(validScaleValue(getValidInteger(), 0, 10));
     }
     printf("\n\n\n");
@@ -227,7 +228,7 @@ void setImportantSubjects(struct profile *user){
     int i;
 
     for(i = 0; i < IMPORTANT_SUBJECTS; i++){
-        printf("%s:%*s ", classNameStr(i), (int) FIELD_SIZE - strlen(classNameStr(i)), "");
+        printf("%s:%*s ", classNameStr(i), (int) (FIELD_SIZE - strlen(classNameStr(i))), "");
         do{
             scanf(" %c", &temp_char);
         } while(levelAsValue(temp_char) == -1);
@@ -463,9 +464,8 @@ int isQualified(struct profile user, struct education education){
     struct subject subject;
     for(i = 0; i < education.required_qualifications.amount_of_subjects; i++) {
         subject = education.required_qualifications.subjects[i];
-        if(user.qualifications.subjects[subject.name].level < subject.level) {
+        if(user.qualifications.subjects[subject.name].level < subject.level) 
             return 0;
-        }
     }
     return 1;
 }
@@ -483,7 +483,7 @@ void printEducation(struct education education, const struct database *db){
     printf("    Required Subjects: \n");
     for(i = 0; i < education.required_qualifications.amount_of_subjects; i++){
         printf("        %s:%*s %c\n", classNameStr(education.required_qualifications.subjects[i].name), 
-                              (int) FIELD_SIZE - 4 - strlen(classNameStr(education.required_qualifications.subjects[i].name)), "",
+                              (int) (FIELD_SIZE - 4 - strlen(classNameStr(education.required_qualifications.subjects[i].name))), "",
                               levelToChar(education.required_qualifications.subjects[i].level));
     }
 
@@ -502,6 +502,8 @@ const char *getRegionName(enum region r){
             return "Zealand";
         case CAPITAL_REGION:
             return "Capital Region";
+        default:
+            return "Region Not Found";
     }
 }
 
@@ -569,7 +571,7 @@ int listIsFull(int i){
 
 void clearBuffer(void){
     char buffer[MAX_INPUT_LENGTH];
-    gets(buffer);
+    fgets(buffer, MAX_INPUT_LENGTH, stdin);
 }
 
 
@@ -591,12 +593,11 @@ void listCmd(const struct profile *user){
 }
 
 void deleteCmd(struct profile *user, int deleted_entry){
-    int valid_entry;
-    valid_entry = deleted_entry > EDUCATION_LIST_LENGTH ? EDUCATION_LIST_LENGTH : (deleted_entry < 0 ? 0 : deleted_entry);
-    strcpy(user->saved_educations[valid_entry], "");
+    strcpy(user->saved_educations[validScaleValue(deleted_entry, 0, EDUCATION_LIST_LENGTH)], "");
 }
 
 /* ************************* ELSECMD ************************** */
+
 
 /** @
  *  @
@@ -604,34 +605,35 @@ void deleteCmd(struct profile *user, int deleted_entry){
  */
 
 void saveProfile(struct profile user){
-    
     FILE *file_pointer;
     int i;
-    char file_name[MAX_NAME_LENGTH];
-    sprintf(file_name , "%s" , user.name);
+    char file_name[MAX_FILE_NAME_LENGTH];
+    sprintf(file_name, "%s_profil.txt", user.name);
 
     file_pointer = fopen(file_name, "w");
 
     if(file_pointer != NULL){                     /* Checks if file could be opened */
-        fprintf(file_pointer , "%s %f %d %d %f \n" , user.name , user.average , user.last_recommended , user.location.region , user.location.region_importance);
+        fprintf(file_pointer, "%s\n", VERSION);
+        fprintf(file_pointer, "%s %f %d %d %f \n", user.name, user.average, user.last_recommended, user.location.region, user.location.region_importance);
     
-        for (i = 0; i <= EDUCATION_LIST_LENGTH; i++){
-            fprintf(file_pointer , "%s\n" , user.saved_educations[i]);
-        }
-        for (i = 0; i <= EDUCATION_LIST_LENGTH; i++){
-            fprintf(file_pointer , "%s\n" , user.recommended_educations[i]);
-        }
-        for (i = 0; i <= user.interests.size; i++){
-            fprintf(file_pointer , "%f\n" , user.interests.array[i]);
-        }
-        for (i = 0; i <= user.adjustment_vector.size; i++){
-            fprintf(file_pointer , "%f\n" , user.adjustment_vector.array[i]);
-        }
-
+        for (i = 0; i < EDUCATION_LIST_LENGTH; i++)
+            fprintf(file_pointer, "%s\n", user.saved_educations[i]);
+        
+        for (i = 0; i < EDUCATION_LIST_LENGTH; i++)
+            fprintf(file_pointer, "%s\n", user.recommended_educations[i]);
+        
+        for (i = 0; i < user.interests.size; i++)
+            fprintf(file_pointer, "%f\n", user.interests.array[i]);
+        
+        for (i = 0; i < user.adjustment_vector.size; i++)
+            fprintf(file_pointer, "%f\n", user.adjustment_vector.array[i]);
+        
     } else{
         printf("File could not be opened");
         exit(EXIT_FAILURE);
     }
     fclose(file_pointer);
+
+    printf("File saved successfully\n");
 }
 

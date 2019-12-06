@@ -21,5 +21,6 @@ int parseNumOfInterests(FILE *filereader);
 int sseek(char *, char);
 void readReqString(struct qualification *, char *, int);
 void parseInterestNames(struct database* database, FILE* filereader);
+int countTotalLines(FILE* filereader);
 
 #endif

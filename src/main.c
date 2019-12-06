@@ -76,7 +76,7 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
             saveCmd(user, current_education);
             break;
         case save_prof:
-            //saveProfCmd();
+            saveProfile(*user);
             break;
         case recommend:
             *current_education = recommendCmd(user, database);
@@ -95,6 +95,8 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
             break;
         case delete:
             deleteCmd(user, arg_num);
+        case quit:
+            break;
     }
 }
 
@@ -154,7 +156,9 @@ command convertCommand(char s[MAX_COMMAND_LENGTH]){
         c = menu;
     } else if(strcmp(s, "delete") == 0){
         c = delete;
-    }else{
+    } else if(strcmp(s, "quit") == 0){
+        c = quit;
+    } else{
         c = -1;
     }
 
