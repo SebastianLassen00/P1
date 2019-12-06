@@ -67,7 +67,7 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
                    const struct database *database, struct education *current_education){
     switch(c){
         case find:
-            //findCmd(arg);
+            *current_education = findCmd(arg, database);
             break;
         case save:
             saveCmd(user, current_education);
