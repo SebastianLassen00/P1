@@ -523,7 +523,7 @@ int listIsFull(int i){
 
 void clearBuffer(void){
     char buffer[MAX_INPUT_LENGTH];
-    gets(buffer);
+    fgets(buffer, MAX_INPUT_LENGTH, stdin);
 }
 
 
