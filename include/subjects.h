@@ -25,7 +25,7 @@ enum class{
     RELIGION,
     SOCIALSTUDIES,
     BUSINESS_ECONOMICS,
-    CONTEMPORAY_HISTORY,
+    CONTEMPORARY_HISTORY,
     
     FRENCH,
     SPANISH,
@@ -37,7 +37,9 @@ enum class{
     JAPANESE, 
     LATIN,
     PORTUGESE,
-    RUSSIAN
+    RUSSIAN,
+    NONE,
+    DANISH
 };
 
 /**
@@ -70,6 +72,9 @@ struct qualification{
 };
 
 void freeSubject(struct subject *);
-void freeQualification(struct subject *);
+void freeQualification(struct qualification *);
+enum class stringToClass(char *);
+enum level charToLevel(char ch);
+char levelToChar(enum level l);
 
 #endif
