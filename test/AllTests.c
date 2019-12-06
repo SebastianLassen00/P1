@@ -54,7 +54,7 @@ struct profile createBobo(int amount_of_interests){
     return bobo;
 }
 
-int main(void){
+/*int main(void){
     struct database *db;
     struct education current_education;
     struct profile bobo;
@@ -73,11 +73,11 @@ int main(void){
 
     current_education = recommendCmd(*db, &user);
 
-/*  printEducation(current_education);  */
+    printEducation(current_education); 
 
     printProfile(user); 
 
     freeDatabase(db);
     return 0;
-}
+}*/
 

@@ -28,12 +28,12 @@ void menuCmd(void){
 }
 
 
-/** @fn void testCmd(struct profile *user, struct database db)
+/** @fn void testCmd(struct profile *user, const struct database *db)
  *  @brief Tests the current user for name, location, interests, qualifications and average grade
  *  @param user The profile struct where all test results should be saved 
- *  @param db The database where information of interests and subjects are
+ *  @param db The database where information of interests and subjects are as a pointer
  */
-void testCmd(struct profile *user, struct database db){
+void testCmd(struct profile *user, const struct database *db){
     char name[MAX_NAME_LENGTH];
     char *names[10] = {"christian", "karl", "sebastian", "simon", "magnus", "steven", "johannes", "nikolai", "børge", "kurt"};
 
@@ -169,23 +169,23 @@ int getValidInteger(void){
     return valid_int;
 }
 
-/** @fn void setProfileInterests(struct profile *user, struct database db)
+/** @fn void setProfileInterests(struct profile *user, const struct database *db)
  *  @brief Saves all interests to user as a converted value (see convertScale)
  *  @param user The profile struct where the interests are saved to
- *  @param db The database struct where information about all interests are saved
+ *  @param db The database struct where information about all interests are saved as a pointer
  */
-void setProfileInterests(struct profile *user, struct database db){
+void setProfileInterests(struct profile *user, const struct database *db){
     int i;
 
     printf("Next, a series of interests will be shown\n"
             "You are to give a value between 0 and 10, "
             "where 0 is negative and 10 is positive towards the interest\n");
 
-    for(i = 0; i < db.amount_of_interests; i++){
-        printf("%s:%*s ", db.interest_string[i], FIELD_SIZE - strlen(db.interest_string[i]), "");
+    for(i = 0; i < db->amount_of_interests; i++){
+        printf("%s:%*s ", db->interest_string[i], FIELD_SIZE - strlen(db->interest_string[i]), "");
         user->interests.array[i] = convertScale(validScaleValue(getValidInteger(), 0, 10));
     }
-    printf("Thank you \n\n\n");
+    printf("\n\n\n");
 }
 
 /** @fn void setProfileQualifications(struct profile *user)
@@ -195,6 +195,9 @@ void setProfileInterests(struct profile *user, struct database db){
 void setProfileQualifications(struct profile *user){
     setSubjects(user);
     
+    printf("Your qualifications regarding subjects from high school will now be tested\n"
+           "Give a level from A, B, C or Z if you have not had the subject\n");
+
     setImportantSubjects(user); 
     
     setOtherSubjects(user, IMPORTANT_SUBJECTS, IMPORTANT_SUBJECTS + OTHER_SUBJECTS);
@@ -291,11 +294,12 @@ void setOtherSubjects(struct profile *user, int start, int end){
  *  @param interval_end The end of the interval for the qualifications in the list
  */
 void chooseFromList(struct profile *user, int interval_start, int interval_end){
-    int temp_subject, i = 0, scan_res;
+    int temp_subject, i = 0, scan_res, length_string;
     char temp_char;
     char temp_string[MAX_INPUT_LENGTH];
 
     fgets(temp_string, MAX_INPUT_LENGTH - 1, stdin);
+    length_string = strlen(temp_string);
 
     do{
         scan_res = sscanf(temp_string + i, " %d%c", &temp_subject, &temp_char);
@@ -304,7 +308,7 @@ void chooseFromList(struct profile *user, int interval_start, int interval_end){
             i += 1;
             while(isalnum(*(temp_string + ++i)) == 0);
         }
-    } while(i < (interval_end - interval_start) && scan_res != 0);
+    } while(i < length_string && scan_res != 0);
 }
 
 /** @fn double getValidDouble(void)
@@ -334,44 +338,49 @@ double getValidDouble(void){
 
 
 
-/** @fn void evalCmd(struct education *current_education, struct profile *user, int arg)
+/** @fn void evalCmd(struct profile *user, struct education *current_education, int arg)
  *  @brief Changes the adjustment vector for the user to approach the current education. 
  *         The distance of the change is determined by the argument
  *  @param current_education The education currently being displayed
  *  @param user The profile struct whose adjustment vector is changed
  *  @param arg The user input argument for how much to change the adjustment vector
  */
-void evalCmd(struct education *current_education, struct profile *user, int arg) {
+void evalCmd(struct profile *user, struct education *current_education, int arg){
     struct vector user_vector = addVector(user->interests, user->adjustment_vector);
     struct vector distance_vector = subtractVector(current_education->interests, user_vector);
     struct vector scale_vector = scaleVector(distance_vector, ADJUSTMENT_CONSTANT * convertScale(arg));
+    
+    printVector(user->adjustment_vector);
+    printVector(current_education->interests);
+    printVector(user->interests);
+    printf("\n");
     user->adjustment_vector = addVector(user->adjustment_vector, scale_vector);
+
+    printVector(user->adjustment_vector);
     freeVectorM(3, user_vector, distance_vector, scale_vector);
 }
 
-/** @fn struct education recommendCmd(struct database database, struct profile *user)
+/** @fn struct education recommendCmd(struct profile *user, const struct database *database)
  *  @brief Goes trough the available educations and compares them to the user:
  *         Both their interests, qualifications and location are considered.
  *  @param user The profile struct which is compared
  *  @param database The database containing the educations
  */
-struct education recommendCmd(struct database database, struct profile *user){
+struct education recommendCmd(struct profile *user, const struct database *database){
     int i;
     struct vector normalized_vector;
     double highest_result = -3.0, result = 0.0;
     struct education best_fit;
     normalized_vector = normalizeVector(addVector(user->interests, user->adjustment_vector));
 
-    printVector(normalized_vector);
-
-    for(i = 0; i < database.amount_of_educations; i++){
-        result = dotProduct(database.educations[i].interests, normalized_vector) + 
-                 (user->location.region == database.educations[i].region ? 1.0 : 0.0) * 
+    for(i = 0; i < database->amount_of_educations; i++){
+        result = dotProduct(database->educations[i].interests, normalized_vector) + 
+                 (user->location.region == database->educations[i].region ? 1.0 : 0.0) * 
                   user->location.region_importance;
-        if(result > highest_result && isQualified(*user, database.educations[i]) && 
-           getIndex(user->recommended_educations, database.educations[i]) == NOT_IN_LIST){
+        if(result > highest_result && isQualified(*user, database->educations[i]) && 
+           getIndex(user->recommended_educations, database->educations[i]) == NOT_IN_LIST){
             highest_result = result;
-            best_fit = database.educations[i];
+            best_fit = database->educations[i];
         }
     }
         
@@ -380,7 +389,8 @@ struct education recommendCmd(struct database database, struct profile *user){
     strcpy(user->recommended_educations[user->last_recommended], best_fit.name);
     user->last_recommended = (user->last_recommended + 1) % EDUCATION_LIST_LENGTH;
 
-    printEducation(best_fit);
+    printf("The recommended education is:");
+    printEducation(best_fit, database);
 
     return best_fit;
 }
@@ -403,24 +413,25 @@ int isQualified(struct profile user, struct education education){
 }
 
 /* Prints the relavant information about the given education */
-void printEducation(struct education education){
+void printEducation(struct education education, const struct database *db){
     int i;
     
-    printf("Name of education: %s\n", education.name);
+    printf("\nName of education: %s\n", education.name);
     printf("Description: %s\n", education.description);
-    printf("Read more: %s\n", education.link_to_read_further);
+    printf("Read more: %s\n", education.link);
     printf("Region: %d\n", education.region);
-    printf("Required average grade: %f", education.required_grade);
-    printf("Interest values:");
+    printf("Required average grade: %f\n", education.required_grade);
 
-    for(i = 0; i < 13; i++){
-        printf("%f\n", education.interests.array[i]);
+    for(i = 0; i < education.interests.size; i++){
+        printf("%s:%*s %f\n", db->interest_string[i], FIELD_SIZE - strlen(db->interest_string[i]), "", education.interests.array[i]);
     }
 
     for(i = 0; i < education.required_qualifications.amount_of_subjects; i++){
-        printf("%s %d\n", classNameStr(education.required_qualifications.subjects[i].name),
-                          education.required_qualifications.subjects[i].level);
+        printf("%s:%*s %c\n", classNameStr(education.required_qualifications.subjects[i].name), 
+                              FIELD_SIZE - strlen(classNameStr(education.required_qualifications.subjects[i].name)), "",
+                              levelToChar(education.required_qualifications.subjects[i].level));
     }
+    printf("\n");
 
 }
 
@@ -428,12 +439,12 @@ void printEducation(struct education education){
 
 
 
-/** @fn void save(struct education *current_education, struct profile *user)
+/** @fn void saveCmd(struct profile *user, struct education *current_education)
  *  @brief 
  *  @param *current_education 
  *  @param *user The profile of the user that has saved_education as a member.
  */
-void saveCmd(struct education *current_education, struct profile *user){
+void saveCmd(struct profile *user, struct education *current_education){
     int i;
 
     i = getEmptyIndex(user->saved_educations);

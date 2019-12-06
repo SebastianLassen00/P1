@@ -97,3 +97,16 @@ enum level charToLevel(char ch){
     
     return level;
 }
+
+char levelToChar(enum level l){
+    switch(l){
+        case 1:
+            return 'C';
+        case 2:
+            return 'B';
+        case 3:
+            return 'A';
+        default:
+            return 'Z';
+    }
+}

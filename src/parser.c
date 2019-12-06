@@ -25,16 +25,16 @@ void parseDatabase(struct database *database, FILE *filereader){
     int i;
 
     /* count how many lines the file contains */
-    while(fgets(placeholder_string, STRING_MAX_LENGTH, filereader)){
+    while(fgets(placeholder_string, STRING_MAX_LENGTH, filereader))
         total_lines++;
-    }
+    
     fseek(filereader, 0, SEEK_SET);
     
     /* Not used atm. */
     fgets(database_format, STRING_MAX_LENGTH, filereader);
 
     database->amount_of_educations = parseNumOfEdu(filereader);
-    database->educations = (struct education*) malloc(database->amount_of_educations * sizeof(struct education));
+    database->educations = (struct education*) calloc(database->amount_of_educations, sizeof(struct education));
     
     /* Each of these functions assume that the program is ready to read the relevant line */
     parseEduNames(database->educations, database->amount_of_educations, filereader);
@@ -286,9 +286,9 @@ void parseEduLink(struct education *education, int amount_of_educations, FILE *f
 
     /* Iterate through all educations */
     for(i = 0; i < amount_of_educations; i++){
-        education[i].link_to_read_further = parseEduString(current_line, amount_of_educations, offset);
+        education[i].link = parseEduString(current_line, amount_of_educations, offset);
 
-        offset += strlen(education[i].link_to_read_further) + 1;
+        offset += strlen(education[i].link) + 1;
     }
 }
 
@@ -309,7 +309,6 @@ char *parseEduString(char* current_line, int amount_of_educations, int offset){
     i = strchr(current_line, TABS) - current_line + sizeof(char) + offset;
     
     sscanf(current_line + i, "%[^\n	]s", tmp_education_string);
-    printf("%s\n", tmp_education_string);
     tmp_education_string_length = strlen(tmp_education_string);
     education_string = (char *) malloc((tmp_education_string_length + 1) * sizeof(char));
     strcpy(education_string, tmp_education_string);

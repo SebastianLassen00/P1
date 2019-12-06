@@ -23,4 +23,6 @@
 
 #define ADJUSTMENT_CONSTANT 0.1
 
+#define DATABASE_PATH "./bin/data/database.txt"
+
 #endif
