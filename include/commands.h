@@ -30,7 +30,7 @@ void chooseFromList(struct profile *user, int interval_start, int interval_end);
 double getValidDouble(void);
 
 void evalCmd(struct profile *user, struct education *current_education, int arg);
-
+struct education findCmd(char *arg, const struct database *db);
 struct education recommendCmd(struct profile *user, const struct database *database);
 int isQualified(struct profile user, struct education education);
 

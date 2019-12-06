@@ -330,7 +330,7 @@ double getValidDouble(void){
 
 /* **************** End of TestCmd() functions **************** */
 
-struct education findCmd(char *arg, struct database *db) {
+struct education findCmd(char *arg, const struct database *db) {
     int i;
     struct education edu;
     for(i = 0; i < db->amount_of_educations; i++){
