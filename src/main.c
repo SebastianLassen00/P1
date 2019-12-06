@@ -12,7 +12,7 @@
 #include "subjects.h"
 #include "vector.h" 
 
-enum command{find, save, save_prof, recommend, list, eval, test, menu, quit};
+enum command{find, save, save_prof, recommend, list, eval, test, menu, quit, delete};
 typedef enum command command;
 
 void introduction(void);
@@ -67,7 +67,7 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
                    const struct database *database, struct education *current_education){
     switch(c){
         case find:
-            //findCmd(arg);
+            *current_education = findCmd(arg, database);
             break;
         case save:
             saveCmd(user, current_education);
@@ -79,7 +79,7 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
             *current_education = recommendCmd(user, database);
             break;
         case list:
-            //listCmd();
+            listCmd(user);
             break;
         case eval:
             evalCmd(user, current_education, arg_num);
@@ -90,6 +90,8 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
         case menu:
             menuCmd();
             break;
+        case delete:
+            deleteCmd(user, arg_num);
     }
 }
 
@@ -145,7 +147,9 @@ command convertCommand(char s[MAX_COMMAND_LENGTH]){
         c = test;
     } else if(strcmp(s, "menu") == 0){
         c = menu;
-    } else{
+    } else if(strcmp(s, "delete") == 0){
+        c = delete;
+    }else{
         c = -1;
     }
 
@@ -154,7 +158,7 @@ command convertCommand(char s[MAX_COMMAND_LENGTH]){
 
 /* 1 is string, -1 is int, 0 is no arg */
 int argType(command c){
-    return (c == find || c == eval) ? ((c == find) ? 1 : -1) : 0;
+    return (c == find || c == eval || c == delete) ? ((c == find) ? 1 : -1) : 0;
 }
 
 
