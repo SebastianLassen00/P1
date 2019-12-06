@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "profile.h"
 #include "education.h"
@@ -36,8 +37,10 @@ struct profile createBobo(int amount_of_interests){
     bobo.location.region = 0;
     bobo.location.region_importance = 0.1;
 
+    srand(time(NULL));
+
     for(i = 0; i < amount_of_interests; i++){
-        bobo.interests.array[i] = 0.0;
+        bobo.interests.array[i] = (double) (rand() % 3) -1;
     }
 
     setSubjects(&bobo);
@@ -55,24 +58,24 @@ int main(void){
     struct database *db;
     struct education current_education;
     struct profile bobo;
-/*  struct profile user;  */
+    struct profile user;  
 
     RunAllTests();
 
 
     db = createDatabase("./bin/data/database.txt");
 
-/*  user = createProfile(db->amount_of_interests);
+    user = createProfile(db->amount_of_interests);
 
-    testCmd(&user, *db); */
+    testCmd(&user, *db); 
 
     bobo = createBobo(db->amount_of_interests);
 
-    current_education = recommendCmd(*db, &bobo);
+    current_education = recommendCmd(*db, &user);
 
 /*  printEducation(current_education);  */
 
-    printProfile(bobo); 
+    printProfile(user); 
 
     freeDatabase(db);
     return 0;

@@ -33,38 +33,23 @@ void parseDatabase(struct database *database, FILE *filereader){
     /* Not used atm. */
     fgets(database_format, STRING_MAX_LENGTH, filereader);
 
-    printf("OK1\n");
     database->amount_of_educations = parseNumOfEdu(filereader);
-    printf("OK2\n");
     database->educations = (struct education*) malloc(database->amount_of_educations * sizeof(struct education));
     
     /* Each of these functions assume that the program is ready to read the relevant line */
-    printf("OK3\n");
     parseEduNames(database->educations, database->amount_of_educations, filereader);
-    printf("OK4\n");
     parseEduDesc(database->educations, database->amount_of_educations, filereader);
-    printf("OK5\n");
     parseEduLink(database->educations, database->amount_of_educations, filereader);
-    printf("OK6\n");
     parseRegion(database->educations, database->amount_of_educations, filereader);
-    printf("OK7\n");
     parseSubReq(database->educations, database->amount_of_educations, filereader);
-    printf("OK8\n");
     parseGradeReq(database->educations, database->amount_of_educations, filereader);
-    printf("OK9\n");
     database->amount_of_interests = parseNumOfInterests(filereader);
 
     database->interest_string = (char **) calloc(database->amount_of_interests, sizeof(char*));
 
     parseInterestNames(database, filereader);
 
-    for(i = 0; i < database->amount_of_interests; i++){
-        printf("%s\n", database->interest_string[i]);
-    }
-
-    printf("OK10\n");
     parseInterestValues(database->educations, database->amount_of_educations, database->amount_of_interests, filereader);
-    printf("OK11\n");
 }
 
 void parseInterestNames(struct database* database, FILE* filereader){
@@ -351,10 +336,8 @@ void readReqString(struct qualification *qualification, char *string, int educat
     /*Find the offset for the current education*/
     for(i = 0; i < education_location; i++)
         offset += sseek(string + offset, '\t') + 1;
-    printf("OFFSET: %d\n", offset);
-
+    
     do{
-        printf("OK1\n");
         fflush(stdout);
         qualification->amount_of_subjects += 1;
         
@@ -363,14 +346,8 @@ void readReqString(struct qualification *qualification, char *string, int educat
             reqClass[i] = string[offset + i];
         
         reqClass[i] = '\0';
-        printf("OK2\n");
-        fflush(stdout);
-        printf("%s \n", reqClass);
-        fflush(stdout);
-
+       
         qualification->subjects[subject_index].name = stringToClass(reqClass);
-        printf("OK3\n");
-        fflush(stdout);
         if(qualification->subjects[subject_index].name == NONE){
             qualification->subjects[subject_index].name = DANISH; 
             qualification->subjects[subject_index].level = Z;
@@ -379,19 +356,15 @@ void readReqString(struct qualification *qualification, char *string, int educat
 
         if(string[offset + i] == '_'){
             ++i;
-            printf("%c\n", i);
             qualification->subjects[subject_index].level = charToLevel(string[offset + i]);
             ++i;
         } else{
             qualification->subjects[subject_index].level = Z;
         }
 
-        printf("\nOffset: %d -%c\n", offset, string[offset + i]);
-
         /*Check if there is more req to read*/
         if(string[offset + i] == '\t' || string[offset + i] == '\n'){
             moreReqs = 0;
-            printf("Does this happen\n");
         }
 
         ++subject_index; 
