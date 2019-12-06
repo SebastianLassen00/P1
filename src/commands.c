@@ -16,15 +16,16 @@
  */
 void menuCmd(void){
     printf("Usable commands: \n");
-    printf("  find |arg| -  finds the education passed through the argument |arg| \n"
-           "  save       -  saves the current education to a seperate list \n"
-           "  save_prof  -  saves the current user profile to a .txt-file \n"
-           "  recommend  -  recommend an education using the current profile \n");
-    printf("  list       -  lists all the saved educations \n"
-           "  eval |arg| -  evaluates the current education using an integer value between 0 and 100 \n"
-           "  test       -  tests the users interests and qualifications \n"
-           "  menu       -  shows a this menu \n"
-           "  quit       -  quits the program \n");
+    printf("  find |arg|   -  finds the education passed through the argument |arg| \n"
+           "  save         -  saves the current education to a seperate list \n"
+           "  save_prof    -  saves the current user profile to a .txt-file \n"
+           "  recommend    -  recommend an education using the current profile \n");
+    printf("  list         -  lists all the saved educations \n"
+           "  eval |arg|   -  evaluates the current education using an integer value between 0 and 100 \n"
+           "  test         -  tests the users interests and qualifications \n"
+           "  menu         -  shows a this menu \n"
+           "  delete |arg| -  deletes the entry in the list given as an integer by the user \n"
+           "  quit         -  quits the program \n\n");
 }
 
 
@@ -453,6 +454,8 @@ const char *getRegionName(enum region r){
             return "Zealand";
         case CAPITAL_REGION:
             return "Capital Region";
+        default:
+            return "Region Not Found";
     }
 }
 
@@ -549,6 +552,7 @@ void deleteCmd(struct profile *user, int deleted_entry){
 
 /* ************************* ELSECMD ************************** */
 
+
 /** @
  *  @
  *  @
@@ -583,5 +587,7 @@ void saveProfile(struct profile user){
         exit(EXIT_FAILURE);
     }
     fclose(file_pointer);
+
+    printf("File saved successfully\n");
 }
 
