@@ -388,7 +388,6 @@ struct education findCmd(char *arg, const struct database *db){
  */
 void searchCmd(char *arg, const struct database *db){
     int i, edu_found = 0;
-    struct education edu;
 
     for(i = 0; i < db->amount_of_educations; i++){
         if(strstr(db->educations[i].name, arg) != NULL) {
