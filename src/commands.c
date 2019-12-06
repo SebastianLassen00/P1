@@ -435,7 +435,7 @@ void printEducation(struct education education, const struct database *db){
     printf("    Required Subjects: \n");
     for(i = 0; i < education.required_qualifications.amount_of_subjects; i++){
         printf("        %s:%*s %c\n", classNameStr(education.required_qualifications.subjects[i].name), 
-                              (int) FIELD_SIZE - 4 - strlen(classNameStr(education.required_qualifications.subjects[i].name)), "",
+                              (int) (FIELD_SIZE - 4 - strlen(classNameStr(education.required_qualifications.subjects[i].name))), "",
                               levelToChar(education.required_qualifications.subjects[i].level));
     }
 
