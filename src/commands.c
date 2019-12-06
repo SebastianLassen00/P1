@@ -522,7 +522,7 @@ int listIsFull(int i){
 
 void clearBuffer(void){
     char buffer[MAX_INPUT_LENGTH];
-    gets(buffer);
+    fgets(buffer, MAX_INPUT_LENGTH, stdin);
 }
 
 
@@ -558,7 +558,7 @@ void deleteCmd(struct profile *user, int deleted_entry){
 void saveProfile(struct profile user){
     FILE *file_pointer;
     int i;
-    char file_name[MAX_NAME_LENGTH];
+    char file_name[MAX_FILE_NAME_LENGTH];
     sprintf(file_name, "%s_profil.txt", user.name);
 
     file_pointer = fopen(file_name, "w");
