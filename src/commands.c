@@ -200,6 +200,8 @@ void setProfileQualifications(struct profile *user){
 
     setImportantSubjects(user); 
     
+    printf("Now some less relevant subjects will be \n");
+
     setOtherSubjects(user, IMPORTANT_SUBJECTS, IMPORTANT_SUBJECTS + OTHER_SUBJECTS);
     setOtherSubjects(user, IMPORTANT_SUBJECTS + OTHER_SUBJECTS, TOTAL_SUBJECTS);
 }
@@ -224,7 +226,7 @@ void setImportantSubjects(struct profile *user){
     int i;
 
     for(i = 0; i < IMPORTANT_SUBJECTS; i++){
-        printf("%s:%*s ", classNameStr(i), FIELD_SIZE - strlen(classNameStr(i)), "");
+        printf("%s:%*s ", classNameStr(i), (int) FIELD_SIZE - strlen(classNameStr(i)), "");
         do{
             scanf(" %c", &temp_char);
         } while(levelAsValue(temp_char) == -1);
@@ -238,7 +240,7 @@ void setImportantSubjects(struct profile *user){
  *  @param class The enum value the name should return for
  */
 const char* classNameStr(enum class class){
-    char *classes[TOTAL_SUBJECTS+USELESS_SUBJECTS] = {"MATHEMATICS", "CHEMISTRY", "BIOLOGY", "PHYSICS", "ENGLISH",
+    char *classes[TOTAL_SUBJECTS + USELESS_SUBJECTS] = {"MATHEMATICS", "CHEMISTRY", "BIOLOGY", "PHYSICS", "ENGLISH",
                                      "BIOTECHNOLOGY", "GEOSCIENCE", "HISTORY", "IDEA_HISTORY",
                                      "INFORMATICS", "INTERNATIONAL_ECONOMICS", "COMMUNICATION_AND_IT",
                                      "RELIGION", "SOCIALSTUDIES", "BUSINESS_ECONOMICS", "CONTEMPORAY_HISTORY",
@@ -301,6 +303,10 @@ void chooseFromList(struct profile *user, int interval_start, int interval_end){
     fgets(temp_string, MAX_INPUT_LENGTH - 1, stdin);
     length_string = strlen(temp_string);
 
+    if(length_string < 2)
+        return;
+
+
     do{
         scan_res = sscanf(temp_string + i, " %d%c", &temp_subject, &temp_char);
         if(temp_subject >= 0 && temp_subject < (interval_end - interval_start + 1) && levelAsValue(temp_char) != -1  && scan_res == 2){
@@ -358,13 +364,8 @@ void evalCmd(struct profile *user, struct education *current_education, int arg)
     struct vector distance_vector = subtractVector(current_education->interests, user_vector);
     struct vector scale_vector = scaleVector(distance_vector, ADJUSTMENT_CONSTANT * convertScale(arg));
     
-    printVector(user->adjustment_vector);
-    printVector(current_education->interests);
-    printVector(user->interests);
-    printf("\n");
     user->adjustment_vector = addVector(user->adjustment_vector, scale_vector);
 
-    printVector(user->adjustment_vector);
     freeVectorM(3, user_vector, distance_vector, scale_vector);
 }
 
@@ -397,7 +398,7 @@ struct education recommendCmd(struct profile *user, const struct database *datab
     strcpy(user->recommended_educations[user->last_recommended], best_fit.name);
     user->last_recommended = (user->last_recommended + 1) % EDUCATION_LIST_LENGTH;
 
-    printf("The recommended education is:");
+    printf("\nThe recommended education is:");
     printEducation(best_fit, database);
 
     return best_fit;
@@ -424,28 +425,36 @@ int isQualified(struct profile user, struct education education){
 void printEducation(struct education education, const struct database *db){
     int i;
     
-    printf("\nName of education: %s\n", education.name);
-    printf("Description: %s\n", education.description);
-    printf("Read more: %s\n", education.link);
-    printf("Region: %d\n", education.region);
-    printf("Required average grade: %f\n", education.required_grade);
+    printf("\n    Name of education:         %s\n", education.name);
+    printf("    Description:               %s\n", education.description);
+    printf("    Read more:                 %s\n", education.link);
+    printf("    Region:                    %s\n", getRegionName(education.region));
+    printf("    Required average grade:    %.1f\n", education.required_grade);
 
-    for(i = 0; i < education.interests.size; i++){
-        printf("%s:%*s %f\n", db->interest_string[i], FIELD_SIZE - strlen(db->interest_string[i]), "", education.interests.array[i]);
-    }
-
+    printf("    Required Subjects: \n");
     for(i = 0; i < education.required_qualifications.amount_of_subjects; i++){
-        printf("%s:%*s %c\n", classNameStr(education.required_qualifications.subjects[i].name), 
-                              FIELD_SIZE - strlen(classNameStr(education.required_qualifications.subjects[i].name)), "",
+        printf("        %s:%*s %c\n", classNameStr(education.required_qualifications.subjects[i].name), 
+                              (int) FIELD_SIZE - 4 - strlen(classNameStr(education.required_qualifications.subjects[i].name)), "",
                               levelToChar(education.required_qualifications.subjects[i].level));
     }
-    printf("\n");
 
+    printf("\n");
 }
 
-
-
-
+const char *getRegionName(enum region r){
+    switch(r){
+        case NORTH_JUTLAND:
+            return "North Jutland";
+        case CENTRAL_JUTLAND:
+            return "Central Jutland";
+        case SOUTHERN_DENMARK:
+            return "Southern Denmark";
+        case ZEALAND:
+            return "Zealand";
+        case CAPITAL_REGION:
+            return "Capital Region";
+    }
+}
 
 /** @fn void saveCmd(struct profile *user, struct education *current_education)
  *  @brief 
@@ -457,8 +466,10 @@ void saveCmd(struct profile *user, struct education *current_education){
 
     i = getEmptyIndex(user->saved_educations);
 
-    if(listIsFull(i))
-        printf("I dunno\n");
+    if(getIndex(user->saved_educations, *current_education) != -1)
+        printf("Already in list\n");
+    else if(listIsFull(i))
+        printf("List empty. Use delete to delete entries\n");
     else
         strcpy(user->saved_educations[i], current_education->name); 
 }
@@ -490,7 +501,7 @@ int getEmptyIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH]){
     int index = NO_EMPTY_INDEX;
 
     for(i = 0; index == NO_EMPTY_INDEX && i < EDUCATION_LIST_LENGTH; i++){
-        if(strcmp(edu_array[i], "")){
+        if(strcmp(edu_array[i], "") == 0){
             index = i;
         }
     }
@@ -511,6 +522,32 @@ void clearBuffer(void){
     char buffer[MAX_INPUT_LENGTH];
     gets(buffer);
 }
+
+
+/* ************************* LISTCMD ************************** */
+
+void listCmd(const struct profile *user){
+    int i, counter = 0;
+
+    printf("\nList of saves educations:\n");
+    for(i = 0; i < EDUCATION_LIST_LENGTH; i++){
+        if(strcmp(user->saved_educations[i], "") != 0){
+            printf("%2d: %s\n", i, user->saved_educations[i]);
+            counter++;
+        }
+    }
+
+    if(counter == 0)
+        printf("No entries yet\n\n");
+}
+
+void deleteCmd(struct profile *user, int deleted_entry){
+    int valid_entry;
+    valid_entry = deleted_entry > EDUCATION_LIST_LENGTH ? EDUCATION_LIST_LENGTH : (deleted_entry < 0 ? 0 : deleted_entry);
+    strcpy(user->saved_educations[valid_entry], "");
+}
+
+/* ************************* ELSECMD ************************** */
 
 /** @
  *  @
@@ -548,3 +585,4 @@ void saveProfile(struct profile user){
     }
     fclose(file_pointer);
 }
+

@@ -35,6 +35,7 @@ struct education recommendCmd(struct profile *user, const struct database *datab
 int isQualified(struct profile user, struct education education);
 
 void printEducation(struct education education, const struct database *db);
+const char *getRegionName(enum region r);
 
 void saveCmd(struct profile *user, struct education *current_education);
 int getIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH], struct education target);
@@ -42,6 +43,9 @@ int getEmptyIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH]);
 int listIsFull(int i);
 
 void clearBuffer(void);
+
+void listCmd(const struct profile *user);
+void deleteCmd(struct profile *user, int deleted_entry);
 
 
 #endif

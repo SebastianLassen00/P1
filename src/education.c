@@ -31,6 +31,8 @@ struct education createDefaultEducation(int amount_of_interests, int amount_of_s
     strcpy(education.name, temp_name);
     strcpy(education.description, temp_desc);
     strcpy(education.link, temp_link);
+
+    return education;
 }
 
 /**
