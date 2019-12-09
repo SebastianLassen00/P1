@@ -4,4 +4,18 @@
 *.exe
 *.o
 
+*.tmp
+*.tex
+*.sty
+*.dot
+*.md5
+*.aux
+*.toc
+*.log
+*.idx
+*.ind
+*.ilg
+/docs/html
+/docs/latex/Makefile
+
 .vscode/settings.json

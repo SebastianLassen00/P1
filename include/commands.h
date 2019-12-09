@@ -48,6 +48,7 @@ void listCmd(const struct profile *user);
 void deleteCmd(struct profile *user, int deleted_entry);
 
 void saveProfile(struct profile user);
-
+int checkForExistingProfile(char *name);
+struct profile loadProfile(char *name);
 
 #endif

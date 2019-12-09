@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <unistd.h>
 
 #include "profile.h"
 #include "education.h"
@@ -625,3 +626,68 @@ void saveProfile(struct profile user){
     printf("File saved successfully\n");
 }
 
+/** @fn struct profile loadProfile(char *name) 
+ *  @brief Check whether a profile exists
+ *  @param char *name The name of the user
+ *  @return int A boolean value, 1 if the profile exist, otherwise 0
+ */
+int checkForExistingProfile(char *name){
+    FILE *file_pointer; 
+    struct profile user;
+    char file_name[MAX_FILE_NAME_LENGTH];
+    int profile_exists = 0;
+
+    if( access(file_name, F_OK) !=  -1){  /* F_OK tests whther the file exists */
+        printf("Profile exists.\n");
+        profile_exists = 1;
+    } else
+        printf("Profile could not be found.\n");
+
+    return profile_exists;
+}
+
+/** @fn struct profile loadProfile(char *name) 
+ *  @brief Loads a user profile from a generated <name>_profile.txt file
+ *  @param char *name The name of the user
+ *  @return struct profile Returns a user profile
+ */
+struct profile loadProfile(char *name){
+    int i;
+    FILE *file_pointer; 
+    struct profile user;
+    char file_name[MAX_FILE_NAME_LENGTH];
+
+    sprintf(file_name, "%s_profil.txt", name);
+
+    fopen(file_name, "r");
+
+    if(file_pointer == NULL){
+        printf("File could not be opened");
+        exit(EXIT_FAILURE);
+    } 
+
+    fscanf(file_pointer, "Version %s\n", VERSION);
+    fscanf(file_pointer, "Navn: %s\n", user.name);
+    fscanf(file_pointer, "karaktergennemsnit: %lf\n", &user.average);
+    fscanf(file_pointer, "Brugerens lokation og dens vigtighed: %d med %lf\n", (int*)&user.location.region, &user.location.region_importance);
+
+    fscanf(file_pointer, "Gemte uddannelser:\n");
+    for (i = 0; i < EDUCATION_LIST_LENGTH; i++)
+        fscanf(file_pointer, "%s\n", user.saved_educations[i]);
+        
+    fscanf(file_pointer, "Oversigt over foreslået uddannelser:\n");
+    for (i = 0; i < EDUCATION_LIST_LENGTH; i++)
+        fscanf(file_pointer, "%s\n", user.recommended_educations[i]);
+
+    for (i = 0; i < user.interests.size; i++)
+        fscanf(file_pointer, "%lf\n", &user.interests.array[i]);
+        
+    for (i = 0; i < user.adjustment_vector.size; i++)
+        fscanf(file_pointer, "%lf\n", &user.adjustment_vector.array[i]);
+
+    fclose(file_pointer);
+
+    printf("Profile successfully loaded.\n");
+
+    return user;
+}
