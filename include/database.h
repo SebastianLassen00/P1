@@ -4,7 +4,7 @@
 #include "education.h"
 
 /**
- * @struct
+ * @struct Database
  * @brief A structure to store a database
  */
 struct database {

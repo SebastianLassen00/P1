@@ -3,24 +3,32 @@
 #include <stdio.h>
 
 #include "subjects.h"
-/**
- * @brief free a subject and its members
- * 
- * @param subject the subject to be freed
+
+/** @fn struct profile createProfile(int number_of_interests)
+ *  @brief Allocates memory for each of the fields in the profile struct
+ *  @param number_of_interests The number of interests allocated
  */
-void freeSubject(struct subject *subject){
-    free(subject);
+struct qualification createQualifications(int number_of_qualifications){
+    struct qualification qualifications;
+
+    qualifications.amount_of_subjects = number_of_qualifications;
+    qualifications.subjects = (struct subject*) calloc(number_of_qualifications, sizeof(struct subject));
+
+    return qualifications;
 }
 
-/**
- * @brief free a qualification and its members
- * 
- * @param qualification the qualification to be freed
+/** @fn void freeQualification(struct qualification *qualification)
+ *  @brief free a qualification and its members
+ *  @param qualification the qualification to be freed
  */
-void freeQualification(struct qualification *qualification){
+void freeQualifications(struct qualification* qualification){
     free(qualification->subjects);
 }
 
+/** @fn enum class stringToClass(char *string)
+ *  @brief Returns the enum class associated with the given string
+ *  @param string The string which is converted into an enum class
+ */
 enum class stringToClass(char *string){
     if (strcmp(string, "MATHEMATICS") == 0){
         return MATHEMATICS;
@@ -84,7 +92,10 @@ enum class stringToClass(char *string){
     return NONE;
 }
 
-
+/** @fn enum level charToLevel(char ch)
+ *  @brief Returns the enum level associated with the given char
+ *  @param ch The character which is converted into an enum level
+ */
 enum level charToLevel(char ch){
     enum level level = Z;
 
@@ -98,6 +109,10 @@ enum level charToLevel(char ch){
     return level;
 }
 
+/** @fn enum char levelToChar(enum level l)
+ *  @brief Returns the character associated with the given enum level
+ *  @param l The enum level which is converted into a character
+ */
 char levelToChar(enum level l){
     switch(l){
         case 1:

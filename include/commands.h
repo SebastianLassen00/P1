@@ -34,9 +34,8 @@ void searchCmd(char *arg, const struct database *db);
 struct education recommendCmd(struct profile *user, const struct database *database);
 int isQualified(struct profile user, struct education education);
 
-void printEducation(struct education education);
 const char *getRegionName(enum region r);
-
+void printEducation(struct education);
 void saveCmd(struct profile *user, struct education *current_education);
 int getIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH], struct education target);
 int getEmptyIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH]);

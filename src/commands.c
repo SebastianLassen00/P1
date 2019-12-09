@@ -346,7 +346,7 @@ struct education findCmd(char *arg, const struct database *db){
         }
     }
     if(edu_found) 
-        printEducation(edu, db);
+        printEducation(edu);
     else
         printf("No education exists by that name\n");
     return edu;
@@ -422,7 +422,7 @@ struct education recommendCmd(struct profile *user, const struct database *datab
     user->last_recommended = (user->last_recommended + 1) % EDUCATION_LIST_LENGTH;
 
     printf("\nThe recommended education is:");
-    printEducation(best_fit, database);
+    printEducation(best_fit);
 
     return best_fit;
 }

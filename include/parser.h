@@ -23,12 +23,11 @@ void parseInterestNames(struct database* database, FILE* filereader);
 void parseInterestValues(int amount_of_interests, int amount_of_educations, struct education* educations, FILE* filereader);
 
 char *parseEduString(char* current_line, int amount_of_educations, int offset); 
+char** createArrayOfStrings(int amount_of_strings);
 
 int sseek(char *, char);
 void readReqString(struct qualification *, char *, int);
 
 enum region strToReg(char* region_string);
-
-
 
 #endif
