@@ -8,12 +8,11 @@
 #include "vector.h"
 #include "profile.h"
 
-
-
-struct vector interests;
-struct qualification required_qualifications;
-
-
+/** @fn struct education createDefaultEducation(int amount_of_interests, int amount_of_subjects)
+ *  @brief Assigns default values to the fields of the education struct
+ *  @param amount_of_interests The number of interests the education should hold
+ *  @param amount_of_subjects The number of subjects the education should hold
+ */
 struct education createDefaultEducation(int amount_of_interests, int amount_of_subjects){
     struct education education;
     char *temp_name = "Nothing";
@@ -35,10 +34,9 @@ struct education createDefaultEducation(int amount_of_interests, int amount_of_s
     return education;
 }
 
-/**
- * @brief 
- * 
- * @param education 
+/** @fn void freeEducation(strict edication *education)
+ *  @brief Frees the memory allocated to the fields of the education struct
+ *  @param education The education struct which is freed
  */
 void freeEducation(struct education *education){
     free(education->name);
