@@ -84,7 +84,7 @@ struct profile createBobo(int amount_of_interests){
     srand(time(NULL));
 
     for(i = 0; i < amount_of_interests; i++){
-        bobo.interests.array[i] = (double) (rand() % 3) -1;
+        bobo.interests.array[i] = (double) (i % 3 - 1);
     }
 
     setSubjects(&bobo);
@@ -98,7 +98,7 @@ struct profile createBobo(int amount_of_interests){
     return bobo;
 }
 
-/*int main(void){
+int main(void){
     struct database *db;
     struct education current_education;
     struct profile bobo;
@@ -126,4 +126,4 @@ struct profile createBobo(int amount_of_interests){
     freeProfile(user);
     return 0;
 }
-*/
+

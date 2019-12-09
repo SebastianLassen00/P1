@@ -638,7 +638,7 @@ int checkForExistingProfile(char *name){
     char file_name[MAX_FILE_NAME_LENGTH];
     int profile_exists = 0;
 
-    if( access(file_name, F_OK) !=  -1){  /* F_OK tests whther the file exists */
+    if(access(file_name, F_OK) !=  -1){  /* F_OK tests whther the file exists */
         printf("Profile exists.\n");
         profile_exists = 1;
     } else
@@ -654,14 +654,16 @@ int checkForExistingProfile(char *name){
  *  @return struct profile Returns a user profile
  */
 struct profile loadProfile(char *name, int number_of_interests){
-    int i, version;
+    int i;
     FILE *file_pointer; 
     struct profile user;
     char file_name[MAX_FILE_NAME_LENGTH];
+    char version[MAX_FILE_NAME_LENGTH];
+    char buffer[MAX_INPUT_LENGTH] = "Ingenting";
 
     sprintf(file_name, "%s_profil.txt", name);
 
-    fopen(file_name, "r");
+    file_pointer = fopen(file_name, "r");
 
     if(file_pointer == NULL){
         printf("File could not be opened");
@@ -670,24 +672,33 @@ struct profile loadProfile(char *name, int number_of_interests){
 
     user = createProfile(number_of_interests);
 
-    fscanf(file_pointer, "Version %d\n", &version);
+    fscanf(file_pointer, "Version %s\n", version);
     fscanf(file_pointer, "Navn: %s\n", user.name);
     fscanf(file_pointer, "karaktergennemsnit: %lf\n", &user.average);
-    fscanf(file_pointer, "Brugerens lokation og dens vigtighed: %d med %lf\n", (int*)user.location.region, &user.location.region_importance);
+    fscanf(file_pointer, "Brugerens lokation og dens vigtighed: %d med %lf\n", &user.location.region, &user.location.region_importance);
 
-    fscanf(file_pointer, "Gemte uddannelser:\n");
-    for (i = 0; i < EDUCATION_LIST_LENGTH; i++)
-        fscanf(file_pointer, "%s\n", user.saved_educations[i]);
-        
-    fscanf(file_pointer, "Oversigt over foreslået uddannelser:\n");
-    for (i = 0; i < EDUCATION_LIST_LENGTH; i++)
-        fscanf(file_pointer, "%s\n", user.recommended_educations[i]);
+    fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
+    for (i = 0; i < EDUCATION_LIST_LENGTH; i++){
+        fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
+        sscanf(buffer, "%[^\n]s", user.saved_educations[i]);
+    }
+     
 
-    for (i = 0; i < user.interests.size; i++)
-        fscanf(file_pointer, "%lf\n", &user.interests.array[i]);
+    fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
+    for (i = 0; i < EDUCATION_LIST_LENGTH; i++){
+        fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
+        sscanf(buffer, "%[^\n]s", user.recommended_educations[i]);
+    }
+
+    for (i = 0; i < user.interests.size; i++){
+        fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
+        sscanf(buffer, "%lf", &user.interests.array[i]);
+    }
         
-    for (i = 0; i < user.adjustment_vector.size; i++)
-        fscanf(file_pointer, "%lf\n", &user.adjustment_vector.array[i]);
+    for (i = 0; i < user.adjustment_vector.size; i++){
+        fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
+        sscanf(buffer, "%lf", &user.adjustment_vector.array[i]);
+    }
 
     fclose(file_pointer);
 

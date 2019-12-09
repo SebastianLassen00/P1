@@ -29,7 +29,7 @@ struct profile createBobo(int amount_of_interests);
  *  @brief Takes commands from the user and executes those commands until 
  *               the quit command is entered.
  */
-int main(void){
+/*int main(void){
     char arg[MAX_INPUT_LENGTH];
     int arg_num = 0;
     command c = menu;
@@ -59,7 +59,7 @@ int main(void){
     freeProfile(bobo);
 
     return 0;
-} 
+} */
 
 /** @fn void introduction(void)
  *  @brief Prints information about the program.
@@ -99,6 +99,7 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
             break;
         case save_prof:
             saveProfile(*user);
+            
             break;
         case recommend:
             *current_education = recommendCmd(user, database);
@@ -579,6 +580,7 @@ void testSameInterests(CuTest *tc){
     int actual = 1, expected = 1, i;
     struct profile user1, user2;
     user1 = createBobo(13);
+    saveProfile(user1);
     user2 = loadProfile("Bobo", 13);
     
     for(i = 0; i < user1.interests.size; i++){
