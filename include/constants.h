@@ -1,10 +1,12 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
+/* Program version */
 #define VERSION "1.0.1"
 
 #define NUMBER_OF_REGIONS 5
 
+/* Subjects related */
 #define IMPORTANT_SUBJECTS 5
 #define OTHER_SUBJECTS 11
 #define LANGUAGE_SUBJECTS 11
@@ -16,6 +18,7 @@
 #define EDUCATION_LIST_LENGTH 10
 #define MAX_EDU_NAME_LENGTH 40
 
+/* Input */
 #define MAX_COMMAND_LENGTH 10
 #define MAX_INPUT_LENGTH (MAX_COMMAND_LENGTH + 100)
 
@@ -25,6 +28,10 @@
 #define FIELD_SIZE 25
 
 #define ADJUSTMENT_CONSTANT 0.1
+
+#define STRING_MAX_LENGTH 10000
+#define TABS '	'
+#define NOT_FOUND_STRING " "
 
 #define DATABASE_PATH "./bin/data/database.txt"
 

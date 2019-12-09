@@ -7,20 +7,28 @@
 #include "region.h"
 
 void parseDatabase(struct database *database, FILE *filereader);
+void parseDatabaseLine(const char key[], struct database* database, FILE* filereader);
+void findDatabaseLine(const char key[], FILE* filereader, char* current_line);
+
 int parseNumOfEdu(FILE *filereader);
-void parseEduNames(struct education *education, int amount_of_educations, FILE *filereader);
-void parseEduDesc(struct education *education, int amount_of_educations, FILE *filereader);
-void parseEduLink(struct education *education, int amount_of_educations, FILE *filereader);
-void parseRegion(struct education *education, int number_of_educations, FILE *filereader);
-void parseSubReq(struct education *education, int number_of_educations, FILE *filereader);
-void parseGradeReq(struct education *education, int number_of_educations, FILE *filereader);
-enum region strToReg(char* region_string);
-char *parseEduString(char* current_line, int amount_of_educations, int offset);
-void parseInterestValues(struct education *education, int number_of_educations, int number_of_interests, FILE *filereader);
 int parseNumOfInterests(FILE *filereader);
+
+void parseEduNames(struct database* database, char current_line[]);
+void parseEduDesc(struct database* database, char current_line[]);
+void parseEduLink(struct database* database, char current_line[]);
+void parseEduRegion(struct database* database, char current_line[]);
+void parseSubReq(struct education *education, int number_of_educations, FILE *filereader, char current_line[]);
+void parseReqGrade(struct database* database, char current_line[]);
+void parseInterestValues(struct database* database, FILE* filereader);
+void parseInterestNames(struct database* database, FILE* filereader);
+
+char *parseEduString(char* current_line, int amount_of_educations, int offset);
+
 int sseek(char *, char);
 void readReqString(struct qualification *, char *, int);
-void parseInterestNames(struct database* database, FILE* filereader);
-int countTotalLines(FILE* filereader);
+
+enum region strToReg(char* region_string);
+
+
 
 #endif
