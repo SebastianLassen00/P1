@@ -1,8 +1,0 @@
-var searchData=
-[
-  ['copyvector',['copyVector',['../vector_8h.html#ada81c3ce70b1c657658e691e6a32bf5f',1,'vectors.c']]],
-  ['createvector',['createVector',['../vector_8h.html#a1e19fd8e3704b15fc5e50e92ed82b056',1,'vectors.c']]],
-  ['custring',['CuString',['../structCuString.html',1,'']]],
-  ['cusuite',['CuSuite',['../structCuSuite.html',1,'']]],
-  ['cutest',['CuTest',['../structCuTest.html',1,'']]]
-];
