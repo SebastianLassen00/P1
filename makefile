@@ -1,16 +1,15 @@
-
 CC = gcc
 CFILES = $(wildcard src/*.c)
 HFILES = $(wildcard include/*.h)
+
 INCLUDE = -Iinclude
 BIN = bin
-
-PROGRAM_NAME = PROG
+PROGRAM_NAME = prog
 
 $(BIN)/$(PROGRAM_NAME): $(CFILES) $(HFILES)
 	$(CC) $(INCLUDE) $(CFILES) -o $@
 
-.PHONY: clean
+.PHONY: clean print
 
 clean: 
-	rm bin/*
+	rm *.o *.exe *.out
