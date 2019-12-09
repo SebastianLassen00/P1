@@ -11,23 +11,67 @@
 #include "commands.h"
 
 CuSuite *testTestCmd(void);
+CuSuite *testSuiteLevelAsValue(void);
+CuSuite *testSuiteIsQualified(void);
+CuSuite *testSuiteDatabase(void);
+CuSuite *testSuiteProfile(void);
 
 void RunAllTests(void){
-    CuString *output = CuStringNew();
-    CuSuite* suite = CuSuiteNew();
-    
+    CuString *outputLAS = CuStringNew();
+    CuString *outputIQ = CuStringNew();
+    CuString *outputDB = CuStringNew();
+    CuString *outputPR = CuSuiteNew();
+
+    CuSuite* suiteLevelAsValue = CuSuiteNew();
+    CuSuite* suiteIsQualified = CuSuiteNew();
+    CuSuite* suiteDatabase = CuSuiteNew();
+    CuSuite* suiteProfile = CuSuiteNew();
+
+    CuSuite *suite = CuSuiteNew();
     /*
     CuSuiteAddSuite(suite, CuGetSuite());
     CuSuiteAddSuite(suite, CuStringGetSuite());
     */
 
-    CuSuiteAddSuite(suite, testTestCmd());
+    printf("----------------------------------------------------------------\n");
+    printf("TEST OF:   levelAsValue()\n");
+    CuSuiteAddSuite(suiteLevelAsValue, testSuiteLevelAsValue());
+    CuSuiteRun(suiteLevelAsValue);
+    CuSuiteSummary(suiteLevelAsValue, outputLAS);
+    CuSuiteDetails(suiteLevelAsValue, outputLAS);
+    printf("%s\n", outputLAS->buffer);
 
-    CuSuiteRun(suite);
-    CuSuiteSummary(suite, output);
-    CuSuiteDetails(suite, output);
-    printf("%s\n", output->buffer); 
+    printf("----------------------------------------------------------------\n");
+    printf("TEST OF:   isQualified()\n");
+    CuSuiteAddSuite(suiteIsQualified, testSuiteIsQualified());
+    CuSuiteRun(suiteIsQualified);
+    CuSuiteSummary(suiteIsQualified, outputIQ);
+    CuSuiteDetails(suiteIsQualified, outputIQ);
+    printf("%s\n", outputIQ->buffer);
+
+    printf("----------------------------------------------------------------\n");
+    printf("TEST OF:   DATABASE\n");
+    CuSuiteAddSuite(suiteDatabase, testSuiteDatabase());
+    CuSuiteRun(suiteDatabase);
+    CuSuiteSummary(suiteDatabase, outputDB);
+    CuSuiteDetails(suiteDatabase, outputDB);
+    printf("%s\n", outputDB->buffer);
+
+    printf("----------------------------------------------------------------\n");
+
+    printf("----------------------------------------------------------------\n");
+    printf("TEST OF:   PROFILE SAVE/LOAD\n");
+    CuSuiteAddSuite(suiteProfile, testSuiteProfile());
+    CuSuiteRun(suiteProfile);
+    CuSuiteSummary(suiteProfile, outputPR);
+    CuSuiteDetails(suiteProfile, outputPR);
+    printf("%s\n", outputPR->buffer);
+
+    printf("----------------------------------------------------------------\n");
+
+    return;
 }
+
 
 struct profile createBobo(int amount_of_interests){
     struct profile bobo = createProfile(amount_of_interests);
@@ -54,7 +98,7 @@ struct profile createBobo(int amount_of_interests){
     return bobo;
 }
 
-/*int main(void){
+int main(void){
     struct database *db;
     struct education current_education;
     struct profile bobo;
@@ -67,17 +111,19 @@ struct profile createBobo(int amount_of_interests){
 
     user = createProfile(db->amount_of_interests);
 
-    testCmd(&user, *db); 
+    //testCmd(&user, db); 
 
     bobo = createBobo(db->amount_of_interests);
 
-    current_education = recommendCmd(*db, &user);
+    current_education = recommendCmd(&bobo, db);
 
-    printEducation(current_education); 
+    printEducation(current_education, db); 
 
-    printProfile(user); 
+    printProfile(bobo); 
 
     freeDatabase(db);
+    freeProfile(bobo);
+    freeProfile(user);
     return 0;
-}*/
+}
 
