@@ -8,6 +8,7 @@
 
 #define STRING_MAX_LENGTH 50000
 #define TABS '	'
+#define NOT_FOUND_STRING " "
 
 /* DOKUMENTATION TIL FUNKTIONERNE SKAL LAVES/LAVES OM 
    90% ER BLEVET SKREVET OM */
@@ -31,6 +32,7 @@ void parseDatabase(struct database *database, FILE *filereader){
     /* This line holds the type of database and its character encoding. */
     /* At the moment, it is not used. */
     fgets(database_format, STRING_MAX_LENGTH, filereader);
+    
     database->amount_of_educations = parseNumOfEdu(filereader);
     database->educations = (struct education*) calloc(database->amount_of_educations, sizeof(struct education));
     
@@ -49,15 +51,20 @@ void parseDatabase(struct database *database, FILE *filereader){
 }
 
 void findDatabaseLine(const char key[], FILE* filereader, char* current_line){
-    int done = 0;
+    int found = 0;
     char temp_string[STRING_MAX_LENGTH];
 
-    while(!done && fgets(current_line, STRING_MAX_LENGTH, filereader) != NULL){
+    while(!found && fgets(current_line, STRING_MAX_LENGTH, filereader) != NULL){
         sscanf(current_line, "%[^\n	]s", temp_string);
         if(strcmp(temp_string, key) == 0){
-            printf("%s WAS FOUND.........\n", key);
-            done = 1;
+            /*printf("%s WAS FOUND.........\n", key);*/
+            found = 1;
         }
+    }
+
+    /* Return default string if a line with key does not exist */
+    if(found == 0){
+        strcpy(current_line, NOT_FOUND_STRING);
     }
 }
 
@@ -65,6 +72,13 @@ void parseDatabaseLine(const char key[], struct database* database, FILE* filere
     char current_line[STRING_MAX_LENGTH];
     
     findDatabaseLine(key, filereader, current_line);
+
+    /* Guard to make sure a line with key exists. Return if it does not and reset file pointer. */
+    if(strcmp(current_line, NOT_FOUND_STRING) == 0){
+        printf("An error has occured: Tried to parse line with %s, but entry does not exist in database.\n\n", key);
+        rewind(filereader);
+        return;
+    }
 
     if(strcmp(key, "NAME") == 0){
         parseEduNames(database, current_line);
@@ -87,6 +101,8 @@ void parseDatabaseLine(const char key[], struct database* database, FILE* filere
         findDatabaseLine(key, filereader, current_line);
 
         parseInterestValues(database, filereader);
+    } else{
+        printf("An error has occured. Attempting to parse %s, but no parsing functions exist.\n\n", key);
     }
 
     rewind(filereader);
