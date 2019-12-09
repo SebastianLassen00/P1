@@ -92,7 +92,7 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
             searchCmd(arg, database);
             break;
         case load:
-            loadProfile(arg);
+            loadProfile(arg, database->amount_of_interests);
             break;
         case save:
             saveCmd(user, current_education);
@@ -510,7 +510,7 @@ CuSuite *testSuiteDatabase(void){
 void testSameName(CuTest *tc){
     struct profile user1, user2;
     user1 = createBobo(13);
-    user2 = loadProfile("Bobo");
+    user2 = loadProfile("Bobo", 13);
 
     CuAssertStrEquals(tc, user1.name, user2.name);
 }
@@ -518,7 +518,7 @@ void testSameName(CuTest *tc){
 void testSameAverageGrade(CuTest *tc){
     struct profile user1, user2;
     user1 = createBobo(13);
-    user2 = loadProfile("Bobo");
+    user2 = loadProfile("Bobo", 13);
 
     CuAssertDblEquals(tc, user1.average, user2.average, 0.01);
 }
@@ -526,7 +526,7 @@ void testSameAverageGrade(CuTest *tc){
 void testSameLastRecommended(CuTest *tc){
     struct profile user1, user2;
     user1 = createBobo(13);
-    user2 = loadProfile("Bobo");
+    user2 = loadProfile("Bobo", 13);
 
     CuAssertIntEquals(tc, user1.last_recommended, user2.last_recommended);
 }
@@ -534,7 +534,7 @@ void testSameLastRecommended(CuTest *tc){
 void testSameRegion(CuTest *tc){
     struct profile user1, user2;
     user1 = createBobo(13);
-    user2 = loadProfile("Bobo");
+    user2 = loadProfile("Bobo", 13);
 
     CuAssertIntEquals(tc, user1.location.region, user2.location.region);
 }
@@ -542,7 +542,7 @@ void testSameRegion(CuTest *tc){
 void testSameRegionImportance(CuTest *tc){
     struct profile user1, user2;
     user1 = createBobo(13);
-    user2 = loadProfile("Bobo");
+    user2 = loadProfile("Bobo", 13);
 
     CuAssertDblEquals(tc, user1.location.region_importance, user2.location.region_importance, 0.01);
 }
@@ -551,7 +551,7 @@ void testSameSavedList(CuTest *tc){
     int actual = 1, expected = 1, i;
     struct profile user1, user2;
     user1 = createBobo(13);
-    user2 = loadProfile("Bobo");
+    user2 = loadProfile("Bobo", 13);
     
     for(i = 0; i < EDUCATION_LIST_LENGTH; i++){
         if(strcmp(user1.saved_educations[i], user2.saved_educations[i]) != 0)
@@ -565,7 +565,7 @@ void testSameRecommendedList(CuTest *tc){
     int actual = 1, expected = 1, i;
     struct profile user1, user2;
     user1 = createBobo(13);
-    user2 = loadProfile("Bobo");
+    user2 = loadProfile("Bobo", 13);
     
     for(i = 0; i < EDUCATION_LIST_LENGTH; i++){
         if(strcmp(user1.recommended_educations[i], user2.recommended_educations[i]) != 0)
@@ -579,7 +579,7 @@ void testSameInterests(CuTest *tc){
     int actual = 1, expected = 1, i;
     struct profile user1, user2;
     user1 = createBobo(13);
-    user2 = loadProfile("Bobo");
+    user2 = loadProfile("Bobo", 13);
     
     for(i = 0; i < user1.interests.size; i++){
         if(user1.interests.array[i] != user2.interests.array[i])
@@ -593,7 +593,7 @@ void testSameAdjustment(CuTest *tc){
     int actual = 1, expected = 1, i;
     struct profile user1, user2;
     user1 = createBobo(13);
-    user2 = loadProfile("Bobo");
+    user2 = loadProfile("Bobo", 13);
     
     for(i = 0; i < user1.adjustment_vector.size; i++){
         if(user1.adjustment_vector.array[i] != user2.adjustment_vector.array[i])

@@ -48,6 +48,6 @@ void deleteCmd(struct profile *user, int deleted_entry);
 
 void saveProfile(struct profile user);
 int checkForExistingProfile(char *name);
-struct profile loadProfile(char *name);
+struct profile loadProfile(char *name, int number_of_interests);
 
 #endif

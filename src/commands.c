@@ -566,7 +566,7 @@ void clearBuffer(void){
 void listCmd(const struct profile *user){
     int i, counter = 0;
 
-    printf("\nList of saves educations:\n");
+    printf("\nList of saved educations:\n");
     for(i = 0; i < EDUCATION_LIST_LENGTH; i++){
         if(strcmp(user->saved_educations[i], "") != 0){
             printf("%2d: %s\n", i, user->saved_educations[i]);
@@ -650,9 +650,10 @@ int checkForExistingProfile(char *name){
 /** @fn struct profile loadProfile(char *name) 
  *  @brief Loads a user profile from a generated <name>_profile.txt file
  *  @param char *name The name of the user
+ *  @param int number_of_interests The number of interests which is a member of the database struct
  *  @return struct profile Returns a user profile
  */
-struct profile loadProfile(char *name){
+struct profile loadProfile(char *name, int number_of_interests){
     int i, version;
     FILE *file_pointer; 
     struct profile user;
@@ -666,6 +667,8 @@ struct profile loadProfile(char *name){
         printf("File could not be opened");
         exit(EXIT_FAILURE);
     } 
+
+    user = createProfile(number_of_interests);
 
     fscanf(file_pointer, "Version %d\n", &version);
     fscanf(file_pointer, "Navn: %s\n", user.name);
