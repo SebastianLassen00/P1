@@ -15,7 +15,6 @@ void setProfileName(struct profile *user, char *name, char **names);
 void getValidName(char *name, char **names);
 int isUsed(char *name, char **names, int number_of_names);
 void setProfileLocation(struct profile *user);
-const char *regionName(enum region region);
 double convertScale(int initial_value);
 int validScaleValue(int value, int interval_start, int interval_end);
 int getValidInteger(void);
@@ -35,7 +34,7 @@ void searchCmd(char *arg, const struct database *db);
 struct education recommendCmd(struct profile *user, const struct database *database);
 int isQualified(struct profile user, struct education education);
 
-void printEducation(struct education education, const struct database *db);
+void printEducation(struct education education);
 const char *getRegionName(enum region r);
 
 void saveCmd(struct profile *user, struct education *current_education);

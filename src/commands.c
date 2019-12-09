@@ -32,7 +32,7 @@ void menuCmd(void){
 
 /** @fn void testCmd(struct profile *user, const struct database *db)
  *  @brief Tests the current user for name, location, interests, qualifications and average grade
- *  @param user The profile struct where all test results should be saved 
+ *  @param user The profile struct where all test results are saved 
  *  @param db The database where information of interests and subjects are as a pointer
  */
 void testCmd(struct profile *user, const struct database *db){
@@ -93,10 +93,11 @@ void getValidName(char *name, char **names){
 }
 
 /** @fn int isUsed(char *name, char **names, int number_of_names)
- *  @brief Returns 1 if the name is used. Otherwise, it returns 0
+ *  @brief Determines whether the given name is present in the given array
  *  @param name The name string to be determined if has been used
  *  @param names The list of names already used
  *  @param number_of_names The number of names in the name list
+ *  @return 1 if the name is used, 0 otherwise
  */
 int isUsed(char *name, char **names, int number_of_names){
     int i;
@@ -117,7 +118,7 @@ void setProfileLocation(struct profile *user){
 
     printf("Where do you want to study?\n");
     for(i = 0; i < NUMBER_OF_REGIONS; i++)
-        printf("%d: %s   ", i, regionName(i));
+        printf("%d: %s   ", i, getRegionName(i));
     printf("\n");
     user->location.region = validScaleValue(getValidInteger(), 0, NUMBER_OF_REGIONS - 1);
 
@@ -125,19 +126,10 @@ void setProfileLocation(struct profile *user){
     user->location.region_importance = convertScale(validScaleValue(getValidInteger(), 0, 10));
 }
 
-/** @fn const char *regionName(enum region region)
- *  @brief Return the name of the region as a string
- *  @param region The enum region value of the region to be returned as a string
- */
-const char *regionName(enum region region){
-    char *regions[NUMBER_OF_REGIONS] = {"NORTH JUTLAND", "CENTRAL JUTLAND", "SOUTHERN DENMARK", 
-                                        "ZEALAND", "CAPITAL REGION"};
-    return regions[region];
-}
-
 /** @fn double convertScale(int v)
  *  @brief Returns the converted value
  *  @param v The value to be converted
+ *  @return A double value between -1 and 1 given that the input is between 0 and 10
  */
 double convertScale(int v){
     return (((double) v - 5.0) / 5.0);
@@ -336,33 +328,12 @@ double getValidDouble(void){
     return valid_double;
 }
 
-/* **************** End of TestCmd() functions **************** */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /** @fn struct education findCmd(char *arg, const struct database *db)
  *  @brief Finds and prints out the education with the exact name given
- *         as and argument.
+ *         as and argument
  *  @param arg The argument string which should be the name of an education
- *  @param database The database in which all educations are stored.
+ *  @param database The database in which all educations are stored
+ *  @return A struct for the education found
  */
 struct education findCmd(char *arg, const struct database *db){
     int i, edu_found = 0;
@@ -388,6 +359,7 @@ struct education findCmd(char *arg, const struct database *db){
  */
 void searchCmd(char *arg, const struct database *db){
     int i, edu_found = 0;
+    struct education edu;
 
     for(i = 0; i < db->amount_of_educations; i++){
         if(strstr(db->educations[i].name, arg) != NULL) {
@@ -423,6 +395,7 @@ void evalCmd(struct profile *user, struct education *current_education, int arg)
  *         Both their interests, qualifications and location are considered.
  *  @param user The profile struct which is compared
  *  @param database The database containing the educations
+ *  @return A struct for the recommended education.
  */
 struct education recommendCmd(struct profile *user, const struct database *database){
     int i;
@@ -457,11 +430,12 @@ struct education recommendCmd(struct profile *user, const struct database *datab
  *  @brief Checks if the user has the subject levels required by the education
  *  @param user The profile struct whose quailification is checked
  *  @param education The education struct with the requirements
+ *  @return 0 if the user does not have the required levels and 1 if the user does
  */
 int isQualified(struct profile user, struct education education){
     int i;
     struct subject subject;
-    for(i = 0; i < education.required_qualifications.amount_of_subjects; i++) {
+    for(i = 0; i < education.required_qualifications.amount_of_subjects; i++){
         subject = education.required_qualifications.subjects[i];
         if(user.qualifications.subjects[subject.name].level < subject.level) 
             return 0;
@@ -469,8 +443,11 @@ int isQualified(struct profile user, struct education education){
     return 1;
 }
 
-/* Prints the relavant information about the given education */
-void printEducation(struct education education, const struct database *db){
+/** @fn void printEducation(struct education education, const struct database *db)
+ *  @brief Prints the relavant information about the given education
+ *  @param education The education struct which whose information is printed
+ */
+void printEducation(struct education education){
     int i;
     
     printf("\n    Name of education:         %s\n", education.name);
@@ -489,6 +466,10 @@ void printEducation(struct education education, const struct database *db){
     printf("\n");
 }
 
+/** @fn const char *getRegionName(enum region region)
+ *  @brief Returns the name of the region as a string
+ *  @param region The enum region value of the region to be returned as a string
+ */
 const char *getRegionName(enum region r){
     switch(r){
         case NORTH_JUTLAND:
@@ -507,9 +488,9 @@ const char *getRegionName(enum region r){
 }
 
 /** @fn void saveCmd(struct profile *user, struct education *current_education)
- *  @brief 
- *  @param *current_education 
- *  @param *user The profile of the user that has saved_education as a member.
+ *  @brief Saves the given education to a list in the profile struct
+ *  @param current_education A pointer to an education
+ *  @param user The profile struct of the user in which the education is saved
  */
 void saveCmd(struct profile *user, struct education *current_education){
     int i;
@@ -524,10 +505,10 @@ void saveCmd(struct profile *user, struct education *current_education){
         strcpy(user->saved_educations[i], current_education->name); 
 }
 
-/** @fn int getIndex(struct education *edu_array, struct profile user, struct education target)
- *  @brief
- *  @param edu_array An array of education structs (these two arrays can be found in profile struct)
- *  @param target 
+/** @fn int getIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH], struct education target)
+ *  @brief Returns the index of the given target in the array
+ *  @param edu_array An array of strings
+ *  @param target An education whose name is to be found in the array
  */
 int getIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH], struct education target){
     int i = 0;
@@ -542,9 +523,9 @@ int getIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH], struct 
     return index;
 }
 
-/** @fn int getEmptyIndex(struct education edu_array[], struct profile user)
- *  @brief Finds an empty index in an array of education structs, returns index.
- *  @param edu_array[] An array of education structs (these two arrays can be found in profile struct)
+/** @fn int getEmptyIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH])
+ *  @brief Returns an index with an empty string in the given array
+ *  @param edu_array An array of strings in which the empty string should be found
  */
 int getEmptyIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH]){
     int i = 0;
@@ -560,22 +541,26 @@ int getEmptyIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH]){
 }
 
 /** @fn int listIsFull(int i)
- *  @brief A logical statement that returns a boolean value.
+ *  @brief A logical statement that returns a boolean value
  *  @param i The index of an array of education structs
+ *  @Return 1 if the index is -1 and 0 otherwise
  */
 int listIsFull(int i){
     return i == NO_EMPTY_INDEX;
 }
 
-
+/** @fn void clearBuffer(void)
+ *  @brief Empties the buffer for standard input
+ */
 void clearBuffer(void){
     char buffer[MAX_INPUT_LENGTH];
     fgets(buffer, MAX_INPUT_LENGTH, stdin);
 }
 
-
-/* ************************* LISTCMD ************************** */
-
+/** @fn void listCmd(const struct profile *user)
+ *  @brief Prints out the names of all the saved educations
+ *  @param user The profile struct for the user
+ */
 void listCmd(const struct profile *user){
     int i, counter = 0;
 
@@ -591,18 +576,18 @@ void listCmd(const struct profile *user){
         printf("No entries yet\n\n");
 }
 
+/** @fn void deleteCmd(struct profile *user, int deleted_entry)
+ *  @brief Removes the name of the education at the given index
+ *  @param user The profile struct for the user
+ */
 void deleteCmd(struct profile *user, int deleted_entry){
     strcpy(user->saved_educations[validScaleValue(deleted_entry, 0, EDUCATION_LIST_LENGTH)], "");
 }
 
-/* ************************* ELSECMD ************************** */
-
-
-/** @
- *  @
- *  @
+/** @fn void saveProfile(struct profile user)
+ *  @brief Saves a file with the information collected about the user
+ *  @param user The profile struct for the user
  */
-
 void saveProfile(struct profile user){
     FILE *file_pointer;
     int i;
