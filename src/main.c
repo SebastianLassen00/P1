@@ -54,6 +54,7 @@ int main(void){
     freeEducation(&current_education);
     freeDatabase(database);
     freeProfile(user);
+    freeProfile(bobo);
 
     return 0;
 }
