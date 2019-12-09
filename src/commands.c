@@ -598,9 +598,8 @@ void deleteCmd(struct profile *user, int deleted_entry){
 /* ************************* ELSECMD ************************** */
 
 
-/** @
- *  @
- *  @
+/** 
+ *  @brief Fileprint the user data to txt file.
  */
 
 void saveProfile(struct profile user){
@@ -612,15 +611,19 @@ void saveProfile(struct profile user){
     file_pointer = fopen(file_name, "w");
 
     if(file_pointer != NULL){                     /* Checks if file could be opened */
-        fprintf(file_pointer, "%s\n", VERSION);
-        fprintf(file_pointer, "%s %f %d %d %f \n", user.name, user.average, user.last_recommended, user.location.region, user.location.region_importance);
-    
+        fprintf(file_pointer, "Version %s\n", VERSION);
+        fprintf(file_pointer, "Navn: %s\n", user.name);
+        fprintf(file_pointer, "karaktergennemsnit: %f\n", user.average);
+        fprintf(file_pointer, "Brugerens lokation og dens vigtighed: %d med %f\n", user.location.region, user.location.region_importance);
+
+        fprintf(file_pointer, "Gemte uddannelser:\n");
         for (i = 0; i < EDUCATION_LIST_LENGTH; i++)
             fprintf(file_pointer, "%s\n", user.saved_educations[i]);
         
+        fprintf(file_pointer, "Oversigt over foreslået uddannelser:\n");
         for (i = 0; i < EDUCATION_LIST_LENGTH; i++)
             fprintf(file_pointer, "%s\n", user.recommended_educations[i]);
-        
+
         for (i = 0; i < user.interests.size; i++)
             fprintf(file_pointer, "%f\n", user.interests.array[i]);
         
