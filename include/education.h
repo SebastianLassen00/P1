@@ -1,10 +1,13 @@
+/** @file education.h
+ *  @brief The file containing the education structs
+*/  
+
 #ifndef EDUCATION_H
 #define EDUCATION_H
 
 #include"region.h"
 #include"subjects.h"
 #include "vector.h"
-
 
 /**
  * @struct education
