@@ -1,5 +1,7 @@
 /** @file education.h
- *  @brief The file containing the education structs
+ *  @brief Contains elements relating to educations
+ * 
+ *  This file contains the education struct and the function that creates educations.
 */  
 
 #ifndef EDUCATION_H

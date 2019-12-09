@@ -1,5 +1,7 @@
 /** @file vector.h
- *  @brief Library which contains a variety of functions relating to vectors
+ *  @brief Contains elements relating to vectors
+ * 
+ *  This file contains the vector struct and various functions used to create, manipulate or free vectors.
 */  
 
 #ifndef VECTOR_H
