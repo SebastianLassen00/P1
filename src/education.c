@@ -46,3 +46,19 @@ void freeEducation(struct education *education){
     
     freeQualification(&education->required_qualifications);
 }
+
+/** @fn struct education* createArrayOfEducations(int amount_of_educations)
+ *  @brief Allocate memory for an array of educations and return a pointer to it
+ *  @param amount_of_educations The amount of educations to be stored in the array
+ */
+struct education* createArrayOfEducations(int amount_of_educations){
+    struct education* educations;
+    educations = (struct education*) calloc(amount_of_educations, sizeof(struct education));
+
+    if(educations == NULL){
+        printf("Failed to allocate memory for educations.\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    return educations;
+}
