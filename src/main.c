@@ -23,6 +23,10 @@ command convertCommand(char s[MAX_COMMAND_LENGTH]);
 int argType(command c);
 struct profile createBobo(int amount_of_interests);
 
+/** @fn void introduction(void)
+ *  @brief Takes commands from the user and executes those commands until 
+ *               the quit command is entered.
+ */
 int main(void){
     char arg[MAX_INPUT_LENGTH];
     int arg_num = 0;
@@ -54,7 +58,9 @@ int main(void){
     return 0;
 }
 
-
+/** @fn void introduction(void)
+ *  @brief Prints information about the program.
+ */
 void introduction(void){
     printf("This program was made by: A302\n");
     printf("It is designed to applicants for bachelors in Denmark\n");
@@ -63,6 +69,16 @@ void introduction(void){
     printf("\n");
 }
 
+/** @fn void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct profile *user, 
+ *                         const struct database *database, struct education *current_education){
+ *  @brief Calls the function associated with the given command
+ *  @param c The enum command which the user have enterd
+ *  @param arg The string argument used by some commands
+ *  @param arg_num The integer argument used by som commands
+ *  @param user A pointer to the profile struct associated with the user of the program
+ *  @param database A pointer to the database
+ *  @param current_education A pointer to the last shown education
+ */
 void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct profile *user, 
                    const struct database *database, struct education *current_education){
     switch(c){
@@ -100,11 +116,11 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
     }
 }
 
-
 /** @fn int scanCommand(char arg[MAX_INPUT_LENGTH], int *arg_num)
- *    @brief Finds valid command and argument
- *    @param arg Output parameter for argument string
- *    @param arg_num Output parameter for argument int
+ *  @brief Finds valid command and argument
+ *  @param arg Output parameter for argument string
+ *  @param arg_num Output parameter for argument int
+ *  @return The enum command associated with the parameter string
  */
 command scanCommand(char arg[MAX_INPUT_LENGTH], int *arg_num){
     char command_string[MAX_COMMAND_LENGTH] = "";
@@ -132,7 +148,12 @@ command scanCommand(char arg[MAX_INPUT_LENGTH], int *arg_num){
     return command_index;
 }
 
-/*    Outputs enum value if command, else -1 */
+/** @fn int scanCommand(char arg[MAX_INPUT_LENGTH], int *arg_num)
+ *  @brief Compares the entered string to the command words and returns
+ *         the enum command associated with the string
+ *  @param s A command as a string
+ *  @return The enum command associated with the parameter string
+ */
 command convertCommand(char s[MAX_COMMAND_LENGTH]){
     command c;
 
@@ -165,7 +186,14 @@ command convertCommand(char s[MAX_COMMAND_LENGTH]){
     return c;
 }
 
-/* 1 is string, -1 is int, 0 is no arg */
+/** @fn int argType(command c)
+ *  @brief Determines whether the entered command takes a string argument, 
+ *         a integer argument or no argument
+ *  @param c An Enum command
+ *  @return An integer being 0 if the command takes no argument,
+ *          1 if the command takes a string argument and -1 if
+ *          it takes an integer argument.
+ */
 int argType(command c){
     return (c == search || c == find || c == eval || c == delete) ? ((c == find || c == search) ? 1 : -1) : 0;
 }
