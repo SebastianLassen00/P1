@@ -77,18 +77,3 @@ struct education *findEducation(char *key, struct database *database){
 
     return education;
 }
-
-/**
- * @brief Finds all educations with the matching search_word
- * 
- * @param search_word The name of the education you are searching for
- * @return struct educationArray* 
- */
-void searchDatabaseForEducation(char *search_word, struct database *database, struct education **array, int *size_of_array){
-    int i;
-    char *takeout;
-
-    takeout = malloc(sizeof(char) * strlen(search_word) + 1);
-
-    
-}
