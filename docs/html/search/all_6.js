@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['lengthofvector',['lengthOfVector',['../vector_8h.html#a3ced6180af1cca9edbe1523849f0020e',1,'vectors.c']]],
-  ['level',['level',['../structsubject.html#a59bfabba13591d841473e9097b309234',1,'subject']]],
-  ['link',['link',['../structeducation.html#a0244d20a4b1f00a6088cece10b77a0f3',1,'education']]],
-  ['location',['location',['../structlocation.html',1,'']]]
+  ['interest_5fstring',['interest_string',['../structdatabase.html#aa677885704df7723ae0211e7f8977cc0',1,'database']]],
+  ['isqualified',['isQualified',['../commands_8h.html#aaf8ea3a220bfa7b0dea8e9eb190a0c35',1,'commands.c']]],
+  ['isused',['isUsed',['../commands_8h.html#abf0fca70c61056067822d9ea89c315bb',1,'commands.c']]]
 ];

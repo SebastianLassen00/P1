@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['printvector',['printVector',['../vector_8h.html#a223959212405b935e48381e615d8932d',1,'vectors.c']]]
+  ['isqualified',['isQualified',['../commands_8h.html#aaf8ea3a220bfa7b0dea8e9eb190a0c35',1,'commands.c']]],
+  ['isused',['isUsed',['../commands_8h.html#abf0fca70c61056067822d9ea89c315bb',1,'commands.c']]]
 ];

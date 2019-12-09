@@ -1,3 +1,9 @@
+/** @file constants.h
+ *  @brief Contains symbolic constants used throughout the program
+ * 
+ *  <Detailed esription here>
+*/  
+
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 

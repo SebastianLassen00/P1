@@ -1,6 +1,10 @@
 var searchData=
 [
-  ['region',['region',['../structeducation.html#afbd04b27ec3401b2076f1a2806a4bd42',1,'education']]],
-  ['required_5fgrade',['required_grade',['../structeducation.html#ab0bb73fcbd8c30cb1be9f01f7fa608cd',1,'education']]],
-  ['required_5fqualifications',['required_qualifications',['../structeducation.html#a0e95ac75d550a79ae7e10e915adb59ac',1,'education']]]
+  ['parsedatabase',['parseDatabase',['../parser_8h.html#a84d7fac635d619221338f99d58f73395',1,'parser.c']]],
+  ['parseedustring',['parseEduString',['../parser_8h.html#a95df055c88445546904e24d3b66bd016',1,'parser.c']]],
+  ['parsenumofedu',['parseNumOfEdu',['../parser_8h.html#a84ece81abf17318a33cb54d53188da06',1,'parser.c']]],
+  ['parser_2eh',['parser.h',['../parser_8h.html',1,'']]],
+  ['printvector',['printVector',['../vector_8h.html#a223959212405b935e48381e615d8932d',1,'vectors.c']]],
+  ['profile',['profile',['../structprofile.html',1,'']]],
+  ['profile_2eh',['profile.h',['../profile_8h.html',1,'']]]
 ];

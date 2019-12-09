@@ -1,118 +1,141 @@
 \begin{theindex}
 
   \item {add\+Vector}
-    \subitem {vector.\+h}, \hyperpage{12}
+    \subitem {vector.\+h}, \hyperpage{19}
   \item {amount\+\_\+of\+\_\+interests}
-    \subitem {database}, \hyperpage{6}
+    \subitem {database}, \hyperpage{5}
 
   \indexspace
 
+  \item {commands.\+h}, \hyperpage{9}
+  \item {constants.\+h}, \hyperpage{9}
   \item {copy\+Vector}
-    \subitem {vector.\+h}, \hyperpage{12}
+    \subitem {vector.\+h}, \hyperpage{19}
+  \item {create\+Database}
+    \subitem {database.\+h}, \hyperpage{10}
   \item {create\+Vector}
-    \subitem {vector.\+h}, \hyperpage{12}
-  \item {Cu\+String}, \hyperpage{5}
-  \item {Cu\+Suite}, \hyperpage{5}
-  \item {Cu\+Test}, \hyperpage{5}
+    \subitem {vector.\+h}, \hyperpage{19}
 
   \indexspace
 
-  \item {database}, \hyperpage{6}
-    \subitem {amount\+\_\+of\+\_\+interests}, \hyperpage{6}
-    \subitem {educations}, \hyperpage{6}
-    \subitem {interest\+\_\+string}, \hyperpage{6}
-  \item {description}
-    \subitem {education}, \hyperpage{7}
+  \item {database}, \hyperpage{5}
+    \subitem {amount\+\_\+of\+\_\+interests}, \hyperpage{5}
+    \subitem {educations}, \hyperpage{5}
+    \subitem {interest\+\_\+string}, \hyperpage{5}
+  \item {database.\+h}, \hyperpage{10}
+    \subitem {create\+Database}, \hyperpage{10}
+    \subitem {find\+Education}, \hyperpage{11}
+    \subitem {free\+Database}, \hyperpage{11}
+    \subitem {search\+Database\+For\+Education}, \hyperpage{11}
   \item {dot\+Product}
-    \subitem {vector.\+h}, \hyperpage{13}
+    \subitem {vector.\+h}, \hyperpage{20}
 
   \indexspace
 
-  \item {education}, \hyperpage{7}
-    \subitem {description}, \hyperpage{7}
-    \subitem {interests}, \hyperpage{7}
-    \subitem {link}, \hyperpage{7}
-    \subitem {region}, \hyperpage{7}
-    \subitem {required\+\_\+grade}, \hyperpage{8}
-    \subitem {required\+\_\+qualifications}, \hyperpage{8}
+  \item {education}, \hyperpage{6}
+  \item {education.\+h}, \hyperpage{12}
+    \subitem {free\+Education}, \hyperpage{12}
   \item {educations}
-    \subitem {database}, \hyperpage{6}
+    \subitem {database}, \hyperpage{5}
 
   \indexspace
 
+  \item {find\+Education}
+    \subitem {database.\+h}, \hyperpage{11}
+  \item {free\+Database}
+    \subitem {database.\+h}, \hyperpage{11}
+  \item {free\+Education}
+    \subitem {education.\+h}, \hyperpage{12}
+  \item {free\+Qualification}
+    \subitem {subjects.\+h}, \hyperpage{17}
+  \item {free\+Subject}
+    \subitem {subjects.\+h}, \hyperpage{18}
   \item {free\+Vector}
-    \subitem {vector.\+h}, \hyperpage{13}
+    \subitem {vector.\+h}, \hyperpage{20}
   \item {free\+VectorM}
-    \subitem {vector.\+h}, \hyperpage{13}
+    \subitem {vector.\+h}, \hyperpage{20}
 
   \indexspace
 
   \item {interest\+\_\+string}
-    \subitem {database}, \hyperpage{6}
-  \item {interests}
-    \subitem {education}, \hyperpage{7}
+    \subitem {database}, \hyperpage{5}
 
   \indexspace
 
   \item {length\+Of\+Vector}
-    \subitem {vector.\+h}, \hyperpage{14}
+    \subitem {vector.\+h}, \hyperpage{20}
   \item {level}
-    \subitem {subject}, \hyperpage{9}
-  \item {link}
-    \subitem {education}, \hyperpage{7}
-  \item {location}, \hyperpage{8}
+    \subitem {subject}, \hyperpage{8}
+  \item {location}, \hyperpage{6}
 
   \indexspace
 
   \item {normalize\+Vector}
-    \subitem {vector.\+h}, \hyperpage{14}
+    \subitem {vector.\+h}, \hyperpage{21}
 
   \indexspace
 
+  \item {parse\+Database}
+    \subitem {parser.\+h}, \hyperpage{13}
+  \item {parse\+Edu\+String}
+    \subitem {parser.\+h}, \hyperpage{14}
+  \item {parse\+Num\+Of\+Edu}
+    \subitem {parser.\+h}, \hyperpage{14}
+  \item {parser.\+h}, \hyperpage{13}
+    \subitem {parse\+Database}, \hyperpage{13}
+    \subitem {parse\+Edu\+String}, \hyperpage{14}
+    \subitem {parse\+Num\+Of\+Edu}, \hyperpage{14}
+    \subitem {str\+To\+Reg}, \hyperpage{14}
   \item {print\+Vector}
-    \subitem {vector.\+h}, \hyperpage{14}
-  \item {profile}, \hyperpage{8}
+    \subitem {vector.\+h}, \hyperpage{21}
+  \item {profile}, \hyperpage{7}
+  \item {profile.\+h}, \hyperpage{15}
 
   \indexspace
 
-  \item {qualification}, \hyperpage{9}
-    \subitem {subjects}, \hyperpage{9}
+  \item {qualification}, \hyperpage{7}
+    \subitem {subjects}, \hyperpage{7}
 
   \indexspace
 
   \item {region}
-    \subitem {education}, \hyperpage{7}
-  \item {required\+\_\+grade}
-    \subitem {education}, \hyperpage{8}
-  \item {required\+\_\+qualifications}
-    \subitem {education}, \hyperpage{8}
+    \subitem {region.\+h}, \hyperpage{16}
+  \item {region.\+h}, \hyperpage{15}
+    \subitem {region}, \hyperpage{16}
 
   \indexspace
 
   \item {scale\+Vector}
-    \subitem {vector.\+h}, \hyperpage{14}
-  \item {serialize.\+h}, \hyperpage{11}
-  \item {subject}, \hyperpage{9}
-    \subitem {level}, \hyperpage{9}
+    \subitem {vector.\+h}, \hyperpage{21}
+  \item {search\+Database\+For\+Education}
+    \subitem {database.\+h}, \hyperpage{11}
+  \item {serialize.\+h}, \hyperpage{16}
+  \item {str\+To\+Reg}
+    \subitem {parser.\+h}, \hyperpage{14}
+  \item {subject}, \hyperpage{8}
+    \subitem {level}, \hyperpage{8}
   \item {subjects}
-    \subitem {qualification}, \hyperpage{9}
+    \subitem {qualification}, \hyperpage{7}
+  \item {subjects.\+h}, \hyperpage{17}
+    \subitem {free\+Qualification}, \hyperpage{17}
+    \subitem {free\+Subject}, \hyperpage{18}
   \item {subtract\+Vector}
-    \subitem {vector.\+h}, \hyperpage{15}
+    \subitem {vector.\+h}, \hyperpage{22}
 
   \indexspace
 
-  \item {vector}, \hyperpage{9}
-  \item {vector.\+h}, \hyperpage{11}
-    \subitem {add\+Vector}, \hyperpage{12}
-    \subitem {copy\+Vector}, \hyperpage{12}
-    \subitem {create\+Vector}, \hyperpage{12}
-    \subitem {dot\+Product}, \hyperpage{13}
-    \subitem {free\+Vector}, \hyperpage{13}
-    \subitem {free\+VectorM}, \hyperpage{13}
-    \subitem {length\+Of\+Vector}, \hyperpage{14}
-    \subitem {normalize\+Vector}, \hyperpage{14}
-    \subitem {print\+Vector}, \hyperpage{14}
-    \subitem {scale\+Vector}, \hyperpage{14}
-    \subitem {subtract\+Vector}, \hyperpage{15}
+  \item {vector}, \hyperpage{8}
+  \item {vector.\+h}, \hyperpage{18}
+    \subitem {add\+Vector}, \hyperpage{19}
+    \subitem {copy\+Vector}, \hyperpage{19}
+    \subitem {create\+Vector}, \hyperpage{19}
+    \subitem {dot\+Product}, \hyperpage{20}
+    \subitem {free\+Vector}, \hyperpage{20}
+    \subitem {free\+VectorM}, \hyperpage{20}
+    \subitem {length\+Of\+Vector}, \hyperpage{20}
+    \subitem {normalize\+Vector}, \hyperpage{21}
+    \subitem {print\+Vector}, \hyperpage{21}
+    \subitem {scale\+Vector}, \hyperpage{21}
+    \subitem {subtract\+Vector}, \hyperpage{22}
 
 \end{theindex}

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['educations',['educations',['../structdatabase.html#a5a932fe1c10b5b2a7c6c364836c80ad6',1,'database']]]
+  ['interest_5fstring',['interest_string',['../structdatabase.html#aa677885704df7723ae0211e7f8977cc0',1,'database']]]
 ];

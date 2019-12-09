@@ -1,3 +1,9 @@
+/** @file profile.h
+ *  @brief Contains elements relating to profile
+ * 
+ *  <Detailed esription here>
+*/  
+
 #include "vector.h"
 #include "subjects.h"
 #include "region.h"

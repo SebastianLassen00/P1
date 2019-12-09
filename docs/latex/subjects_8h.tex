@@ -1,0 +1,120 @@
+\hypertarget{subjects_8h}{}\section{subjects.\+h File Reference}
+\label{subjects_8h}\index{subjects.\+h@{subjects.\+h}}
+
+
+Contains code regarding subjects and qualifcations for educations.  
+
+
+This graph shows which files directly or indirectly include this file\+:
+% FIG 0
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structsubject}{subject}
+\item 
+struct \hyperlink{structqualification}{qualification}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{subjects_8h_a06fc87d81c62e9abb8790b6e5713c55b}\label{subjects_8h_a06fc87d81c62e9abb8790b6e5713c55b}} 
+enum \{ \newline
+{\bfseries M\+A\+T\+H\+E\+M\+A\+T\+I\+CS}, 
+{\bfseries C\+H\+E\+M\+I\+S\+T\+RY}, 
+{\bfseries B\+I\+O\+L\+O\+GY}, 
+{\bfseries P\+H\+Y\+S\+I\+CS}, 
+\newline
+{\bfseries E\+N\+G\+L\+I\+SH}, 
+{\bfseries B\+I\+O\+T\+E\+C\+H\+N\+O\+L\+O\+GY}, 
+{\bfseries G\+E\+O\+S\+C\+I\+E\+N\+CE}, 
+{\bfseries H\+I\+S\+T\+O\+RY}, 
+\newline
+{\bfseries I\+D\+E\+A\+\_\+\+H\+I\+S\+T\+O\+RY}, 
+{\bfseries I\+N\+F\+O\+R\+M\+A\+T\+I\+CS}, 
+{\bfseries I\+N\+T\+E\+R\+N\+A\+T\+I\+O\+N\+A\+L\+\_\+\+E\+C\+O\+N\+O\+M\+I\+CS}, 
+{\bfseries C\+O\+M\+M\+U\+N\+I\+C\+A\+T\+I\+O\+N\+\_\+\+A\+N\+D\+\_\+\+IT}, 
+\newline
+{\bfseries R\+E\+L\+I\+G\+I\+ON}, 
+{\bfseries S\+O\+C\+I\+A\+L\+S\+T\+U\+D\+I\+ES}, 
+{\bfseries B\+U\+S\+I\+N\+E\+S\+S\+\_\+\+E\+C\+O\+N\+O\+M\+I\+CS}, 
+{\bfseries C\+O\+N\+T\+E\+M\+P\+O\+R\+A\+R\+Y\+\_\+\+H\+I\+S\+T\+O\+RY}, 
+\newline
+{\bfseries F\+R\+E\+N\+CH}, 
+{\bfseries S\+P\+A\+N\+I\+SH}, 
+{\bfseries G\+E\+R\+M\+AN}, 
+{\bfseries C\+H\+I\+N\+E\+SE}, 
+\newline
+{\bfseries A\+R\+A\+B\+IC}, 
+{\bfseries G\+R\+E\+EK}, 
+{\bfseries I\+T\+A\+L\+I\+AN}, 
+{\bfseries J\+A\+P\+A\+N\+E\+SE}, 
+\newline
+{\bfseries L\+A\+T\+IN}, 
+{\bfseries P\+O\+R\+T\+U\+G\+E\+SE}, 
+{\bfseries R\+U\+S\+S\+I\+AN}, 
+{\bfseries N\+O\+NE}, 
+\newline
+{\bfseries D\+A\+N\+I\+SH}
+ \}
+\item 
+\mbox{\Hypertarget{subjects_8h_afde8e18a788ccc92fc61cab298bca7e3}\label{subjects_8h_afde8e18a788ccc92fc61cab298bca7e3}} 
+enum {\bfseries level} \{ {\bfseries Z}, 
+{\bfseries C}, 
+{\bfseries B}, 
+{\bfseries A}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{subjects_8h_aa94ab344ea9d59161c637cefbb618bf6}{free\+Subject} (struct \hyperlink{structsubject}{subject} $\ast$)
+\begin{DoxyCompactList}\small\item\em free a subject and its members \end{DoxyCompactList}\item 
+void \hyperlink{subjects_8h_a31d0c2a6dec2f6e36aad44d0fe6ce00a}{free\+Qualification} (struct \hyperlink{structqualification}{qualification} $\ast$)
+\begin{DoxyCompactList}\small\item\em free a qualification and its members \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{subjects_8h_a5e75b618a507b7f7a85f6f3b88ea0ad9}\label{subjects_8h_a5e75b618a507b7f7a85f6f3b88ea0ad9}} 
+enum {\bfseries string\+To\+Class} (char $\ast$)
+\item 
+\mbox{\Hypertarget{subjects_8h_a40958acc4597b17a21be0feb54011eb4}\label{subjects_8h_a40958acc4597b17a21be0feb54011eb4}} 
+enum level {\bfseries char\+To\+Level} (char ch)
+\item 
+\mbox{\Hypertarget{subjects_8h_af685386f83ee85c86e5af7ea513a3e82}\label{subjects_8h_af685386f83ee85c86e5af7ea513a3e82}} 
+char {\bfseries level\+To\+Char} (enum level l)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Contains code regarding subjects and qualifcations for educations. 
+
+$<$\+Detailed esription=\char`\"{}\char`\"{} here$>$=\char`\"{}\char`\"{}$>$ 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{subjects_8h_a31d0c2a6dec2f6e36aad44d0fe6ce00a}\label{subjects_8h_a31d0c2a6dec2f6e36aad44d0fe6ce00a}} 
+\index{subjects.\+h@{subjects.\+h}!free\+Qualification@{free\+Qualification}}
+\index{free\+Qualification@{free\+Qualification}!subjects.\+h@{subjects.\+h}}
+\subsubsection{\texorpdfstring{free\+Qualification()}{freeQualification()}}
+{\footnotesize\ttfamily void free\+Qualification (\begin{DoxyParamCaption}\item[{struct \hyperlink{structqualification}{qualification} $\ast$}]{qualification }\end{DoxyParamCaption})}
+
+
+
+free a qualification and its members 
+
+
+\begin{DoxyParams}{Parameters}
+{\em qualification} & the qualification to be freed \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{subjects_8h_aa94ab344ea9d59161c637cefbb618bf6}\label{subjects_8h_aa94ab344ea9d59161c637cefbb618bf6}} 
+\index{subjects.\+h@{subjects.\+h}!free\+Subject@{free\+Subject}}
+\index{free\+Subject@{free\+Subject}!subjects.\+h@{subjects.\+h}}
+\subsubsection{\texorpdfstring{free\+Subject()}{freeSubject()}}
+{\footnotesize\ttfamily void free\+Subject (\begin{DoxyParamCaption}\item[{struct \hyperlink{structsubject}{subject} $\ast$}]{subject }\end{DoxyParamCaption})}
+
+
+
+free a subject and its members 
+
+
+\begin{DoxyParams}{Parameters}
+{\em subject} & the subject to be freed \\
+\hline
+\end{DoxyParams}

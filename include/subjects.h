@@ -1,3 +1,9 @@
+/** @file subjects.h
+ *  @brief Contains code regarding subjects and qualifcations for educations
+ * 
+ *  <Detailed esription here>
+*/  
+
 #ifndef SUBJECTS_H
 #define SUBJECTS_H
 

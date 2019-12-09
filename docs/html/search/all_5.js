@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['interest_5fstring',['interest_string',['../structdatabase.html#aa677885704df7723ae0211e7f8977cc0',1,'database']]],
-  ['interests',['interests',['../structeducation.html#ae8ea10524118581a9ed1a93bafc5cc54',1,'education']]]
+  ['getvaliddouble',['getValidDouble',['../commands_8h.html#a0e876bbc19bd0882c7ae81612b013323',1,'commands.c']]],
+  ['getvalidinteger',['getValidInteger',['../commands_8h.html#a2ac70a716c08c24874d3b7f0211577cd',1,'commands.c']]],
+  ['getvalidname',['getValidName',['../commands_8h.html#a982a41753c33ba770cef4219ad58f6be',1,'commands.c']]]
 ];

@@ -1,3 +1,9 @@
+/** @file database.h
+ *  @brief Contains elements relating to the database
+ * 
+ *  <Detailed esription here>
+*/  
+
 #ifndef DATABASE_H
 #define DATABASE_H
 

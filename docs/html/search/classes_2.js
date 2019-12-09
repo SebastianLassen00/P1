@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['education',['education',['../structeducation.html',1,'']]]
+  ['location',['location',['../structlocation.html',1,'']]]
 ];
