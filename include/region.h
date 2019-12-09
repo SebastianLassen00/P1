@@ -1,3 +1,9 @@
+/** @file region.h
+ *  @brief Contains geographical elements
+ * 
+ *  This file contains the enums for different regions and the struct that symbolises a location.
+*/
+
 #ifndef REGION_H
 #define REGION_H
 
