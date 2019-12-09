@@ -1,0 +1,48 @@
+\contentsline {chapter}{\numberline {1}Class Index}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Class List}{1}{section.1.1}
+\contentsline {chapter}{\numberline {2}File Index}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}File List}{3}{section.2.1}
+\contentsline {chapter}{\numberline {3}Class Documentation}{5}{chapter.3}
+\contentsline {section}{\numberline {3.1}Cu\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}String Struct Reference}{5}{section.3.1}
+\contentsline {section}{\numberline {3.2}Cu\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Suite Struct Reference}{5}{section.3.2}
+\contentsline {section}{\numberline {3.3}Cu\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Test Struct Reference}{5}{section.3.3}
+\contentsline {section}{\numberline {3.4}database Struct Reference}{6}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Member Data Documentation}{6}{subsection.3.4.1}
+\contentsline {subsubsection}{\numberline {3.4.1.1}amount\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}of\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}interests}{6}{subsubsection.3.4.1.1}
+\contentsline {subsubsection}{\numberline {3.4.1.2}educations}{6}{subsubsection.3.4.1.2}
+\contentsline {subsubsection}{\numberline {3.4.1.3}interest\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}string}{6}{subsubsection.3.4.1.3}
+\contentsline {section}{\numberline {3.5}education Struct Reference}{7}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}Detailed Description}{7}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.2}Member Data Documentation}{7}{subsection.3.5.2}
+\contentsline {subsubsection}{\numberline {3.5.2.1}description}{7}{subsubsection.3.5.2.1}
+\contentsline {subsubsection}{\numberline {3.5.2.2}interests}{7}{subsubsection.3.5.2.2}
+\contentsline {subsubsection}{\numberline {3.5.2.3}link}{7}{subsubsection.3.5.2.3}
+\contentsline {subsubsection}{\numberline {3.5.2.4}region}{8}{subsubsection.3.5.2.4}
+\contentsline {subsubsection}{\numberline {3.5.2.5}required\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}grade}{8}{subsubsection.3.5.2.5}
+\contentsline {subsubsection}{\numberline {3.5.2.6}required\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}qualifications}{8}{subsubsection.3.5.2.6}
+\contentsline {section}{\numberline {3.6}location Struct Reference}{8}{section.3.6}
+\contentsline {section}{\numberline {3.7}profile Struct Reference}{8}{section.3.7}
+\contentsline {section}{\numberline {3.8}qualification Struct Reference}{9}{section.3.8}
+\contentsline {subsection}{\numberline {3.8.1}Member Data Documentation}{9}{subsection.3.8.1}
+\contentsline {subsubsection}{\numberline {3.8.1.1}subjects}{9}{subsubsection.3.8.1.1}
+\contentsline {section}{\numberline {3.9}subject Struct Reference}{9}{section.3.9}
+\contentsline {subsection}{\numberline {3.9.1}Member Data Documentation}{9}{subsection.3.9.1}
+\contentsline {subsubsection}{\numberline {3.9.1.1}level}{9}{subsubsection.3.9.1.1}
+\contentsline {section}{\numberline {3.10}vector Struct Reference}{9}{section.3.10}
+\contentsline {chapter}{\numberline {4}File Documentation}{11}{chapter.4}
+\contentsline {section}{\numberline {4.1}serialize.\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}h File Reference}{11}{section.4.1}
+\contentsline {section}{\numberline {4.2}vector.\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}h File Reference}{11}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Detailed Description}{12}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Function Documentation}{12}{subsection.4.2.2}
+\contentsline {subsubsection}{\numberline {4.2.2.1}add\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Vector()}{12}{subsubsection.4.2.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2.2}copy\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Vector()}{12}{subsubsection.4.2.2.2}
+\contentsline {subsubsection}{\numberline {4.2.2.3}create\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Vector()}{13}{subsubsection.4.2.2.3}
+\contentsline {subsubsection}{\numberline {4.2.2.4}dot\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Product()}{13}{subsubsection.4.2.2.4}
+\contentsline {subsubsection}{\numberline {4.2.2.5}free\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Vector()}{13}{subsubsection.4.2.2.5}
+\contentsline {subsubsection}{\numberline {4.2.2.6}free\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Vector\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}M()}{13}{subsubsection.4.2.2.6}
+\contentsline {subsubsection}{\numberline {4.2.2.7}length\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Of\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Vector()}{14}{subsubsection.4.2.2.7}
+\contentsline {subsubsection}{\numberline {4.2.2.8}normalize\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Vector()}{14}{subsubsection.4.2.2.8}
+\contentsline {subsubsection}{\numberline {4.2.2.9}print\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Vector()}{14}{subsubsection.4.2.2.9}
+\contentsline {subsubsection}{\numberline {4.2.2.10}scale\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Vector()}{15}{subsubsection.4.2.2.10}
+\contentsline {subsubsection}{\numberline {4.2.2.11}subtract\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Vector()}{15}{subsubsection.4.2.2.11}
+\contentsline {chapter}{Index}{17}{section*.14}
