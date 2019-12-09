@@ -4,4 +4,15 @@
 *.exe
 *.o
 
+*.tmp
+*.tex
+*.sty
+*.dot
+*.md5
+*.aux
+*.toc
+*.log
+*.idx
+*.ind
+
 .vscode/settings.json
