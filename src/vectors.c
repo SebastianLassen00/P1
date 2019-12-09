@@ -41,15 +41,15 @@ void freeVectorM(int num, ...){
 }
 
 /** @fn void freeVector(struct vector v)
- *  @brief frees the dynamically allocated array on the heap.
- *  @param v The vector struct containing the array on the heap.
+ *  @brief frees the dynamically allocated array on the heap
+ *  @param v The vector struct containing the array on the heap
  */
 void freeVector(struct vector v){
     free(v.array);
 }
 
 /** @fn struct vector copyVector(struct vector v)
- *  @brief Copies the the inputted vector into vector copy and returns this.
+ *  @brief Copies the the inputted vector into vector copy and returns this
  *  @param v The input vector that is copied
 
  */
