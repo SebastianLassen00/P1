@@ -1,0 +1,42 @@
+\hypertarget{serialize_8h}{}\section{/home/xomnez/aau/1.semester/p1\+\_\+ads/\+P1/include/serialize.h File Reference}
+\label{serialize_8h}\index{/home/xomnez/aau/1.\+semester/p1\+\_\+ads/\+P1/include/serialize.\+h@{/home/xomnez/aau/1.\+semester/p1\+\_\+ads/\+P1/include/serialize.\+h}}
+
+
+Save and load profile data.  
+
+
+{\ttfamily \#include \char`\"{}profile.\+h\char`\"{}}\newline
+Include dependency graph for serialize.\+h\+:
+% FIG 0
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{serialize_8h_a55615e3056e7d06e4c5f90039cb23799}\label{serialize_8h_a55615e3056e7d06e4c5f90039cb23799}} 
+\#define {\bfseries S\+A\+V\+E\+\_\+\+F\+I\+LE}~\char`\"{}data/save.\+data\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{serialize_8h_ad2d496a3abf7854b3caae86014a5a1b2}\label{serialize_8h_ad2d496a3abf7854b3caae86014a5a1b2}} 
+int {\bfseries save\+Profile} (struct \hyperlink{structprofile}{profile} $\ast$)
+\item 
+\mbox{\Hypertarget{serialize_8h_abe941202de67fcd308b231e8003f1498}\label{serialize_8h_abe941202de67fcd308b231e8003f1498}} 
+struct \hyperlink{structprofile}{profile} $\ast$ {\bfseries load\+Profile} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Save and load profile data. 
+
+\begin{DoxyAuthor}{Author}
+
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2019-\/11-\/27
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2019 
+\end{DoxyCopyright}
