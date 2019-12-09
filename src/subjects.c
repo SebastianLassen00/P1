@@ -21,7 +21,7 @@ struct qualification createQualifications(int number_of_qualifications){
  *  @brief free a qualification and its members
  *  @param qualification the qualification to be freed
  */
-void freeQualifications(struct qualification *qualification){
+void freeQualifications(struct qualification* qualification){
     free(qualification->subjects);
 }
 

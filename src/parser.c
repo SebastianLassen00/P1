@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "database.h"
 #include "parser.h"
 #include "region.h"
 #include "vector.h"
 #include "constants.h"
+#include "education.h"
 
 /**
  * @brief Parse the database file and set all values in the database
@@ -325,22 +327,11 @@ int parseNumOfEdu(FILE *filereader){
 void parseEduNames(int amount_of_educations, struct education* educations, char current_line[]){
     int i;
     int offset = 0;
-<<<<<<< HEAD
-    
-    fgets(current_line, STRING_MAX_LENGTH, filereader);
-    
-    /* Iterate through all educations */
-    for(i = 0; i < amount_of_educations; i++){
-        education[i].name = parseEduString(current_line, amount_of_educations, offset);
-        offset += strlen(education[i].name) + 1;
-        
-=======
 
     /* Iterate through all educations and assign names */
     for(i = 0; i < amount_of_educations; i++){
         educations[i].name = parseEduString(current_line, amount_of_educations, offset);
         offset += strlen(educations[i].name) + 1;
->>>>>>> 1670e96ed825202bab26cff32ac9f9b202a10ab1
     }
 }
 

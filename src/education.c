@@ -44,7 +44,7 @@ void freeEducation(struct education *education){
     free(education->link);
     freeVectorM(1, education->interests);
     
-    freeQualifications(&education->required_qualifications);
+    freeQualifications(&(education->required_qualifications));
 }
 
 /** @fn struct education* createArrayOfEducations(int amount_of_educations)
