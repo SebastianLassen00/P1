@@ -18,15 +18,16 @@ void freeDatabase(struct database *database){
     int i;
 
     for(i = 0; i < database->amount_of_educations; ++i){
-        freeEducation(database->educations[i]);
+        freeEducation(&database->educations[i]);
     }
 
+    free(database->educations);
+    
     for (i = 0; i < database->amount_of_interests; i++)
-    {
         free(database->interest_string[i]);
-    }
+ 
     free(database->interest_string);
-
+    
     free(database);
 }
 
@@ -45,7 +46,12 @@ struct database *createDatabase(char *database_file ){
     database = malloc(sizeof(struct database));
     data = fopen(database_file, "r");
 
+    if(data == NULL)
+        printf("This is some lousy shit right here\n");
+
     parseDatabase(database, data);
+
+    fclose(data);
 
     return database;
 }
@@ -62,8 +68,8 @@ struct education *findEducation(char *key, struct database *database){
     struct education *education = NULL;
 
     for( i = 0; i < database->amount_of_educations; i++){
-        if(strcmp(key, database->educations[i]->name)){
-            education = database->educations[i];
+        if(strcmp(key, database->educations[i].name) == 0 ){
+              education = &database->educations[i];
         } 
     }
 
@@ -76,27 +82,11 @@ struct education *findEducation(char *key, struct database *database){
  * @param search_word The name of the education you are searching for
  * @return struct educationArray* 
  */
-struct educationArray *searchDatabaseForEducation(char *search_word, struct database *database){
-    int i;  /**Used for indexing*/
-    struct educationArray *educationArray; /**This functions return value*/
-    char *temp_string;  /**A string used for temporay allocation*/
+void searchDatabaseForEducation(char *search_word, struct database *database, struct education **array, int *size_of_array){
+    int i;
+    char *takeout;
 
-    /*Setup the necessary variables*/
-    educationArray = calloc(1, sizeof(struct educationArray));
-    temp_string = calloc(strlen(search_word) + 1, 1);
-    educationArray->educations = malloc(sizeof(void *) * 10);
+    takeout = malloc(sizeof(char) * strlen(search_word) + 1);
+
     
-    /*Go through all educations in database*/
-    for(i = 0; i < database->amount_of_educations + 1; i++)
-    {
-        strncpy(temp_string, database->educations[i]->name, strlen(search_word));
-
-        /*If the education has the search word in it*/
-        if(strcmp(temp_string, search_word) 
-        && educationArray->amount_of_educations < 10){
-            educationArray->amount_of_educations += 1;
-            educationArray->educations[i] = database->educations[i];
-        }
-    }
-    return educationArray;
 }

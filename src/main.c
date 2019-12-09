@@ -2,37 +2,218 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "profile.h"
+#include "commands.h"
+#include "constants.h"
+#include "CuTest.h"
+#include "database.h"
 #include "education.h"
+#include "profile.h"
+#include "region.h"
 #include "subjects.h"
 #include "vector.h" 
-#include "commands.h"
-#include "CuTest.h"
-#include "constants.h"
 
-enum command{find, save, save_prof, recommend, list, eval, test, menu, quit};
+enum command{find, search, save, save_prof, recommend, list, eval, test, menu, quit, delete};
 typedef enum command command;
 
-/*int main(void){
-    char arg[MAX_INPUT_LENGTH], arg_type[MAX_INPUT_LENGTH];
-    int arg_num = 0, number_of_educations;
-    command c;
-    struct education *educations, currentEducation;
+void introduction(void);
+void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct profile *user, 
+                   const struct database *database, struct education *current_education);
+command scanCommand(char arg[MAX_INPUT_LENGTH], int *arg_num);
+command convertCommand(char s[MAX_COMMAND_LENGTH]);
+int argType(command c);
+struct profile createBobo(int amount_of_interests);
+
+int main(void){
+    char arg[MAX_INPUT_LENGTH];
+    int arg_num = 0;
+    command c = menu;
+   
+    struct database *database;
     struct profile user;
-    struct qualifications subjects;
-    char **
+    struct profile bobo;
+    struct education current_education;
 
-    menuCmd();
+    database = createDatabase(DATABASE_PATH);
+    user = createProfile(database->amount_of_interests);
+    bobo = createBobo(database->amount_of_interests);
+    current_education = createDefaultEducation(database->amount_of_interests, database->amount_of_educations);
 
-    do{
+    introduction();
+
+    while(c != quit){
+        handleCommand(c, arg, arg_num, &bobo, database, &current_education);
         c = scanCommand(arg, &arg_num);
-        handleCommand(c, arg, arg_num, user, subjects, educations, 
-                      number_of_educations, &currentEducation);
-    } while(c != quit);
+    }
 
+    printf("\nThe program will now shut down...\n");
+
+    freeEducation(&current_education);
+    freeDatabase(database);
+    freeProfile(user);
 
     return 0;
-}*/
+}
+
+
+void introduction(void){
+    printf("This program was made by: A302\n");
+    printf("It is designed to applicants for bachelors in Denmark\n");
+    printf("The program will use your input to determine a viable educational path\n");
+    printf("All recommendations are only recommendations, and they should not be seen as something final\n");
+    printf("\n");
+}
+
+void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct profile *user, 
+                   const struct database *database, struct education *current_education){
+    switch(c){
+        case find:
+            *current_education = findCmd(arg, database);
+            break;
+        case search:
+            searchCmd(arg, database);
+            break;
+        case save:
+            saveCmd(user, current_education);
+            break;
+        case save_prof:
+            saveProfile(*user);
+            break;
+        case recommend:
+            *current_education = recommendCmd(user, database);
+            break;
+        case list:
+            listCmd(user);
+            break;
+        case eval:
+            evalCmd(user, current_education, arg_num);
+            break;
+        case test:
+            testCmd(user, database);
+            break;
+        case menu:
+            menuCmd();
+            break;
+        case delete:
+            deleteCmd(user, arg_num);
+        case quit:
+            break;
+    }
+}
+
+
+/** @fn int scanCommand(char arg[MAX_INPUT_LENGTH], int *arg_num)
+ *    @brief Finds valid command and argument
+ *    @param arg Output parameter for argument string
+ *    @param arg_num Output parameter for argument int
+ */
+command scanCommand(char arg[MAX_INPUT_LENGTH], int *arg_num){
+    char command_string[MAX_COMMAND_LENGTH] = "";
+    command command_index; 
+    int scan_res;
+
+    scan_res = scanf(" %s", command_string);
+    
+    command_index = convertCommand(command_string);
+    if(scan_res == 0 || command_index == -1){
+        return -1;
+    }
+
+    switch(argType(command_index)){
+        case 1:
+            scanf(" %s", arg);
+            break;
+        case -1:
+            scanf(" %d", arg_num);
+            break;
+    }
+
+    clearBuffer();
+
+    return command_index;
+}
+
+/*    Outputs enum value if command, else -1 */
+command convertCommand(char s[MAX_COMMAND_LENGTH]){
+    command c;
+
+    if(strcmp(s, "find") == 0){
+        c = find;
+    } else if(strcmp(s, "search") == 0){
+        c = search;
+    } else if(strcmp(s, "save") == 0){
+        c = save;
+    } else if(strcmp(s, "save_prof") == 0){
+        c = save_prof;
+    } else if(strcmp(s, "recommend") == 0){
+        c = recommend;
+    } else if(strcmp(s, "list") == 0){
+        c = list;
+    } else if(strcmp(s, "eval") == 0){
+        c = eval;
+    } else if(strcmp(s, "test") == 0){
+        c = test;
+    } else if(strcmp(s, "menu") == 0){
+        c = menu;
+    } else if(strcmp(s, "delete") == 0){
+        c = delete;
+    } else if(strcmp(s, "quit") == 0){
+        c = quit;
+    } else{
+        c = -1;
+    }
+
+    return c;
+}
+
+/* 1 is string, -1 is int, 0 is no arg */
+int argType(command c){
+    return (c == search || c == find || c == eval || c == delete) ? ((c == find || c == search) ? 1 : -1) : 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* gcc -Iinclude  */
@@ -112,4 +293,3 @@ CuSuite *testTestCmd(void){
 
     return suite;
 }
-
