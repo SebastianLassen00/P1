@@ -11,6 +11,7 @@
 #include "region.h"
 #include "subjects.h"
 #include "vector.h" 
+#include "parser.h"
 
 enum command{find, search, save, save_prof, recommend, list, eval, test, menu, quit, delete};
 typedef enum command command;
@@ -23,7 +24,8 @@ command convertCommand(char s[MAX_COMMAND_LENGTH]);
 int argType(command c);
 struct profile createBobo(int amount_of_interests);
 
-/** @fn void introduction(void)
+
+/** @fn int main(void)
  *  @brief Takes commands from the user and executes those commands until 
  *               the quit command is entered.
  */
@@ -57,7 +59,7 @@ int main(void){
     freeProfile(bobo);
 
     return 0;
-}
+} 
 
 /** @fn void introduction(void)
  *  @brief Prints information about the program.
@@ -247,78 +249,370 @@ int argType(command c){
 
 /* gcc -Iinclude  */
 
-void testLevelAsValue(CuTest *tc){
-    char cA = 'A', ca = 'a';
-    char cB = 'B', cb = 'b';
-    char cC = 'C', cc = 'c';
-    char cZ = 'Z', cz = 'z';
 
-    int expectedA = (int) A;
-    int expectedB = (int) B;
-    int expectedC = (int) C;
-    int expectedZ = (int) Z;
 
-    CuAssertIntEquals(tc, expectedA, levelAsValue(cA));
-    CuAssertIntEquals(tc, expectedA, levelAsValue(ca));
+/* ------------------ TEST OF LevelAsValue(char c) -------------------- */
+void testLevelAsValueA(CuTest *tc){
+    int expected = (int) A;
+    char C = 'A', c = 'a';
 
-    CuAssertIntEquals(tc, expectedB, levelAsValue(cB));
-    CuAssertIntEquals(tc, expectedB, levelAsValue(cb));
-
-    CuAssertIntEquals(tc, expectedC, levelAsValue(cC));
-    CuAssertIntEquals(tc, expectedC, levelAsValue(cc));
-
-    CuAssertIntEquals(tc, expectedZ, levelAsValue(cZ));
-    CuAssertIntEquals(tc, expectedZ, levelAsValue(cz));
+    CuAssertIntEquals(tc, expected, levelAsValue(C));
+    CuAssertIntEquals(tc, expected, levelAsValue(c));
 }
 
-void testValidScaleValue(CuTest *tc){
-    int case1 = -5, eCase1 = 0;
-    int case2 = 0,  eCase2 = 0;
-    int case3 = 5,  eCase3 = 5;
-    int case4 = 10, eCase4 = 10;
-    int case5 = 15, eCase5 = 10;
+void testLevelAsValueB(CuTest *tc){
+    int expected = (int) B;
+    char C = 'B', c = 'b';
 
-    CuAssertIntEquals(tc, eCase1, validScaleValue(case1, 0, 10));
-    CuAssertIntEquals(tc, eCase2, validScaleValue(case2, 0, 10));
-    CuAssertIntEquals(tc, eCase3, validScaleValue(case3, 0, 10));
-    CuAssertIntEquals(tc, eCase4, validScaleValue(case4, 0, 10));
-    CuAssertIntEquals(tc, eCase5, validScaleValue(case5, 0, 10));
+    CuAssertIntEquals(tc, expected, levelAsValue(C));
+    CuAssertIntEquals(tc, expected, levelAsValue(c));
 }
 
-void testConvertScale(CuTest *tc){
-    int case0 = 0, case1 = 1, case2 = 2,
-        case3 = 3, case4 = 4, case5 = 5,
-        case6 = 6, case7 = 7, case8 = 8,
-        case9 = 9, case10 = 10;
+void testLevelAsValueC(CuTest *tc){
+    int expected = (int) C;
+    char C = 'C', c = 'c';
 
-    double eCase0 = -1.0, eCase1 = -0.8, eCase2 = -0.6,
-           eCase3 = -0.4, eCase4 = -0.2, eCase5 = 0.0,
-           eCase6 = 0.2, eCase7 = 0.4, eCase8 = 0.6,
-           eCase9 = 0.8, eCase10 = 1.0;
-
-    CuAssertDblEquals(tc, eCase0, convertScale(case0), 0.01);
-    CuAssertDblEquals(tc, eCase1, convertScale(case1), 0.01);
-    CuAssertDblEquals(tc, eCase2, convertScale(case2), 0.01);
-    CuAssertDblEquals(tc, eCase3, convertScale(case3), 0.01);
-    CuAssertDblEquals(tc, eCase4, convertScale(case4), 0.01);
-    CuAssertDblEquals(tc, eCase5, convertScale(case5), 0.01);
-    CuAssertDblEquals(tc, eCase6, convertScale(case6), 0.01);
-    CuAssertDblEquals(tc, eCase7, convertScale(case7), 0.01);
-    CuAssertDblEquals(tc, eCase8, convertScale(case8), 0.01);
-    CuAssertDblEquals(tc, eCase9, convertScale(case9), 0.01);
-    CuAssertDblEquals(tc, eCase10, convertScale(case10), 0.01);
+    CuAssertIntEquals(tc, expected, levelAsValue(C));
+    CuAssertIntEquals(tc, expected, levelAsValue(c));
 }
 
+void testLevelAsValueZ(CuTest *tc){
+    int expected = (int) Z;
+    char C = 'Z', c = 'z';
 
+    CuAssertIntEquals(tc, expected, levelAsValue(C));
+    CuAssertIntEquals(tc, expected, levelAsValue(c));
+}
 
-
-CuSuite *testTestCmd(void){
+CuSuite *testSuiteLevelAsValue(void){
     CuSuite *suite = CuSuiteNew();
 
-    SUITE_ADD_TEST(suite, testLevelAsValue);
-    SUITE_ADD_TEST(suite, testValidScaleValue);
-    SUITE_ADD_TEST(suite, testConvertScale);
-
+    SUITE_ADD_TEST(suite, testLevelAsValueA);
+    SUITE_ADD_TEST(suite, testLevelAsValueB);
+    SUITE_ADD_TEST(suite, testLevelAsValueC);
+    SUITE_ADD_TEST(suite, testLevelAsValueZ);
 
     return suite;
 }
+/* ------------------ END OF LevelAsValue(char c) --------------------- */
+
+/* ------------------ TEST OF validScaleValue(int value, int start, int end) -------------------- */
+void testValidScaleValueN5(CuTest *tc){
+    int actual = -5, expected = 0;
+    CuAssertIntEquals(tc, expected, validScaleValue(actual, 0, 10));
+}
+
+void testValidScaleValue0(CuTest *tc){
+    int actual = 0, expected = 0;
+    CuAssertIntEquals(tc, expected, validScaleValue(actual, 0, 10));
+}
+
+void testValidScaleValue5(CuTest *tc){
+    int actual = 5, expected = 5;
+    CuAssertIntEquals(tc, expected, validScaleValue(actual, 0, 10));
+}
+
+void testValidScaleValue10(CuTest *tc){
+    int actual = 10, expected = 10;
+    CuAssertIntEquals(tc, expected, validScaleValue(actual, 0, 10));
+}
+
+void testValidScaleValue15(CuTest *tc){
+    int actual = 15, expected = 10;
+    CuAssertIntEquals(tc, expected, validScaleValue(actual, 0, 10));
+}
+
+CuSuite *testSuiteValidScaleValue(void){
+    CuSuite *suite = CuSuiteNew();
+
+    SUITE_ADD_TEST(suite, testValidScaleValueN5);
+    SUITE_ADD_TEST(suite, testValidScaleValue0);
+    SUITE_ADD_TEST(suite, testValidScaleValue5);
+    SUITE_ADD_TEST(suite, testValidScaleValue10);
+    SUITE_ADD_TEST(suite, testValidScaleValue15);
+
+    return suite;
+}
+/* ------------------ END OF validScaleValue(int value, int start, int end) --------------------- */
+
+/* ------------------ TEST OF convertScale(int value) -------------------- */
+void testConvertScale0(CuTest *tc){
+    int actual = 0;
+    double expected = -1.0;
+    CuAssertDblEquals(tc, expected, convertScale(actual), 0.01);
+}
+
+void testConvertScale5(CuTest *tc){
+    int actual = 5;
+    double expected = 0.0;
+    CuAssertDblEquals(tc, expected, convertScale(actual), 0.01);
+}
+
+void testConvertScale10(CuTest *tc){
+    int actual = 0;
+    double expected = 1.0;
+    CuAssertDblEquals(tc, expected, convertScale(actual), 0.01);
+}
+
+CuSuite *testSuiteConvertScale(void){
+    CuSuite *suite = CuSuiteNew();
+
+    SUITE_ADD_TEST(suite, testConvertScale0);
+    SUITE_ADD_TEST(suite, testConvertScale5);
+    SUITE_ADD_TEST(suite, testConvertScale10);
+
+    return suite;
+}
+/* ------------------ END OF convertScale(int value) --------------------- */
+
+/* ------------------ TEST OF isQualified(struct profile user, struct education edu) ------------------ */
+int baseIsQualified(int user1, int user2, int edu1, int edu2){
+    struct profile user = createProfile(0);
+    struct education edu = createDefaultEducation(0, 2);
+
+    user.qualifications.subjects[0].level = user1;
+    user.qualifications.subjects[1].level = user2;
+
+
+    edu.required_qualifications.subjects[0].name = 0;
+    edu.required_qualifications.subjects[1].name = 1;
+    edu.required_qualifications.subjects[0].level = edu1;
+    edu.required_qualifications.subjects[1].level = edu2;
+
+    return isQualified(user, edu);
+}
+
+/* Tests:
+        LL - first is lower, second is lower        -- Expect 0
+        LS - first is lower, second is same         -- Expect 0
+        LH - first is lower, second is higher       -- Expect 0
+        SL - first is same, second is lower         -- Expect 0
+        SS - first is same, second is same          -- Expect 1
+        SH - first is same, second is higher        -- Expect 1
+        HL - first is higher, second is lower       -- Expect 0
+        HS - first is higher, second is same        -- Expect 1
+        HH - first is higher, second is higher      -- Expect 1
+*/
+void testIsQualifiedLL(CuTest *tc){
+    int expected = 0;
+    int u1 = C, u2 = C, e1 = B, e2 = B;
+
+    CuAssertIntEquals(tc, expected, baseIsQualified(u1, u2, e1, e2));
+}
+
+void testIsQualifiedLS(CuTest *tc){
+    int expected = 0;
+    int u1 = C, u2 = B, e1 = B, e2 = B;
+
+    CuAssertIntEquals(tc, expected, baseIsQualified(u1, u2, e1, e2));
+}
+
+void testIsQualifiedLH(CuTest *tc){
+    int expected = 0;
+    int u1 = C, u2 = A, e1 = B, e2 = B;
+
+    CuAssertIntEquals(tc, expected, baseIsQualified(u1, u2, e1, e2));
+}
+
+void testIsQualifiedSL(CuTest *tc){
+    int expected = 0;
+    int u1 = B, u2 = C, e1 = B, e2 = B;
+
+    CuAssertIntEquals(tc, expected, baseIsQualified(u1, u2, e1, e2));
+}
+
+void testIsQualifiedSS(CuTest *tc){
+    int expected = 1;
+    int u1 = B, u2 = B, e1 = B, e2 = B;
+
+    CuAssertIntEquals(tc, expected, baseIsQualified(u1, u2, e1, e2));
+}
+
+void testIsQualifiedSH(CuTest *tc){
+    int expected = 1;
+    int u1 = B, u2 = A, e1 = B, e2 = B;
+
+    CuAssertIntEquals(tc, expected, baseIsQualified(u1, u2, e1, e2));
+}
+
+void testIsQualifiedHL(CuTest *tc){
+    int expected = 0;
+    int u1 = A, u2 = C, e1 = B, e2 = B;
+
+    CuAssertIntEquals(tc, expected, baseIsQualified(u1, u2, e1, e2));
+}
+
+void testIsQualifiedHS(CuTest *tc){
+    int expected = 1;
+    int u1 = A, u2 = B, e1 = B, e2 = B;
+
+    CuAssertIntEquals(tc, expected, baseIsQualified(u1, u2, e1, e2));
+}
+
+void testIsQualifiedHH(CuTest *tc){
+    int expected = 1;
+    int u1 = A, u2 = A, e1 = B, e2 = B;
+
+    CuAssertIntEquals(tc, expected, baseIsQualified(u1, u2, e1, e2));
+}
+
+CuSuite *testSuiteIsQualified(void){
+    CuSuite *suite = CuSuiteNew();
+
+    SUITE_ADD_TEST(suite, testIsQualifiedLL);
+    SUITE_ADD_TEST(suite, testIsQualifiedLS);
+    SUITE_ADD_TEST(suite, testIsQualifiedLH);
+
+    SUITE_ADD_TEST(suite, testIsQualifiedSL);
+    SUITE_ADD_TEST(suite, testIsQualifiedSS);
+    SUITE_ADD_TEST(suite, testIsQualifiedSH);
+
+    SUITE_ADD_TEST(suite, testIsQualifiedHL);
+    SUITE_ADD_TEST(suite, testIsQualifiedHS);
+    SUITE_ADD_TEST(suite, testIsQualifiedHH);
+
+    return suite;
+}
+/* ------------------ END OF isQualified(struct profile user, struct education edu) ------------------- */
+
+
+/* ----------------- TEST OF parseNumOfEdu(FILE *filereader) ---------------- */
+void testParseNumOfEdu(CuTest *tc){
+    int expected = 12;
+    FILE *file = fopen(DATABASE_PATH, "r");
+
+    CuAssertIntEquals(tc, expected, parseNumOfEdu(file));
+}
+
+void testParseNumOfInterests(CuTest *tc){
+    int expected = 13;
+    FILE *file = fopen(DATABASE_PATH, "r");
+
+    CuAssertIntEquals(tc, expected, parseNumOfInterests(file));
+}
+
+CuSuite *testSuiteDatabase(void){
+    CuSuite *suite = CuSuiteNew();
+
+    SUITE_ADD_TEST(suite, testParseNumOfEdu);
+    SUITE_ADD_TEST(suite, testParseNumOfInterests);
+
+    return suite;
+}
+/* ----------------- END  OF parseNumOfEdu(FILE *filereader) ----------------- */
+
+/* ---------------- TEST OF saveProf and loadProf ---------------- */
+void testSameName(CuTest *tc){
+    struct profile user1, user2;
+    user1 = createBobo(13);
+    user2 = loadProfile("Bobo");
+
+    CuAssertStrEquals(tc, user1.name, user2.name);
+}
+
+void testSameAverageGrade(CuTest *tc){
+    struct profile user1, user2;
+    user1 = createBobo(13);
+    user2 = loadProfile("Bobo");
+
+    CuAssertDblEquals(tc, user1.average, user2.average, 0.01);
+}
+
+void testSameLastRecommended(CuTest *tc){
+    struct profile user1, user2;
+    user1 = createBobo(13);
+    user2 = loadProfile("Bobo");
+
+    CuAssertIntEquals(tc, user1.last_recommended, user2.last_recommended);
+}
+
+void testSameRegion(CuTest *tc){
+    struct profile user1, user2;
+    user1 = createBobo(13);
+    user2 = loadProfile("Bobo");
+
+    CuAssertIntEquals(tc, user1.location.region, user2.location.region);
+}
+
+void testSameRegionImportance(CuTest *tc){
+    struct profile user1, user2;
+    user1 = createBobo(13);
+    user2 = loadProfile("Bobo");
+
+    CuAssertDblEquals(tc, user1.location.region_importance, user2.location.region_importance, 0.01);
+}
+
+void testSameSavedList(CuTest *tc){
+    int actual = 1, expected = 1, i;
+    struct profile user1, user2;
+    user1 = createBobo(13);
+    user2 = loadProfile("Bobo");
+    
+    for(i = 0; i < EDUCATION_LIST_LENGTH; i++){
+        if(strcmp(user1.saved_educations[i], user2.saved_educations[i]) != 0)
+            actual = 0;
+    }
+
+    CuAssertIntEquals(tc, expected, actual);
+}
+
+void testSameRecommendedList(CuTest *tc){
+    int actual = 1, expected = 1, i;
+    struct profile user1, user2;
+    user1 = createBobo(13);
+    user2 = loadProfile("Bobo");
+    
+    for(i = 0; i < EDUCATION_LIST_LENGTH; i++){
+        if(strcmp(user1.recommended_educations[i], user2.recommended_educations[i]) != 0)
+            actual = 0;
+    }
+
+    CuAssertIntEquals(tc, expected, actual);
+}
+
+void testSameInterests(CuTest *tc){
+    int actual = 1, expected = 1, i;
+    struct profile user1, user2;
+    user1 = createBobo(13);
+    user2 = loadProfile("Bobo");
+    
+    for(i = 0; i < user1.interests.size; i++){
+        if(user1.interests.array[i] != user2.interests.array[i])
+            actual = 0;
+    }
+
+    CuAssertIntEquals(tc, expected, actual);
+}
+
+void testSameAdjustment(CuTest *tc){
+    int actual = 1, expected = 1, i;
+    struct profile user1, user2;
+    user1 = createBobo(13);
+    user2 = loadProfile("Bobo");
+    
+    for(i = 0; i < user1.adjustment_vector.size; i++){
+        if(user1.adjustment_vector.array[i] != user2.adjustment_vector.array[i])
+            actual = 0;
+    }
+
+    CuAssertIntEquals(tc, expected, actual);
+}
+
+CuSuite *testSuiteProfile(void){
+    CuSuite *suite = CuSuiteNew();
+
+    SUITE_ADD_TEST(suite, testSameName);
+    SUITE_ADD_TEST(suite, testSameAverageGrade);
+    SUITE_ADD_TEST(suite, testSameLastRecommended);
+    SUITE_ADD_TEST(suite, testSameRegion);
+    SUITE_ADD_TEST(suite, testSameRegionImportance);
+    SUITE_ADD_TEST(suite, testSameSavedList);
+    SUITE_ADD_TEST(suite, testSameRecommendedList);
+    SUITE_ADD_TEST(suite, testSameInterests);
+    SUITE_ADD_TEST(suite, testSameAdjustment);
+
+    return suite;
+}
+
+
+/* ---------------- END OF saveProf and loadProf ----------------- */
