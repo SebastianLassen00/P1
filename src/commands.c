@@ -19,6 +19,7 @@ void menuCmd(void){
     printf("Usable commands: \n");
     printf("    find |arg|   -  finds the education passed through the argument |arg| \n"
            "    search |arg| -  lists the educations similar to the argument |arg| \n"
+           "    load |arg|   -  loads a saved profile from a file matching the pattern |arg|_profile.txt \n"
            "    save         -  saves the current education to a seperate list \n"
            "    save_prof    -  saves the current user profile to a .txt-file \n"
            "    recommend    -  recommend an education using the current profile \n");
@@ -652,7 +653,7 @@ int checkForExistingProfile(char *name){
  *  @return struct profile Returns a user profile
  */
 struct profile loadProfile(char *name){
-    int i;
+    int i, version;
     FILE *file_pointer; 
     struct profile user;
     char file_name[MAX_FILE_NAME_LENGTH];
@@ -666,10 +667,10 @@ struct profile loadProfile(char *name){
         exit(EXIT_FAILURE);
     } 
 
-    fscanf(file_pointer, "Version %s\n", VERSION);
+    fscanf(file_pointer, "Version %d\n", &version);
     fscanf(file_pointer, "Navn: %s\n", user.name);
     fscanf(file_pointer, "karaktergennemsnit: %lf\n", &user.average);
-    fscanf(file_pointer, "Brugerens lokation og dens vigtighed: %d med %lf\n", (int*)&user.location.region, &user.location.region_importance);
+    fscanf(file_pointer, "Brugerens lokation og dens vigtighed: %d med %lf\n", (int*)user.location.region, &user.location.region_importance);
 
     fscanf(file_pointer, "Gemte uddannelser:\n");
     for (i = 0; i < EDUCATION_LIST_LENGTH; i++)

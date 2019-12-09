@@ -20,7 +20,7 @@ void RunAllTests(void){
     CuString *outputLAS = CuStringNew();
     CuString *outputIQ = CuStringNew();
     CuString *outputDB = CuStringNew();
-    CuString *outputPR = CuSuiteNew();
+    CuString *outputPR = CuStringNew();
 
     CuSuite* suiteLevelAsValue = CuSuiteNew();
     CuSuite* suiteIsQualified = CuSuiteNew();
@@ -98,7 +98,7 @@ struct profile createBobo(int amount_of_interests){
     return bobo;
 }
 
-int main(void){
+/*int main(void){
     struct database *db;
     struct education current_education;
     struct profile bobo;
@@ -117,7 +117,7 @@ int main(void){
 
     current_education = recommendCmd(&bobo, db);
 
-    printEducation(current_education, db); 
+    printEducation(current_education); 
 
     printProfile(bobo); 
 
@@ -126,4 +126,4 @@ int main(void){
     freeProfile(user);
     return 0;
 }
-
+*/

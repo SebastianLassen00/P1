@@ -13,7 +13,7 @@
 #include "vector.h" 
 #include "parser.h"
 
-enum command{find, search, save, save_prof, recommend, list, eval, test, menu, quit, delete};
+enum command{find, search, load, save, save_prof, recommend, list, eval, test, menu, quit, delete};
 typedef enum command command;
 
 void introduction(void);
@@ -40,7 +40,7 @@ int main(void){
     struct education current_education;
 
     database = createDatabase(DATABASE_PATH);
-    user = createProfile(database->amount_of_interests);
+    user = createProfile(database->amount_of_interests);    
     bobo = createBobo(database->amount_of_interests);
     current_education = createDefaultEducation(database->amount_of_interests, database->amount_of_educations);
 
@@ -90,6 +90,9 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
             break;
         case search:
             searchCmd(arg, database);
+            break;
+        case load:
+            loadProfile(arg);
             break;
         case save:
             saveCmd(user, current_education);
@@ -164,6 +167,8 @@ command convertCommand(char s[MAX_COMMAND_LENGTH]){
         c = find;
     } else if(strcmp(s, "search") == 0){
         c = search;
+    } else if(strcmp(s, "load") == 0){
+        c = load;
     } else if(strcmp(s, "save") == 0){
         c = save;
     } else if(strcmp(s, "save_prof") == 0){
@@ -198,7 +203,7 @@ command convertCommand(char s[MAX_COMMAND_LENGTH]){
  *          it takes an integer argument.
  */
 int argType(command c){
-    return (c == search || c == find || c == eval || c == delete) ? ((c == find || c == search) ? 1 : -1) : 0;
+    return (c == search || c == find || c == load || c == eval || c == delete) ? ((c == find || c == search || c == load) ? 1 : -1) : 0;
 }
 
 

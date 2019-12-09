@@ -1,6 +1,8 @@
-Bobo 15.700000 3 0 0.100000 
-DATALOGI_AALBORG
-DATALOGI_AARHUS
+Version 1.0.1
+Navn: Bobo
+karaktergennemsnit: 15.700000
+Brugerens lokation og dens vigtighed: 0 med 0.100000
+Gemte uddannelser:
 
 
 
@@ -9,9 +11,9 @@ DATALOGI_AARHUS
 
 
 
-DATALOGI_AALBORG
-JURA
-DATALOGI_AARHUS
+
+
+Oversigt over foreslået uddannelser:
 
 
 
@@ -19,19 +21,22 @@ DATALOGI_AARHUS
 
 
 
-1.000000
+
+
+
+0.000000
+0.000000
 -1.000000
 -1.000000
 0.000000
-0.000000
-1.000000
--1.000000
-1.000000
--1.000000
--1.000000
 -1.000000
 1.000000
 0.000000
+0.000000
+-1.000000
+-1.000000
+0.000000
+-1.000000
 0.000100
 0.000000
 0.000000
