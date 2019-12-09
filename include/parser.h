@@ -1,3 +1,9 @@
+/** @file parser.h
+ *  @brief Contains elements relating to parsing the database
+ * 
+ *  <Detailed esription here>
+*/  
+
 #ifndef PARSER_H
 #define PARSER_H
 

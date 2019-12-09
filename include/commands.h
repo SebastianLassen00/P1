@@ -1,3 +1,9 @@
+/** @file commands.h
+ *  @brief Contains functions related to command handling
+ * 
+ *  <Detailed esription here>
+*/ 
+
 #include "profile.h"
 #include "education.h"
 #include "subjects.h"

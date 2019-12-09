@@ -1,12 +1,10 @@
-/**
- * @file serialize.h
- * @author 
- * @brief Save and load profile data
- * @version 0.1
- * @date 2019-11-27
+/** @file serialize.h
+ *  @author 
+ *  @brief Save and load profile data
+ *  @version 0.1
+ *  @date 2019-11-27
  * 
- * @copyright Copyright (c) 2019
- * 
+ *  @copyright Copyright (c) 2019
  */
 
 #ifndef SERIALIZE_H
