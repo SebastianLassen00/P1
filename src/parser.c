@@ -5,10 +5,7 @@
 #include "parser.h"
 #include "region.h"
 #include "vector.h"
-
-#define STRING_MAX_LENGTH 50000
-#define TABS '	'
-#define NOT_FOUND_STRING " "
+#include "constants.h"
 
 /* DOKUMENTATION TIL FUNKTIONERNE SKAL LAVES/LAVES OM 
    90% ER BLEVET SKREVET OM */
