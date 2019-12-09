@@ -75,5 +75,6 @@ void freeSubject(struct subject *);
 void freeQualification(struct qualification *);
 enum class stringToClass(char *);
 enum level charToLevel(char ch);
+char levelToChar(enum level l);
 
 #endif

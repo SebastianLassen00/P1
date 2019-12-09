@@ -46,6 +46,7 @@ void freeQualifications(struct qualification q){
 void freeProfile(struct profile p){
     freeQualifications(p.qualifications);
     freeVector(p.interests);
+    freeVector(p.adjustment_vector);
 }
 
 void printProfile(struct profile p){
