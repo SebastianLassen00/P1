@@ -9,7 +9,8 @@
 #define STRING_MAX_LENGTH 50000
 #define TABS '	'
 
-
+/* DOKUMENTATION TIL FUNKTIONERNE SKAL LAVES/LAVES OM 
+   90% ER BLEVET SKREVET OM */
 
 /**
  * @brief 
@@ -20,53 +21,81 @@
 void parseDatabase(struct database *database, FILE *filereader){
     /* This will contain the first line where the type of database and encoding is read. */
     char database_format[STRING_MAX_LENGTH];
+    char lines_to_read[][STRING_MAX_LENGTH] = {"NAME", "DESC", "LINK",
+                                               "LOCATION", "REQUIREMENTS",
+                                               "REQUIRED GRADE", "INTERESTS"};
+    
+    char amount_of_lines_to_read = sizeof(lines_to_read) / sizeof(lines_to_read[0]);
+    int i;
     
     /* This line holds the type of database and its character encoding. */
     /* At the moment, it is not used. */
     fgets(database_format, STRING_MAX_LENGTH, filereader);
-
-    /* Read how many educations the file contains. */
     database->amount_of_educations = parseNumOfEdu(filereader);
     database->educations = (struct education*) calloc(database->amount_of_educations, sizeof(struct education));
     
-    parseEduNames(database->educations, database->amount_of_educations, filereader);
-    parseEduDesc(database->educations, database->amount_of_educations, filereader);
-    parseEduLink(database->educations, database->amount_of_educations, filereader);
-    parseRegion(database->educations, database->amount_of_educations, filereader);
-    parseSubReq(database->educations, database->amount_of_educations, filereader);
-    parseGradeReq(database->educations, database->amount_of_educations, filereader);
-
     database->amount_of_interests = parseNumOfInterests(filereader);
     database->interest_string = (char **) calloc(database->amount_of_interests, sizeof(char*));
-    parseInterestNames(database, filereader);
-
-    parseInterestValues(database->educations, database->amount_of_educations, database->amount_of_interests, filereader);
+    
+    /* Allocate interest vectors in all educations */
+    for(i = 0; i < database->amount_of_educations; i++){
+        database->educations[i].interests = createVector(database->amount_of_interests);
+    }
+    
+    /* Parse all lines from lines_to_read */
+    for(i = 0; i < amount_of_lines_to_read; i++){
+        parseDatabaseLine(lines_to_read[i], database, filereader);
+    }
 }
 
-int countTotalLines(FILE* filereader){
-    int total_lines = 0;
-    char placeholder_string[STRING_MAX_LENGTH];
+void findDatabaseLine(const char key[], FILE* filereader, char* current_line){
+    int done = 0;
+    char temp_string[STRING_MAX_LENGTH];
 
-    while(fgets(placeholder_string, STRING_MAX_LENGTH, filereader))
-        total_lines++;
+    while(!done && fgets(current_line, STRING_MAX_LENGTH, filereader) != NULL){
+        sscanf(current_line, "%[^\n	]s", temp_string);
+        if(strcmp(temp_string, key) == 0){
+            printf("%s WAS FOUND.........\n", key);
+            done = 1;
+        }
+    }
+}
+
+void parseDatabaseLine(const char key[], struct database* database, FILE* filereader){
+    char current_line[STRING_MAX_LENGTH];
     
-    fseek(filereader, 0, SEEK_SET);
+    findDatabaseLine(key, filereader, current_line);
 
-    return total_lines;
+    if(strcmp(key, "NAME") == 0){
+        parseEduNames(database, current_line);
+    } else if(strcmp(key, "DESC") == 0){
+        parseEduDesc(database, current_line);
+    } else if(strcmp(key, "LINK") == 0){
+        parseEduLink(database, current_line);
+    } else if(strcmp(key, "LOCATION") == 0){
+        parseEduRegion(database, current_line);
+    } else if(strcmp(key, "REQUIREMENTS") == 0){
+        parseSubReq(database->educations, database->amount_of_educations, filereader, current_line);
+    } else if(strcmp(key, "REQUIRED GRADE") == 0){
+        parseReqGrade(database, current_line);
+    } else if(strcmp(key, "INTERESTS") == 0){
+        /* First parse all the names of the interests */
+        parseInterestNames(database, filereader);
+
+        /* Rewind the file pointer and find the correct line again */
+        rewind(filereader);
+        findDatabaseLine(key, filereader, current_line);
+
+        parseInterestValues(database, filereader);
+    }
+
+    rewind(filereader);
 }
 
 void parseInterestNames(struct database* database, FILE* filereader){
     int i;
     char current_line[STRING_MAX_LENGTH];
     char temp_string[STRING_MAX_LENGTH];
-    int done = 0;
-    char line_to_look_for[STRING_MAX_LENGTH] = "INTERESTS";
-
-    while(!done && fgets(current_line, STRING_MAX_LENGTH, filereader) != NULL){
-        sscanf(current_line, "%[^\n	]s", temp_string);
-        if(strcmp(temp_string, line_to_look_for) == 0)
-            done = 1;
-    }
 
     for(i = 0; i < database->amount_of_interests; i++){
         fgets(current_line, STRING_MAX_LENGTH, filereader);
@@ -74,74 +103,49 @@ void parseInterestNames(struct database* database, FILE* filereader){
         database->interest_string[i] = calloc(strlen(temp_string) + 1, sizeof(char));
         strcpy(database->interest_string[i], temp_string);
     }
-
-    rewind(filereader);
 }
 
 int parseNumOfInterests(FILE *filereader){
     char current_line[STRING_MAX_LENGTH];
-    char temp_string[STRING_MAX_LENGTH];
-    char line_to_look_for[STRING_MAX_LENGTH] = "INTERESTS";
     int number_of_interests = 0;
-    int all_lines_length = 0;
-    int done = 0;
 
-    while(!done && fgets(current_line, STRING_MAX_LENGTH, filereader) != NULL){
-        sscanf(current_line, "%[^\n	]s", temp_string);
-        if(strcmp(temp_string, line_to_look_for) == 0)
-            done = 1;
-    }
+    findDatabaseLine("INTERESTS", filereader, current_line);
 
     while (fgets(current_line, STRING_MAX_LENGTH, filereader) != NULL){
-        all_lines_length += strlen(current_line);
         number_of_interests++;
     }
 
     rewind(filereader);
-
     return number_of_interests;
 }
 
-void parseInterestValues(struct education *education, int number_of_educations, int number_of_interests, FILE *filereader){
+void parseInterestValues(struct database* database, FILE* filereader){
+    char *temp_interest_value_string;
     char current_line[STRING_MAX_LENGTH];
-    char *interest_value_string;
-    char temp_string[STRING_MAX_LENGTH];
     int offset;
     int i;
     int j;
     struct vector temp_vector;
-    int done = 0;
-    char line_to_look_for[STRING_MAX_LENGTH] = "INTERESTS";
     
-
-    while(!done && fgets(current_line, STRING_MAX_LENGTH, filereader) != NULL){
-        sscanf(current_line, "%[^\n	]s", temp_string);
-        if(strcmp(temp_string, line_to_look_for) == 0){
-            done = 1;
-        }
-    }
-
-    /*allocate interests - lav dette til en funktion senere*/
-    for(i = 0; i < number_of_educations; i++){
-        education[i].interests = createVector(number_of_interests);
-    }
-
-    for(i = 0; i < number_of_interests; i++){
+    /* Iterate through all interests */
+    for(i = 0; i < database->amount_of_interests; i++){
         offset = 0;
         fgets(current_line, STRING_MAX_LENGTH, filereader);
 
-        for(j = 0; j < number_of_educations; j++){
-            interest_value_string = parseEduString(current_line, number_of_educations, offset);
-            education[j].interests.array[i] = strtod(interest_value_string, NULL);
-            offset += strlen(interest_value_string) + 1;
-            free(interest_value_string);
+        /* Assign the interest values to each education */
+        for(j = 0; j < database->amount_of_educations; j++){
+            temp_interest_value_string = parseEduString(current_line, database->amount_of_educations, offset);
+            database->educations[j].interests.array[i] = strtod(temp_interest_value_string, NULL);
+            offset += strlen(temp_interest_value_string) + 1;
+            free(temp_interest_value_string);
         }
     }
 
-    for(i = 0; i < number_of_educations; i++){
-        temp_vector = normalizeVector(education[i].interests);
-        freeVector(education[i].interests);
-        education[i].interests = temp_vector;
+    /* Normalize Values */
+    for(i = 0; i < database->amount_of_educations; i++){
+        temp_vector = normalizeVector(database->educations[i].interests);
+        freeVector(database->educations[i].interests);
+        database->educations[i].interests = temp_vector;
     }
 
     rewind(filereader);
@@ -153,19 +157,8 @@ void parseInterestValues(struct education *education, int number_of_educations, 
  *  @param amount_of_educations The amount of educations in database
  *  @param filereader The file to read from 
  */
-void parseSubReq(struct education *education, int number_of_educations, FILE *filereader){
+void parseSubReq(struct education *education, int number_of_educations, FILE *filereader, char current_line[]){
     int i;
-    int done = 0;
-    char temp_string[STRING_MAX_LENGTH];
-    char line_to_look_for[STRING_MAX_LENGTH] = "REQUIREMENTS";
-    char current_line[STRING_MAX_LENGTH];
-
-    /* Check whether the needed line to read exists */
-    while(!done && fgets(current_line, STRING_MAX_LENGTH, filereader) != NULL){
-        sscanf(current_line, "%[^\n	]s", temp_string);
-        if(strcmp(temp_string, line_to_look_for) == 0)
-            done = 1;
-    }
 
     for ( i = 0; i < number_of_educations; i++){
         education[i].required_qualifications.subjects = (struct subject *) calloc(10, sizeof(struct subject));  
@@ -182,31 +175,19 @@ void parseSubReq(struct education *education, int number_of_educations, FILE *fi
  *  @param amount_of_educations The amount of educations in database
  *  @param filereader The file to read from 
  */
-void parseGradeReq(struct education *education, int number_of_educations, FILE *filereader){
-    char current_line[STRING_MAX_LENGTH];
-    char temp_string[STRING_MAX_LENGTH];
-    char line_to_look_for[STRING_MAX_LENGTH] = "REQUIRED GRADE";
-    char *grade_string;
-    int i; 
-    int done = 0;
+void parseReqGrade(struct database* database, char current_line[]){
+    char *temp_grade_string;
+    int i;
     int offset = 0;
 
-    /* Check whether the needed line to read exists */
-    while(!done && fgets(current_line, STRING_MAX_LENGTH, filereader) != NULL){
-        sscanf(current_line, "%[^\n	]s", temp_string);
-        if(strcmp(temp_string, line_to_look_for) == 0)
-            done = 1;
-    }
 
     /* Iterate through all educations */
-    for(i = 0; i < number_of_educations; i++){
-        grade_string = parseEduString(current_line, number_of_educations, offset);
-        offset = strlen(grade_string) + 1;
-        education[i].required_grade = strtod(grade_string, NULL);
-        free(grade_string);
+    for(i = 0; i < database->amount_of_educations; i++){
+        temp_grade_string = parseEduString(current_line, database->amount_of_educations, offset);
+        offset += strlen(temp_grade_string) + 1;
+        database->educations[i].required_grade = strtod(temp_grade_string, NULL);
+        free(temp_grade_string);
     }
-
-    rewind(filereader);
 }
 
 /** @fn void parseRegion(struct education *education, int number_of_educations, FILE *filereader)
@@ -215,31 +196,18 @@ void parseGradeReq(struct education *education, int number_of_educations, FILE *
  *  @param amount_of_educations The amount of educations in database
  *  @param filereader The file to read from 
  */
-void parseRegion(struct education *education, int number_of_educations, FILE *filereader){
-    char current_line[STRING_MAX_LENGTH];
-    char *region_string;
-    char temp_string[STRING_MAX_LENGTH];
-    char line_to_look_for[STRING_MAX_LENGTH] = "LOCATION";
+void parseEduRegion(struct database* database, char current_line[]){
+    char *temp_region_string;
     int i;
     int offset = 0;
-    int done = 0;
-
-    /* Check whether the needed line to read exists */
-    while(!done && fgets(current_line, STRING_MAX_LENGTH, filereader) != NULL){
-        sscanf(current_line, "%[^\n	]s", temp_string);
-        if(strcmp(temp_string, line_to_look_for) == 0)
-            done = 1;
-    }
 
     /* Iterate through all educations */
-    for(i = 0; i < number_of_educations; i++){
-        region_string = parseEduString(current_line, number_of_educations, offset);
-        offset += strlen(region_string) + 1;
-        education[i].region = strToReg(region_string);
-        free(region_string);
+    for(i = 0; i < database->amount_of_educations; i++){
+        temp_region_string = parseEduString(current_line, database->amount_of_educations, offset);
+        offset += strlen(temp_region_string) + 1;
+        database->educations[i].region = strToReg(temp_region_string);
+        free(temp_region_string);
     }
-
-    rewind(filereader);
 }
 
 /** @fn int strToReg(char* region_string)
@@ -274,7 +242,7 @@ int parseNumOfEdu(FILE *filereader){
     int line_length;
     int i;
 
-    fgets(current_line, STRING_MAX_LENGTH, filereader);
+    findDatabaseLine("NAME", filereader, current_line);
     line_length = strlen(current_line);
 
     /* Iterate through all educations */
@@ -286,9 +254,7 @@ int parseNumOfEdu(FILE *filereader){
 
     /* Reset file pointer */
     rewind(filereader);
-    fgets(current_line, STRING_MAX_LENGTH, filereader);
     
-
     return number_of_educations;
 }
 
@@ -298,28 +264,15 @@ int parseNumOfEdu(FILE *filereader){
  *  @param amount_of_educations The amount of educations in database
  *  @param filereader The file to read from 
  */
-void parseEduNames(struct education *education, int amount_of_educations, FILE *filereader){
-    char current_line[STRING_MAX_LENGTH];
-    char temp_string[STRING_MAX_LENGTH];
-    char line_to_look_for[STRING_MAX_LENGTH] = "NAME";
+void parseEduNames(struct database* database, char current_line[]){
     int i;
     int offset = 0;
-    int done = 0;
-
-    /* Check whether the needed line to read exists */
-    while(!done && fgets(current_line, STRING_MAX_LENGTH, filereader) != NULL){
-        sscanf(current_line, "%[^\n	]s", temp_string);
-        if(strcmp(temp_string, line_to_look_for) == 0)
-            done = 1;
-    }
 
     /* Iterate through all educations and assign names */
-    for(i = 0; i < amount_of_educations; i++){
-        education[i].name = parseEduString(current_line, amount_of_educations, offset);
-        offset += strlen(education[i].name) + 1;
+    for(i = 0; i < database->amount_of_educations; i++){
+        database->educations[i].name = parseEduString(current_line, database->amount_of_educations, offset);
+        offset += strlen(database->educations[i].name) + 1;
     }
-
-    rewind(filereader);
 }
 
 /** @fn void parseEduDesc(struct education *education, int amount_of_educations, FILE *filereader)
@@ -328,28 +281,15 @@ void parseEduNames(struct education *education, int amount_of_educations, FILE *
  *  @param amount_of_educations The amount of educations in database
  *  @param filereader The file to read from 
  */
-void parseEduDesc(struct education *education, int amount_of_educations, FILE *filereader){
-    char current_line[STRING_MAX_LENGTH];
-    char temp_string[STRING_MAX_LENGTH];
-    char line_to_look_for[STRING_MAX_LENGTH] = "DESC";
+void parseEduDesc(struct database* database, char current_line[]){
     int i;
     int offset = 0;
-    int done = 0;
-    
-    /* Check whether the needed line to read exists */
-    while(!done && fgets(current_line, STRING_MAX_LENGTH, filereader) != NULL){
-        sscanf(current_line, "%[^\n	]s", temp_string);
-        if(strcmp(temp_string, line_to_look_for) == 0)
-            done = 1;
-    }
 
     /* Iterate through all educations */
-    for(i = 0; i < amount_of_educations; i++){
-        education[i].description = parseEduString(current_line, amount_of_educations, offset);
-        offset += strlen(education[i].description) + 1;
+    for(i = 0; i < database->amount_of_educations; i++){
+        database->educations[i].description = parseEduString(current_line, database->amount_of_educations, offset);
+        offset += strlen(database->educations[i].description) + 1;
     }
-
-    rewind(filereader);
 }
 
 /** @fn void parseEduDesc(struct education *education, int amount_of_educations, FILE *filereader)
@@ -358,29 +298,15 @@ void parseEduDesc(struct education *education, int amount_of_educations, FILE *f
  *  @param amount_of_educations The amount of educations in database
  *  @param filereader The file to read from 
  */
-void parseEduLink(struct education *education, int amount_of_educations, FILE *filereader){
-    char current_line[STRING_MAX_LENGTH];
-    char temp_string[STRING_MAX_LENGTH];
-    char line_to_look_for[STRING_MAX_LENGTH] = "LINK";
-    int done = 0;
+void parseEduLink(struct database* database, char current_line[]){
     int i;
     int offset = 0;
-    
-    /* Check whether the needed line to read exists */
-    while(!done && fgets(current_line, STRING_MAX_LENGTH, filereader) != NULL){
-        sscanf(current_line, "%[^\n	]s", temp_string);
-        if(strcmp(temp_string, line_to_look_for) == 0)
-            done = 1;
-    }
 
     /* Iterate through all educations */
-    for(i = 0; i < amount_of_educations; i++){
-        education[i].link = parseEduString(current_line, amount_of_educations, offset);
-
-        offset += strlen(education[i].link) + 1;
+    for(i = 0; i < database->amount_of_educations; i++){
+        database->educations[i].link = parseEduString(current_line, database->amount_of_educations, offset);
+        offset += strlen(database->educations[i].link) + 1;
     }
-
-    rewind(filereader);
 }
 
 /** @fn char *parseEduString(char* current_line, int amount_of_educations, int offset)
