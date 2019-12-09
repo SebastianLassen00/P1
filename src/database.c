@@ -10,7 +10,8 @@ int compareEducations(const void *, const void *);
 
 
 /**
- * @brief Free a databases memories
+ * @fn freeDatabase
+ * @brief Free a database and all its elements
  * 
  * @param database 
  */
@@ -33,7 +34,8 @@ void freeDatabase(struct database *database){
 
 
 /**
- * @brief Create a Database object
+ * @fn createDatabase
+ * @brief Create a Database object in memory and create all its elements
  * 
  * @param database_file is the databasefile, which will be read into a database object
  * 

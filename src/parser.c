@@ -5,13 +5,7 @@
 #include "parser.h"
 #include "region.h"
 #include "vector.h"
-<<<<<<< HEAD
-
-#define STRING_MAX_LENGTH 50000
-#define TABS '	'
-=======
 #include "constants.h"
->>>>>>> 1670e96ed825202bab26cff32ac9f9b202a10ab1
 
 /**
  * @brief Parse the database file and set all values in the database
@@ -387,6 +381,14 @@ char *parseEduString(char* current_line, int amount_of_educations, int offset){
     return education_string;
 }
 
+/**
+ * @fn sseek
+ * @brief Find a character in a string and return its offset
+ * 
+ * @param string A string to search in.
+ * @param ch A character to search after.
+ * @return int The offset of the character. -1 if nothing is found. 
+ */
 int sseek(char *string, char ch){
     int i;
 
@@ -399,6 +401,13 @@ int sseek(char *string, char ch){
     return -1;
 }
 
+/**
+ * @brief Read a requiremnt from a string
+ * 
+ * @param qualification The qualification structure, where the read input is stored.
+ * @param string The string in which the requirements exists.
+ * @param education_location Which colomn is the educations requirements in.
+ */
 void readReqString(struct qualification *qualification, char *string, int education_location) {
     int i, subject_index=0, offset = 0, moreReqs = 1;
     char reqClass[30];
