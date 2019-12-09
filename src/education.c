@@ -44,5 +44,5 @@ void freeEducation(struct education *education){
     free(education->link);
     freeVectorM(1, education->interests);
     
-    freeQualification(&education->required_qualifications);
+    freeQualifications(&education->required_qualifications);
 }
