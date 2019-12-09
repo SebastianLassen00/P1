@@ -1,3 +1,7 @@
+/** @file vector.h
+ *  @brief Library which contains a variety of functions relating to vectors
+*/  
+
 #ifndef VECTOR_H
 #define VECTOR_H
 
@@ -10,21 +14,18 @@ struct vector{
     int size;
 };
 
-
 struct vector createVector(int size);
 struct vector copyVector(struct vector v);
 struct vector addVector(struct vector v1, struct vector v2);
 struct vector subtractVector(struct vector v1, struct vector v2);
 struct vector scaleVector(struct vector v, double scale);
-double lengthOfVector(struct vector v);
 struct vector normalizeVector(struct vector v);
+
+double lengthOfVector(struct vector v);
 double dotProduct(struct vector v1, struct vector v2);
 
-void freeVector(struct vector v);
-
-/* Test */
-
 void printVector(struct vector v);
+void freeVector(struct vector v);
 void freeVectorM(int num, ...);
 
 #endif
