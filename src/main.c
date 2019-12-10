@@ -36,18 +36,16 @@ int main(void){
    
     struct database *database;
     struct profile user;
-    struct profile bobo;
     struct education current_education;
 
     database = createDatabase(DATABASE_PATH);
     user = createProfile(database->amount_of_interests);    
-    bobo = createBobo(database->amount_of_interests);
     current_education = createDefaultEducation(database->amount_of_interests, database->amount_of_educations);
 
     introduction();
 
     while(c != quit){
-        handleCommand(c, arg, arg_num, &bobo, database, &current_education);
+        handleCommand(c, arg, arg_num, &user, database, &current_education);
         c = scanCommand(arg, &arg_num);
     }
 
@@ -56,7 +54,6 @@ int main(void){
     freeEducation(&current_education);
     freeDatabase(database);
     freeProfile(user);
-    freeProfile(bobo);
 
     return 0;
 } 
@@ -92,10 +89,10 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
             searchCmd(arg, database);
             break;
         case load:
-            if(checkForExistingProfile(arg) == 1){
+            if(checkProfile(arg) == 1){
+                freeProfile(*user);
                 *user = loadProfile(arg, database->amount_of_interests);
-                printProfile(*user);
-            } else {
+            } else{
                 printf("Profile doesn't exist.\n");
             }
             break;

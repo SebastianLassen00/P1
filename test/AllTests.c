@@ -78,8 +78,8 @@ struct profile createBobo(int amount_of_interests){
     int i;
     bobo.average = 15.7;
     strcpy(bobo.name, "Bobo");
-    bobo.location.region = 0;
-    bobo.location.region_importance = 0.1;
+    bobo.location.region = 4;
+    bobo.location.region_importance = 1.0;
 
     srand(time(NULL));
 

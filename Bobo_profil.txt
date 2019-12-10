@@ -1,10 +1,7 @@
-Version 1.0.1
-Navn: Bobo
-karaktergennemsnit: 11.000000
-Brugerens lokation og dens vigtighed: 0 med -0.800000
-Gemte uddannelser:
+1.0.1 Bobo 0.000000 0 0.000000
+Saved
 
-MEDICIN
+DATALOGI AALBORG
 
 
 
@@ -13,9 +10,8 @@ MEDICIN
 
 
 
-Oversigt over foreslået uddannelser:
-BIOKEMI
-MEDICIN
+Recommend
+DATALOGI AALBORG
 
 
 
@@ -24,19 +20,22 @@ MEDICIN
 
 
 
--0.800000
--0.800000
--0.800000
--0.800000
--0.800000
--0.800000
--0.800000
--0.800000
--0.800000
--0.800000
--0.800000
--0.800000
--0.800000
+
+Interests
+-1.000000
+0.000000
+1.000000
+-1.000000
+0.000000
+1.000000
+-1.000000
+0.000000
+1.000000
+-1.000000
+0.000000
+1.000000
+-1.000000
+Adjustment
 0.000100
 0.000000
 0.000000
@@ -50,3 +49,31 @@ MEDICIN
 0.000000
 0.000000
 0.000000
+Qualifications
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3

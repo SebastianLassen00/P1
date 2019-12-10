@@ -31,6 +31,9 @@ struct profile createProfile(int number_of_interests){
         strcpy(profile.recommended_educations[i], "");
     }
 
+    for(i = 0; i < profile.qualifications.amount_of_subjects; i++)
+        profile.qualifications.subjects[i].name = i;
+
     return profile;
 }
 
@@ -58,5 +61,6 @@ void printProfile(struct profile p){
         printf("%s %d\n", classNameStr(p.qualifications.subjects[i].name),
                           p.qualifications.subjects[i].level);
     }
+    printf("Everything is fine\n");
 
 }

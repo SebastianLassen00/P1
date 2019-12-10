@@ -38,7 +38,7 @@ void menuCmd(void){
  *  @param db The database where information of interests and subjects are as a pointer
  */
 void surveyCmd(struct profile *user, const struct database *db){
-    char name[MAX_NAME_LENGTH];
+    char name[MAX_NAME_LENGTH], choice;
     char *names[10] = {"christian", "karl", "sebastian", "simon", "magnus", "steven", "johannes", "nikolai", "børge", "kurt"};
 
     /*  Introduction  */
@@ -46,7 +46,15 @@ void surveyCmd(struct profile *user, const struct database *db){
            "The survey requires answers in numbers (integers), and where scale is part, a value between 1 and 100\n\n");
 
     /*  Scan for profile name  */
-    setProfileName(user, name, names);
+    printf("Profile name: ");
+    scanf("%s", name);
+    if(checkProfile(name) == 1){
+        printf("Profile name is in use. Stop survey? (Y/N)\n");
+        scanf(" %c", &choice);
+        if(choice == 'Y' || choice == 'y')
+            return;
+    }
+    strcpy(user->name, name);
 
     /*  Get location and assesment  */
     setProfileLocation(user);
@@ -67,50 +75,6 @@ void surveyCmd(struct profile *user, const struct database *db){
 
 /* **************** TestCmd() functions **************** */
 
-/** @fn void setProfileName(struct profile *user, char *name, char **names)
- *  @brief Sets the profile name of the user to the name given to the function
- *  @param user The profile struct where the name should be saved to
- *  @param name The name string given to the function to be saved in user
- *  @param names The list of all names already used
- */
-void setProfileName(struct profile *user, char *name, char **names){
-    printf("Profile name (only one word): ");
-
-    getValidName(name, names);
-    strcpy(user->name, name);
-}
-
-/** @fn void getValidName(char *name, char **name_array)
- *  @brief Determines whether a name has already been used, and prompts for another if that is the case
- *  @param name The name string to be determined if it is valid
- *  @param names The list of names already used
- */
-void getValidName(char *name, char **names){
-    int scan_res;
-
-    do{
-        printf("Enter correct name\n");
-        scan_res = scanf(" %s", name);
-    } while(scan_res == 1 && isUsed(name, names, 10));
-}
-
-/** @fn int isUsed(char *name, char **names, int number_of_names)
- *  @brief Determines whether the given name is present in the given array
- *  @param name The name string to be determined if has been used
- *  @param names The list of names already used
- *  @param number_of_names The number of names in the name list
- *  @return 1 if the name is used, 0 otherwise
- */
-int isUsed(char *name, char **names, int number_of_names){
-    int i;
-
-    for(i = 0; i < number_of_names; i++){
-        if(strcmp(name, names[i]) == 0)
-            return 1;
-    }
-    return 0;
-}
-
 /** @fn void setProfileLocation(struct profile *user)
  *  @brief Sets the region of choice in user. Saves the interest in studying in this location
  *  @param user The profile struct where the information about location should be saved
@@ -125,7 +89,7 @@ void setProfileLocation(struct profile *user){
     user->location.region = validScaleValue(getValidInteger(), 0, NUMBER_OF_REGIONS - 1);
 
     printf("How important is this region to you\n");
-    user->location.region_importance = convertScale(validScaleValue(getValidInteger(), 0, 10));
+    user->location.region_importance = (convertScale(validScaleValue(getValidInteger(), 0, 10)) + 1.0) / 2.0;
 }
 
 /** @fn double convertScale(int v)
@@ -408,7 +372,7 @@ struct education recommendCmd(struct profile *user, const struct database *datab
 
     for(i = 0; i < database->amount_of_educations; i++){
         result = dotProduct(database->educations[i].interests, normalized_vector) + 
-                 (user->location.region == database->educations[i].region ? 1.0 : 0.0) * 
+                 (1.0 - (double) abs(user->location.region - database->educations[i].region)) * 
                   user->location.region_importance;
         if(result > highest_result && isQualified(*user, database->educations[i]) && 
            getIndex(user->recommended_educations, database->educations[i]) == NOT_IN_LIST){
@@ -601,32 +565,34 @@ void saveProfile(struct profile user){
     file_pointer = fopen(file_name, "w");
 
     if(file_pointer != NULL){                     /* Checks if file could be opened */
-        fprintf(file_pointer, "Version %s\n", VERSION);
-        fprintf(file_pointer, "Navn: %s\n", user.name);
-        fprintf(file_pointer, "karaktergennemsnit: %f\n", user.average);
-        fprintf(file_pointer, "Brugerens lokation og dens vigtighed: %d med %f\n", user.location.region, user.location.region_importance);
+        fprintf(file_pointer, "%s %s %f %d %f\n", VERSION, user.name, user.average, user.location.region, user.location.region_importance);
 
-        fprintf(file_pointer, "Gemte uddannelser:\n");
+        fprintf(file_pointer, "Saved\n");
         for (i = 0; i < EDUCATION_LIST_LENGTH; i++)
             fprintf(file_pointer, "%s\n", user.saved_educations[i]);
-        
-        fprintf(file_pointer, "Oversigt over foreslået uddannelser:\n");
+
+        fprintf(file_pointer, "Recommend\n");
         for (i = 0; i < EDUCATION_LIST_LENGTH; i++)
             fprintf(file_pointer, "%s\n", user.recommended_educations[i]);
 
+        fprintf(file_pointer, "Interests\n");
         for (i = 0; i < user.interests.size; i++)
             fprintf(file_pointer, "%f\n", user.interests.array[i]);
         
+        fprintf(file_pointer, "Adjustment\n");
         for (i = 0; i < user.adjustment_vector.size; i++)
             fprintf(file_pointer, "%f\n", user.adjustment_vector.array[i]);
-        
+
+        fprintf(file_pointer, "Qualifications\n");
+        for(i = 0; i < TOTAL_SUBJECTS; i++)
+            fprintf(file_pointer, "%d\n", user.qualifications.subjects[i].level);       
     } else{
         printf("File could not be opened");
         exit(EXIT_FAILURE);
     }
     fclose(file_pointer);
 
-    printf("File saved successfully\n");
+    printf("File saved successfully\n\n");
 }
 
 /** @fn struct profile loadProfile(char *name) 
@@ -634,18 +600,11 @@ void saveProfile(struct profile user){
  *  @param char *name The name of the user
  *  @return int A boolean value, 1 if the profile exist, otherwise 0
  */
-int checkForExistingProfile(const char name[]){
-    int profile_exists = 0;
+int checkProfile(const char name[]){
     char file_name[MAX_FILE_NAME_LENGTH];
-
     sprintf(file_name, "%s_profil.txt", name);
 
-    if(access(file_name, F_OK) !=  -1){  /* F_OK tests whther the file exists */
-        printf("Profile exists.\n");
-        profile_exists = 1;
-    } 
-
-    return profile_exists;
+    return (access(file_name, F_OK) != -1);
 }
 
 /** @fn struct profile loadProfile(char *name) 
@@ -673,17 +632,13 @@ struct profile loadProfile(char *name, int number_of_interests){
 
     user = createProfile(number_of_interests);
 
-    fscanf(file_pointer, "Version %s\n", version);
-    fscanf(file_pointer, "Navn: %s\n", user.name);
-    fscanf(file_pointer, "karaktergennemsnit: %lf\n", &user.average);
-    fscanf(file_pointer, "Brugerens lokation og dens vigtighed: %d med %lf\n", &user.location.region, &user.location.region_importance);
+    fscanf(file_pointer, "%s %s %f %d %f\n", version, user.name, &user.average, &user.location.region, &user.location.region_importance);
 
     fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
     for (i = 0; i < EDUCATION_LIST_LENGTH; i++){
         fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
         sscanf(buffer, "%[^\n]s", user.saved_educations[i]);
     }
-     
 
     fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
     for (i = 0; i < EDUCATION_LIST_LENGTH; i++){
@@ -691,19 +646,27 @@ struct profile loadProfile(char *name, int number_of_interests){
         sscanf(buffer, "%[^\n]s", user.recommended_educations[i]);
     }
 
+    fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
     for (i = 0; i < user.interests.size; i++){
         fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
         sscanf(buffer, "%lf", &user.interests.array[i]);
     }
-        
+
+    fgets(buffer, MAX_INPUT_LENGTH, file_pointer);  
     for (i = 0; i < user.adjustment_vector.size; i++){
         fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
         sscanf(buffer, "%lf", &user.adjustment_vector.array[i]);
     }
 
+    fgets(buffer, MAX_INPUT_LENGTH, file_pointer);   
+    for (i = 0; i < user.qualifications.amount_of_subjects; i++){
+        fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
+        sscanf(buffer, "%d", &user.qualifications.subjects[i].level);
+    }
+
     fclose(file_pointer);
 
-    printf("Profile successfully loaded.\n");
+    printf("Profile successfully loaded.\n\n");
 
     return user;
 }

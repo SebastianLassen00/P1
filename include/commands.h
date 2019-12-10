@@ -11,9 +11,6 @@ void menuCmd(void);
 
 /*  TestCmd()  */
 void surveyCmd(struct profile *user, const struct database *db);
-void setProfileName(struct profile *user, char *name, char **names);
-void getValidName(char *name, char **names);
-int isUsed(char *name, char **names, int number_of_names);
 void setProfileLocation(struct profile *user);
 double convertScale(int initial_value);
 int validScaleValue(int value, int interval_start, int interval_end);
@@ -47,7 +44,7 @@ void listCmd(const struct profile *user);
 void deleteCmd(struct profile *user, int deleted_entry);
 
 void saveProfile(struct profile user);
-int checkForExistingProfile(const char name[]);
+int checkProfile(const char name[]);
 struct profile loadProfile(char *name, int number_of_interests);
 
 #endif
