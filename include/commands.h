@@ -16,12 +16,8 @@
 void menuCmd(void);
 
 /*  TestCmd()  */
-void testCmd(struct profile *user, const struct database *db);
-void setProfileName(struct profile *user, char *name, char **names);
-void getValidName(char *name, char **names);
-int isUsed(char *name, char **names, int number_of_names);
+void surveyCmd(struct profile *user, const struct database *db);
 void setProfileLocation(struct profile *user);
-const char *regionName(enum region region);
 double convertScale(int initial_value);
 int validScaleValue(int value, int interval_start, int interval_end);
 int getValidInteger(void);
@@ -41,9 +37,8 @@ void searchCmd(char *arg, const struct database *db);
 struct education recommendCmd(struct profile *user, const struct database *database);
 int isQualified(struct profile user, struct education education);
 
-void printEducation(struct education education, const struct database *db);
 const char *getRegionName(enum region r);
-
+void printEducation(struct education);
 void saveCmd(struct profile *user, struct education *current_education);
 int getIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH], struct education target);
 int getEmptyIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH]);
@@ -55,6 +50,7 @@ void listCmd(const struct profile *user);
 void deleteCmd(struct profile *user, int deleted_entry);
 
 void saveProfile(struct profile user);
-
+int checkProfile(const char name[]);
+struct profile loadProfile(char *name, int number_of_interests);
 
 #endif

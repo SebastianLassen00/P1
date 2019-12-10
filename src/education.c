@@ -8,12 +8,11 @@
 #include "vector.h"
 #include "profile.h"
 
-
-
-struct vector interests;
-struct qualification required_qualifications;
-
-
+/** @fn struct education createDefaultEducation(int amount_of_interests, int amount_of_subjects)
+ *  @brief Assigns default values to the fields of the education struct
+ *  @param amount_of_interests The number of interests the education should hold
+ *  @param amount_of_subjects The number of subjects the education should hold
+ */
 struct education createDefaultEducation(int amount_of_interests, int amount_of_subjects){
     struct education education;
     char *temp_name = "Nothing";
@@ -35,10 +34,9 @@ struct education createDefaultEducation(int amount_of_interests, int amount_of_s
     return education;
 }
 
-/**
- * @brief 
- * 
- * @param education 
+/** @fn void freeEducation(strict edication *education)
+ *  @brief Frees the memory allocated to the fields of the education struct
+ *  @param education The education struct which is freed
  */
 void freeEducation(struct education *education){
     free(education->name);
@@ -46,5 +44,21 @@ void freeEducation(struct education *education){
     free(education->link);
     freeVectorM(1, education->interests);
     
-    freeQualification(&education->required_qualifications);
+    freeQualifications(&(education->required_qualifications));
+}
+
+/** @fn struct education* createArrayOfEducations(int amount_of_educations)
+ *  @brief Allocate memory for an array of educations and return a pointer to it
+ *  @param amount_of_educations The amount of educations to be stored in the array
+ */
+struct education* createArrayOfEducations(int amount_of_educations){
+    struct education* educations;
+    educations = (struct education*) calloc(amount_of_educations, sizeof(struct education));
+
+    if(educations == NULL){
+        printf("Failed to allocate memory for educations.\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    return educations;
 }

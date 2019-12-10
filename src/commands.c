@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <unistd.h>
 
 #include "profile.h"
 #include "education.h"
@@ -18,33 +19,41 @@ void menuCmd(void){
     printf("Usable commands: \n");
     printf("    find |arg|   -  finds the education passed through the argument |arg| \n"
            "    search |arg| -  lists the educations similar to the argument |arg| \n"
+           "    load |arg|   -  loads a saved profile from a file matching the pattern |arg|_profile.txt \n"
            "    save         -  saves the current education to a seperate list \n"
            "    save_prof    -  saves the current user profile to a .txt-file \n"
            "    recommend    -  recommend an education using the current profile \n");
     printf("    list         -  lists all the saved educations \n"
            "    eval |arg|   -  evaluates the current education using an integer value between 0 and 100 \n"
-           "    test         -  tests the users interests and qualifications \n"
+           "    survey       -  surveys the users interests and qualifications \n"
            "    menu         -  shows this menu \n"
            "    delete |arg| -  deletes the entry in the list given as an integer by the user \n"
            "    quit         -  quits the program \n\n");
 }
 
 
-/** @fn void testCmd(struct profile *user, const struct database *db)
+/** @fn void surveyCmd(struct profile *user, const struct database *db)
  *  @brief Tests the current user for name, location, interests, qualifications and average grade
- *  @param user The profile struct where all test results should be saved 
+ *  @param user The profile struct where all survey results are saved 
  *  @param db The database where information of interests and subjects are as a pointer
  */
-void testCmd(struct profile *user, const struct database *db){
-    char name[MAX_NAME_LENGTH];
-    char *names[10] = {"christian", "karl", "sebastian", "simon", "magnus", "steven", "johannes", "nikolai", "børge", "kurt"};
+void surveyCmd(struct profile *user, const struct database *db){
+    char name[MAX_NAME_LENGTH], choice;
 
     /*  Introduction  */
-    printf("This test will ask you several questions about interests, qualifications and grades\n"
-           "The test requires answers in numbers (integers), and where scale is part, a value between 1 and 100\n\n");
+    printf("This survey will ask you several questions about interests, qualifications and grades\n"
+           "The survey requires answers in numbers (integers), and where scale is part, a value between 1 and 100\n\n");
 
     /*  Scan for profile name  */
-    setProfileName(user, name, names);
+    printf("Profile name: ");
+    scanf("%s", name);
+    if(checkProfile(name) == 1){
+        printf("Profile name is in use. Stop survey? (Y/N)\n");
+        scanf(" %c", &choice);
+        if(choice == 'Y' || choice == 'y')
+            return;
+    }
+    strcpy(user->name, name);
 
     /*  Get location and assesment  */
     setProfileLocation(user);
@@ -59,54 +68,11 @@ void testCmd(struct profile *user, const struct database *db){
     printf("What is your average grade? ");
     user->average = getValidDouble();
 
-    /*  Ending the test  */
-    printf("The test has now concluded. Returning to menu...\n\n");
+    /*  Ending the survey  */
+    printf("The survey has now concluded. Returning to menu...\n\n");
 }
 
 /* **************** TestCmd() functions **************** */
-
-/** @fn void setProfileName(struct profile *user, char *name, char **names)
- *  @brief Sets the profile name of the user to the name given to the function
- *  @param user The profile struct where the name should be saved to
- *  @param name The name string given to the function to be saved in user
- *  @param names The list of all names already used
- */
-void setProfileName(struct profile *user, char *name, char **names){
-    printf("Profile name (only one word): ");
-
-    getValidName(name, names);
-    strcpy(user->name, name);
-}
-
-/** @fn void getValidName(char *name, char **name_array)
- *  @brief Determines whether a name has already been used, and prompts for another if that is the case
- *  @param name The name string to be determined if it is valid
- *  @param names The list of names already used
- */
-void getValidName(char *name, char **names){
-    int scan_res;
-
-    do{
-        printf("Enter correct name\n");
-        scan_res = scanf(" %s", name);
-    } while(scan_res == 1 && isUsed(name, names, 10));
-}
-
-/** @fn int isUsed(char *name, char **names, int number_of_names)
- *  @brief Returns 1 if the name is used. Otherwise, it returns 0
- *  @param name The name string to be determined if has been used
- *  @param names The list of names already used
- *  @param number_of_names The number of names in the name list
- */
-int isUsed(char *name, char **names, int number_of_names){
-    int i;
-
-    for(i = 0; i < number_of_names; i++){
-        if(strcmp(name, names[i]) == 0)
-            return 1;
-    }
-    return 0;
-}
 
 /** @fn void setProfileLocation(struct profile *user)
  *  @brief Sets the region of choice in user. Saves the interest in studying in this location
@@ -117,27 +83,18 @@ void setProfileLocation(struct profile *user){
 
     printf("Where do you want to study?\n");
     for(i = 0; i < NUMBER_OF_REGIONS; i++)
-        printf("%d: %s   ", i, regionName(i));
+        printf("%d: %s   ", i, getRegionName(i));
     printf("\n");
     user->location.region = validScaleValue(getValidInteger(), 0, NUMBER_OF_REGIONS - 1);
 
     printf("How important is this region to you\n");
-    user->location.region_importance = convertScale(validScaleValue(getValidInteger(), 0, 10));
-}
-
-/** @fn const char *regionName(enum region region)
- *  @brief Return the name of the region as a string
- *  @param region The enum region value of the region to be returned as a string
- */
-const char *regionName(enum region region){
-    char *regions[NUMBER_OF_REGIONS] = {"NORTH JUTLAND", "CENTRAL JUTLAND", "SOUTHERN DENMARK", 
-                                        "ZEALAND", "CAPITAL REGION"};
-    return regions[region];
+    user->location.region_importance = (convertScale(validScaleValue(getValidInteger(), 0, 10)) + 1.0) / 2.0;
 }
 
 /** @fn double convertScale(int v)
  *  @brief Returns the converted value
  *  @param v The value to be converted
+ *  @return A double value between -1 and 1 given that the input is between 0 and 10
  */
 double convertScale(int v){
     return (((double) v - 5.0) / 5.0);
@@ -336,33 +293,12 @@ double getValidDouble(void){
     return valid_double;
 }
 
-/* **************** End of TestCmd() functions **************** */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /** @fn struct education findCmd(char *arg, const struct database *db)
  *  @brief Finds and prints out the education with the exact name given
- *         as and argument.
+ *         as and argument
  *  @param arg The argument string which should be the name of an education
- *  @param database The database in which all educations are stored.
+ *  @param database The database in which all educations are stored
+ *  @return A struct for the education found
  */
 struct education findCmd(char *arg, const struct database *db){
     int i, edu_found = 0;
@@ -374,7 +310,7 @@ struct education findCmd(char *arg, const struct database *db){
         }
     }
     if(edu_found) 
-        printEducation(edu, db);
+        printEducation(edu);
     else
         printf("No education exists by that name\n");
     return edu;
@@ -388,6 +324,7 @@ struct education findCmd(char *arg, const struct database *db){
  */
 void searchCmd(char *arg, const struct database *db){
     int i, edu_found = 0;
+    struct education edu;
 
     for(i = 0; i < db->amount_of_educations; i++){
         if(strstr(db->educations[i].name, arg) != NULL) {
@@ -423,6 +360,7 @@ void evalCmd(struct profile *user, struct education *current_education, int arg)
  *         Both their interests, qualifications and location are considered.
  *  @param user The profile struct which is compared
  *  @param database The database containing the educations
+ *  @return A struct for the recommended education.
  */
 struct education recommendCmd(struct profile *user, const struct database *database){
     int i;
@@ -433,7 +371,7 @@ struct education recommendCmd(struct profile *user, const struct database *datab
 
     for(i = 0; i < database->amount_of_educations; i++){
         result = dotProduct(database->educations[i].interests, normalized_vector) + 
-                 (user->location.region == database->educations[i].region ? 1.0 : 0.0) * 
+                 (1.0 - (double) abs(user->location.region - database->educations[i].region)) * 
                   user->location.region_importance;
         if(result > highest_result && isQualified(*user, database->educations[i]) && 
            getIndex(user->recommended_educations, database->educations[i]) == NOT_IN_LIST){
@@ -441,14 +379,14 @@ struct education recommendCmd(struct profile *user, const struct database *datab
             best_fit = database->educations[i];
         }
     }
-        
+    
     freeVector(normalized_vector);
 
     strcpy(user->recommended_educations[user->last_recommended], best_fit.name);
     user->last_recommended = (user->last_recommended + 1) % EDUCATION_LIST_LENGTH;
 
     printf("\nThe recommended education is:");
-    printEducation(best_fit, database);
+    printEducation(best_fit);
 
     return best_fit;
 }
@@ -457,11 +395,12 @@ struct education recommendCmd(struct profile *user, const struct database *datab
  *  @brief Checks if the user has the subject levels required by the education
  *  @param user The profile struct whose quailification is checked
  *  @param education The education struct with the requirements
+ *  @return 0 if the user does not have the required levels and 1 if the user does
  */
 int isQualified(struct profile user, struct education education){
     int i;
     struct subject subject;
-    for(i = 0; i < education.required_qualifications.amount_of_subjects; i++) {
+    for(i = 0; i < education.required_qualifications.amount_of_subjects; i++){
         subject = education.required_qualifications.subjects[i];
         if(user.qualifications.subjects[subject.name].level < subject.level) 
             return 0;
@@ -469,8 +408,11 @@ int isQualified(struct profile user, struct education education){
     return 1;
 }
 
-/* Prints the relavant information about the given education */
-void printEducation(struct education education, const struct database *db){
+/** @fn void printEducation(struct education education, const struct database *db)
+ *  @brief Prints the relavant information about the given education
+ *  @param education The education struct which whose information is printed
+ */
+void printEducation(struct education education){
     int i;
     
     printf("\n    Name of education:         %s\n", education.name);
@@ -489,6 +431,10 @@ void printEducation(struct education education, const struct database *db){
     printf("\n");
 }
 
+/** @fn const char *getRegionName(enum region region)
+ *  @brief Returns the name of the region as a string
+ *  @param region The enum region value of the region to be returned as a string
+ */
 const char *getRegionName(enum region r){
     switch(r){
         case NORTH_JUTLAND:
@@ -507,9 +453,9 @@ const char *getRegionName(enum region r){
 }
 
 /** @fn void saveCmd(struct profile *user, struct education *current_education)
- *  @brief 
- *  @param *current_education 
- *  @param *user The profile of the user that has saved_education as a member.
+ *  @brief Saves the given education to a list in the profile struct
+ *  @param current_education A pointer to an education
+ *  @param user The profile struct of the user in which the education is saved
  */
 void saveCmd(struct profile *user, struct education *current_education){
     int i;
@@ -524,10 +470,10 @@ void saveCmd(struct profile *user, struct education *current_education){
         strcpy(user->saved_educations[i], current_education->name); 
 }
 
-/** @fn int getIndex(struct education *edu_array, struct profile user, struct education target)
- *  @brief
- *  @param edu_array An array of education structs (these two arrays can be found in profile struct)
- *  @param target 
+/** @fn int getIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH], struct education target)
+ *  @brief Returns the index of the given target in the array
+ *  @param edu_array An array of strings
+ *  @param target An education whose name is to be found in the array
  */
 int getIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH], struct education target){
     int i = 0;
@@ -542,9 +488,9 @@ int getIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH], struct 
     return index;
 }
 
-/** @fn int getEmptyIndex(struct education edu_array[], struct profile user)
- *  @brief Finds an empty index in an array of education structs, returns index.
- *  @param edu_array[] An array of education structs (these two arrays can be found in profile struct)
+/** @fn int getEmptyIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH])
+ *  @brief Returns an index with an empty string in the given array
+ *  @param edu_array An array of strings in which the empty string should be found
  */
 int getEmptyIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH]){
     int i = 0;
@@ -560,26 +506,32 @@ int getEmptyIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH]){
 }
 
 /** @fn int listIsFull(int i)
- *  @brief A logical statement that returns a boolean value.
+ *  @brief A logical statement that returns a boolean value
  *  @param i The index of an array of education structs
+ *  @Return 1 if the index is -1 and 0 otherwise
  */
 int listIsFull(int i){
     return i == NO_EMPTY_INDEX;
 }
 
-
+/** @fn void clearBuffer(void)
+ *  @brief Empties the buffer for standard input
+ */
 void clearBuffer(void){
-    char buffer[MAX_INPUT_LENGTH];
-    fgets(buffer, MAX_INPUT_LENGTH, stdin);
+    char buffer;
+
+    while(!feof(stdin) && buffer != EOF && buffer != '\n')
+        buffer = getchar();
 }
 
-
-/* ************************* LISTCMD ************************** */
-
+/** @fn void listCmd(const struct profile *user)
+ *  @brief Prints out the names of all the saved educations
+ *  @param user The profile struct for the user
+ */
 void listCmd(const struct profile *user){
     int i, counter = 0;
 
-    printf("\nList of saves educations:\n");
+    printf("\nList of saved educations:\n");
     for(i = 0; i < EDUCATION_LIST_LENGTH; i++){
         if(strcmp(user->saved_educations[i], "") != 0){
             printf("%2d: %s\n", i, user->saved_educations[i]);
@@ -591,18 +543,18 @@ void listCmd(const struct profile *user){
         printf("No entries yet\n\n");
 }
 
+/** @fn void deleteCmd(struct profile *user, int deleted_entry)
+ *  @brief Removes the name of the education at the given index
+ *  @param user The profile struct for the user
+ */
 void deleteCmd(struct profile *user, int deleted_entry){
     strcpy(user->saved_educations[validScaleValue(deleted_entry, 0, EDUCATION_LIST_LENGTH)], "");
 }
 
-/* ************************* ELSECMD ************************** */
-
-
-/** @
- *  @
- *  @
+/** @fn void saveProfile(struct profile user)
+ *  @brief Saves a file with the information collected about the user
+ *  @param user The profile struct for the user
  */
-
 void saveProfile(struct profile user){
     FILE *file_pointer;
     int i;
@@ -612,27 +564,108 @@ void saveProfile(struct profile user){
     file_pointer = fopen(file_name, "w");
 
     if(file_pointer != NULL){                     /* Checks if file could be opened */
-        fprintf(file_pointer, "%s\n", VERSION);
-        fprintf(file_pointer, "%s %f %d %d %f \n", user.name, user.average, user.last_recommended, user.location.region, user.location.region_importance);
-    
+        fprintf(file_pointer, "%s %s %f %d %f\n", VERSION, user.name, user.average, user.location.region, user.location.region_importance);
+
+        fprintf(file_pointer, "Saved\n");
         for (i = 0; i < EDUCATION_LIST_LENGTH; i++)
             fprintf(file_pointer, "%s\n", user.saved_educations[i]);
-        
+
+        fprintf(file_pointer, "Recommend\n");
         for (i = 0; i < EDUCATION_LIST_LENGTH; i++)
             fprintf(file_pointer, "%s\n", user.recommended_educations[i]);
-        
+
+        fprintf(file_pointer, "Interests\n");
         for (i = 0; i < user.interests.size; i++)
             fprintf(file_pointer, "%f\n", user.interests.array[i]);
         
+        fprintf(file_pointer, "Adjustment\n");
         for (i = 0; i < user.adjustment_vector.size; i++)
             fprintf(file_pointer, "%f\n", user.adjustment_vector.array[i]);
-        
+
+        fprintf(file_pointer, "Qualifications\n");
+        for(i = 0; i < TOTAL_SUBJECTS; i++)
+            fprintf(file_pointer, "%d\n", user.qualifications.subjects[i].level);       
     } else{
         printf("File could not be opened");
         exit(EXIT_FAILURE);
     }
     fclose(file_pointer);
 
-    printf("File saved successfully\n");
+    printf("File saved successfully\n\n");
 }
 
+/** @fn struct profile loadProfile(char *name) 
+ *  @brief Check whether a profile exists
+ *  @param char *name The name of the user
+ *  @return int A boolean value, 1 if the profile exist, otherwise 0
+ */
+int checkProfile(const char name[]){
+    char file_name[MAX_FILE_NAME_LENGTH];
+    sprintf(file_name, "%s_profil.txt", name);
+
+    return (access(file_name, F_OK) != -1);
+}
+
+/** @fn struct profile loadProfile(char *name) 
+ *  @brief Loads a user profile from a generated <name>_profile.txt file
+ *  @param char *name The name of the user
+ *  @param int number_of_interests The number of interests which is a member of the database struct
+ *  @return struct profile Returns a user profile
+ */
+struct profile loadProfile(char *name, int number_of_interests){
+    int i;
+    FILE *file_pointer; 
+    struct profile user;
+    char file_name[MAX_FILE_NAME_LENGTH];
+    char version[MAX_FILE_NAME_LENGTH];
+    char buffer[MAX_INPUT_LENGTH] = "Ingenting";
+
+    sprintf(file_name, "%s_profil.txt", name);
+
+    file_pointer = fopen(file_name, "r");
+
+    if(file_pointer == NULL){
+        printf("File could not be opened");
+        exit(EXIT_FAILURE);
+    } 
+
+    user = createProfile(number_of_interests);
+
+    fscanf(file_pointer, "%s %s %f %d %f\n", version, user.name, &user.average, &user.location.region, &user.location.region_importance);
+
+    fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
+    for (i = 0; i < EDUCATION_LIST_LENGTH; i++){
+        fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
+        sscanf(buffer, "%[^\n]s", user.saved_educations[i]);
+    }
+
+    fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
+    for (i = 0; i < EDUCATION_LIST_LENGTH; i++){
+        fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
+        sscanf(buffer, "%[^\n]s", user.recommended_educations[i]);
+    }
+
+    fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
+    for (i = 0; i < user.interests.size; i++){
+        fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
+        sscanf(buffer, "%lf", &user.interests.array[i]);
+    }
+
+    fgets(buffer, MAX_INPUT_LENGTH, file_pointer);  
+    for (i = 0; i < user.adjustment_vector.size; i++){
+        fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
+        sscanf(buffer, "%lf", &user.adjustment_vector.array[i]);
+    }
+
+    fgets(buffer, MAX_INPUT_LENGTH, file_pointer);   
+    for (i = 0; i < user.qualifications.amount_of_subjects; i++){
+        fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
+        sscanf(buffer, "%d", &user.qualifications.subjects[i].level);
+    }
+
+    fclose(file_pointer);
+
+    printf("Profile successfully loaded.\n\n");
+
+    return user;
+}
