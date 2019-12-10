@@ -1,7 +1,7 @@
 /** @file database.h
  *  @brief Contains elements relating to the database
  * 
- *  <Detailed esription here>
+ *  Contains the database struct and functions for creating, freeing and finding educations.
 */  
 
 #ifndef DATABASE_H

@@ -1,7 +1,8 @@
 /** @file constants.h
  *  @brief Contains symbolic constants used throughout the program
  * 
- *  <Detailed esription here>
+ *  This header-file contains all of the symbolic constants used throughout the entire program,
+ *  such as those relating to the number of regions, the max lenght of strings or constants used for string formatting.
 */  
 
 #ifndef CONSTANTS_H
