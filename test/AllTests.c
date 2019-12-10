@@ -98,7 +98,7 @@ struct profile createBobo(int amount_of_interests){
     return bobo;
 }
 
-int main(void){
+/*int main(void){
     struct database *db;
     struct education current_education;
     struct profile bobo;
@@ -111,7 +111,7 @@ int main(void){
 
     user = createProfile(db->amount_of_interests);
 
-    //testCmd(&user, db); 
+    testCmd(&user, db); 
 
     bobo = createBobo(db->amount_of_interests);
 
@@ -125,5 +125,5 @@ int main(void){
     freeProfile(bobo);
     freeProfile(user);
     return 0;
-}
+} */
 

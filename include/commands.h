@@ -10,7 +10,7 @@
 void menuCmd(void);
 
 /*  TestCmd()  */
-void testCmd(struct profile *user, const struct database *db);
+void surveyCmd(struct profile *user, const struct database *db);
 void setProfileName(struct profile *user, char *name, char **names);
 void getValidName(char *name, char **names);
 int isUsed(char *name, char **names, int number_of_names);

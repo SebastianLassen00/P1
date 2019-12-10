@@ -13,7 +13,7 @@
 #include "vector.h" 
 #include "parser.h"
 
-enum command{find, search, load, save, save_prof, recommend, list, eval, test, menu, quit, delete};
+enum command{find, search, load, save, save_prof, recommend, list, eval, survey, menu, quit, delete};
 typedef enum command command;
 
 void introduction(void);
@@ -29,7 +29,7 @@ struct profile createBobo(int amount_of_interests);
  *  @brief Takes commands from the user and executes those commands until 
  *               the quit command is entered.
  */
-/*int main(void){
+int main(void){
     char arg[MAX_INPUT_LENGTH];
     int arg_num = 0;
     command c = menu;
@@ -59,7 +59,7 @@ struct profile createBobo(int amount_of_interests);
     freeProfile(bobo);
 
     return 0;
-} */
+} 
 
 /** @fn void introduction(void)
  *  @brief Prints information about the program.
@@ -92,14 +92,15 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
             searchCmd(arg, database);
             break;
         case load:
-            loadProfile(arg, database->amount_of_interests);
+            freeProfile(*user);
+            *user = loadProfile(arg, database->amount_of_interests);
+            printProfile(*user);
             break;
         case save:
             saveCmd(user, current_education);
             break;
         case save_prof:
-            saveProfile(*user);
-            
+            saveProfile(*user);  
             break;
         case recommend:
             *current_education = recommendCmd(user, database);
@@ -110,8 +111,8 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
         case eval:
             evalCmd(user, current_education, arg_num);
             break;
-        case test:
-            testCmd(user, database);
+        case survey:
+            surveyCmd(user, database);
             break;
         case menu:
             menuCmd();
@@ -119,6 +120,9 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
         case delete:
             deleteCmd(user, arg_num);
         case quit:
+            break;
+        default:
+            printf("No command found\n");
             break;
     }
 }
@@ -143,21 +147,23 @@ command scanCommand(char arg[MAX_INPUT_LENGTH], int *arg_num){
 
     switch(argType(command_index)){
         case 1:
-            scanf(" %s", arg);
+            fgets(arg, MAX_INPUT_LENGTH - 1, stdin);
+            sscanf(arg, " %[^\n]s", arg);
             break;
         case -1:
             scanf(" %d", arg_num);
+            clearBuffer();
+            break;
+        default:
+            clearBuffer();
             break;
     }
-
-    clearBuffer();
 
     return command_index;
 }
 
 /** @fn int scanCommand(char arg[MAX_INPUT_LENGTH], int *arg_num)
- *  @brief Compares the entered string to the command words and returns
- *         the enum command associated with the string
+ *  @brief Compares the entered string to the command words and returns the enum command associated with the string
  *  @param s A command as a string
  *  @return The enum command associated with the parameter string
  */
@@ -180,8 +186,8 @@ command convertCommand(char s[MAX_COMMAND_LENGTH]){
         c = list;
     } else if(strcmp(s, "eval") == 0){
         c = eval;
-    } else if(strcmp(s, "test") == 0){
-        c = test;
+    } else if(strcmp(s, "survey") == 0){
+        c = survey;
     } else if(strcmp(s, "menu") == 0){
         c = menu;
     } else if(strcmp(s, "delete") == 0){
@@ -256,8 +262,6 @@ int argType(command c){
 /* gcc -Iinclude  */
 
 
-
-/* ------------------ TEST OF LevelAsValue(char c) -------------------- */
 void testLevelAsValueA(CuTest *tc){
     int expected = (int) A;
     char C = 'A', c = 'a';
@@ -620,6 +624,5 @@ CuSuite *testSuiteProfile(void){
 
     return suite;
 }
-
 
 /* ---------------- END OF saveProf and loadProf ----------------- */

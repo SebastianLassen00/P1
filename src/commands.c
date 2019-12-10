@@ -25,25 +25,25 @@ void menuCmd(void){
            "    recommend    -  recommend an education using the current profile \n");
     printf("    list         -  lists all the saved educations \n"
            "    eval |arg|   -  evaluates the current education using an integer value between 0 and 100 \n"
-           "    test         -  tests the users interests and qualifications \n"
+           "    survey       -  surveys the users interests and qualifications \n"
            "    menu         -  shows this menu \n"
            "    delete |arg| -  deletes the entry in the list given as an integer by the user \n"
            "    quit         -  quits the program \n\n");
 }
 
 
-/** @fn void testCmd(struct profile *user, const struct database *db)
+/** @fn void surveyCmd(struct profile *user, const struct database *db)
  *  @brief Tests the current user for name, location, interests, qualifications and average grade
- *  @param user The profile struct where all test results are saved 
+ *  @param user The profile struct where all survey results are saved 
  *  @param db The database where information of interests and subjects are as a pointer
  */
-void testCmd(struct profile *user, const struct database *db){
+void surveyCmd(struct profile *user, const struct database *db){
     char name[MAX_NAME_LENGTH];
     char *names[10] = {"christian", "karl", "sebastian", "simon", "magnus", "steven", "johannes", "nikolai", "børge", "kurt"};
 
     /*  Introduction  */
-    printf("This test will ask you several questions about interests, qualifications and grades\n"
-           "The test requires answers in numbers (integers), and where scale is part, a value between 1 and 100\n\n");
+    printf("This survey will ask you several questions about interests, qualifications and grades\n"
+           "The survey requires answers in numbers (integers), and where scale is part, a value between 1 and 100\n\n");
 
     /*  Scan for profile name  */
     setProfileName(user, name, names);
@@ -61,8 +61,8 @@ void testCmd(struct profile *user, const struct database *db){
     printf("What is your average grade? ");
     user->average = getValidDouble();
 
-    /*  Ending the test  */
-    printf("The test has now concluded. Returning to menu...\n\n");
+    /*  Ending the survey  */
+    printf("The survey has now concluded. Returning to menu...\n\n");
 }
 
 /* **************** TestCmd() functions **************** */
@@ -555,8 +555,10 @@ int listIsFull(int i){
  *  @brief Empties the buffer for standard input
  */
 void clearBuffer(void){
-    char buffer[MAX_INPUT_LENGTH];
-    fgets(buffer, MAX_INPUT_LENGTH, stdin);
+    char buffer;
+
+    while(!feof(stdin) && buffer != EOF && buffer != '\n')
+        buffer = getchar();
 }
 
 /** @fn void listCmd(const struct profile *user)
