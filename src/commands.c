@@ -39,7 +39,6 @@ void menuCmd(void){
  */
 void surveyCmd(struct profile *user, const struct database *db){
     char name[MAX_NAME_LENGTH], choice;
-    char *names[10] = {"christian", "karl", "sebastian", "simon", "magnus", "steven", "johannes", "nikolai", "børge", "kurt"};
 
     /*  Introduction  */
     printf("This survey will ask you several questions about interests, qualifications and grades\n"
