@@ -9,11 +9,9 @@
 #include "constants.h"
 #include "education.h"
 
-/**
- * @brief Parse the database file and set all values in the database
- * 
- * @param database The database to modify
- * @param filereader The database file
+/** @brief Parse the database file and set all values in the database
+ *  @param database The database to modify
+ *  @param filereader The database file
  */
 void parseDatabase(struct database *database, FILE *filereader){
     /* This will contain the first line where the type of database and encoding is read. */

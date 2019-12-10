@@ -1,8 +1,7 @@
 /** @file commands.h
  *  @brief Contains functions related to command handling
  * 
- *  Contains all of the functions used for handling commands,
- *  such as those relating to verifying input and the functions that act on receiving a command.
+ *  Contains all of the functions used for handling commands, such as those relating to verifying input and the functions that act on receiving a command.
 */ 
 
 #ifndef COMMANDS_H
