@@ -15,18 +15,18 @@
 
 /**
  * @struct profile
- * @brief Describes a user.
+ * @brief Describes a user
  * 
- * This structure defines a user and all the details about the user.
- * @var interests 
+ * This structure defines the profile of a user and all the details about the user
+ * @var interests The interest of a a user
  * @var adjustment_vector 
- * @var name 
- * @var qualifications
- * @var average 
- * @var location 
- * @var saved_educations 
- * @var last_recommended
- * @var recommended_educations
+ * @var name The name of the user
+ * @var qualifications A struct containing an array of subjects where each subject has a name and and a level 
+ * @var average The average grade of the user
+ * @var location Contains the users desired location to study and the importance of this location.
+ * @var saved_educations A list of the names of 10 educations which the user has saved.
+ * @var last_recommended Contains the index of the last recommended education.
+ * @var recommended_educations A list of the names of the 10 most recent educations recommended to the user.
  */
 struct profile{
     struct vector interests;

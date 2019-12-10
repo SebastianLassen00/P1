@@ -5,14 +5,15 @@
  *  such as those relating to verifying input and the functions that act on receiving a command.
 */ 
 
+#ifndef COMMANDS_H
+#define COMMANDS_H
+
 #include "profile.h"
 #include "education.h"
 #include "subjects.h"
 #include "vector.h" 
 #include "database.h"
 
-#ifndef COMMANDS_H
-#define COMMANDS_H
 
 void menuCmd(void);
 
