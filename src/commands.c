@@ -416,7 +416,7 @@ struct education recommendCmd(struct profile *user, const struct database *datab
             best_fit = database->educations[i];
         }
     }
-        
+    
     freeVector(normalized_vector);
 
     strcpy(user->recommended_educations[user->last_recommended], best_fit.name);
@@ -632,17 +632,16 @@ void saveProfile(struct profile user){
  *  @param char *name The name of the user
  *  @return int A boolean value, 1 if the profile exist, otherwise 0
  */
-int checkForExistingProfile(char *name){
-    FILE *file_pointer; 
-    struct profile user;
-    char file_name[MAX_FILE_NAME_LENGTH];
+int checkForExistingProfile(const char name[]){
     int profile_exists = 0;
+    char file_name[MAX_FILE_NAME_LENGTH];
+
+    sprintf(file_name, "%s_profil.txt", name);
 
     if(access(file_name, F_OK) !=  -1){  /* F_OK tests whther the file exists */
         printf("Profile exists.\n");
         profile_exists = 1;
-    } else
-        printf("Profile could not be found.\n");
+    } 
 
     return profile_exists;
 }

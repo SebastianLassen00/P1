@@ -29,7 +29,7 @@ struct profile createBobo(int amount_of_interests);
  *  @brief Takes commands from the user and executes those commands until 
  *               the quit command is entered.
  */
-/*int main(void){
+int main(void){
     char arg[MAX_INPUT_LENGTH];
     int arg_num = 0;
     command c = menu;
@@ -59,7 +59,7 @@ struct profile createBobo(int amount_of_interests);
     freeProfile(bobo);
 
     return 0;
-} */
+} 
 
 /** @fn void introduction(void)
  *  @brief Prints information about the program.
@@ -92,7 +92,12 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
             searchCmd(arg, database);
             break;
         case load:
-            loadProfile(arg, database->amount_of_interests);
+            if(checkForExistingProfile(arg) == 1){
+                *user = loadProfile(arg, database->amount_of_interests);
+                printProfile(*user);
+            } else {
+                printf("Profile doesn't exist.\n");
+            }
             break;
         case save:
             saveCmd(user, current_education);
