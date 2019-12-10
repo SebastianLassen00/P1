@@ -25,12 +25,8 @@ struct profile{
     char recommended_educations[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH];
 };
 
-void printProfile(struct profile p);
-void freeProfile(struct profile p);
-void freeQualifications(struct qualification q);
-struct qualification createQualifications(int number_of_qualifications);
 struct profile createProfile(int number_of_interests);
-
-
+void freeProfile(struct profile p);
+void printProfile(struct profile p);
 
 #endif 

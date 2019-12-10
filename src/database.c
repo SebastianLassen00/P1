@@ -10,7 +10,8 @@ int compareEducations(const void *, const void *);
 
 
 /**
- * @brief Free a databases memories
+ * @fn freeDatabase
+ * @brief Free a database and all its elements
  * 
  * @param database 
  */
@@ -33,7 +34,8 @@ void freeDatabase(struct database *database){
 
 
 /**
- * @brief Create a Database object
+ * @fn createDatabase
+ * @brief Create a Database object in memory and create all its elements
  * 
  * @param database_file is the databasefile, which will be read into a database object
  * 
@@ -61,7 +63,7 @@ struct database *createDatabase(char *database_file ){
  * 
  * @param database is the database, which will be searched
  * 
- * @return struct education* 
+ * @return struct education* An education which name matches key or NULL if nothing was found
  */
 struct education *findEducation(char *key, struct database *database){
     int i;
@@ -74,19 +76,4 @@ struct education *findEducation(char *key, struct database *database){
     }
 
     return education;
-}
-
-/**
- * @brief Finds all educations with the matching search_word
- * 
- * @param search_word The name of the education you are searching for
- * @return struct educationArray* 
- */
-void searchDatabaseForEducation(char *search_word, struct database *database, struct education **array, int *size_of_array){
-    int i;
-    char *takeout;
-
-    takeout = malloc(sizeof(char) * strlen(search_word) + 1);
-
-    
 }

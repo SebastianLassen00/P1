@@ -77,8 +77,8 @@ struct qualification{
     struct subject *subjects;   /**the array of subjects in qualifications*/
 };
 
-void freeSubject(struct subject *);
-void freeQualification(struct qualification *);
+struct qualification createQualifications(int number_of_ualifications);
+void freeQualifications(struct qualification *);
 enum class stringToClass(char *);
 enum level charToLevel(char ch);
 char levelToChar(enum level l);

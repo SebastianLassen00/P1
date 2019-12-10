@@ -8,6 +8,10 @@
 #include "vector.h" 
 #include "commands.h"
 
+/** @fn struct profile createProfile(int number_of_interests)
+ *  @brief Allocates memory for each of the fields in the profile struct
+ *  @param number_of_interests The number of interests allocated
+ */
 struct profile createProfile(int number_of_interests){
     struct profile profile;
     int i;
@@ -27,28 +31,26 @@ struct profile createProfile(int number_of_interests){
         strcpy(profile.recommended_educations[i], "");
     }
 
+    for(i = 0; i < profile.qualifications.amount_of_subjects; i++)
+        profile.qualifications.subjects[i].name = i;
+
     return profile;
 }
 
-struct qualification createQualifications(int number_of_qualifications){
-    struct qualification qualifications;
-
-    qualifications.amount_of_subjects = number_of_qualifications;
-    qualifications.subjects = (struct subject*) calloc(number_of_qualifications, sizeof(struct subject));
-
-    return qualifications;
-}
-
-void freeQualifications(struct qualification q){
-    free(q.subjects);
-}
-
+/** @fn void freeProfile(struct profile p)
+ *  @brief Frees the allocated memory for the given profile
+ *  @param p The profile struct which is freed
+ */
 void freeProfile(struct profile p){
-    freeQualifications(p.qualifications);
+    freeQualifications(&p.qualifications);
     freeVector(p.interests);
     freeVector(p.adjustment_vector);
 }
 
+/** @fn void printProfile(struct profile p)
+ *  @brief Prints information stored in the given profil
+ *  @param p The profile struct which is printed
+ */
 void printProfile(struct profile p){
     int i;
 
@@ -59,5 +61,6 @@ void printProfile(struct profile p){
         printf("%s %d\n", classNameStr(p.qualifications.subjects[i].name),
                           p.qualifications.subjects[i].level);
     }
+    printf("Everything is fine\n");
 
 }
