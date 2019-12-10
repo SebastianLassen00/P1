@@ -125,5 +125,5 @@ struct profile createBobo(int amount_of_interests){
     freeProfile(bobo);
     freeProfile(user);
     return 0;
-} */
+}*/
 

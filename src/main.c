@@ -92,9 +92,12 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
             searchCmd(arg, database);
             break;
         case load:
-            freeProfile(*user);
-            *user = loadProfile(arg, database->amount_of_interests);
-            printProfile(*user);
+            if(checkForExistingProfile(arg) == 1){
+                *user = loadProfile(arg, database->amount_of_interests);
+                printProfile(*user);
+            } else {
+                printf("Profile doesn't exist.\n");
+            }
             break;
         case save:
             saveCmd(user, current_education);
