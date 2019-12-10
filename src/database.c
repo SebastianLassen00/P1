@@ -63,7 +63,7 @@ struct database *createDatabase(char *database_file ){
  * 
  * @param database is the database, which will be searched
  * 
- * @return struct education* 
+ * @return struct education* An education which name matches key or NULL if nothing was found
  */
 struct education *findEducation(char *key, struct database *database){
     int i;
