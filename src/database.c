@@ -57,23 +57,3 @@ struct database *createDatabase(char *database_file ){
 
     return database;
 }
-
-/**
- * @brief Finds an education in a database and returns a pointer to the education
- * 
- * @param database is the database, which will be searched
- * 
- * @return struct education* An education which name matches key or NULL if nothing was found
- */
-struct education *findEducation(char *key, struct database *database){
-    int i;
-    struct education *education = NULL;
-
-    for( i = 0; i < database->amount_of_educations; i++){
-        if(strcmp(key, database->educations[i].name) == 0 ){
-              education = &database->educations[i];
-        } 
-    }
-
-    return education;
-}

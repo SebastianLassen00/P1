@@ -1,7 +1,7 @@
 /** @file subjects.h
  *  @brief Contains code regarding subjects and qualifcations for educations
  * 
- *  <Detailed esription here>
+ *  Contains the enums for different classes and their levels. Also includes the subject and qualification structs and some related functions
 */  
 
 #ifndef SUBJECTS_H

@@ -1,7 +1,7 @@
 /** @file profile.h
- *  @brief Contains elements relating to profile
+ *  @brief Contains elements relating to user profiles
  * 
- *  <Detailed esription here>
+ *  Contains the profile struct and the functions for creating, printing and deallocating user profiles.
 */  
 
 #include "vector.h"
