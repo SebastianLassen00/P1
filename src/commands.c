@@ -1,4 +1,3 @@
-/** @file */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -249,7 +248,7 @@ void setOtherSubjects(struct profile *user, int start, int end){
     chooseFromList(user, start, end);
 }
 
-/** @fn void chooseFromList(struct profile *user, interval_start, interval_end)
+/** @fn void chooseFromList(struct profile *user, int interval_start, int interval_end)
  *  @brief Saves the levels of chosen subjects to user
  *  @param user The profile struct where the qualifications should be saved
  *  @param interval_start The start of the interval for the qualifications in the list
@@ -409,7 +408,7 @@ int isQualified(struct profile user, struct education education){
     return 1;
 }
 
-/** @fn void printEducation(struct education education, const struct database *db)
+/** @fn void printEducation(struct education education)
  *  @brief Prints the relavant information about the given education
  *  @param education The education struct which whose information is printed
  */
@@ -432,9 +431,9 @@ void printEducation(struct education education){
     printf("\n");
 }
 
-/** @fn const char *getRegionName(enum region region)
+/** @fn const char *getRegionName(enum region r)
  *  @brief Returns the name of the region as a string
- *  @param region The enum region value of the region to be returned as a string
+ *  @param r The enum region value of the region to be returned as a string
  */
 const char *getRegionName(enum region r){
     switch(r){
@@ -595,7 +594,7 @@ void saveProfile(struct profile user){
     printf("File saved successfully\n\n");
 }
 
-/** @fn struct profile loadProfile(char *name) 
+/** @fn struct profile loadProfile(const char *name) 
  *  @brief Check whether a profile exists
  *  @param char *name The name of the user
  *  @return int A boolean value, 1 if the profile exist, otherwise 0
@@ -607,7 +606,7 @@ int checkProfile(const char name[]){
     return (access(file_name, F_OK) != -1);
 }
 
-/** @fn struct profile loadProfile(char *name) 
+/** @fn struct profile loadProfile(char *name, int number_of_interests) 
  *  @brief Loads a user profile from a generated <name>_profile.txt file
  *  @param char *name The name of the user
  *  @param int number_of_interests The number of interests which is a member of the database struct
