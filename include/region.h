@@ -15,6 +15,7 @@ enum region{
     CAPITAL_REGION
 };
 
+
 struct location{
 	enum region region;
 	double region_importance;
