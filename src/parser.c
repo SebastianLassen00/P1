@@ -66,8 +66,7 @@ char** createArrayOfStrings(int amount_of_strings){
 }
 
 /** @fn void findDatabaseLine(const char key[], FILE* filereader, char* current_line)
- *  @brief Search the database until the first word of a line matches with key. Return the line through current_line. 
- *         If line does not exist, return NOT_FOUND_STRING.
+ *  @brief Search the database until the first word of a line matches with key.
  *  @param key The term to search for
  *  @param filereader The database file
  *  @param current_line Return through this parameter
