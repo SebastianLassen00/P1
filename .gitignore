@@ -15,7 +15,7 @@
 *.idx
 *.ind
 *.ilg
-/docs/html
+
 /docs/latex/Makefile
 
 .vscode/settings.json
