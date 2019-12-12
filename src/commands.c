@@ -380,8 +380,7 @@ struct education recommendCmd(struct profile *user, const struct database *datab
             best_fit = database->educations[i];
         }
     }
-    freeVector(add_vector);
-    freeVector(normalized_vector);
+    freeVectorM(2, add_vector, normalized_vector);
 
     strcpy(user->recommended_educations[user->last_recommended], best_fit.name);
     user->last_recommended = (user->last_recommended + 1) % EDUCATION_LIST_LENGTH;
