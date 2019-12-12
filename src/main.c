@@ -51,7 +51,9 @@ int main(void){
 
     printf("\nThe program will now shut down...\n");
 
-    freeEducation(&current_education);
+    if(strcmp(current_education.name, "Nothing") == 0){
+        freeEducation(&current_education);
+    }
     freeDatabase(database);
     freeProfile(user);
 
@@ -83,6 +85,7 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
                    const struct database *database, struct education *current_education){
     switch(c){
         case find:
+            freeEducation(current_education);
             *current_education = findCmd(arg, database);
             break;
         case search:
@@ -103,6 +106,9 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
             saveProfile(*user);  
             break;
         case recommend:
+            if(strcmp(current_education->name, "Nothing") == 0){
+                freeEducation(current_education);
+            }
             *current_education = recommendCmd(user, database);
             break;
         case list:
