@@ -383,7 +383,8 @@ struct education recommendCmd(struct profile *user, const struct database *datab
     struct vector normalized_vector;
     double highest_result = -3.0, result = 0.0;
     struct education best_fit;
-    normalized_vector = normalizeVector(addVector(user->interests, user->adjustment_vector));
+    struct vector add_vector = addVector(user->interests, user->adjustment_vector);
+    normalized_vector = normalizeVector(add_vector);
 
     for(i = 0; i < database->amount_of_educations; i++){
         result = dotProduct(database->educations[i].interests, normalized_vector) + 
@@ -395,8 +396,7 @@ struct education recommendCmd(struct profile *user, const struct database *datab
             best_fit = database->educations[i];
         }
     }
-    
-    freeVector(normalized_vector);
+    freeVectorM(2, add_vector, normalized_vector);
 
     strcpy(user->recommended_educations[user->last_recommended], best_fit.name);
     user->last_recommended = (user->last_recommended + 1) % EDUCATION_LIST_LENGTH;
@@ -534,7 +534,7 @@ int listIsFull(int i){
  *  @brief Empties the buffer for standard input
  */
 void clearBuffer(void){
-    char buffer;
+    char buffer = ' ';
 
     while(!feof(stdin) && buffer != EOF && buffer != '\n')
         buffer = getchar();
@@ -647,7 +647,7 @@ struct profile loadProfile(char *name, int number_of_interests){
 
     user = createProfile(number_of_interests);
 
-    fscanf(file_pointer, "%s %s %f %d %f\n", version, user.name, &user.average, &user.location.region, &user.location.region_importance);
+    fscanf(file_pointer, "%s %s %lf %d %lf\n", version, user.name, &user.average, &user.location.region, &user.location.region_importance);
 
     fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
     for (i = 0; i < EDUCATION_LIST_LENGTH; i++){
