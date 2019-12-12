@@ -390,7 +390,8 @@ struct education recommendCmd(struct profile *user, const struct database *datab
         result = dotProduct(database->educations[i].interests, normalized_vector) + 
                  (1.0 - (double) abs(user->location.region - database->educations[i].region)) * 
                   user->location.region_importance;
-        if(result > highest_result && isQualified(*user, database->educations[i]) && 
+        if(result > highest_result && user->average >= database->educations[i].required_grade 
+           && isQualified(*user, database->educations[i]) && 
            getIndex(user->recommended_educations, database->educations[i]) == NOT_IN_LIST){
             highest_result = result;
             best_fit = database->educations[i];
