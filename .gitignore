@@ -4,18 +4,7 @@
 *.exe
 *.o
 
-*.tmp
-*.tex
-*.sty
-*.dot
-*.md5
-*.aux
-*.toc
-*.log
-*.idx
-*.ind
-*.ilg
-
-/docs/latex/Makefile
+/docs/latex/
+*.bak
 
 .vscode/settings.json

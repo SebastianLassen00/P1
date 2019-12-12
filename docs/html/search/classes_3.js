@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['location',['location',['../structlocation.html',1,'']]]
+  ['profile',['profile',['../structprofile.html',1,'']]]
 ];

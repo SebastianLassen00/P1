@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['custring',['CuString',['../struct_cu_string.html',1,'']]],
-  ['cusuite',['CuSuite',['../struct_cu_suite.html',1,'']]],
-  ['cutest',['CuTest',['../struct_cu_test.html',1,'']]]
+  ['database',['database',['../structdatabase.html',1,'database'],['../struct_database.html',1,'Database']]]
 ];

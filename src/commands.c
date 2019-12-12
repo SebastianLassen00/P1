@@ -594,7 +594,7 @@ void saveProfile(struct profile user){
     printf("File saved successfully\n\n");
 }
 
-/** @fn struct profile loadProfile(const char *name) 
+/** @fn struct profile checkProfile(const char *name) 
  *  @brief Check whether a profile exists
  *  @param char *name The name of the user
  *  @return int A boolean value, 1 if the profile exist, otherwise 0

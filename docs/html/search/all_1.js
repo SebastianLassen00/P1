@@ -12,9 +12,5 @@ var searchData=
   ['createarrayofstrings',['createArrayOfStrings',['../parser_8h.html#addd75dca7af611c71169e3af3ea0e264',1,'parser.c']]],
   ['createdefaulteducation',['createDefaultEducation',['../education_8h.html#a77341304af35d223f00d89ee73a67a14',1,'education.c']]],
   ['createprofile',['createProfile',['../profile_8h.html#aabe1507dc65fd3795b6776dad9e9e7c2',1,'profile.c']]],
-  ['createvector',['createVector',['../vector_8h.html#a1e19fd8e3704b15fc5e50e92ed82b056',1,'vector.c']]],
-  ['custring',['CuString',['../struct_cu_string.html',1,'']]],
-  ['cusuite',['CuSuite',['../struct_cu_suite.html',1,'']]],
-  ['cutest',['CuTest',['../struct_cu_test.html',1,'']]],
-  ['coding_20style',['Coding Style',['../md_docs__c_o_d_i_n_g__s_t_y_l_e.html',1,'']]]
+  ['createvector',['createVector',['../vector_8h.html#a1e19fd8e3704b15fc5e50e92ed82b056',1,'vector.c']]]
 ];
