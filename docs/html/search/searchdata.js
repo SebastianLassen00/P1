@@ -5,8 +5,7 @@ var indexSectionsWithContent =
   2: "cdeprsv",
   3: "acdefgilmnprsv",
   4: "aeils",
-  5: "r",
-  6: "m"
+  5: "r"
 };
 
 var indexSectionNames =
@@ -16,18 +15,16 @@ var indexSectionNames =
   2: "files",
   3: "functions",
   4: "variables",
-  5: "enums",
-  6: "pages"
+  5: "enums"
 };
 
 var indexSectionLabels =
 {
   0: "All",
-  1: "Classes",
+  1: "Data Structures",
   2: "Files",
   3: "Functions",
   4: "Variables",
-  5: "Enumerations",
-  6: "Pages"
+  5: "Enumerations"
 };
 

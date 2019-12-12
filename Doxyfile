@@ -851,7 +851,7 @@ EXCLUDE_SYMLINKS       = NO
 # Note that the wildcards are matched against the file with absolute path, so to
 # exclude all test directories for example use the pattern */test/*
 
-EXCLUDE_PATTERNS       = */CuTest.* /home/xomnez/aau/1.semester/p1_ads/P1/docs/CODING_STYLE.md /home/xomnez/aau/1.semester/p1_ads/P1/docs/STANDARDS.md /home/xomnez/aau/1.semester/p1_ads/P1/README.md
+EXCLUDE_PATTERNS       = */CuTest.* /home/xomnez/aau/1.semester/p1_ads/P1/docs/CODING_STYLE.md /home/xomnez/aau/1.semester/p1_ads/P1/docs/STANDARDS.md /home/xomnez/aau/1.semester/p1_ads/P1/README.md /home/xomnez/aau/1.semester/p1_ads/P1/README.md
 
 # The EXCLUDE_SYMBOLS tag can be used to specify one or more symbol names
 # (namespaces, classes, functions, etc.) that should be excluded from the
