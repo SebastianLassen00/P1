@@ -24,7 +24,7 @@
  * @var interests The amount each interest is associated with this education
  * @var required_qualifications The required qualifications for this education
  */
-struct education {
+struct education{
     char *name;                 
     char *description;          
     char *link; 
