@@ -106,10 +106,13 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
             saveProfile(*user);  
             break;
         case recommend:
-            if(strcmp(current_education->name, "Nothing") == 0){
+            if(strcmp(current_education->name, "Nothing") == 0)
                 freeEducation(current_education);
-            }
-            *current_education = recommendCmd(user, database);
+            
+            if(strcmp(user->name, "") != 0)
+                *current_education = recommendCmd(user, database);
+            else
+                printf("No profile loaded. Use load or take the survey\n");
             break;
         case list:
             listCmd(user);
@@ -266,7 +269,7 @@ int argType(command c){
 
 
 /* gcc -Iinclude  */
-
+/*
 
 void testLevelAsValueA(CuTest *tc){
     int expected = (int) A;
@@ -310,9 +313,11 @@ CuSuite *testSuiteLevelAsValue(void){
 
     return suite;
 }
+*/
 /* ------------------ END OF LevelAsValue(char c) --------------------- */
 
 /* ------------------ TEST OF validScaleValue(int value, int start, int end) -------------------- */
+/*
 void testValidScaleValueN5(CuTest *tc){
     int actual = -5, expected = 0;
     CuAssertIntEquals(tc, expected, validScaleValue(actual, 0, 10));
@@ -349,9 +354,11 @@ CuSuite *testSuiteValidScaleValue(void){
 
     return suite;
 }
+*/
 /* ------------------ END OF validScaleValue(int value, int start, int end) --------------------- */
 
 /* ------------------ TEST OF convertScale(int value) -------------------- */
+/*
 void testConvertScale0(CuTest *tc){
     int actual = 0;
     double expected = -1.0;
@@ -379,9 +386,11 @@ CuSuite *testSuiteConvertScale(void){
 
     return suite;
 }
+*/
 /* ------------------ END OF convertScale(int value) --------------------- */
 
 /* ------------------ TEST OF isQualified(struct profile user, struct education edu) ------------------ */
+/*
 int baseIsQualified(int user1, int user2, int edu1, int edu2){
     struct profile user = createProfile(0);
     struct education edu = createDefaultEducation(0, 2);
@@ -397,7 +406,7 @@ int baseIsQualified(int user1, int user2, int edu1, int edu2){
 
     return isQualified(user, edu);
 }
-
+*/
 /* Tests:
         LL - first is lower, second is lower        -- Expect 0
         LS - first is lower, second is same         -- Expect 0
@@ -409,6 +418,7 @@ int baseIsQualified(int user1, int user2, int edu1, int edu2){
         HS - first is higher, second is same        -- Expect 1
         HH - first is higher, second is higher      -- Expect 1
 */
+/*
 void testIsQualifiedLL(CuTest *tc){
     int expected = 0;
     int u1 = C, u2 = C, e1 = B, e2 = B;
@@ -489,11 +499,12 @@ CuSuite *testSuiteIsQualified(void){
 
     return suite;
 }
+*/
 /* ------------------ END OF isQualified(struct profile user, struct education edu) ------------------- */
 
 
 /* ----------------- TEST OF parseNumOfEdu(FILE *filereader) ---------------- */
-void testParseNumOfEdu(CuTest *tc){
+/*void testParseNumOfEdu(CuTest *tc){
     int expected = 12;
     FILE *file = fopen(DATABASE_PATH, "r");
 
@@ -515,9 +526,11 @@ CuSuite *testSuiteDatabase(void){
 
     return suite;
 }
+*/
 /* ----------------- END  OF parseNumOfEdu(FILE *filereader) ----------------- */
 
 /* ---------------- TEST OF saveProf and loadProf ---------------- */
+/*
 void testSameName(CuTest *tc){
     struct profile user1, user2;
     user1 = createBobo(13);
@@ -630,5 +643,5 @@ CuSuite *testSuiteProfile(void){
 
     return suite;
 }
-
+*/
 /* ---------------- END OF saveProf and loadProf ----------------- */

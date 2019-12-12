@@ -16,6 +16,7 @@ struct profile createProfile(int number_of_interests){
     struct profile profile;
     int i;
 
+    strcpy(profile.name, "");
     profile.interests = createVector(number_of_interests);
     profile.adjustment_vector = createVector(number_of_interests);
     profile.qualifications = createQualifications(TOTAL_SUBJECTS);

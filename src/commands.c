@@ -82,10 +82,14 @@ int getProfileName(struct profile *user, char *name){
     if(checkProfile(name) == 1){
         printf("Profile name is in use. Stop survey? (Y/N)\n");
         scanf(" %c", &choice);
-        if(choice == 'Y' || choice == 'y')
+        if(choice == 'Y' || choice == 'y'){
+            printf("Survey stopped\n\n");
             return 0;
+        }
     }
     strcpy(user->name, name);
+
+    clearBuffer();
 
     return 1;
 }
@@ -140,6 +144,8 @@ int getValidInteger(void){
         if(scan_res == 0)
             scanf(" %c", &test_char);
     } while(scan_res == 0 && test_char != '\n');
+
+    clearBuffer();
 
     return valid_int;
 }
@@ -281,7 +287,6 @@ void chooseFromList(struct profile *user, int interval_start, int interval_end){
     if(length_string < 2)
         return;
 
-
     do{
         scan_res = sscanf(temp_string + i, " %d%c", &temp_subject, &temp_char);
         if(temp_subject >= 0 && temp_subject < (interval_end - interval_start + 1) && levelAsValue(temp_char) != -1  && scan_res == 2){
@@ -305,6 +310,8 @@ double getValidDouble(void){
         if(scan_res == 0)
             scanf(" %c", &test_char);
     } while(scan_res == 0 && test_char != '\n');
+
+    clearBuffer();
 
     return valid_double;
 }
@@ -390,21 +397,28 @@ struct education recommendCmd(struct profile *user, const struct database *datab
         result = dotProduct(database->educations[i].interests, normalized_vector) + 
                  (1.0 - (double) abs(user->location.region - database->educations[i].region)) * 
                   user->location.region_importance;
-        if(result > highest_result && user->average >= database->educations[i].required_grade 
-           && isQualified(*user, database->educations[i]) && 
+        printf("Index %d: %d\n", i, getIndex(user->recommended_educations, database->educations[i]));
+        if(result > highest_result && user->average >= database->educations[i].required_grade &&
+           isQualified(*user, database->educations[i]) && 
            getIndex(user->recommended_educations, database->educations[i]) == NOT_IN_LIST){
             highest_result = result;
             best_fit = database->educations[i];
         }
     }
+
     freeVectorM(2, add_vector, normalized_vector);
+    
+    if(highest_result == -3.0){
+        best_fit = createDefaultEducation(database->amount_of_interests, TOTAL_SUBJECTS);
+        printf("Unfortunately, you are not qualified for anything.\n");
+    } else {
+        strcpy(user->recommended_educations[user->last_recommended], best_fit.name);
+        user->last_recommended = (user->last_recommended + 1) % EDUCATION_LIST_LENGTH;
 
-    strcpy(user->recommended_educations[user->last_recommended], best_fit.name);
-    user->last_recommended = (user->last_recommended + 1) % EDUCATION_LIST_LENGTH;
-
-    printf("\nThe recommended education is:");
-    printEducation(best_fit);
-
+        printf("\nThe recommended education is:");
+        printEducation(best_fit);
+    }
+    
     return best_fit;
 }
 
@@ -581,7 +595,8 @@ void saveProfile(struct profile user){
     file_pointer = fopen(file_name, "w");
 
     if(file_pointer != NULL){                     /* Checks if file could be opened */
-        fprintf(file_pointer, "%s %s %f %d %f\n", VERSION, user.name, user.average, user.location.region, user.location.region_importance);
+        fprintf(file_pointer, "%s %s %f %d %f %d\n", VERSION, user.name, user.average, 
+                user.location.region, user.location.region_importance, user.last_recommended);
 
         fprintf(file_pointer, "Saved\n");
         for (i = 0; i < EDUCATION_LIST_LENGTH; i++)
@@ -648,7 +663,8 @@ struct profile loadProfile(char *name, int number_of_interests){
 
     user = createProfile(number_of_interests);
 
-    fscanf(file_pointer, "%s %s %lf %d %lf\n", version, user.name, &user.average, &user.location.region, &user.location.region_importance);
+    fscanf(file_pointer, "%s %s %lf %d %lf %d\n", version, user.name, &user.average, 
+           &user.location.region, &user.location.region_importance, &user.last_recommended);
 
     fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
     for (i = 0; i < EDUCATION_LIST_LENGTH; i++){
