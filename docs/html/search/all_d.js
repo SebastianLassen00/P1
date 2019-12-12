@@ -13,7 +13,7 @@ var searchData=
   ['stringtoclass',['stringToClass',['../subjects_8h.html#a5553c136d452001cc795f02ab9be9edc',1,'subjects.c']]],
   ['strtoreg',['strToReg',['../parser_8h.html#aa94193269f4dc1e32340012e443d9de9',1,'parser.c']]],
   ['subject',['subject',['../structsubject.html',1,'']]],
-  ['subjects',['subjects',['../structqualification.html#aa0ee83e3fdd5e7aca468a6a66ad7ffef',1,'qualification']]],
+  ['subjects',['subjects',['../structqualification.html#aaa12bc20ddf86ab9297ab4dd06cd774f',1,'qualification']]],
   ['subjects_2eh',['subjects.h',['../subjects_8h.html',1,'']]],
   ['subtractvector',['subtractVector',['../vector_8h.html#ad94eb17d78878d597913a28ae63624ee',1,'vector.c']]],
   ['surveycmd',['surveyCmd',['../commands_8h.html#a187e25b8b8fd08c3c6b2fbd8a7828ef1',1,'commands.c']]]

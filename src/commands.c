@@ -38,22 +38,17 @@ void menuCmd(void){
  *  @param db The database where information of interests and subjects are as a pointer
  */
 void surveyCmd(struct profile *user, const struct database *db){
-    char name[MAX_NAME_LENGTH], choice;
+    char name[MAX_NAME_LENGTH];
+    int continue_survey = 0;
 
     /*  Introduction  */
     printf("This survey will ask you several questions about interests, qualifications and grades\n"
            "The survey requires answers in numbers (integers), and where scale is part, a value between 1 and 100\n\n");
 
     /*  Scan for profile name  */
-    printf("Profile name: ");
-    scanf("%s", name);
-    if(checkProfile(name) == 1){
-        printf("Profile name is in use. Stop survey? (Y/N)\n");
-        scanf(" %c", &choice);
-        if(choice == 'Y' || choice == 'y')
-            return;
-    }
-    strcpy(user->name, name);
+    continue_survey = getProfileName(user, name);
+    if(continue_survey == 0)
+        return;
 
     /*  Get location and assesment  */
     setProfileLocation(user);
@@ -72,7 +67,28 @@ void surveyCmd(struct profile *user, const struct database *db){
     printf("The survey has now concluded. Returning to menu...\n\n");
 }
 
-/* **************** TestCmd() functions **************** */
+/* **************** SurveyCmd() functions **************** */
+
+/** int getProfileName(struct profile *user, char *name)
+ *  @brief prompts for name, scans/checks name and has return value indicating whether or not the survet should be stopped.
+ *  @param user Assigning a name to the user: user->name
+ *  @param name The name of the user
+ */
+int getProfileName(struct profile *user, char *name){
+    char choice;
+    
+    printf("Profile name: ");
+    scanf("%s", name);
+    if(checkProfile(name) == 1){
+        printf("Profile name is in use. Stop survey? (Y/N)\n");
+        scanf(" %c", &choice);
+        if(choice == 'Y' || choice == 'y')
+            return 0;
+    }
+    strcpy(user->name, name);
+
+    return 1;
+}
 
 /** @fn void setProfileLocation(struct profile *user)
  *  @brief Sets the region of choice in user. Saves the interest in studying in this location

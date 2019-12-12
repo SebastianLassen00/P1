@@ -18,6 +18,7 @@ void menuCmd(void);
 
 /*  TestCmd()  */
 void surveyCmd(struct profile *user, const struct database *db);
+int getProfileName(struct profile *user, char *name);
 void setProfileLocation(struct profile *user);
 double convertScale(int initial_value);
 int validScaleValue(int value, int interval_start, int interval_end);
