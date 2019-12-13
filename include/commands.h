@@ -38,6 +38,7 @@ struct education findCmd(char *arg, const struct database *db);
 void searchCmd(char *arg, const struct database *db);
 struct education recommendCmd(struct profile *user, const struct database *database);
 int isQualified(struct profile user, struct education education);
+void toUppercase(char *string);
 
 const char *getRegionName(enum region r);
 void printEducation(struct education);

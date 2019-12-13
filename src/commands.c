@@ -326,6 +326,7 @@ double getValidDouble(void){
 struct education findCmd(char *arg, const struct database *db){
     int i, edu_found = 0;
     struct education edu;
+    toUppercase(arg);
     for(i = 0; i < db->amount_of_educations; i++){
         if(strcmp(arg, db->educations[i].name) == 0){
             edu = db->educations[i];
@@ -348,7 +349,7 @@ struct education findCmd(char *arg, const struct database *db){
 void searchCmd(char *arg, const struct database *db){
     int i, edu_found = 0;
     struct education edu;
-
+    toUppercase(arg);
     for(i = 0; i < db->amount_of_educations; i++){
         if(strstr(db->educations[i].name, arg) != NULL) {
             printf("    %s\n", db->educations[i].name);
@@ -359,6 +360,17 @@ void searchCmd(char *arg, const struct database *db){
         printf("Use the \"find\" command to look up your desired education\n");
     else
         printf("No education exists by that name\n");
+}
+
+/** @fn void toUppercase(char *string)
+ *  @brief Converts a string to uppercase
+ *  @param string The string to be converted
+ */
+void toUppercase(char *string){
+    int i;
+
+    for(i = 0; i < strlen(string); i++)
+        string[i] = toupper(string[i]);
 }
 
 /** @fn void evalCmd(struct profile *user, struct education *current_education, int arg)
