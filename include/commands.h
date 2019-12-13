@@ -16,7 +16,7 @@
 
 void menuCmd(void);
 
-/*  TestCmd()  */
+/*  SurveyCmd()  */
 void surveyCmd(struct profile *user, const struct database *db);
 int getProfileName(struct profile *user, char *name);
 void setProfileLocation(struct profile *user);
