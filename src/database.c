@@ -5,15 +5,12 @@
 #include "education.h"
 #include "parser.h"
 
-int compareEducations(const void *, const void *);
-
-
 
 /**
- * @fn freeDatabase
+ * @fn void freeDatabase(struct database *database)
  * @brief Free a database and all its elements
  * 
- * @param database 
+ * @param database A struct database that contains arrays allocated in the heap
  */
 void freeDatabase(struct database *database){
     int i;
@@ -34,10 +31,10 @@ void freeDatabase(struct database *database){
 
 
 /**
- * @fn createDatabase
+ * @fn struct database *createDatabase(char *database_file )
  * @brief Create a Database object in memory and create all its elements
  * 
- * @param database_file is the databasefile, which will be read into a database object
+ * @param database_file Is the databasefile, which will be read into a database object
  * 
  * @return struct database* 
  */

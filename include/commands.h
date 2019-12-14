@@ -41,7 +41,7 @@ int isQualified(struct profile user, struct education education);
 void toUppercase(char *string);
 
 const char *getRegionName(enum region r);
-void printEducation(struct education);
+void printEducation(struct education education);
 void saveCmd(struct profile *user, struct education *current_education);
 int getIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH], struct education target);
 int getEmptyIndex(char edu_array[EDUCATION_LIST_LENGTH][MAX_EDU_NAME_LENGTH]);

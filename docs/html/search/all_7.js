@@ -1,7 +1,7 @@
 var searchData=
 [
   ['lengthofvector',['lengthOfVector',['../vector_8h.html#a3ced6180af1cca9edbe1523849f0020e',1,'vector.c']]],
-  ['level',['level',['../structsubject.html#a8d1cacc0e50a06f983633b7aeb75ac6b',1,'subject']]],
+  ['level',['level',['../subjects_8h.html#a4d628180ffa6b21b6e52ce13a92f54e1',1,'subjects.h']]],
   ['levelasvalue',['levelAsValue',['../commands_8h.html#aead8522edd14dc9ebe7d457449ee1420',1,'commands.c']]],
   ['leveltochar',['levelToChar',['../subjects_8h.html#acb1420b8a13ce2e008e428cc7441bdc0',1,'subjects.c']]],
   ['listcmd',['listCmd',['../commands_8h.html#a79078f0bf99c54da3c6ab0ca5bfb5f8d',1,'commands.c']]],

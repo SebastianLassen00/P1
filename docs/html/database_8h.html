@@ -22,6 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">P1: Automatiser dit studievalg
+   &#160;<span id="projectnumber">1.0.1</span>
    </div>
    <div id="projectbrief">Uoverskueligt studievalg</div>
   </td>
@@ -80,26 +81,85 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdatabase.html">database</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A structure to store a database.  <a href="structdatabase.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a9fd9ceab9aac1a35ca227cb500569d49"><td class="memItemLeft" align="right" valign="top"><a id="a9fd9ceab9aac1a35ca227cb500569d49"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>freeDatabase</b> (struct <a class="el" href="structdatabase.html">database</a> *)</td></tr>
+<tr class="memitem:a9fd9ceab9aac1a35ca227cb500569d49"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="database_8h.html#a9fd9ceab9aac1a35ca227cb500569d49">freeDatabase</a> (struct <a class="el" href="structdatabase.html">database</a> *)</td></tr>
+<tr class="memdesc:a9fd9ceab9aac1a35ca227cb500569d49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free a database and all its elements.  <a href="#a9fd9ceab9aac1a35ca227cb500569d49">More...</a><br /></td></tr>
 <tr class="separator:a9fd9ceab9aac1a35ca227cb500569d49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a1ab57f11955c700649687aa047e9d3"><td class="memItemLeft" align="right" valign="top"><a id="a4a1ab57f11955c700649687aa047e9d3"></a>
-struct <a class="el" href="structdatabase.html">database</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>createDatabase</b> (char *)</td></tr>
-<tr class="separator:a4a1ab57f11955c700649687aa047e9d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afee1129a7d0d19b8e65866acf91ef423"><td class="memItemLeft" align="right" valign="top"><a id="afee1129a7d0d19b8e65866acf91ef423"></a>
-struct <a class="el" href="structeducation.html">education</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>findEducation</b> (char *, struct <a class="el" href="structdatabase.html">database</a> *)</td></tr>
-<tr class="separator:afee1129a7d0d19b8e65866acf91ef423"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8a58a6deb851c4f2b91f4320c9c60c3"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structdatabase.html">database</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="database_8h.html#ab8a58a6deb851c4f2b91f4320c9c60c3">createDatabase</a> (char *)</td></tr>
+<tr class="memdesc:ab8a58a6deb851c4f2b91f4320c9c60c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a Database object in memory and create all its elements.  <a href="#ab8a58a6deb851c4f2b91f4320c9c60c3">More...</a><br /></td></tr>
+<tr class="separator:ab8a58a6deb851c4f2b91f4320c9c60c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Contains elements relating to the database. </p>
 <p>Contains the database struct and functions for creating, freeing and finding educations. </p>
 
 <p class="definition">Definition in file <a class="el" href="database_8h_source.html">database.h</a>.</p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="ab8a58a6deb851c4f2b91f4320c9c60c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8a58a6deb851c4f2b91f4320c9c60c3">&#9670;&nbsp;</a></span>createDatabase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structdatabase.html">database</a> * createDatabase </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>database_file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a Database object in memory and create all its elements. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">database_file</td><td>Is the databasefile, which will be read into a database object</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>struct database* </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="database_8c_source.html#l00041">41</a> of file <a class="el" href="database_8c_source.html">database.c</a>.</p>
+<div class="fragment"><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                                                     {</div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">struct </span><a class="code" href="structdatabase.html">database</a> *<a class="code" href="structdatabase.html">database</a>;</div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    FILE *data;</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    database = malloc(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> database));</div><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    data = fopen(database_file, <span class="stringliteral">&quot;r&quot;</span>);</div><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">if</span>(data == NULL)</div><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        printf(<span class="stringliteral">&quot;This is some lousy shit right here\n&quot;</span>);</div><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="parser_8h.html#a84d7fac635d619221338f99d58f73395">parseDatabase</a>(database, data);</div><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    fclose(data);</div><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">return</span> database;</div><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div><div class="ttc" id="structdatabase_html"><div class="ttname"><a href="structdatabase.html">database</a></div><div class="ttdoc">A structure to store a database. </div><div class="ttdef"><b>Definition:</b> <a href="database_8h_source.html#l00020">database.h:20</a></div></div>
+<div class="ttc" id="parser_8h_html_a84d7fac635d619221338f99d58f73395"><div class="ttname"><a href="parser_8h.html#a84d7fac635d619221338f99d58f73395">parseDatabase</a></div><div class="ttdeci">void parseDatabase(struct database *database, FILE *filereader)</div><div class="ttdoc">Parse the database file and set all values in the database. </div><div class="ttdef"><b>Definition:</b> <a href="parser_8c_source.html#l00016">parser.c:16</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a9fd9ceab9aac1a35ca227cb500569d49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fd9ceab9aac1a35ca227cb500569d49">&#9670;&nbsp;</a></span>freeDatabase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void freeDatabase </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structdatabase.html">database</a> *&#160;</td>
+          <td class="paramname"><em>database</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Free a database and all its elements. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">database</td><td>A struct database that contains arrays allocated in the heap </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="database_8c_source.html#l00015">15</a> of file <a class="el" href="database_8c_source.html">database.c</a>.</p>
+<div class="fragment"><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                            {</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordtype">int</span> i;</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">for</span>(i = 0; i &lt; database-&gt;amount_of_educations; ++i){</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <a class="code" href="education_8h.html#ada10e44bdedf47ab587a37151f0b0863">freeEducation</a>(&amp;database-&gt;educations[i]);</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    }</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    free(database-&gt;educations);</div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    </div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">for</span> (i = 0; i &lt; database-&gt;amount_of_interests; i++)</div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        free(database-&gt;interest_string[i]);</div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    free(database-&gt;interest_string);</div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    </div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    free(database);</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div><div class="ttc" id="education_8h_html_ada10e44bdedf47ab587a37151f0b0863"><div class="ttname"><a href="education_8h.html#ada10e44bdedf47ab587a37151f0b0863">freeEducation</a></div><div class="ttdeci">void freeEducation(struct education *)</div><div class="ttdoc">Frees the memory allocated to the fields of the education struct. </div><div class="ttdef"><b>Definition:</b> <a href="education_8c_source.html#l00041">education.c:41</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

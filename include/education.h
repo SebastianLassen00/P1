@@ -34,10 +34,6 @@ struct education{
     struct qualification required_qualifications;   
 };
 
-/**
- * @struct education
- * @brief A structure, which contains amount_of_educations educations
- */
 struct education createDefaultEducation(int amount_of_interests, int amount_of_subjects);
 struct education* createArrayOfEducations(int amount_of_educations);
 void freeEducation(struct education *);

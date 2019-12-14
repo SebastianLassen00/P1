@@ -4,7 +4,7 @@
 
 #include "subjects.h"
 
-/** @fn struct profile createProfile(int number_of_interests)
+/** @fn struct qualification createQualifications(int number_of_qualifications)
  *  @brief Allocates memory for each of the fields in the profile struct
  *  @param number_of_interests The number of interests allocated
  */
@@ -17,11 +17,11 @@ struct qualification createQualifications(int number_of_qualifications){
     return qualifications;
 }
 
-/** @fn void freeQualification(struct qualification *qualification)
- *  @brief free a qualification and its members
- *  @param qualification the qualification to be freed
+/** @fn void freeQualifications(struct qualification *qualification)
+ *  @brief Free a qualification and its members
+ *  @param qualification The qualification to be freed
  */
-void freeQualifications(struct qualification* qualification){
+void freeQualifications(struct qualification *qualification){
     free(qualification->subjects);
 }
 

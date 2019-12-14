@@ -349,7 +349,7 @@ void parseEduDesc(int amount_of_educations, struct education* educations, char c
     }
 }
 
-/** @fn void parseEduDesc(int amount_of_educations, struct education* educations, char current_line[])
+/** @fn void parseEduLink(int amount_of_educations, struct education* educations, char current_line[])
  *  @brief Parses the "read further" link for each education
  *  @param educations An array of educations
  *  @param amount_of_educations The amount of educations
@@ -391,7 +391,7 @@ char *parseEduString(char* current_line, int amount_of_educations, int offset){
 }
 
 /**
- * @fn sseek
+ * @fn int sseek(char *string, char ch)
  * @brief Find a character in a string and return its offset
  * 
  * @param string A string to search in.

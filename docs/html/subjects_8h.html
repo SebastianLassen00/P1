@@ -22,6 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">P1: Automatiser dit studievalg
+   &#160;<span id="projectnumber">1.0.1</span>
    </div>
    <div id="projectbrief">Uoverskueligt studievalg</div>
   </td>
@@ -80,8 +81,10 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsubject.html">subject</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descripes the name of a subject and the level.  <a href="structsubject.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structqualification.html">qualification</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains an array of subjects and the arrays length.  <a href="structqualification.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
@@ -126,28 +129,29 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:a06fc87d81c62e9abb8790b6e5713c55b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d628180ffa6b21b6e52ce13a92f54e1"><td class="memItemLeft" align="right" valign="top"><a id="a4d628180ffa6b21b6e52ce13a92f54e1"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>level</b> { <b>Z</b>, 
+<tr class="memitem:a4d628180ffa6b21b6e52ce13a92f54e1"><td class="memItemLeft" align="right" valign="top"><a id="a4d628180ffa6b21b6e52ce13a92f54e1"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="subjects_8h.html#a4d628180ffa6b21b6e52ce13a92f54e1">level</a> { <b>Z</b>, 
 <b>C</b>, 
 <b>B</b>, 
 <b>A</b>
- }</td></tr>
+ }<tr class="memdesc:a4d628180ffa6b21b6e52ce13a92f54e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descripes a level of a subject. <br /></td></tr>
+</td></tr>
 <tr class="separator:a4d628180ffa6b21b6e52ce13a92f54e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a46ae7cc1048955e5fa11bc53ef8cf1ff"><td class="memItemLeft" align="right" valign="top"><a id="a46ae7cc1048955e5fa11bc53ef8cf1ff"></a>
-struct <a class="el" href="structqualification.html">qualification</a>&#160;</td><td class="memItemRight" valign="bottom"><b>createQualifications</b> (int number_of_ualifications)</td></tr>
-<tr class="separator:a46ae7cc1048955e5fa11bc53ef8cf1ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9264bd008cea92134c6e6fc0fcc737bd"><td class="memItemLeft" align="right" valign="top"><a id="a9264bd008cea92134c6e6fc0fcc737bd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>freeQualifications</b> (struct <a class="el" href="structqualification.html">qualification</a> *)</td></tr>
-<tr class="separator:a9264bd008cea92134c6e6fc0fcc737bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec372b6ddf71b20eb61b9c412415252c"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structqualification.html">qualification</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="subjects_8h.html#aec372b6ddf71b20eb61b9c412415252c">createQualifications</a> (int number_of_qualifications)</td></tr>
+<tr class="memdesc:aec372b6ddf71b20eb61b9c412415252c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates memory for each of the fields in the profile struct.  <a href="#aec372b6ddf71b20eb61b9c412415252c">More...</a><br /></td></tr>
+<tr class="separator:aec372b6ddf71b20eb61b9c412415252c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08c9307f907ce411a7b48c1cd86c922e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="subjects_8h.html#a08c9307f907ce411a7b48c1cd86c922e">freeQualifications</a> (struct <a class="el" href="structqualification.html">qualification</a> *<a class="el" href="structqualification.html">qualification</a>)</td></tr>
+<tr class="memdesc:a08c9307f907ce411a7b48c1cd86c922e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free a qualification and its members.  <a href="#a08c9307f907ce411a7b48c1cd86c922e">More...</a><br /></td></tr>
+<tr class="separator:a08c9307f907ce411a7b48c1cd86c922e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5553c136d452001cc795f02ab9be9edc"><td class="memItemLeft" align="right" valign="top">enum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="subjects_8h.html#a5553c136d452001cc795f02ab9be9edc">stringToClass</a> (char *)</td></tr>
 <tr class="memdesc:a5553c136d452001cc795f02ab9be9edc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the enum class associated with the given string.  <a href="#a5553c136d452001cc795f02ab9be9edc">More...</a><br /></td></tr>
 <tr class="separator:a5553c136d452001cc795f02ab9be9edc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40958acc4597b17a21be0feb54011eb4"><td class="memItemLeft" align="right" valign="top">enum level&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="subjects_8h.html#a40958acc4597b17a21be0feb54011eb4">charToLevel</a> (char ch)</td></tr>
+<tr class="memitem:a40958acc4597b17a21be0feb54011eb4"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="subjects_8h.html#a4d628180ffa6b21b6e52ce13a92f54e1">level</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="subjects_8h.html#a40958acc4597b17a21be0feb54011eb4">charToLevel</a> (char ch)</td></tr>
 <tr class="memdesc:a40958acc4597b17a21be0feb54011eb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the enum level associated with the given char.  <a href="#a40958acc4597b17a21be0feb54011eb4">More...</a><br /></td></tr>
 <tr class="separator:a40958acc4597b17a21be0feb54011eb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb1420b8a13ce2e008e428cc7441bdc0"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="subjects_8h.html#acb1420b8a13ce2e008e428cc7441bdc0">levelToChar</a> (enum level l)</td></tr>
+<tr class="memitem:acb1420b8a13ce2e008e428cc7441bdc0"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="subjects_8h.html#acb1420b8a13ce2e008e428cc7441bdc0">levelToChar</a> (enum <a class="el" href="subjects_8h.html#a4d628180ffa6b21b6e52ce13a92f54e1">level</a> l)</td></tr>
 <tr class="memdesc:acb1420b8a13ce2e008e428cc7441bdc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the character associated with the given enum level.  <a href="#acb1420b8a13ce2e008e428cc7441bdc0">More...</a><br /></td></tr>
 <tr class="separator:acb1420b8a13ce2e008e428cc7441bdc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -164,7 +168,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>freeQualifications</b
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum level charToLevel </td>
+          <td class="memname">enum <a class="el" href="subjects_8h.html#a4d628180ffa6b21b6e52ce13a92f54e1">level</a> charToLevel </td>
           <td>(</td>
           <td class="paramtype">char&#160;</td>
           <td class="paramname"><em>ch</em></td><td>)</td>
@@ -182,7 +186,66 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>freeQualifications</b
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="subjects_8c_source.html#l00099">99</a> of file <a class="el" href="subjects_8c_source.html">subjects.c</a>.</p>
-<div class="fragment"><div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                               {</div><div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">enum</span> level level = Z;</div><div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">if</span>(ch == <span class="charliteral">&#39;A&#39;</span>) </div><div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        level = A;</div><div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span>(ch == <span class="charliteral">&#39;B&#39;</span>) </div><div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        level = B;</div><div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span>(ch == <span class="charliteral">&#39;C&#39;</span>) </div><div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        level = C;</div><div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    </div><div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">return</span> level;</div><div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div></div><!-- fragment -->
+<div class="fragment"><div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                               {</div><div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">enum</span> <a class="code" href="subjects_8h.html#a4d628180ffa6b21b6e52ce13a92f54e1">level</a> <a class="code" href="subjects_8h.html#a4d628180ffa6b21b6e52ce13a92f54e1">level</a> = Z;</div><div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">if</span>(ch == <span class="charliteral">&#39;A&#39;</span>) </div><div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        level = A;</div><div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span>(ch == <span class="charliteral">&#39;B&#39;</span>) </div><div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        level = B;</div><div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span>(ch == <span class="charliteral">&#39;C&#39;</span>) </div><div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        level = C;</div><div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    </div><div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="subjects_8h.html#a4d628180ffa6b21b6e52ce13a92f54e1">level</a>;</div><div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div><div class="ttc" id="subjects_8h_html_a4d628180ffa6b21b6e52ce13a92f54e1"><div class="ttname"><a href="subjects_8h.html#a4d628180ffa6b21b6e52ce13a92f54e1">level</a></div><div class="ttdeci">level</div><div class="ttdoc">Descripes a level of a subject. </div><div class="ttdef"><b>Definition:</b> <a href="subjects_8h_source.html#l00055">subjects.h:55</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aec372b6ddf71b20eb61b9c412415252c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec372b6ddf71b20eb61b9c412415252c">&#9670;&nbsp;</a></span>createQualifications()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structqualification.html">qualification</a> createQualifications </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>number_of_qualifications</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocates memory for each of the fields in the profile struct. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">number_of_interests</td><td>The number of interests allocated </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="subjects_8c_source.html#l00011">11</a> of file <a class="el" href="subjects_8c_source.html">subjects.c</a>.</p>
+<div class="fragment"><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                                                                       {</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">struct </span><a class="code" href="structqualification.html">qualification</a> qualifications;</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    qualifications.amount_of_subjects = number_of_qualifications;</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    qualifications.subjects = (<span class="keyword">struct </span><a class="code" href="structsubject.html">subject</a>*) calloc(number_of_qualifications, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> <a class="code" href="structsubject.html">subject</a>));</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">return</span> qualifications;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div><div class="ttc" id="structqualification_html"><div class="ttname"><a href="structqualification.html">qualification</a></div><div class="ttdoc">Contains an array of subjects and the arrays length. </div><div class="ttdef"><b>Definition:</b> <a href="subjects_8h_source.html#l00079">subjects.h:79</a></div></div>
+<div class="ttc" id="structsubject_html"><div class="ttname"><a href="structsubject.html">subject</a></div><div class="ttdoc">Descripes the name of a subject and the level. </div><div class="ttdef"><b>Definition:</b> <a href="subjects_8h_source.html#l00068">subjects.h:68</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a08c9307f907ce411a7b48c1cd86c922e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08c9307f907ce411a7b48c1cd86c922e">&#9670;&nbsp;</a></span>freeQualifications()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void freeQualifications </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structqualification.html">qualification</a> *&#160;</td>
+          <td class="paramname"><em>qualification</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Free a qualification and its members. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">qualification</td><td>The qualification to be freed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="subjects_8c_source.html#l00024">24</a> of file <a class="el" href="subjects_8c_source.html">subjects.c</a>.</p>
+<div class="fragment"><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                                                            {</div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    free(qualification-&gt;subjects);</div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div></div><!-- fragment -->
 </div>
 </div>
 <a id="acb1420b8a13ce2e008e428cc7441bdc0"></a>
@@ -194,7 +257,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>freeQualifications</b
         <tr>
           <td class="memname">enum char levelToChar </td>
           <td>(</td>
-          <td class="paramtype">enum level&#160;</td>
+          <td class="paramtype">enum <a class="el" href="subjects_8h.html#a4d628180ffa6b21b6e52ce13a92f54e1">level</a>&#160;</td>
           <td class="paramname"><em>l</em></td><td>)</td>
           <td></td>
         </tr>

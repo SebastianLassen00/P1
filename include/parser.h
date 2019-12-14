@@ -31,7 +31,7 @@ void parseInterestValues(int amount_of_interests, int amount_of_educations, stru
 char *parseEduString(char* current_line, int amount_of_educations, int offset); 
 char** createArrayOfStrings(int amount_of_strings);
 
-int sseek(char *, char);
+int sseek(char *string, char ch);
 void readReqString(struct qualification *, char *, int);
 
 enum region strToReg(char* region_string);
