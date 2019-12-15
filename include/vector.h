@@ -10,8 +10,10 @@
 /** 
  *  @struct vector
  *  @brief This is a vector
- *  @var array The vector itself
- *  @var size The number of coordinates in the vector.
+ *  @var vector::array 
+ *  The vector itself
+ *  @var vector::size 
+ *  The number of coordinates in the vector.
  */
 struct vector{
     double *array;

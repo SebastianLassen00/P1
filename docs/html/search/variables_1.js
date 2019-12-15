@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['educations',['educations',['../structdatabase.html#ad676f46d38edee86d1fc92666fd944cb',1,'database']]]
+  ['description',['description',['../structeducation.html#a2661f439a4a94ffdcd5e47ae1da0bb1d',1,'education']]]
 ];

@@ -12,10 +12,14 @@
 /**
  * @struct database
  * @brief A structure to store a database
- * @var amount_of_educations The amount of educations in the database
- * @var amount_of_educations An array of educations delimited by amount_of_educations
- * @var amount_of_interests The amount of interests in the database
-* @var interest_string An array of interests in the order parsed
+ * @var database::amount_of_educations 
+ * The amount of educations in the database
+ * @var database::educations 
+ * An array of educations delimited by amount_of_educations
+ * @var database::amount_of_interests 
+ * The amount of interests in the database
+ * @var database::interest_string 
+ * An array of interests in the order parsed
  */
 struct database{
     int amount_of_educations;           

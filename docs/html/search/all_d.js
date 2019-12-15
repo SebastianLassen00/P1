@@ -1,6 +1,7 @@
 var searchData=
 [
   ['savecmd',['saveCmd',['../commands_8h.html#a4cdf4c02d44a4ede344319e782d15581',1,'commands.c']]],
+  ['saved_5feducations',['saved_educations',['../structprofile.html#a201ca299fccc91fbe5b259ff4becd806',1,'profile']]],
   ['saveprofile',['saveProfile',['../commands_8h.html#a2aa9d092a83b2bbebe018177745de0b1',1,'commands.c']]],
   ['scalevector',['scaleVector',['../vector_8h.html#a440ad977a370e480c379ad4797740a95',1,'vector.c']]],
   ['searchcmd',['searchCmd',['../commands_8h.html#a39eff783b62df480e1ac2a7f8af7c643',1,'commands.c']]],
@@ -10,10 +11,12 @@ var searchData=
   ['setprofilelocation',['setProfileLocation',['../commands_8h.html#ae990ed770adf61f3feae6930c670b4b2',1,'commands.c']]],
   ['setprofilequalifications',['setProfileQualifications',['../commands_8h.html#ab720b3d60c936ee7bf09e4dbfe95290c',1,'commands.c']]],
   ['setsubjects',['setSubjects',['../commands_8h.html#a2b0186aebeac8138e68f92b939df308f',1,'commands.c']]],
+  ['size',['size',['../structvector.html#aa3d6656320f1a7278c0c2c7fdf07617c',1,'vector']]],
   ['sseek',['sseek',['../parser_8h.html#a8e9886bc2be1ae6c2cc13102bcc6411d',1,'parser.c']]],
   ['stringtoclass',['stringToClass',['../subjects_8h.html#a5553c136d452001cc795f02ab9be9edc',1,'subjects.c']]],
   ['strtoreg',['strToReg',['../parser_8h.html#aa94193269f4dc1e32340012e443d9de9',1,'parser.c']]],
   ['subject',['subject',['../structsubject.html',1,'']]],
+  ['subjects',['subjects',['../structqualification.html#a7ccb46771d6e62ae10c4e9dff474ac85',1,'qualification']]],
   ['subjects_2eh',['subjects.h',['../subjects_8h.html',1,'']]],
   ['subtractvector',['subtractVector',['../vector_8h.html#ad94eb17d78878d597913a28ae63624ee',1,'vector.c']]],
   ['surveycmd',['surveyCmd',['../commands_8h.html#a187e25b8b8fd08c3c6b2fbd8a7828ef1',1,'commands.c']]]

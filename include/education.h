@@ -16,13 +16,20 @@
  * @brief Describes an education and all it requirements.
  * 
  * This structure defines an education and all the details about the education.
- * @var name The name of an education
- * @var description The description of an education
- * @var link A link to the educations website
- * @var region The region where the education is found
- * @var required_grade The minimum grade required for entry
- * @var interests The amount each interest is associated with this education
- * @var required_qualifications The required qualifications for this education
+ * @var education::name 
+ * The name of an education
+ * @var education::description 
+ * The description of an education
+ * @var education::link 
+ * A link to the educations website
+ * @var education::region 
+ * The region where the education is found
+ * @var education::required_grade 
+ * The minimum grade required for entry
+ * @var education::interests 
+ * The amount each interest is associated with this education
+ * @var education::required_qualifications 
+ * The required qualifications for this education
  */
 struct education{
     char *name;                 
