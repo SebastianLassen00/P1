@@ -24,7 +24,7 @@ void menuCmd(void){
            "    save_prof    -  saves the current user profile to a .txt-file \n"
            "    recommend    -  recommend an education using the current profile \n");
     printf("    list         -  lists all the saved educations \n"
-           "    eval |arg|   -  evaluates the current education using an integer value between 0 and 100 \n"
+           "    eval |arg|   -  evaluates the current education using an integer value between 0 and 10 \n"
            "    survey       -  surveys the users interests and qualifications \n"
            "    menu         -  shows this menu \n"
            "    delete |arg| -  deletes the entry in the list given as an integer by the user \n"
@@ -409,7 +409,6 @@ struct education recommendCmd(struct profile *user, const struct database *datab
         result = dotProduct(database->educations[i].interests, normalized_vector) + 
                  (1.0 - (double) abs(user->location.region - database->educations[i].region)) * 
                   user->location.region_importance;
-        printf("Index %d: %d\n", i, getIndex(user->recommended_educations, database->educations[i]));
         if(result > highest_result && user->average >= database->educations[i].required_grade &&
            isQualified(*user, database->educations[i]) && 
            getIndex(user->recommended_educations, database->educations[i]) == NOT_IN_LIST){
