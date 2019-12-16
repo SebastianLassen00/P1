@@ -9,29 +9,44 @@
 #include "vector.h" 
 #include "CuTest.h"
 #include "commands.h"
+#include "database.h"
+#include "parser.h"
 
 CuSuite *testTestCmd(void);
 CuSuite *testSuiteLevelAsValue(void);
 CuSuite *testSuiteIsQualified(void);
 CuSuite *testSuiteDatabase(void);
 CuSuite *testSuiteProfile(void);
+CuSuite *testSuiteConvertScale(void);
 
 void RunAllTests(void){
     CuString *outputLAS = CuStringNew();
     CuString *outputIQ = CuStringNew();
     CuString *outputDB = CuStringNew();
     CuString *outputPR = CuStringNew();
+    CuString *outputCS = CuStringNew();
 
     CuSuite* suiteLevelAsValue = CuSuiteNew();
     CuSuite* suiteIsQualified = CuSuiteNew();
     CuSuite* suiteDatabase = CuSuiteNew();
     CuSuite* suiteProfile = CuSuiteNew();
+    CuSuite* suiteConvertScale = CuSuiteNew();
 
     CuSuite *suite = CuSuiteNew();
     /*
     CuSuiteAddSuite(suite, CuGetSuite());
     CuSuiteAddSuite(suite, CuStringGetSuite());
     */
+
+    printf("----------------------------------------------------------------\n");
+    printf("TEST OF:   convertScale()\n");
+    CuSuiteAddSuite(suiteConvertScale, testSuiteConvertScale());
+    CuSuiteRun(suiteConvertScale);
+    CuSuiteSummary(suiteConvertScale, outputCS);
+    CuSuiteDetails(suiteConvertScale, outputCS);
+    printf("%s\n", outputCS->buffer);
+
+
 
     printf("----------------------------------------------------------------\n");
     printf("TEST OF:   levelAsValue()\n");
@@ -98,7 +113,7 @@ struct profile createBobo(int amount_of_interests){
     return bobo;
 }
 
-/*int main(void){
+int main(void){
     struct database *db;
     struct education current_education;
     struct profile bobo;
@@ -111,7 +126,7 @@ struct profile createBobo(int amount_of_interests){
 
     user = createProfile(db->amount_of_interests);
 
-    testCmd(&user, db); 
+    //testCmd(&user, db); 
 
     bobo = createBobo(db->amount_of_interests);
 
@@ -125,7 +140,7 @@ struct profile createBobo(int amount_of_interests){
     freeProfile(bobo);
     freeProfile(user);
     return 0;
-}*/
+}
 
 
 
@@ -229,7 +244,7 @@ void testConvertScale5(CuTest *tc){
 }
 
 void testConvertScale10(CuTest *tc){
-    int actual = 0;
+    int actual = 10;
     double expected = 1.0;
     CuAssertDblEquals(tc, expected, convertScale(actual), 0.01);
 }
