@@ -61,7 +61,7 @@ enum level{
 
 /**
  *  @struct subject
- *  @brief Descripes the name of a subject and the level
+ *  @brief Describes the name and the level of a subject
  *  @var subject::name 
  *  The name of the subject
  *  @var subject::level

@@ -12,4 +12,4 @@ $(BIN)/$(PROGRAM_NAME): $(CFILES) $(HFILES)
 .PHONY: clean print
 
 clean: 
-	rm *.o *.exe *.out bib/prog
+	rm *.o *.exe *.out prog

@@ -38,7 +38,7 @@ PROJECT_NAME           = "P1: Automatiser dit studievalg"
 # could be handy for archiving the generated documentation or if some version
 # control system is used.
 
-PROJECT_NUMBER         = 
+PROJECT_NUMBER         = 1.0.1
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description
 # for a project that appears at the top of each page and should give viewer a
@@ -252,7 +252,7 @@ TCL_SUBST              =
 # members will be omitted, etc.
 # The default value is: NO.
 
-OPTIMIZE_OUTPUT_FOR_C  = ÝES
+OPTIMIZE_OUTPUT_FOR_C  = YES
 
 # Set the OPTIMIZE_OUTPUT_JAVA tag to YES if your project consists of Java or
 # Python sources only. Doxygen will then generate output that is more tailored
@@ -531,7 +531,7 @@ CASE_SENSE_NAMES       = NO
 # scope will be hidden.
 # The default value is: NO.
 
-HIDE_SCOPE_NAMES       = NO
+HIDE_SCOPE_NAMES       = YES
 
 # If the HIDE_COMPOUND_REFERENCE tag is set to NO (default) then doxygen will
 # append additional text to a page's title, such as Class Reference. If set to
@@ -815,11 +815,7 @@ INPUT_ENCODING         = UTF-8
 # *.m, *.markdown, *.md, *.mm, *.dox, *.py, *.pyw, *.f90, *.f95, *.f03, *.f08,
 # *.f, *.for, *.tcl, *.vhd, *.vhdl, *.ucf and *.qsf.
 
-FILE_PATTERNS          = *.c \
-                         *.markdown \
-                         *.md \
-                         *.mm \
-                         *.h \
+FILE_PATTERNS          = *.h \
                          *.c
 
 # The RECURSIVE tag can be used to specify whether or not subdirectories should
@@ -851,7 +847,11 @@ EXCLUDE_SYMLINKS       = NO
 # Note that the wildcards are matched against the file with absolute path, so to
 # exclude all test directories for example use the pattern */test/*
 
-EXCLUDE_PATTERNS       = */CuTest.* /home/xomnez/aau/1.semester/p1_ads/P1/docs/CODING_STYLE.md /home/xomnez/aau/1.semester/p1_ads/P1/docs/STANDARDS.md /home/xomnez/aau/1.semester/p1_ads/P1/README.md /home/xomnez/aau/1.semester/p1_ads/P1/README.md
+EXCLUDE_PATTERNS       = */CuTest.* \
+                         /home/xomnez/aau/1.semester/p1_ads/P1/docs/CODING_STYLE.md \
+                         /home/xomnez/aau/1.semester/p1_ads/P1/docs/STANDARDS.md \
+                         /home/xomnez/aau/1.semester/p1_ads/P1/README.md \
+                         /home/xomnez/aau/1.semester/p1_ads/P1/README.md
 
 # The EXCLUDE_SYMBOLS tag can be used to specify one or more symbol names
 # (namespaces, classes, functions, etc.) that should be excluded from the
