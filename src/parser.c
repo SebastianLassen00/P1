@@ -426,36 +426,48 @@ void readReqString(struct qualification *qualification, char *string, int educat
         offset += sseek(string + offset, '\t') + 1;
     
     do{
-        fflush(stdout);
         qualification->amount_of_subjects += 1;
         
         /*read the first requirement name*/
-        for(i = 0; string[offset + i] != ' ' && string[offset + i] != '\n' && string[offset + i] != '=' && string[offset + i] != '\t' && string[offset + i] != '_'; ++i) 
-            reqClass[i] = string[offset + i];
+        for(i = 0; string[offset + i] != ' ' 
+            && string[offset + i] != '\n' 
+            && string[offset + i] != '\t' 
+            && string[offset + i] != '_'; 
+            ++i) 
+                reqClass[i] = string[offset + i];
         
+        /**Terminate the string*/
         reqClass[i] = '\0';
        
+       /*Convert the read string to a class. If this fails, silently set the requirement
+       danish at z level requirement*/
         qualification->subjects[subject_index].name = stringToClass(reqClass);
         if(qualification->subjects[subject_index].name == NONE){
             qualification->subjects[subject_index].name = DANISH; 
             qualification->subjects[subject_index].level = Z;
         }
-        
 
+        /*Check wether the next character after the name of the class
+        is an underscore*/
         if(string[offset + i] == '_'){
+            /*If it is, then read the level of the education*/
             ++i;
             qualification->subjects[subject_index].level = charToLevel(string[offset + i]);
             ++i;
         } else{
+            /*If it isnt, set the level to Z*/
             qualification->subjects[subject_index].level = Z;
         }
 
         /*Check if there is more req to read*/
         if(string[offset + i] == '\t' || string[offset + i] == '\n'){
             moreReqs = 0;
-        }
+        } else{
+            /*Prepare to read the next subject*/
+            ++subject_index; 
 
-        ++subject_index; 
-        offset += sseek(&string[offset], ' ') + 1;
+            /*Create a new start offset*/
+            offset += sseek(&string[offset], ' ') + 1;
+        }
     } while(moreReqs);
 }
