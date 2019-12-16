@@ -37,7 +37,7 @@
 #define ADJUSTMENT_CONSTANT 0.1
 
 #define STRING_MAX_LENGTH 10000
-#define TABS '	'
+#define TABS '\t'
 #define NOT_FOUND_STRING " "
 #define EDU_MAX_SUBJECTS 10
 
