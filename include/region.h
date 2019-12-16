@@ -21,6 +21,14 @@ enum region{
     CAPITAL_REGION
 };
 
+/**
+ *  @struct location
+ *  @brief Contains information about the user's desired region to study in
+ *  @var location::region 
+ *  A given (enumerated) region in Denmark
+ *  @var location::region_importance 
+ *  A value within the interval [0;1] scanned from the user
+ */
 struct location{
 	enum region region;
 	double region_importance;

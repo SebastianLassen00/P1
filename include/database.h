@@ -10,18 +10,25 @@
 #include "education.h"
 
 /**
- * @struct Database
+ * @struct database
  * @brief A structure to store a database
+ * @var database::amount_of_educations 
+ * The amount of educations in the database
+ * @var database::educations 
+ * An array of educations delimited by amount_of_educations
+ * @var database::amount_of_interests 
+ * The amount of interests in the database
+ * @var database::interest_string 
+ * An array of interests in the order parsed
  */
 struct database{
-    int amount_of_educations;           /**the amount of educations in the database*/
-    struct education *educations;       /**an array of educations delimited by amount_of_educations*/
-    int amount_of_interests;            /**the amount of interests in the database*/
-    char **interest_string;   /**an array of interests in the order parsed*/
+    int amount_of_educations;           
+    struct education *educations;       
+    int amount_of_interests;            
+    char **interest_string;   
 };
 
 void freeDatabase(struct database *);
 struct database *createDatabase(char *);
-struct education *findEducation(char *, struct database *);
 
 #endif  

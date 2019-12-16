@@ -8,7 +8,7 @@
 #define SUBJECTS_H
 
 /**
- * @enum
+ * @enum class
  * @brief A subject on different levels
  * 
  * Are used to represent a subject and its level. The enum is flagablle, 
@@ -49,7 +49,7 @@ enum class{
 };
 
 /**
- * @enum
+ * @enum level
  * @brief Descripes a level of a subject
  */
 enum level{
@@ -60,25 +60,33 @@ enum level{
 };
 
 /**
- * @struct
- * @brief Descripes the name of a subject and the level
+ *  @struct subject
+ *  @brief Describes the name and the level of a subject
+ *  @var subject::name 
+ *  The name of the subject
+ *  @var subject::level
+ *  The level of the subject
  */
 struct subject{
-    enum class name;    /**the name of the subject*/
-    enum level level;   /**the level of the subject*/
+    enum class name;    
+    enum level level;   
 };
 
 /**
- * @struct
- * @brief Contains an array of subjects and the arrays length
+ *  @struct qualification
+ *  @brief Contains an array of subjects and the arrays length
+ *  @var qualification::amount_of_subjects 
+ *  The amount of subjects in qualifications
+ *  @var qualification::subjects 
+ *  The array of subjects in qualifications
  */
 struct qualification{
-    int amount_of_subjects;     /**the amount of subjects in qualifications*/
-    struct subject *subjects;   /**the array of subjects in qualifications*/
+    int amount_of_subjects;     
+    struct subject *subjects;   
 };
 
-struct qualification createQualifications(int number_of_ualifications);
-void freeQualifications(struct qualification *);
+struct qualification createQualifications(int number_of_qualifications);
+void freeQualifications(struct qualification *qualification);
 enum class stringToClass(char *);
 enum level charToLevel(char ch);
 char levelToChar(enum level l);

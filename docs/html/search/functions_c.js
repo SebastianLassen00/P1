@@ -10,6 +10,7 @@ var searchData=
   ['setprofilelocation',['setProfileLocation',['../commands_8h.html#ae990ed770adf61f3feae6930c670b4b2',1,'commands.c']]],
   ['setprofilequalifications',['setProfileQualifications',['../commands_8h.html#ab720b3d60c936ee7bf09e4dbfe95290c',1,'commands.c']]],
   ['setsubjects',['setSubjects',['../commands_8h.html#a2b0186aebeac8138e68f92b939df308f',1,'commands.c']]],
+  ['sseek',['sseek',['../parser_8h.html#a8e9886bc2be1ae6c2cc13102bcc6411d',1,'parser.c']]],
   ['stringtoclass',['stringToClass',['../subjects_8h.html#a5553c136d452001cc795f02ab9be9edc',1,'subjects.c']]],
   ['strtoreg',['strToReg',['../parser_8h.html#aa94193269f4dc1e32340012e443d9de9',1,'parser.c']]],
   ['subtractvector',['subtractVector',['../vector_8h.html#ad94eb17d78878d597913a28ae63624ee',1,'vector.c']]],

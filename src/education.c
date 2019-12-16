@@ -34,7 +34,7 @@ struct education createDefaultEducation(int amount_of_interests, int amount_of_s
     return education;
 }
 
-/** @fn void freeEducation(strict edication *education)
+/** @fn void freeEducation(struct education *education)
  *  @brief Frees the memory allocated to the fields of the education struct
  *  @param education The education struct which is freed
  */
