@@ -41,4 +41,4 @@ Til kompilering af programmet er der lavet en [makefile](./makefile). Denne make
 Som tidligere nævnt, bruges kompiler options *-Wall*, *-ansi* og *-pedantic* til kompileringen. Derudover bruges `-Iinclude -lm` også. Programmet er afhængigt af et ikke standard bibliotek kaldet `math.h` i koden. Dette kommer dog oftes med gcc, og kan derfor linkes til med option `-lm`.  Det fulde kompiler udtryk kan ses [her](./makefile) i makefilen. 
 
 ## Kør programmet
-For at køre programmet skal der højreklikkes på programmet i folderen `bin` og trykkes åben. Derefter åbner et terminalvindue, hvor programmet kan integreres med. 
+For at køre programmet skal der højreklikkes på programmet i folderen `bin` og trykkes åben. Derefter åbner et terminalvindue, hvor programmet kan interageres med. 
