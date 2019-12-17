@@ -1,8 +1,10 @@
 /bin/PROG
+/bin/prog
 *.out
 /src/test.c
 *.exe
 *.o
+
 
 /docs/latex/
 Doxyfile
