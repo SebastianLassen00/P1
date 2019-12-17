@@ -183,7 +183,9 @@ void setProfileQualifications(struct profile *user){
     
     printf("Now some less relevant subjects will be \n");
     printf("Press 'enter' to skip this part. This will set all subject levels to default (zero)\n");
-    printf("Set some or all subejcts by writing them consecutively in the format: number+level \n");
+    printf("Set some or all subejcts, choose subject (a number) and write level (a, b, c or z)\n");
+    printf("for the given subject. It has to have the form: number+level, e.g. '0z 4c' will set \n");
+    printf("BIOTECHNOLOGY to level=z and INFORMATICS to level=4 and all other subjects will have \nlevel=z\n");
 
     setOtherSubjects(user, IMPORTANT_SUBJECTS, IMPORTANT_SUBJECTS + OTHER_SUBJECTS);
     setOtherSubjects(user, IMPORTANT_SUBJECTS + OTHER_SUBJECTS, TOTAL_SUBJECTS);
