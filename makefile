@@ -14,4 +14,4 @@ $(BIN)/$(PROGRAM_NAME): $(CFILES) $(HFILES)
 .PHONY: clean print
 
 clean: 
-	rm bin/prog
+	rm bin/prog bin/prog.exe
