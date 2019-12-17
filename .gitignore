@@ -5,6 +5,8 @@
 *.o
 
 /docs/latex/
+Doxyfile
+doxygen_log.txt
 *.bak
 
 .vscode/settings.json
