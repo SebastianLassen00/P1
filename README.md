@@ -40,5 +40,12 @@ Til kompilering af programmet er der lavet en [makefile](./makefile). Denne make
 
 Som tidligere nævnt, bruges kompiler options *-Wall*, *-ansi* og *-pedantic* til kompileringen. Derudover bruges `lm`, så `math.h` bliver linked korrekt. Det fulde kompiler udtryk kan ses [her](./makefile) i makefilen. 
 
+Nedenfor ses en step-by-step guide til kompilering og kørsel af programmet:
+```shell
+make
+cd bin
+./prog.exe
+```
+
 ## Kør programmet
-For at køre programmet skal der højreklikkes på programmet i folderen `bin` og trykkes åben. Derefter åbner et terminalvindue, hvor programmet kan integreres med. 
+For at køre programmet skal der højreklikkes på programmet i folderen `bin` og trykkes åben. Derefter åbner et terminalvindue, hvor programmet kan integreres med. Hvis programmet køres gennem en terminal *skal* current directory være i `bin`.
