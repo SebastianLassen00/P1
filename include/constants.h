@@ -9,7 +9,7 @@
 #define CONSTANTS_H
 
 /* Program version */
-#define VERSION "1.0.1"
+#define VERSION "1.0.2"
 
 #define NUMBER_OF_REGIONS 5
 
