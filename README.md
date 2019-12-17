@@ -2,26 +2,26 @@
 
 Automatiser dit studievalg af gruppe A302, Datalogi 1.semester,  17-12-2019
 
-Programmet P1 omhandler et program, som kan automatiserer studievalg i det danske uddannelsessystem. Programmet er programmeret i ansi C og er multiplatform. Programmet er succesfuldt blevet kompileret med følgende options `-Wall`, `-ansi` og `-pedantic` på Windows, MacOS og Ubuntu Linux.  
+Programmet P1 omhandler et program, som kan automatisere studievalg i det danske uddannelsessystem. Programmet er programmeret i ANSI C og er multiplatform. Programmet er succesfuldt blevet kompileret med følgende options `-Wall`, `-ansi` og `-pedantic` på Windows, MacOS og Ubuntu Linux.  
 
 ## Projektets struktur  
 
 Projektet er inddelt i tre hovedemapper: **src**, **include** og **bin**. Derudover findes der to hjælpemapper kaldet **docs** og **test**. 
 
-Hovedemapperne holder på alle essentielle filer til programmet. Dette inkluderer alle binære filer, samt alle .c filer, .h filer og datafiler.  
+Hovedemapperne holder på alle essentielle filer til programmet. Dette inkluderer alle binærfiler, samt alle .c filer, .h filer og datafiler.  
 
 ### Hovedmappernes indhold
 
 * [src](./src/)
-  * indeholder alle .c filer. Dette inkluderer main.c.
+  * indeholder alle .c filer. Dette inkludere main.c.
 * [include](./include/)
   * indeholder alle .h filer.
 * [bin](./bin/)
   * indeholder programmets .exe/.out fil, samt en [data](./bin/data/) mappe, som indeholder [database.txt](./bin/data/database.txt) og testprofiler.  
 
-I folderen `src` findes `main.c`, hvilket er programmets entry-point. Størstedelen af .c filerne i `src` er reflekteret i `include`, i form af en .h fil. Dette kan ses ved [`parser.c`](src/parser.c) og [`parser.h`](include/parser.h). I den tilhørende .h fil findes alle prototyper til funktioner, som skal være offentligt tilgængelige for resten af programmet.
+I folderen `src` findes `main.c`, hvilket er programmets entry-point. Størstedelen af .c filerne i `src` er reflekteret i `include`, i form af en .h fil. Dette kan ses ved [`parser.c`](src/parser.c) og [`parser.h`](include/parser.h). I den tilhørende .h fil, findes alle prototyper til funktioner, som skal være offentligt tilgængelige for resten af programmet.
 
-I mappen [bin](./bin/) kan programmet findes, når det er blevet kompileret. Derudover kan den rå databasefil også findes i [bin](./bin/data) Det anbefales, at databasefilen åbnes med et program, som kan åbne tabulatorseparerede filer (for eksempel Microsoft Excel).
+I mappen [bin](./bin/) kan programmet findes, når det er blevet kompileret. Derudover kan den rå databasefil også findes i [/bin/data](./bin/data/) Det anbefales, at databasefilen åbnes med et program, som kan åbne tabulatorsepareret filer (for eksempel Microsoft Excel).
 
 ### Hjælpemappernes indhold
 
@@ -30,7 +30,7 @@ I mappen [bin](./bin/) kan programmet findes, når det er blevet kompileret. Der
 * [docs](./docs/)
   * indeholder dokumentation af kode. Denne dokumentation er autogenereret vha. doxygen og en tilhørende doxygen fil.
 
-test indeholder, som nævnt tidligere, testværktøjer. Dette inkluderer en [fil](./test/AllTest.c), hvor CuTest bliver udført. 
+test indeholder, som nævnt tidligere, testværktøjer. Dette inkludere en [fil](./test/AllTest.c), hvor CuTest bliver udført. 
 
 docs indeholder en html mappe, hvor [index.html](./docs/html/index.html) kan åbnes i en valgfri browser. På denne hjemmeside-lignende html fil, kan programmet udforskes mere interaktivt vha. diverse menu'er. Dette er en mere overskuelig måde at udforske kildekoden. Denne html side er skabt vha. Doxygen. 
 
