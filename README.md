@@ -38,7 +38,7 @@ docs indeholder en html mappe, hvor [index.html](./docs/html/index.html) kan åb
 
 Til kompilering af programmet er der lavet en [makefile](./makefile). Denne makefile kaldes med terminalskommandoen `make`, hvorefter programmet kan findes i mappen [bin](./bin/) med navnet `prog`.  
 
-Som tidligere nævnt, bruges kompiler options *-Wall*, *-ansi* og *-pedantic* til kompileringen. Derudover bruges `-Iinclude -lm` også. Programmet er afhængigt af et ikke standard bibliotek kaldet `math.h` i koden. Dette kommer dog oftes med gcc, og kan derfor linkes til med option `-lm`.  Det fulde kompiler udtryk kan ses [her](./makefile) i makefilen. 
+Som tidligere nævnt, bruges kompiler options *-Wall*, *-ansi* og *-pedantic* til kompileringen. Derudover bruges `-Iinclude -lm`, så `math.h` bliver linked korret. Det fulde kompiler udtryk kan ses [her](./makefile) i makefilen. 
 
 ## Kør programmet
 For at køre programmet skal der højreklikkes på programmet i folderen `bin` og trykkes åben. Derefter åbner et terminalvindue, hvor programmet kan integreres med. 
