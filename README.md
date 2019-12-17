@@ -13,7 +13,7 @@ Hovedemapperne holder på alle essentielle filer til programmet. Dette inkludere
 ### Hovedmappernes indhold
 
 * [src](./src/)
-  * indeholder alle .c filer. Dette inkludere main.c.
+  * indeholder alle .c filer. Dette inkluderer main.c.
 * [include](./include/)
   * indeholder alle .h filer.
 * [bin](./bin/)
@@ -26,7 +26,7 @@ I mappen [bin](./bin/) kan programmet findes, når det er blevet kompileret. Der
 ### Hjælpemappernes indhold
 
 * [test](./test/)
-  * Indeholder test kode, som f.eks. [CuTest](test/AllTest.c).
+  * indeholder test kode, som f.eks. [CuTest](test/AllTest.c).
 * [docs](./docs/)
   * indeholder dokumentation af kode. Denne dokumentation er autogenereret vha. doxygen og en tilhørende doxygen fil.
 
