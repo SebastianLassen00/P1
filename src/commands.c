@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <unistd.h>
 
 #include "profile.h"
 #include "education.h"
@@ -650,13 +649,22 @@ void saveProfile(struct profile user){
  *  @return int A boolean value, 1 if the profile exist, otherwise 0
  */
 int checkProfile(const char name[]){
+    FILE* fp;
     char file_name[MAX_FILE_NAME_LENGTH];
     char path_to_profile[MAX_FILE_NAME_LENGTH + MAX_PATH_LENGTH];
 
     sprintf(file_name, "%s_profil.txt", name);
     sprintf(path_to_profile, "%s/%s", PROFILE_PATH, file_name);
 
-    return (access(path_to_profile, F_OK) != -1);
+    fp = fopen(path_to_profile, "r");
+
+    if(fp == NULL){
+        return 0;
+    }
+
+    fclose(fp);
+
+    return 1;
 }
 
 /** @fn struct profile loadProfile(char *name, int number_of_interests) 
