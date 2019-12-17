@@ -5,7 +5,6 @@
 #include "education.h"
 #include "parser.h"
 
-
 /**
  * @fn void freeDatabase(struct database *database)
  * @brief Free a database and all its elements
