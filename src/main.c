@@ -40,7 +40,7 @@ int main(void){
 
     database = createDatabase(DATABASE_PATH);
     user = createProfile(database->amount_of_interests);    
-    current_education = createDefaultEducation(database->amount_of_interests, database->amount_of_educations);
+    current_education = createDefaultEducation(database->amount_of_interests, 1);
 
     introduction();
 
@@ -85,7 +85,9 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
                    const struct database *database, struct education *current_education){
     switch(c){
         case find:
-            freeEducation(current_education);
+            if(strcmp(current_education->name, "Nothing") == 0)
+                freeEducation(current_education);
+
             *current_education = findCmd(arg, database);
             break;
         case search:
@@ -100,7 +102,10 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
             }
             break;
         case save:
-            saveCmd(user, current_education);
+            if(strcmp(current_education->name, "Nothing") != 0)
+                saveCmd(user, current_education);
+            else
+                printf("No current education.\n");
             break;
         case save_prof:
             saveProfile(*user);  
@@ -132,6 +137,7 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
             break;
         default:
             printf("No command found\n");
+            clearBuffer();
             break;
     }
 }

@@ -43,7 +43,7 @@ void surveyCmd(struct profile *user, const struct database *db){
 
     /*  Introduction  */
     printf("This survey will ask you several questions about interests, qualifications and grades\n"
-           "The survey requires answers in numbers (integers), and where scale is part, a value between 1 and 100\n\n");
+           "The survey requires answers in numbers (integers), and where scale is part, a value between 1 and 10\n\n");
 
     /*  Scan for profile name  */
     continue_survey = getProfileName(user, name);
@@ -292,7 +292,7 @@ void chooseFromList(struct profile *user, int interval_start, int interval_end){
         if(temp_subject >= 0 && temp_subject < (interval_end - interval_start + 1) && levelAsValue(temp_char) != -1  && scan_res == 2){
             user->qualifications.subjects[temp_subject + interval_start].level = levelAsValue(temp_char);
             i += 1;
-            while(isalnum(*(temp_string + ++i)) == 0);
+            while(i < length_string && isalnum(*(temp_string + ++i)) == 0);
         }
     } while(i < length_string && scan_res != 0);
 }
@@ -335,8 +335,11 @@ struct education findCmd(char *arg, const struct database *db){
     }
     if(edu_found) 
         printEducation(edu);
-    else
+    else{
         printf("No education exists by that name\n");
+        edu = createDefaultEducation(db->amount_of_interests, db->amount_of_educations);
+    }
+
     return edu;
 }
 
@@ -348,7 +351,6 @@ struct education findCmd(char *arg, const struct database *db){
  */
 void searchCmd(char *arg, const struct database *db){
     int i, edu_found = 0;
-    struct education edu;
     toUppercase(arg);
     for(i = 0; i < db->amount_of_educations; i++){
         if(strstr(db->educations[i].name, arg) != NULL) {
@@ -600,10 +602,11 @@ void deleteCmd(struct profile *user, int deleted_entry){
 void saveProfile(struct profile user){
     FILE *file_pointer;
     int i;
-    char file_name[MAX_FILE_NAME_LENGTH];
-    sprintf(file_name, "%s_profil.txt", user.name);
+    char path_to_profile[MAX_PATH_LENGTH + MAX_FILE_NAME_LENGTH];
 
-    file_pointer = fopen(file_name, "w");
+    sprintf(path_to_profile, "%s/%s_profil.txt", PROFILE_PATH, user.name);
+
+    file_pointer = fopen(path_to_profile, "w");
 
     if(file_pointer != NULL){                     /* Checks if file could be opened */
         fprintf(file_pointer, "%s %s %f %d %f %d\n", VERSION, user.name, user.average, 
@@ -644,9 +647,12 @@ void saveProfile(struct profile user){
  */
 int checkProfile(const char name[]){
     char file_name[MAX_FILE_NAME_LENGTH];
-    sprintf(file_name, "%s_profil.txt", name);
+    char path_to_profile[MAX_FILE_NAME_LENGTH + MAX_PATH_LENGTH];
 
-    return (access(file_name, F_OK) != -1);
+    sprintf(file_name, "%s_profil.txt", name);
+    sprintf(path_to_profile, "%s/%s", PROFILE_PATH, file_name);
+
+    return (access(path_to_profile, F_OK) != -1);
 }
 
 /** @fn struct profile loadProfile(char *name, int number_of_interests) 
@@ -659,13 +665,13 @@ struct profile loadProfile(char *name, int number_of_interests){
     int i;
     FILE *file_pointer; 
     struct profile user;
-    char file_name[MAX_FILE_NAME_LENGTH];
+    char path_to_profile[MAX_PATH_LENGTH + MAX_FILE_NAME_LENGTH];
     char version[MAX_FILE_NAME_LENGTH];
     char buffer[MAX_INPUT_LENGTH] = "Ingenting";
 
-    sprintf(file_name, "%s_profil.txt", name);
+    sprintf(path_to_profile, "%s/%s_profil.txt", PROFILE_PATH, name);
 
-    file_pointer = fopen(file_name, "r");
+    file_pointer = fopen(path_to_profile, "r");
 
     if(file_pointer == NULL){
         printf("File could not be opened");
@@ -675,7 +681,7 @@ struct profile loadProfile(char *name, int number_of_interests){
     user = createProfile(number_of_interests);
 
     fscanf(file_pointer, "%s %s %lf %d %lf %d\n", version, user.name, &user.average, 
-           &user.location.region, &user.location.region_importance, &user.last_recommended);
+           (int*)&user.location.region, &user.location.region_importance, &user.last_recommended);
 
     fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
     for (i = 0; i < EDUCATION_LIST_LENGTH; i++){
@@ -704,7 +710,7 @@ struct profile loadProfile(char *name, int number_of_interests){
     fgets(buffer, MAX_INPUT_LENGTH, file_pointer);   
     for (i = 0; i < user.qualifications.amount_of_subjects; i++){
         fgets(buffer, MAX_INPUT_LENGTH, file_pointer);
-        sscanf(buffer, "%d", &user.qualifications.subjects[i].level);
+        sscanf(buffer, "%d", (int*)&user.qualifications.subjects[i].level);
     }
 
     fclose(file_pointer);
