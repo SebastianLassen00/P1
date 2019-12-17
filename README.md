@@ -21,7 +21,7 @@ Hovedemapperne holder på alle essentielle filer til programmet. Dette inkludere
 
 I folderen `src` findes `main.c`, hvilket er programmets entry-point. Størstedelen af .c filerne i `src` er reflekteret i `include`, i form af en .h fil. Dette kan ses ved [`parser.c`](src/parser.c) og [`parser.h`](include/parser.h). I den tilhørende .h fil, findes alle prototyper til funktioner, som skal være offentligt tilgængelige for resten af programmet.
 
-I mappen [bin](./bin/) kan programmet findes, når det er blevet kompileret. Derudover kan den rå databasefil også findes i [bin](./bin/).
+I mappen [bin](./bin/) kan programmet findes, når det er blevet kompileret. Derudover kan den rå databasefil også findes i [bin](./bin/data) Det anbefales, at databasefilen åbnes med et program, som kan åbne tabulatorsepareret filer (for eksempel Microsoft Excel).
 
 ### Hjælpemappernes indhold
 
