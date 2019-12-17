@@ -182,6 +182,8 @@ void setProfileQualifications(struct profile *user){
     setImportantSubjects(user); 
     
     printf("Now some less relevant subjects will be \n");
+    printf("Press 'enter' to skip this part. This will set all subject levels to default (zero)\n");
+    printf("Set some or all subejcts by writing them consecutively in the format: number+level \n");
 
     setOtherSubjects(user, IMPORTANT_SUBJECTS, IMPORTANT_SUBJECTS + OTHER_SUBJECTS);
     setOtherSubjects(user, IMPORTANT_SUBJECTS + OTHER_SUBJECTS, TOTAL_SUBJECTS);
