@@ -19,7 +19,7 @@ Hovedemapperne holder på alle essentielle filer til programmet. Dette inkludere
 * [bin](./bin/)
   * indeholder programmets .exe/.out fil, samt en [data](./bin/data/) mappe, som indeholder [database.txt](./bin/data/database.txt) og testprofiler.  
 
-I folderen `src` findes `main.c`, hvilket er programmets entry-point. Størstedelen af .c filerne i `src` er reflekteret i `include`, i form af en .h fil. Dette kan ses ved [`parser.c`](src/parser.c) og [`parser.h`](include/parser.h). I den tilhørende .h fil, findes alle prototyper til funktioner, som skal være offentligt tilgængelige for resten af programmet.
+I folderen `src` findes `main.c`, hvilket er programmets entry-point. Størstedelen af .c filerne i `src` er reflekteret i `include` i form af en .h fil. Dette kan ses ved [`parser.c`](src/parser.c) og [`parser.h`](include/parser.h). I den tilhørende .h fil, findes alle prototyper til funktioner, som skal være offentligt tilgængelige for resten af programmet.
 
 I mappen [bin](./bin/) kan programmet findes, når det er blevet kompileret. Derudover kan den rå databasefil også findes i [/bin/data](./bin/data/) Det anbefales, at databasefilen åbnes med et program, som kan åbne tabulatorsepareret filer (for eksempel Microsoft Excel).
 
@@ -30,7 +30,7 @@ I mappen [bin](./bin/) kan programmet findes, når det er blevet kompileret. Der
 * [docs](./docs/)
   * indeholder dokumentation af kode. Denne dokumentation er autogenereret vha. doxygen og en tilhørende doxygen fil.
 
-test indeholder, som nævnt tidligere, testværktøjer. Dette inkludere en [fil](./test/AllTest.c), hvor CuTest bliver udført. 
+test indeholder, som nævnt tidligere, testværktøjer. Mappen inkluderer en [fil](./test/AllTest.c), hvor CuTest bliver udført. 
 
 docs indeholder en html mappe, hvor [index.html](./docs/html/index.html) kan åbnes i en valgfri browser. På denne hjemmeside-lignende html fil, kan programmet udforskes mere interaktivt vha. diverse menu'er. Dette er en mere overskuelig måde at udforske kildekoden. Denne html side er skabt vha. Doxygen. 
 
