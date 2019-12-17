@@ -8,7 +8,7 @@ BIN = bin
 PROGRAM_NAME = prog
 
 $(BIN)/$(PROGRAM_NAME): $(CFILES) $(HFILES)
-       $(CC) $(INCLUDE) $(CFILES) -o $@ $(OPTIONS) 
+		$(CC) $(INCLUDE) $(CFILES) -o $@ $(OPTIONS)
 
 
 .PHONY: clean print
