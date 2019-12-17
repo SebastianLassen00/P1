@@ -41,6 +41,6 @@
 #define NOT_FOUND_STRING " "
 #define EDU_MAX_SUBJECTS 10
 
-#define DATABASE_PATH "bin/data/database.txt"
+#define DATABASE_PATH "data/database.txt"
 
 #endif
