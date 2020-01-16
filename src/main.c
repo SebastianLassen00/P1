@@ -1,3 +1,9 @@
+/** @file main.c
+ *  @brief Main file
+ * 
+ *  Initialization (database, empty user profile, current education), commandhandling (all the commands of the program is handled here). 
+*/ 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -22,8 +28,8 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
 command scanCommand(char arg[MAX_INPUT_LENGTH], int *arg_num);
 command convertCommand(char s[MAX_COMMAND_LENGTH]);
 int argType(command c);
-struct profile createBobo(int amount_of_interests);
-
+/*struct profile createBobo(int amount_of_interests);
+*/
 
 /** @fn int main(void)
  *  @brief Takes commands from the user and executes those commands until 
@@ -142,7 +148,7 @@ void handleCommand(command c, char arg[MAX_INPUT_LENGTH], int arg_num, struct pr
     }
 }
 
-/** @fn int scanCommand(char arg[MAX_INPUT_LENGTH], int *arg_num)
+/** @fn command scanCommand(char arg[MAX_INPUT_LENGTH], int *arg_num)
  *  @brief Finds valid command and argument
  *  @param arg Output parameter for argument string
  *  @param arg_num Output parameter for argument int
@@ -177,7 +183,7 @@ command scanCommand(char arg[MAX_INPUT_LENGTH], int *arg_num){
     return command_index;
 }
 
-/** @fn int scanCommand(char arg[MAX_INPUT_LENGTH], int *arg_num)
+/** @fn command convertCommand(char s[MAX_COMMAND_LENGTH])
  *  @brief Compares the entered string to the command words and returns the enum command associated with the string
  *  @param s A command as a string
  *  @return The enum command associated with the parameter string

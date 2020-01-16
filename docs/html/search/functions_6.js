@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['isqualified',['isQualified',['../commands_8h.html#aaf8ea3a220bfa7b0dea8e9eb190a0c35',1,'commands.c']]]
+  ['handlecommand_168',['handleCommand',['../main_8c.html#a1f4fc08fd5665d11b9ebe2aaa4197747',1,'main.c']]]
 ];

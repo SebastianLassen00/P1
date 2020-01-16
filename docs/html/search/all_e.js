@@ -1,4 +1,24 @@
 var searchData=
 [
-  ['touppercase',['toUppercase',['../commands_8h.html#a591be8168a48a581c5dda71dd93e6783',1,'commands.c']]]
+  ['savecmd_93',['saveCmd',['../commands_8h.html#a4cdf4c02d44a4ede344319e782d15581',1,'commands.c']]],
+  ['saved_5feducations_94',['saved_educations',['../structprofile.html#a201ca299fccc91fbe5b259ff4becd806',1,'profile']]],
+  ['saveprofile_95',['saveProfile',['../commands_8h.html#a2aa9d092a83b2bbebe018177745de0b1',1,'commands.c']]],
+  ['scalevector_96',['scaleVector',['../vector_8h.html#a440ad977a370e480c379ad4797740a95',1,'vector.c']]],
+  ['scancommand_97',['scanCommand',['../main_8c.html#a15c9a58abcecdb2baa375ac9f46ae915',1,'main.c']]],
+  ['searchcmd_98',['searchCmd',['../commands_8h.html#a39eff783b62df480e1ac2a7f8af7c643',1,'commands.c']]],
+  ['setimportantsubjects_99',['setImportantSubjects',['../commands_8h.html#ac6cfbd79b8c9433d34ebb80d34aa0fe0',1,'commands.c']]],
+  ['setothersubjects_100',['setOtherSubjects',['../commands_8h.html#ae0bf40f93c7a47f6e2a1f1c435f1e8ba',1,'commands.c']]],
+  ['setprofileinterests_101',['setProfileInterests',['../commands_8h.html#a50fea5a8358d8c814cd850a80db3cc80',1,'commands.c']]],
+  ['setprofilelocation_102',['setProfileLocation',['../commands_8h.html#ae990ed770adf61f3feae6930c670b4b2',1,'commands.c']]],
+  ['setprofilequalifications_103',['setProfileQualifications',['../commands_8h.html#ab720b3d60c936ee7bf09e4dbfe95290c',1,'commands.c']]],
+  ['setsubjects_104',['setSubjects',['../commands_8h.html#a2b0186aebeac8138e68f92b939df308f',1,'commands.c']]],
+  ['size_105',['size',['../structvector.html#aa3d6656320f1a7278c0c2c7fdf07617c',1,'vector']]],
+  ['sseek_106',['sseek',['../parser_8h.html#a8e9886bc2be1ae6c2cc13102bcc6411d',1,'parser.c']]],
+  ['stringtoclass_107',['stringToClass',['../subjects_8h.html#a5553c136d452001cc795f02ab9be9edc',1,'subjects.c']]],
+  ['strtoreg_108',['strToReg',['../parser_8h.html#aa94193269f4dc1e32340012e443d9de9',1,'parser.c']]],
+  ['subject_109',['subject',['../structsubject.html',1,'']]],
+  ['subjects_110',['subjects',['../structqualification.html#a7ccb46771d6e62ae10c4e9dff474ac85',1,'qualification']]],
+  ['subjects_2eh_111',['subjects.h',['../subjects_8h.html',1,'']]],
+  ['subtractvector_112',['subtractVector',['../vector_8h.html#ad94eb17d78878d597913a28ae63624ee',1,'vector.c']]],
+  ['surveycmd_113',['surveyCmd',['../commands_8h.html#a187e25b8b8fd08c3c6b2fbd8a7828ef1',1,'commands.c']]]
 ];
